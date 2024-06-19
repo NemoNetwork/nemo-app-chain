@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"testing"
+
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/gogoproto/proto"
-	"testing"
 
 	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
 	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
@@ -82,7 +83,7 @@ func createAssetsKeeper(
 
 	mockMsgSender := &mocks.IndexerMessageSender{}
 	mockMsgSender.On("Enabled").Return(msgSenderEnabled)
-	mockIndexerEventsManager := indexer_manager.NewIndexerEventManager(mockMsgSender, transientStoreKey, true)
+	mockIndexerEventsManager := indexer_manager.NewIndexerEventManager(mockMsgSender, transientStoreKey, nil, true)
 
 	k := keeper.NewKeeper(
 		cdc,

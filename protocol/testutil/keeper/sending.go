@@ -124,7 +124,7 @@ func createSendingKeeper(
 
 	mockMsgSender := &mocks.IndexerMessageSender{}
 	mockMsgSender.On("Enabled").Return(true)
-	mockIndexerEventsManager := indexer_manager.NewIndexerEventManager(mockMsgSender, transientStoreKey, true)
+	mockIndexerEventsManager := indexer_manager.NewIndexerEventManager(mockMsgSender, transientStoreKey, nil, true)
 
 	k := keeper.NewKeeper(
 		cdc,
