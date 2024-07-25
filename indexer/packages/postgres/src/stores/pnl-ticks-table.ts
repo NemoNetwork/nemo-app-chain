@@ -1,11 +1,14 @@
 import _ from 'lodash';
 import { QueryBuilder } from 'objection';
 
-import { BUFFER_ENCODING_UTF_8, DEFAULT_POSTGRES_OPTIONS, ZERO_TIME_ISO_8601, LEADERBOARD_TIMESPAN } from '../constants';
+import {
+  BUFFER_ENCODING_UTF_8, DEFAULT_POSTGRES_OPTIONS, ZERO_TIME_ISO_8601,
+} from '../constants';
 import { knexReadReplica } from '../helpers/knex';
 import { setupBaseQuery, verifyAllInjectableVariables, verifyAllRequiredFields } from '../helpers/stores-helpers';
 import Transaction from '../helpers/transaction';
 import { getUuid } from '../helpers/uuid';
+import { getVaultAddresses } from '../lib/helpers';
 import PnlTicksModel from '../models/pnl-ticks-model';
 import {
   Options,
@@ -18,6 +21,7 @@ import {
   QueryConfig,
   PaginationFromDatabase,
   LeaderboardPnlCreateObject,
+  LeaderboardPnlTimeSpan,
 } from '../types';
 
 export function uuid(
@@ -247,15 +251,16 @@ export async function findLatestProcessedBlocktimeAndCount(): Promise<{
 }
 
 function convertTimespanToSQL(timeSpan: string): string {
-  const timeSpanEnum: LEADERBOARD_TIMESPAN = LEADERBOARD_TIMESPAN[timeSpan as keyof typeof LEADERBOARD_TIMESPAN];
-  switch (timeSpan) {
-    case 'ONE_DAY':
+  const timeSpanEnum: LeaderboardPnlTimeSpan = LeaderboardPnlTimeSpan[
+    timeSpan as keyof typeof LeaderboardPnlTimeSpan];
+  switch (timeSpanEnum) {
+    case LeaderboardPnlTimeSpan.ONE_DAY:
       return '1 days';
-    case 'SEVEN_DAYS':
+    case LeaderboardPnlTimeSpan.SEVEN_DAYS:
       return '7 days';
-    case 'THIRTY_DAYS':
+    case LeaderboardPnlTimeSpan.THIRTY_DAYS:
       return '30 days';
-    case 'ONE_YEAR':
+    case LeaderboardPnlTimeSpan.ONE_YEAR:
       return '365 days';
     default:
       throw new Error(`Invalid time span: ${timeSpan}`);
@@ -298,8 +303,9 @@ export async function getRankedPnlTicks(
 async function getRankedPnlTicksForTimeSpan(
   timeSpan: string,
 ): Promise<LeaderboardPnlCreateObject[]> {
-
-  const interval_sql_string: string = convertTimespanToSQL(timeSpan);
+  const vaultAddresses: string[] = getVaultAddresses();
+  const vaultAddressesString: string = vaultAddresses.map((address) => `'${address}'`).join(',');
+  const intervalSqlString: string = convertTimespanToSQL(timeSpan);
   const result: {
     rows: LeaderboardPnlCreateObject[]
   } = await knexReadReplica.getConnection().raw(
@@ -315,8 +321,9 @@ async function getRankedPnlTicksForTimeSpan(
       LEFT JOIN
           subaccounts b ON a."subaccountId" = b."id"
       WHERE
-          a."createdAt"::date <= (CURRENT_DATE - INTERVAL '${interval_sql_string}')
+          a."createdAt"::date <= (CURRENT_DATE - INTERVAL '${intervalSqlString}')
           AND (b."subaccountNumber" % 128) = 0
+          AND b."address" NOT IN (${vaultAddressesString})
     ),
     latest_subaccount_pnl_x_days_ago AS (
       SELECT
@@ -340,6 +347,7 @@ async function getRankedPnlTicksForTimeSpan(
       WHERE
           "createdAt"::date = CURRENT_DATE
           AND (b."subaccountNumber" % 128) = 0
+          AND b."address" NOT IN (${vaultAddressesString})
     ), latest_pnl as(
       SELECT
           "subaccountId",
@@ -383,8 +391,9 @@ async function getRankedPnlTicksForTimeSpan(
   return result.rows;
 }
 
-
 async function getLatestRankedPnlTicks(): Promise<LeaderboardPnlCreateObject[]> {
+  const vaultAddresses: string[] = getVaultAddresses();
+  const vaultAddressesString: string = vaultAddresses.map((address) => `'${address}'`).join(',');
   const result: {
     rows: LeaderboardPnlCreateObject[]
   } = await knexReadReplica.getConnection().raw(
@@ -402,6 +411,7 @@ async function getLatestRankedPnlTicks(): Promise<LeaderboardPnlCreateObject[]> 
       WHERE
           "createdAt"::date = CURRENT_DATE
           AND (b."subaccountNumber" % 128) = 0
+          AND b."address" NOT IN (${vaultAddressesString})
     ), latest_pnl as(
       SELECT
           "subaccountId",

@@ -2,7 +2,7 @@ import { logger, stats } from '@dydxprotocol-indexer/base';
 import {
   BlockFromDatabase,
   BlockTable,
-  LEADERBOARD_TIMESPAN,
+  LeaderboardPnlTimeSpan,
   LeaderboardPnlCreateObject,
   LeaderboardPnlTable,
   PnlTicksCreateObject,
@@ -99,7 +99,7 @@ export default async function runTask(): Promise<void> {
 }
 
 async function updateLeaderboardPnlTable() {
-  for (const timespan of Object.values(LEADERBOARD_TIMESPAN)) {
+  for (const timespan of Object.values(LeaderboardPnlTimeSpan)) {
     const leaderboardPnlObjects: LeaderboardPnlCreateObject[] = [];
 
     const txId: number = await Transaction.start();

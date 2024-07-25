@@ -108,7 +108,6 @@ describe('create-pnl-ticks', () => {
     const { results: pnlTicks } = await PnlTicksTable.findAll(
       {},
       [],
-      {},
     );
     expect(pnlTicks.length).toEqual(2);
     const leaderboardResults: LeaderboardPnlFromDatabase[] = await LeaderboardPnlTable.findAll(
