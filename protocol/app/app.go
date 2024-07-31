@@ -348,7 +348,7 @@ type App struct {
 // assertAppPreconditions assert invariants required for an application to start.
 func assertAppPreconditions() {
 	// Check that the default power reduction is set correctly.
-	if sdk.DefaultPowerReduction.BigInt().Cmp(big.NewInt(1_000_000_000_000_000_000)) != 0 {
+	if sdk.DefaultPowerReduction.BigInt().Cmp(big.NewInt(1_000_000)) != 0 {
 		panic("DefaultPowerReduction is not set correctly")
 	}
 }
