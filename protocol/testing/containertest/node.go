@@ -17,7 +17,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	gogogrpc "github.com/cosmos/gogoproto/grpc"
 	"github.com/cosmos/gogoproto/proto"
-	"github.com/dydxprotocol/v4-chain/protocol/cmd/dydxprotocold/cmd"
+	"github.com/dydxprotocol/v4-chain/protocol/cmd/nemod/cmd"
 	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
 	"github.com/ory/dockertest/v3"
 	"github.com/spf13/pflag"

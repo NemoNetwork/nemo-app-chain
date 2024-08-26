@@ -19,7 +19,7 @@ import (
 var (
 	GENESIS_MARKET_PARAM = pricestypes.MarketParam{
 		Id:                 0,
-		Pair:               "btc-adv4tnt",
+		Pair:               "btc-unemo",
 		Exponent:           -8,
 		MinExchanges:       2,
 		MinPriceChangePpm:  1_000,

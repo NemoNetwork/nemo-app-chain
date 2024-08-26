@@ -31,11 +31,11 @@ func init() {
 var (
 	// Private
 	emptyCoin = sdk.Coin{
-		Denom:  "adv4tnt",
+		Denom:  "unemo",
 		Amount: sdkmath.NewInt(0),
 	}
 	coin = sdk.Coin{
-		Denom:  "adv4tnt",
+		Denom:  "unemo",
 		Amount: sdkmath.NewIntFromUint64(888),
 	}
 

@@ -7,7 +7,7 @@ set -eo pipefail
 #
 # example usage:
 # $ make build
-# $ ./scripts/genesis/prod_pregenesis.sh ./build/dydxprotocold
+# $ ./scripts/genesis/prod_pregenesis.sh ./build/nemod
 
 # Check for missing required arguments
 if [ -z "$1" ]; then

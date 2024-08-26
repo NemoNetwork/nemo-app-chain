@@ -18,7 +18,7 @@ TOKEN_MULTIPLE = decimal.Decimal(1000000000000000000)
 ### TODO: update below fields as needed                                ###
 ########################################################################## 
 TITLE="TODO: Fill in proposal title" 
-NATIVE_TOKEN_DENOM="adv4tnt" # TODO: Replace with production token 
+NATIVE_TOKEN_DENOM="unemo" # TODO: Replace with production token 
 PROPOSAL_BODY="""
 TODO: Include a brief summary of the proposal and link to relevant governance forum discussion
 """

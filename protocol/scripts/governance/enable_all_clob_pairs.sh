@@ -8,7 +8,7 @@
 # 2. Generate proposal JSON file:
 #   % ./scripts/governance/enable_all_clob_pairs.sh /tmp/clob_pairs.json > /tmp/proposal_enable_trading_all_markets.json
 # 3. Submit proposal:
-#   % dydxprotocold tx gov submit-proposal /tmp/proposal_enable_trading_all_markets.json --from alice --gas auto --fees 400000000000000000adv4tnt
+#   % nemod tx gov submit-proposal /tmp/proposal_enable_trading_all_markets.json --from alice --gas auto --fees 400000000000000000unemo
 
 # Constants
 NINE_ZEROS="000000000"
@@ -16,7 +16,7 @@ AUTHORITY="dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky"
 
 # Customizable proposal fields
 TITLE="Enable trading on all markets"
-NATIVE_TOKEN_DENOM="adv4tnt"
+NATIVE_TOKEN_DENOM="unemo"
 DEPOSIT="10000${NINE_ZEROS}${NINE_ZEROS}${NATIVE_TOKEN_DENOM}" # 10,000 native tokens
 SUMMARY="Use MsgUpdateClobPair to change the status of all CLOB pairs to ACTIVE. All other fields remain unchanged."
 

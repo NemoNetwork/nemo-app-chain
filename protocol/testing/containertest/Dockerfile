@@ -1,6 +1,6 @@
 FROM dydxprotocol-base
 
-COPY ./testing/containertest/dydxprotocold_preupgrade* /bin/
+COPY ./testing/containertest/nemod_preupgrade* /bin/
 COPY ./testing/containertest/containertest.sh /dydxprotocol/containertest.sh
 COPY ./testing/containertest/preupgrade_entrypoint.sh /dydxprotocol/preupgrade_entrypoint.sh
 COPY ./testing/containertest/preupgrade_genesis.json /dydxprotocol/preupgrade_genesis.json
@@ -17,4 +17,4 @@ COPY ./testing/containertest/config/pricefeed_exchange_config.toml /dydxprotocol
 COPY ./testing/containertest/config/pricefeed_exchange_config.toml /dydxprotocol/chain/.carl/config/pricefeed_exchange_config.toml
 COPY ./testing/containertest/config/pricefeed_exchange_config.toml /dydxprotocol/chain/.dave/config/pricefeed_exchange_config.toml
 
-ENTRYPOINT ["dydxprotocold"]
+ENTRYPOINT ["nemod"]

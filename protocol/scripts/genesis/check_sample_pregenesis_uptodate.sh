@@ -3,7 +3,7 @@
 # Usage: make check-sample-pregenesis-up-to-date
 
 echo "Running prod_pregenesis.sh..."
-./scripts/genesis/prod_pregenesis.sh dydxprotocold
+./scripts/genesis/prod_pregenesis.sh nemod
 
 echo "Stripping app_version from genesis files..."
 sed 's/.*"app_version":.*//g' "/tmp/prod-chain/.dydxprotocol/config/sorted_genesis.json" > "/tmp/prod-chain/.dydxprotocol/config/sorted_genesis.json.stripped"

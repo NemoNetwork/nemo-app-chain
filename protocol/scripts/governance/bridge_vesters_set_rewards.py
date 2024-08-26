@@ -19,7 +19,7 @@ NINE_ZEROS="000000000"
 ### TODO: update below fields as needed                                ###
 ########################################################################## 
 TITLE="TODO: Fill in proposal title" 
-NATIVE_TOKEN_DENOM="adv4tnt" # TODO: Replace with production token 
+NATIVE_TOKEN_DENOM="unemo" # TODO: Replace with production token 
 PROPOSAL_BODY="""
 TODO: Fill in proposal content. 
 Include detailed description of the proposal, links to governance discussion forums (if applicable).

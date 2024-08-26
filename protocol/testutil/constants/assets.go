@@ -12,13 +12,13 @@ const (
 	// TestFee is the gas fee offered for test transactions.
 	TestFee = "50000" + asstypes.UusdcDenom // 5 cents
 	// TestFeeNativeTokens is the gas fee offered for test transactions specified in native tokens.
-	// Value is .05 of native token in adv4tnt denom.
+	// Value is .05 of native token in unemo denom.
 	TestFeeNativeTokens = "50000000000000000" + lib.DefaultBaseDenom
 	// TestGasLimit is the gas limit used for test transactions.
 	// It's set to a larger amount such that the transaction never runs out of gas.
 	TestGasLimit = 1_000_000
 	// TestNativeTokenDenom is the denom of the native token used for testing.
-	TestNativeTokenDenom = "adv4tnt"
+	TestNativeTokenDenom = "unemo"
 )
 
 var (

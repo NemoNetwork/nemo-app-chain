@@ -2,7 +2,7 @@
 # `docker buildx imagetools inspect golang:1.21-alpine`
 ARG GOLANG_1_22_ALPINE_DIGEST="8e96e6cff6a388c2f70f5f662b64120941fcd7d4b89d62fec87520323a316bd9"
 
-# This Dockerfile is a stateless build of the `dydxprotocold` binary as a Docker container.
+# This Dockerfile is a stateless build of the `nemod` binary as a Docker container.
 # It does not include any configuration, state, or genesis information.
 
 # --------------------------------------------------------
@@ -25,14 +25,14 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 # Copy the remaining files
 COPY . .
 
-# Build dydxprotocold binary
+# Build nemod binary
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/root/go/pkg/mod \
     go build \
       -mod=readonly \
       -tags "netgo,ledger,muslc" \
       -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="dydxprotocol" \
-              -X github.com/cosmos/cosmos-sdk/version.AppName="dydxprotocold" \
+              -X github.com/cosmos/cosmos-sdk/version.AppName="nemod" \
               -X github.com/cosmos/cosmos-sdk/version.Version=$VERSION \
               -X github.com/cosmos/cosmos-sdk/version.Commit=$COMMIT \
               -X github.com/cosmos/cosmos-sdk/version.BuildTags='netgo,ledger,muslc' \
@@ -50,7 +50,7 @@ FROM golang@sha256:${GOLANG_1_22_ALPINE_DIGEST}
 
 RUN apk add --no-cache bash
 
-COPY --from=builder /dydxprotocol/build/dydxprotocold /bin/dydxprotocold
+COPY --from=builder /dydxprotocol/build/nemod /bin/nemod
 
 ENV HOME /dydxprotocol
 WORKDIR $HOME
@@ -64,4 +64,4 @@ EXPOSE 1317
 # grpc
 EXPOSE 9090
 
-ENTRYPOINT ["dydxprotocold"]
+ENTRYPOINT ["nemod"]

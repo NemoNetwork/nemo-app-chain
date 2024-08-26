@@ -41,7 +41,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -55,7 +55,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -70,7 +70,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -80,7 +80,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_2,
 						TreasuryAccount: "random_treasury_2",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME.Add(time.Hour),
 						EndTime:         TEST_END_TIME.Add(time.Hour),
 					},
@@ -94,7 +94,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -104,7 +104,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury_2",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME.Add(time.Hour),
 						EndTime:         TEST_END_TIME.Add(time.Hour),
 					},
@@ -118,7 +118,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -128,7 +128,7 @@ func TestSetVestEntry_Success(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury_2",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME.Add(time.Hour),
 						EndTime:         TEST_END_TIME.Add(time.Hour),
 					},
@@ -209,7 +209,7 @@ func TestSetVestEntry_Failure(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   "",
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -224,7 +224,7 @@ func TestSetVestEntry_Failure(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -239,7 +239,7 @@ func TestSetVestEntry_Failure(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_END_TIME,
 						EndTime:         TEST_START_TIME,
 					},
@@ -254,7 +254,7 @@ func TestSetVestEntry_Failure(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -269,7 +269,7 @@ func TestSetVestEntry_Failure(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},
@@ -279,7 +279,7 @@ func TestSetVestEntry_Failure(t *testing.T) {
 					Entry: vesttypes.VestEntry{
 						VesterAccount:   TEST_VESTER_ACCOUNT_1,
 						TreasuryAccount: "random_treasury",
-						Denom:           "adv4tnt",
+						Denom:           "unemo",
 						StartTime:       TEST_START_TIME,
 						EndTime:         TEST_END_TIME,
 					},

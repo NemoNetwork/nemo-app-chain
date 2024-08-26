@@ -6,7 +6,7 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/dydxprotocol/v4-chain/protocol/app/config"
 	"github.com/dydxprotocol/v4-chain/protocol/app/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/cmd/dydxprotocold/cmd"
+	"github.com/dydxprotocol/v4-chain/protocol/cmd/nemod/cmd"
 	"github.com/stretchr/testify/require"
 )
 

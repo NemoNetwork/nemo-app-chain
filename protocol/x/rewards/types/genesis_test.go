@@ -14,7 +14,7 @@ func TestDefaultGenesis(t *testing.T) {
 	expectedGenesisState := &types.GenesisState{
 		Params: types.Params{
 			TreasuryAccount:  "rewards_treasury",
-			Denom:            "adv4tnt",
+			Denom:            "unemo",
 			DenomExponent:    lib.BaseDenomExponent,
 			MarketId:         1,
 			FeeMultiplierPpm: 990_000, // 0.99

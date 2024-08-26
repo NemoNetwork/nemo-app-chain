@@ -131,7 +131,7 @@ func TestAppModule_InitExportGenesis(t *testing.T) {
 	params := keeper.GetParams(ctx)
 
 	require.Equal(t, "rewards_treasury", params.TreasuryAccount)
-	require.Equal(t, "adv4tnt", params.Denom)
+	require.Equal(t, "unemo", params.Denom)
 	require.Equal(t, int32(-18), params.DenomExponent)
 	require.Equal(t, uint32(1), params.MarketId)
 	require.Equal(t, uint32(990000), params.FeeMultiplierPpm)

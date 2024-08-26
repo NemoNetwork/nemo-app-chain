@@ -61,7 +61,7 @@ const (
 	TimeoutProposeOverride = 1 * time.Second
 )
 
-// NewRootCmd creates a new root command for `dydxprotocold`. It is called once in the main function.
+// NewRootCmd creates a new root command for `nemod`. It is called once in the main function.
 // TODO(DEC-1097): improve `cmd/` by adding tests, custom app configs, custom init cmd, and etc.
 func NewRootCmd(
 	option *RootCmdOption,

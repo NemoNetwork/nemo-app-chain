@@ -4,7 +4,7 @@ For development and testing purposes, it's useful to be able to deploy the chain
 
 Overall, the steps involve:
 1. Define validator node keys
-2. Build the app binary (i.e. `dydxprotocold`)
+2. Build the app binary (i.e. `nemod`)
 3. Set up configuration files (i.e. `genesis.json`, `app.toml`, `app.toml`, and etc.)
 4. Setup the app data and configs (i.e. moving data and configs files into correct directory)
 

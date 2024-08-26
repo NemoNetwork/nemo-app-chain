@@ -33,7 +33,7 @@ func TestMsgServerCompleteBridge(t *testing.T) {
 				Authority: delaymsgtypes.ModuleAddress.String(),
 				Event: types.BridgeEvent{
 					Id:             0,
-					Coin:           sdk.NewCoin("adv4tnt", sdkmath.NewInt(1)),
+					Coin:           sdk.NewCoin("unemo", sdkmath.NewInt(1)),
 					Address:        "invalid",
 					EthBlockHeight: 1,
 				},

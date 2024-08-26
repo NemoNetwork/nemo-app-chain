@@ -64,10 +64,10 @@ install_prerequisites() {
 
 setup_cosmovisor() {
     VAL_HOME_DIR="$HOME/chain/local_node"
-    export DAEMON_NAME=dydxprotocold
+    export DAEMON_NAME=nemod
     export DAEMON_HOME="$HOME/chain/local_node"
 
-    cosmovisor init /bin/dydxprotocold
+    cosmovisor init /bin/nemod
 }
 
 install_prerequisites
@@ -84,7 +84,7 @@ log_this() {
 mkdir -p $SNAP_PATH
 touch $LOG_PATH
 sleep 10
-dydxprotocold init --chain-id=${CHAIN_ID} --home /dydxprotocol/chain/local_node local_node
+nemod init --chain-id=${CHAIN_ID} --home /dydxprotocol/chain/local_node local_node
 curl -X GET ${genesis_file_rpc_address}/genesis | jq '.result.genesis' > /dydxprotocol/chain/local_node/config/genesis.json
 
 # Prune snapshots to prevent them from getting too big. We make 3 changes:

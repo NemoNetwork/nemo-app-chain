@@ -16,7 +16,7 @@ import (
 var (
 	GENESIS_REWARD_PARAMS = rewardstypes.Params{
 		TreasuryAccount:  "test_treasury",
-		Denom:            "adv4tnt",
+		Denom:            "unemo",
 		DenomExponent:    -18,
 		MarketId:         1234,
 		FeeMultiplierPpm: 700_000,
@@ -36,7 +36,7 @@ func TestUpdateRewardsModuleParams(t *testing.T) {
 				Authority: authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 				Params: rewardstypes.Params{
 					TreasuryAccount:  "test_treasury",
-					Denom:            "adv4tnt",
+					Denom:            "unemo",
 					DenomExponent:    -5,
 					MarketId:         0,
 					FeeMultiplierPpm: 700_001,
@@ -62,7 +62,7 @@ func TestUpdateRewardsModuleParams(t *testing.T) {
 				Authority: authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 				Params: rewardstypes.Params{
 					TreasuryAccount:  GENESIS_REWARD_PARAMS.TreasuryAccount,
-					Denom:            "7adv4tnt", // cannot start with number
+					Denom:            "7unemo", // cannot start with number
 					DenomExponent:    GENESIS_REWARD_PARAMS.DenomExponent,
 					MarketId:         GENESIS_REWARD_PARAMS.MarketId,
 					FeeMultiplierPpm: GENESIS_REWARD_PARAMS.FeeMultiplierPpm,

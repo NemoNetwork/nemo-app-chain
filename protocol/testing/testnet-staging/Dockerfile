@@ -10,5 +10,5 @@ RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
 RUN /dydxprotocol/staging.sh
 
-ENV DAEMON_NAME=dydxprotocold
+ENV DAEMON_NAME=nemod
 ENTRYPOINT ["cosmovisor", "run"]

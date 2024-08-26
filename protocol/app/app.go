@@ -1403,7 +1403,7 @@ func New(
 
 	// Currently the only case that exists where the app is _not_ started with loadLatest=true is when state is
 	// loaded and then immediately exported to a file. In those cases, `LoadHeight` within `app.go` is called instead.
-	// This behavior can be invoked via running `dydxprotocold export`, which exports the chain state to a JSON file.
+	// This behavior can be invoked via running `nemod export`, which exports the chain state to a JSON file.
 	// In the export case, the memclob does not need to be hydrated, as it is never used.
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {

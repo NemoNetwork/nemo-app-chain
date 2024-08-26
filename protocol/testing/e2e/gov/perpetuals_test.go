@@ -21,7 +21,7 @@ import (
 var (
 	TEST_PERPETUAL_PARAMS = perptypes.PerpetualParams{
 		Id:                0,
-		Ticker:            "BTC-ADV4TNT",
+		Ticker:            "BTC-unemo",
 		MarketId:          123,
 		AtomicResolution:  -8,
 		DefaultFundingPpm: 545,

@@ -56,7 +56,7 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 # process linker flags
 
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=dydxprotocol \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=dydxprotocold \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=nemod \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)"
@@ -103,7 +103,7 @@ include contrib/devtools/Makefile
 all: tools install lint test
 
 install: go.sum
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/dydxprotocold
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/nemod
 
 aws-push-dev:
 	./scripts/build-push-ecr.sh dev
@@ -134,7 +134,7 @@ build: go.sum
 ifeq ($(OS),Windows_NT)
 	exit 1
 else
-	go build -mod=readonly $(BUILD_FLAGS) -o build/dydxprotocold ./cmd/dydxprotocold
+	go build -mod=readonly $(BUILD_FLAGS) -o build/nemod ./cmd/nemod
 endif
 
 # TODO(DEC-1743): `build-reproducible` is taken from Osmosis. This currently takes a long time,
@@ -155,7 +155,7 @@ build-reproducible-linux-amd64: go.sum $(BUILDDIR)/
 		-f Dockerfile .
 	$(DOCKER) rm -f dydxv4binary || true
 	$(DOCKER) create -ti --name dydxv4binary dydx:local-linux-amd64
-	$(DOCKER) cp dydxv4binary:/bin/dydxprotocold $(BUILDDIR)/dydxprotocold:linux-amd64
+	$(DOCKER) cp dydxv4binary:/bin/nemod $(BUILDDIR)/nemod:linux-amd64
 	$(DOCKER) rm -f dydxv4binary
 build-reproducible-linux-arm64: go.sum $(BUILDDIR)/
 	$(DOCKER) buildx create --name dydxv4builder || true
@@ -170,7 +170,7 @@ build-reproducible-linux-arm64: go.sum $(BUILDDIR)/
 		-f Dockerfile .
 	$(DOCKER) rm -f dydxv4binary || true
 	$(DOCKER) create -ti --name dydxv4binary dydx:local-linux-arm64
-	$(DOCKER) cp dydxv4binary:/bin/dydxprotocold $(BUILDDIR)/dydxprotocold:linux-arm64
+	$(DOCKER) cp dydxv4binary:/bin/nemod $(BUILDDIR)/nemod:linux-arm64
 	$(DOCKER) rm -f dydxv4binary
 # TODO(DEC-1743): Make this also a reproducible build.
 build-darwin-arm64: go.sum
@@ -178,7 +178,7 @@ build-darwin-arm64: go.sum
 draw-deps:
 	@# requires brew install graphviz or apt-get install graphviz
 	go get github.com/RobotsAndPencils/goviz
-	@goviz -i ./cmd/dydxprotocold -d 2 | dot -Tpng -o dependency-graph.png
+	@goviz -i ./cmd/nemod -d 2 | dot -Tpng -o dependency-graph.png
 
 ################################################################################
 ### 						Tools & dependencies							 ###
@@ -352,7 +352,7 @@ reset-chain:
 	mkdir -p localnet/dydxprotocol1
 	mkdir -p localnet/dydxprotocol2
 	mkdir -p localnet/dydxprotocol3
-	# These files are created as part of `dydxprotocold init`, and are required to initialize the chain,
+	# These files are created as part of `nemod init`, and are required to initialize the chain,
 	# but mounting the volumes removes them. This is a workaround to create them again.
 	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/dydxprotocol0/priv_validator_state.json
 	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/dydxprotocol1/priv_validator_state.json

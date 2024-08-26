@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	TEST_DENOM = "adv4tnt"
+	TEST_DENOM = "unemo"
 )
 
 func TestBridge_Success(t *testing.T) {
@@ -423,7 +423,7 @@ func TestBridge_AcknowledgedEventIdGreaterThanRecognizedEventId(t *testing.T) {
 		BridgeEvents: []bridgetypes.BridgeEvent{
 			{
 				Id:             reiResponse.Info.NextId,
-				Coin:           sdk.NewCoin("adv4tnt", sdkmath.NewInt(1)),
+				Coin:           sdk.NewCoin("unemo", sdkmath.NewInt(1)),
 				Address:        constants.BobAccAddress.String(),
 				EthBlockHeight: 234,
 			},

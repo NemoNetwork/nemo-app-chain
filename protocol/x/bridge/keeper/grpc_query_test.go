@@ -241,7 +241,7 @@ func TestDelayedCompleteBridgeMessages(t *testing.T) {
 					DelayMsgAuthority,
 					types.ModuleName,
 					constants.AliceAccAddress.String(),
-					sdk.NewCoin("adv4tnt", sdkmath.NewInt(100)),
+					sdk.NewCoin("unemo", sdkmath.NewInt(100)),
 				),
 				100,
 			)

@@ -26,7 +26,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
-	"github.com/dydxprotocol/v4-chain/protocol/cmd/dydxprotocold/cmd"
+	"github.com/dydxprotocol/v4-chain/protocol/cmd/nemod/cmd"
 	"github.com/dydxprotocol/v4-chain/protocol/indexer"
 
 	abcitypes "github.com/cometbft/cometbft/abci/types"
@@ -1233,7 +1233,7 @@ func launchValidatorInDir(
 
 	appCaptor := make(chan *app.App, 1)
 	// Set up the root command using https://github.com/dydxprotocol/v4-chain/blob/
-	// 1fa21ed5d848ed7cc6a98053838cadb68422079f/protocol/cmd/dydxprotocold/main.go#L12 as a basis.
+	// 1fa21ed5d848ed7cc6a98053838cadb68422079f/protocol/cmd/nemod/main.go#L12 as a basis.
 	option := cmd.GetOptionWithCustomStartCmd()
 	rootCmd := cmd.NewRootCmdWithInterceptors(
 		option,

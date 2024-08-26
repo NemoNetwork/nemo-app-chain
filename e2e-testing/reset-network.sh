@@ -5,8 +5,8 @@
 echo "Stopping all Docker containers..."
 docker stop $(docker ps -a | grep 'e2e-testing' | awk '{print $1}')
 
-echo "Deleting all dydxprotocold* containers..."
-docker rm $(docker ps -a | grep dydxprotocold | awk '{print $1}')
+echo "Deleting all nemod* containers..."
+docker rm $(docker ps -a | grep nemod | awk '{print $1}')
 
 echo "Resetting the protocol..."
 cd ../protocol

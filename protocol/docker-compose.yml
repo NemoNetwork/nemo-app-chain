@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  dydxprotocold0:
+  nemod0:
     image: local:dydxprotocol
     entrypoint:
       - cosmovisor
@@ -14,7 +14,7 @@ services:
       - --home
       - /dydxprotocol/chain/.alice
       - --p2p.persistent_peers
-      - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@dydxprotocold0:26656,b69182310be02559483e42c77b7b104352713166@dydxprotocold1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@dydxprotocold2:26656,5882428984d83b03d0c907c1f0af343534987052@dydxprotocold3:26656"
+      - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
       - --bridge-daemon-eth-rpc-endpoint
       - "${ETH_RPC_ENDPOINT}"
       - --dd-error-tracking-format
@@ -33,7 +33,7 @@ services:
       - "9090:9090"
       - "1317:1317"
 
-  dydxprotocold1:
+  nemod1:
     image: local:dydxprotocol
     entrypoint:
        - cosmovisor
@@ -44,7 +44,7 @@ services:
        - --home
        - /dydxprotocol/chain/.bob
        - --p2p.persistent_peers
-       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@dydxprotocold0:26656,b69182310be02559483e42c77b7b104352713166@dydxprotocold1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@dydxprotocold2:26656,5882428984d83b03d0c907c1f0af343534987052@dydxprotocold3:26656"
+       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
        - --bridge-daemon-eth-rpc-endpoint
        - "${ETH_RPC_ENDPOINT}"
        - --dd-error-tracking-format
@@ -61,7 +61,7 @@ services:
     ports:
       - "26658:26657"
 
-  dydxprotocold2:
+  nemod2:
     image: local:dydxprotocol
     entrypoint:
        - cosmovisor
@@ -72,7 +72,7 @@ services:
        - --home
        - /dydxprotocol/chain/.carl
        - --p2p.persistent_peers
-       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@dydxprotocold0:26656,b69182310be02559483e42c77b7b104352713166@dydxprotocold1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@dydxprotocold2:26656,5882428984d83b03d0c907c1f0af343534987052@dydxprotocold3:26656"
+       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
        - --bridge-daemon-eth-rpc-endpoint
        - "${ETH_RPC_ENDPOINT}"
        - --dd-error-tracking-format
@@ -87,7 +87,7 @@ services:
     volumes:
       - ./localnet/dydxprotocol2:/dydxprotocol/chain/.carl/data
 
-  dydxprotocold3:
+  nemod3:
     image: local:dydxprotocol
     entrypoint:
        - cosmovisor
@@ -98,7 +98,7 @@ services:
        - --home
        - /dydxprotocol/chain/.dave
        - --p2p.persistent_peers
-       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@dydxprotocold0:26656,b69182310be02559483e42c77b7b104352713166@dydxprotocold1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@dydxprotocold2:26656,5882428984d83b03d0c907c1f0af343534987052@dydxprotocold3:26656"
+       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
        - --bridge-daemon-eth-rpc-endpoint
        - "${ETH_RPC_ENDPOINT}"
        - --dd-error-tracking-format
@@ -115,7 +115,7 @@ services:
   slinky0:
     image: ghcr.io/skip-mev/slinky-sidecar:v0.3.2
     entrypoint: >
-      sh -c "slinky-config --chain dydx --node-http-url http://dydxprotocold0:1317 --oracle-config-path /etc/oracle.json &&
+      sh -c "slinky-config --chain dydx --node-http-url http://nemod0:1317 --oracle-config-path /etc/oracle.json &&
              slinky --oracle-config-path /etc/oracle.json --update-market-config-path /etc/market.json"
     ports:
       - "8080:8080"

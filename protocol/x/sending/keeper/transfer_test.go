@@ -593,7 +593,7 @@ func TestSendFromModuleToAccount_InvalidMsg(t *testing.T) {
 		Authority:        lib.GovModuleAddress.String(),
 		SenderModuleName: "",
 		Recipient:        constants.AliceAccAddress.String(),
-		Coin:             sdk.NewCoin("adv4tnt", sdkmath.NewInt(100)),
+		Coin:             sdk.NewCoin("unemo", sdkmath.NewInt(100)),
 	}
 
 	ks := keepertest.SendingKeepers(t)
@@ -606,7 +606,7 @@ func TestSendFromModuleToAccount_NonExistentSenderModule(t *testing.T) {
 		Authority:        lib.GovModuleAddress.String(),
 		SenderModuleName: "nonexistent",
 		Recipient:        constants.AliceAccAddress.String(),
-		Coin:             sdk.NewCoin("adv4tnt", sdkmath.NewInt(100)),
+		Coin:             sdk.NewCoin("unemo", sdkmath.NewInt(100)),
 	}
 
 	// Calling SendFromModuleToAccount with a non-existent sender module will panic.

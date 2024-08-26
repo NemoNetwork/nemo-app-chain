@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "dydx"
+	AccountAddressPrefix = "nemo"
 	// Bech32MainPrefix defines the Bech32 prefix for an account's address
 	Bech32MainPrefix = AccountAddressPrefix
 	// Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
