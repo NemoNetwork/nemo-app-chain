@@ -2,8 +2,6 @@ module github.com/dydxprotocol/v4-chain/protocol
 
 go 1.22.2
 
-toolchain go1.22.2
-
 require (
 	cosmossdk.io/api v0.7.5
 	cosmossdk.io/math v1.3.0
