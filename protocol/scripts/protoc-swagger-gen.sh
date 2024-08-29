@@ -10,7 +10,7 @@ printf "version: v1\nname: buf.build/nemo-network/nemo-network\n" > "$SWAGGER_DI
 cp ./proto/buf.gen.swagger.yaml "$SWAGGER_DIR/proto/buf.gen.swagger.yaml"
 
 # copy existing proto files
-cp -r ./proto/nemo-network "$SWAGGER_DIR/proto"
+cp -r ./proto/nemo_network "$SWAGGER_DIR/proto"
 
 # create temporary folder to store intermediate results from `buf generate`
 mkdir -p ./tmp-swagger-gen

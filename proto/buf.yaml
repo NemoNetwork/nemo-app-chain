@@ -1,6 +1,6 @@
-# This module represents buf.build/nemo-network/v4
+# This module represents buf.build/nemo-network/v4-chain
 version: v1
-name: buf.build/nemo-network/v4
+name: buf.build/nemo-network/v4-chain
 deps:
   # Use version recommended in https://github.com/cosmos/cosmos-sdk/blob/main/proto/README.md
   - buf.build/cosmos/cosmos-sdk:v0.50.0

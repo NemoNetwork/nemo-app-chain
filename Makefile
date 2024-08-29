@@ -1,7 +1,7 @@
 DOCKER := $(shell which docker)
 protoVer=0.14.0
 protoImageName=ghcr.io/cosmos/proto-builder:$(protoVer)
-protoImage=$(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
+protoImage=$(DOCKER) run --rm -u $(id -u):$(id -g) -v $(CURDIR):/workspace --workdir /workspace $(protoImageName)
 
 proto-format:
 	@$(protoImage) find ./proto -name "*.proto" -exec clang-format -i {} \;
