@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# This script takes in the result of a `/dydxprotocol/clob/clob_pair` query, and generates 
+# This script takes in the result of a `/nemo-network/clob/clob_pair` query, and generates 
 # a sample governance proposal to enable trading on all CLOB pairs. 
 # Example usage:
 # 1. Get all clob pairs from a REST endpoint:
-#   % curl -X GET "https://dydx-testnet-archive.allthatnode.com:1317/dydxprotocol/clob/clob_pair" -H "accept: application/json" > /tmp/clob_pairs.json
+#   % curl -X GET "https://dydx-testnet-archive.allthatnode.com:1317/nemo-network/clob/clob_pair" -H "accept: application/json" > /tmp/clob_pairs.json
 # 2. Generate proposal JSON file:
 #   % ./scripts/governance/enable_all_clob_pairs.sh /tmp/clob_pairs.json > /tmp/proposal_enable_trading_all_markets.json
 # 3. Submit proposal:
@@ -31,7 +31,7 @@ INPUT_JSON="$1"
 # Use jq to construct the messages array from the input JSON
 MESSAGES=$(jq --arg authority "$AUTHORITY" '
   .clob_pair | map({
-    "@type": "/dydxprotocol.clob.MsgUpdateClobPair",
+    "@type": "/nemo-network.clob.MsgUpdateClobPair",
     "authority": $authority,
     "clob_pair": {
       "id": .id,

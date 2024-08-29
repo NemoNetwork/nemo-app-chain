@@ -22,7 +22,7 @@ export class QueryClientImpl implements Query {
 
   asset(request: QueryAssetRequest): Promise<QueryAssetResponse> {
     const data = QueryAssetRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.assets.Query", "Asset", data);
+    const promise = this.rpc.request("nemo-network.assets.Query", "Asset", data);
     return promise.then(data => QueryAssetResponse.decode(new _m0.Reader(data)));
   }
 
@@ -30,7 +30,7 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryAllAssetsResponse> {
     const data = QueryAllAssetsRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.assets.Query", "AllAssets", data);
+    const promise = this.rpc.request("nemo-network.assets.Query", "AllAssets", data);
     return promise.then(data => QueryAllAssetsResponse.decode(new _m0.Reader(data)));
   }
 

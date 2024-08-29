@@ -1,14 +1,14 @@
 syntax = "proto3";
-package dydxprotocol.vault;
+package nemo-network.vault;
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
-import "dydxprotocol/subaccounts/subaccount.proto";
-import "dydxprotocol/vault/params.proto";
-import "dydxprotocol/vault/vault.proto";
+import "nemo-network/subaccounts/subaccount.proto";
+import "nemo-network/vault/params.proto";
+import "nemo-network/vault/vault.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/vault/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
 // Msg defines the Msg service.
 service Msg {
@@ -31,12 +31,12 @@ message MsgDepositToVault {
   VaultId vault_id = 1;
 
   // The subaccount to deposit from.
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 2;
+  nemo-network.subaccounts.SubaccountId subaccount_id = 2;
 
   // Number of quote quantums to deposit.
   bytes quote_quantums = 3 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

@@ -5,8 +5,8 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/vest/types"
 
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 )

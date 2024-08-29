@@ -10,7 +10,7 @@ import {
   LiquidityTiersFromDatabase,
   LiquidityTiersTable,
   liquidityTierRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { getQueryString, sendRequest } from '../../../helpers/helpers';

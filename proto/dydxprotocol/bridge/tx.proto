@@ -1,13 +1,13 @@
 syntax = "proto3";
-package dydxprotocol.bridge;
+package nemo-network.bridge;
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
-import "dydxprotocol/bridge/bridge_event.proto";
-import "dydxprotocol/bridge/params.proto";
+import "nemo-network/bridge/bridge_event.proto";
+import "nemo-network/bridge/params.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/bridge/types";
 
 // Msg defines the Msg service.
 service Msg {

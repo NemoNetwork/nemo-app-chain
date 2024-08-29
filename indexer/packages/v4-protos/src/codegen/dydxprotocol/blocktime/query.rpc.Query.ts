@@ -26,19 +26,19 @@ export class QueryClientImpl implements Query {
 
   downtimeParams(request: QueryDowntimeParamsRequest = {}): Promise<QueryDowntimeParamsResponse> {
     const data = QueryDowntimeParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.blocktime.Query", "DowntimeParams", data);
+    const promise = this.rpc.request("nemo-network.blocktime.Query", "DowntimeParams", data);
     return promise.then(data => QueryDowntimeParamsResponse.decode(new _m0.Reader(data)));
   }
 
   previousBlockInfo(request: QueryPreviousBlockInfoRequest = {}): Promise<QueryPreviousBlockInfoResponse> {
     const data = QueryPreviousBlockInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.blocktime.Query", "PreviousBlockInfo", data);
+    const promise = this.rpc.request("nemo-network.blocktime.Query", "PreviousBlockInfo", data);
     return promise.then(data => QueryPreviousBlockInfoResponse.decode(new _m0.Reader(data)));
   }
 
   allDowntimeInfo(request: QueryAllDowntimeInfoRequest = {}): Promise<QueryAllDowntimeInfoResponse> {
     const data = QueryAllDowntimeInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.blocktime.Query", "AllDowntimeInfo", data);
+    const promise = this.rpc.request("nemo-network.blocktime.Query", "AllDowntimeInfo", data);
     return promise.then(data => QueryAllDowntimeInfoResponse.decode(new _m0.Reader(data)));
   }
 

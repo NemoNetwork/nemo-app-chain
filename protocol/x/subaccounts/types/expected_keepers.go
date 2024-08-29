@@ -6,9 +6,9 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	blocktimetypes "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	blocktimetypes "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // ProductKeeper represents a generic interface for a keeper

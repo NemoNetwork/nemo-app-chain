@@ -4,7 +4,7 @@ export const createRPCMsgClient = async ({
 }: {
   rpc: Rpc;
 }) => ({
-  dydxprotocol: {
+  nemo-network: {
     blocktime: new (await import("./blocktime/tx.rpc.msg")).MsgClientImpl(rpc),
     bridge: new (await import("./bridge/tx.rpc.msg")).MsgClientImpl(rpc),
     clob: new (await import("./clob/tx.rpc.msg")).MsgClientImpl(rpc),

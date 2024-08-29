@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 

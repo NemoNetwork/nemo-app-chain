@@ -1,10 +1,10 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   OrderSide,
   PerpetualMarketFromDatabase,
   PositionSide,
   protocolTranslations,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   IndexerTendermintEvent,
   IndexerTendermintEvent_BlockEvent,
@@ -26,7 +26,7 @@ import {
   DeleveragingEventV1,
   OpenInterestUpdateEventV1,
   TradingRewardsEventV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 import { DateTime } from 'luxon';

@@ -6,12 +6,12 @@ import {
   dbHelpers,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { getIpAddr } from '../../../../src/lib/utils';
 import { sendRequest } from '../../../helpers/helpers';
 import { RequestMethod } from '../../../../src/types';
-import { logger, stats } from '@dydxprotocol-indexer/base';
-import { redis } from '@dydxprotocol-indexer/redis';
+import { logger, stats } from '@nemo-network-indexer/base';
+import { redis } from '@nemo-network-indexer/redis';
 import { ratelimitRedis } from '../../../../src/caches/rate-limiters';
 import { ComplianceControllerHelper } from '../../../../src/controllers/api/v4/compliance-controller';
 import config from '../../../../src/config';
@@ -19,9 +19,9 @@ import { DateTime } from 'luxon';
 import { ComplianceAction } from '../../../../src/controllers/api/v4/compliance-v2-controller';
 import { ExtendedSecp256k1Signature, Secp256k1, sha256 } from '@cosmjs/crypto';
 import { getGeoComplianceReason } from '../../../../src/helpers/compliance/compliance-utils';
-import { isRestrictedCountryHeaders } from '@dydxprotocol-indexer/compliance';
+import { isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance';
 
-jest.mock('@dydxprotocol-indexer/compliance');
+jest.mock('@nemo-network-indexer/compliance');
 jest.mock('../../../../src/helpers/compliance/compliance-utils');
 
 jest.mock('../../../../src/lib/utils', () => ({

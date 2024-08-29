@@ -6,8 +6,8 @@ import (
 	errorsmod "cosmossdk.io/errors"
 
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

@@ -5,21 +5,21 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 
-	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	clobtest "github.com/dydxprotocol/v4-chain/protocol/testutil/clob"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	clobtest "github.com/nemo-network/v4-chain/protocol/testutil/clob"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/memclob"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/clob"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/memclob"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals"
+	"github.com/nemo-network/v4-chain/protocol/x/prices"
 	"github.com/stretchr/testify/require"
 )
 

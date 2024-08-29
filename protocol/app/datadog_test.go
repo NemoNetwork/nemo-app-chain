@@ -1,7 +1,7 @@
 package app
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/logger"
+	"github.com/nemo-network/v4-chain/protocol/testutil/logger"
 	"github.com/stretchr/testify/require"
 	"os"
 	"testing"

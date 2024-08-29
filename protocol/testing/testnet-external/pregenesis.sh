@@ -166,7 +166,7 @@ function overwrite_genesis_public_testnet() {
 }
 
 create_pregenesis_file() {
-	VAL_HOME_DIR="$TMP_CHAIN_DIR/.dydxprotocol"
+	VAL_HOME_DIR="$TMP_CHAIN_DIR/.nemo-network"
 	VAL_CONFIG_DIR="$VAL_HOME_DIR/config"
 
 	# This initializes the $VAL_HOME_DIR folder.

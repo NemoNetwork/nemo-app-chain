@@ -1,6 +1,6 @@
-import { baseConfigSchema, parseSchema } from '@dydxprotocol-indexer/base';
-import { kafkaConfigSchema } from '@dydxprotocol-indexer/kafka';
-import { postgresConfigSchema } from '@dydxprotocol-indexer/postgres';
+import { baseConfigSchema, parseSchema } from '@nemo-network-indexer/base';
+import { kafkaConfigSchema } from '@nemo-network-indexer/kafka';
+import { postgresConfigSchema } from '@nemo-network-indexer/postgres';
 
 export const configSchema = {
   ...baseConfigSchema,

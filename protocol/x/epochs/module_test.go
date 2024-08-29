@@ -3,7 +3,7 @@ package epochs_test
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/dydxprotocol/v4-chain/protocol/app/module"
+	"github.com/nemo-network/v4-chain/protocol/app/module"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
@@ -14,11 +14,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/epochs"
-	epochs_keeper "github.com/dydxprotocol/v4-chain/protocol/x/epochs/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/epochs/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/epochs"
+	epochs_keeper "github.com/nemo-network/v4-chain/protocol/x/epochs/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/epochs/types"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -150,21 +150,21 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect list all epoch info route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/dydxprotocol/v4/epochs/epoch_info", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/v4/epochs/epoch_info", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect epoch route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/v4/epochs/epoch_info/deewhydeeex", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/v4/epochs/epoch_info/deewhydeeex", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect unexpected route not registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/v4/epochs/invalid/path", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/v4/epochs/invalid/path", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

@@ -49,7 +49,7 @@ export class QueryClientImpl implements Query {
 
   clobPair(request: QueryGetClobPairRequest): Promise<QueryClobPairResponse> {
     const data = QueryGetClobPairRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "ClobPair", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "ClobPair", data);
     return promise.then(data => QueryClobPairResponse.decode(new _m0.Reader(data)));
   }
 
@@ -57,43 +57,43 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryClobPairAllResponse> {
     const data = QueryAllClobPairRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "ClobPairAll", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "ClobPairAll", data);
     return promise.then(data => QueryClobPairAllResponse.decode(new _m0.Reader(data)));
   }
 
   mevNodeToNodeCalculation(request: MevNodeToNodeCalculationRequest): Promise<MevNodeToNodeCalculationResponse> {
     const data = MevNodeToNodeCalculationRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "MevNodeToNodeCalculation", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "MevNodeToNodeCalculation", data);
     return promise.then(data => MevNodeToNodeCalculationResponse.decode(new _m0.Reader(data)));
   }
 
   equityTierLimitConfiguration(request: QueryEquityTierLimitConfigurationRequest = {}): Promise<QueryEquityTierLimitConfigurationResponse> {
     const data = QueryEquityTierLimitConfigurationRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "EquityTierLimitConfiguration", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "EquityTierLimitConfiguration", data);
     return promise.then(data => QueryEquityTierLimitConfigurationResponse.decode(new _m0.Reader(data)));
   }
 
   blockRateLimitConfiguration(request: QueryBlockRateLimitConfigurationRequest = {}): Promise<QueryBlockRateLimitConfigurationResponse> {
     const data = QueryBlockRateLimitConfigurationRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "BlockRateLimitConfiguration", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "BlockRateLimitConfiguration", data);
     return promise.then(data => QueryBlockRateLimitConfigurationResponse.decode(new _m0.Reader(data)));
   }
 
   liquidationsConfiguration(request: QueryLiquidationsConfigurationRequest = {}): Promise<QueryLiquidationsConfigurationResponse> {
     const data = QueryLiquidationsConfigurationRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "LiquidationsConfiguration", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "LiquidationsConfiguration", data);
     return promise.then(data => QueryLiquidationsConfigurationResponse.decode(new _m0.Reader(data)));
   }
 
   statefulOrder(request: QueryStatefulOrderRequest): Promise<QueryStatefulOrderResponse> {
     const data = QueryStatefulOrderRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "StatefulOrder", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "StatefulOrder", data);
     return promise.then(data => QueryStatefulOrderResponse.decode(new _m0.Reader(data)));
   }
 
   streamOrderbookUpdates(request: StreamOrderbookUpdatesRequest): Promise<StreamOrderbookUpdatesResponse> {
     const data = StreamOrderbookUpdatesRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Query", "StreamOrderbookUpdates", data);
+    const promise = this.rpc.request("nemo-network.clob.Query", "StreamOrderbookUpdates", data);
     return promise.then(data => StreamOrderbookUpdatesResponse.decode(new _m0.Reader(data)));
   }
 

@@ -3,7 +3,7 @@ package cmd_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/cmd/nemod/cmd"
+	"github.com/nemo-network/v4-chain/protocol/cmd/nemod/cmd"
 	"github.com/stretchr/testify/require"
 )
 

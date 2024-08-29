@@ -1,4 +1,4 @@
-FROM dydxprotocol-base
+FROM nemo-network-base
 
 RUN apk add --no-cache bash dasel jq
 

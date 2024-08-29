@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/big"
 
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // Helper function to compute the delta long for a single settled update on a perpetual.

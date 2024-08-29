@@ -7,8 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authz "github.com/cosmos/cosmos-sdk/x/authz"
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	"github.com/dydxprotocol/v4-chain/protocol/app/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/app/constants"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
 )
 
 const DYDX_MSG_PREFIX = "/" + constants.AppName
@@ -70,7 +70,7 @@ func validateInnerMsg(msg sdk.Msg) error {
 			return fmt.Errorf("Invalid nested msg: double-nested msg type")
 		}
 
-		// 4. Reject nested dydxprotocol messages in `MsgExec`.
+		// 4. Reject nested nemo-network messages in `MsgExec`.
 		if _, ok := msg.(*authz.MsgExec); ok {
 			metrics.IncrCountMetricWithLabels(
 				metrics.Ante,

@@ -1,9 +1,9 @@
 syntax = "proto3";
-package dydxprotocol.vault;
+package nemo-network.vault;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/vault/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
 // Params stores `x/vault` parameters.
 message Params {
@@ -34,7 +34,7 @@ message Params {
   // activate.
   bytes activation_threshold_quote_quantums = 7 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

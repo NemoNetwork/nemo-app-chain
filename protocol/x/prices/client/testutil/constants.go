@@ -2,10 +2,10 @@ package testutil
 
 import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
-	pricefeed "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
+	pricefeed "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
 )
 
 const (

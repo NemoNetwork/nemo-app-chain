@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/slinky"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/metrics"
+	"github.com/nemo-network/v4-chain/protocol/lib/slinky"
 
 	errorsmod "cosmossdk.io/errors"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/stretchr/testify/require"
 )
 

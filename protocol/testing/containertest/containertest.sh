@@ -6,7 +6,7 @@ set -eo pipefail
 
 source "./genesis.sh"
 
-CHAIN_ID="localdydxprotocol"
+CHAIN_ID="localnemo-network"
 PREUPGRADE_VERSION="v5.1.0"
 
 # Define mnemonics for all validators.
@@ -44,7 +44,7 @@ NODE_KEYS=(
 )
 
 # Define monikers for each validator. These are made up strings and can be anything.
-# This also controls in which directory the validator's home will be located. i.e. `/dydxprotocol/chain/.alice`
+# This also controls in which directory the validator's home will be located. i.e. `/nemo-network/chain/.alice`
 MONIKERS=(
 	"alice"
 	"bob"
@@ -169,7 +169,7 @@ download_preupgrade_binary() {
 			exit 1
 			;;
 	esac
-	tar_url="https://github.com/dydxprotocol/v4-chain/releases/download/protocol%2F$PREUPGRADE_VERSION/nemod-$PREUPGRADE_VERSION-linux-$url_arch.tar.gz"
+	tar_url="https://github.com/nemo-network/v4-chain/releases/download/protocol%2F$PREUPGRADE_VERSION/nemod-$PREUPGRADE_VERSION-linux-$url_arch.tar.gz"
 	tar_path='/tmp/nemod/nemod.tar.gz'
 	mkdir -p /tmp/nemod
 	curl -vL $tar_url -o $tar_path

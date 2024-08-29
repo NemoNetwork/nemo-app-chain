@@ -17,7 +17,7 @@ export class MsgClientImpl implements Msg {
 
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.stats.Msg", "UpdateParams", data);
+    const promise = this.rpc.request("nemo-network.stats.Msg", "UpdateParams", data);
     return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
   }
 

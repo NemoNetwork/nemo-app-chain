@@ -5,10 +5,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	keeper "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	keeper "github.com/nemo-network/v4-chain/protocol/x/subaccounts/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/require"
 )
 

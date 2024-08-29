@@ -1,26 +1,26 @@
 syntax = "proto3";
-package dydxprotocol.subaccounts;
+package nemo-network.subaccounts;
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "dydxprotocol/subaccounts/subaccount.proto";
+import "nemo-network/subaccounts/subaccount.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries a Subaccount by id
   rpc Subaccount(QueryGetSubaccountRequest) returns (QuerySubaccountResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/subaccounts/subaccount/{owner}/{number}";
+        "/nemo-network/subaccounts/subaccount/{owner}/{number}";
   }
 
   // Queries a list of Subaccount items.
   rpc SubaccountAll(QueryAllSubaccountRequest)
       returns (QuerySubaccountAllResponse) {
-    option (google.api.http).get = "/dydxprotocol/subaccounts/subaccount";
+    option (google.api.http).get = "/nemo-network/subaccounts/subaccount";
   }
 
   // Queries information about whether withdrawal and transfers are blocked, and
@@ -29,7 +29,7 @@ service Query {
       QueryGetWithdrawalAndTransfersBlockedInfoRequest)
       returns (QueryGetWithdrawalAndTransfersBlockedInfoResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/subaccounts/withdrawals_and_transfers_blocked_info/"
+        "/nemo-network/subaccounts/withdrawals_and_transfers_blocked_info/"
         "{perpetual_id}";
   }
 
@@ -37,7 +37,7 @@ service Query {
   rpc CollateralPoolAddress(QueryCollateralPoolAddressRequest)
       returns (QueryCollateralPoolAddressResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/subaccounts/collateral_pool_address/{perpetual_id}";
+        "/nemo-network/subaccounts/collateral_pool_address/{perpetual_id}";
   }
 }
 

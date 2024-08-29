@@ -6,7 +6,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 )
 
 // - Initial margin is less than or equal to 1.

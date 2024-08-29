@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.vest;
+package nemo-network.vest;
 
 import "google/protobuf/timestamp.proto";
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/vest/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/vest/types";
 
 // VestEntry specifies a Vester Account and the rate at which tokens are
 // dripped into the corresponding Treasury Account.

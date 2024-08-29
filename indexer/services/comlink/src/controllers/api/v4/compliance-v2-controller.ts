@@ -1,12 +1,12 @@
 import { ExtendedSecp256k1Signature, Secp256k1, sha256 } from '@cosmjs/crypto';
-import { logger, stats, TooManyRequestsError } from '@dydxprotocol-indexer/base';
-import { CountryHeaders, isRestrictedCountryHeaders } from '@dydxprotocol-indexer/compliance';
+import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base';
+import { CountryHeaders, isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance';
 import {
   ComplianceReason,
   ComplianceStatus,
   ComplianceStatusFromDatabase,
   ComplianceStatusTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import { DateTime } from 'luxon';

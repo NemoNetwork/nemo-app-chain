@@ -1,14 +1,14 @@
 import {
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   BlockFromDatabase,
   BlockTable,
   OrderFromDatabase,
   OrderStatus,
   OrderTable,
-} from '@dydxprotocol-indexer/postgres';
-import { ORDER_FLAG_SHORT_TERM } from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/postgres';
+import { ORDER_FLAG_SHORT_TERM } from '@nemo-network-indexer/v4-proto-parser';
 
 import config from '../config';
 

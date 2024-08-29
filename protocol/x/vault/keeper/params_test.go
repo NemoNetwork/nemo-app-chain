@@ -3,11 +3,11 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 

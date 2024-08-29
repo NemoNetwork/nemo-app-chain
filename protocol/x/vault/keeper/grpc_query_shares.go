@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 func (k Keeper) OwnerShares(

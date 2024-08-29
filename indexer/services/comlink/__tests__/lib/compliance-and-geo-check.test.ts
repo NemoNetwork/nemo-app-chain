@@ -12,16 +12,16 @@ import {
   dbHelpers,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import request from 'supertest';
 import {
   INDEXER_COMPLIANCE_BLOCKED_PAYLOAD,
   INDEXER_GEOBLOCKED_PAYLOAD,
   isRestrictedCountryHeaders,
-} from '@dydxprotocol-indexer/compliance';
+} from '@nemo-network-indexer/compliance';
 import config from '../../src/config';
 
-jest.mock('@dydxprotocol-indexer/compliance');
+jest.mock('@nemo-network-indexer/compliance');
 
 // Create a router to test the middleware with
 const router: express.Router = express.Router();

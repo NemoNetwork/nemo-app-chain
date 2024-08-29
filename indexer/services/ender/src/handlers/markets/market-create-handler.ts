@@ -1,5 +1,5 @@
-import { logger } from '@dydxprotocol-indexer/base';
-import { MarketEventV1 } from '@dydxprotocol-indexer/v4-protos';
+import { logger } from '@nemo-network-indexer/base';
+import { MarketEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 
 import { ConsolidatedKafkaEvent } from '../../lib/types';

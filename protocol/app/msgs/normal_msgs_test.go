@@ -4,8 +4,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/msgs"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/app/msgs"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/stretchr/testify/require"
 )
 
@@ -119,28 +119,28 @@ func TestNormalMsgs_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
 
 		// clob
-		"/dydxprotocol.clob.MsgBatchCancel",
-		"/dydxprotocol.clob.MsgBatchCancelResponse",
-		"/dydxprotocol.clob.MsgCancelOrder",
-		"/dydxprotocol.clob.MsgCancelOrderResponse",
-		"/dydxprotocol.clob.MsgPlaceOrder",
-		"/dydxprotocol.clob.MsgPlaceOrderResponse",
+		"/nemo-network.clob.MsgBatchCancel",
+		"/nemo-network.clob.MsgBatchCancelResponse",
+		"/nemo-network.clob.MsgCancelOrder",
+		"/nemo-network.clob.MsgCancelOrderResponse",
+		"/nemo-network.clob.MsgPlaceOrder",
+		"/nemo-network.clob.MsgPlaceOrderResponse",
 
 		// perpetuals
 
 		// prices
 
 		// sending
-		"/dydxprotocol.sending.MsgCreateTransfer",
-		"/dydxprotocol.sending.MsgCreateTransferResponse",
-		"/dydxprotocol.sending.MsgDepositToSubaccount",
-		"/dydxprotocol.sending.MsgDepositToSubaccountResponse",
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccount",
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccountResponse",
+		"/nemo-network.sending.MsgCreateTransfer",
+		"/nemo-network.sending.MsgCreateTransferResponse",
+		"/nemo-network.sending.MsgDepositToSubaccount",
+		"/nemo-network.sending.MsgDepositToSubaccountResponse",
+		"/nemo-network.sending.MsgWithdrawFromSubaccount",
+		"/nemo-network.sending.MsgWithdrawFromSubaccountResponse",
 
 		// vault
-		"/dydxprotocol.vault.MsgDepositToVault",
-		"/dydxprotocol.vault.MsgDepositToVaultResponse",
+		"/nemo-network.vault.MsgDepositToVault",
+		"/nemo-network.vault.MsgDepositToVaultResponse",
 
 		// ibc application module: ICA
 		"/ibc.applications.interchain_accounts.v1.InterchainAccount",

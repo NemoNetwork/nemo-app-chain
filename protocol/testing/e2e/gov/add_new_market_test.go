@@ -4,22 +4,22 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 
 	"github.com/cometbft/cometbft/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	clobtest "github.com/dydxprotocol/v4-chain/protocol/testutil/clob"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	perptest "github.com/dydxprotocol/v4-chain/protocol/testutil/perpetuals"
-	pricestest "github.com/dydxprotocol/v4-chain/protocol/testutil/prices"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	delaymsgtypes "github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	clobtest "github.com/nemo-network/v4-chain/protocol/testutil/clob"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	perptest "github.com/nemo-network/v4-chain/protocol/testutil/perpetuals"
+	pricestest "github.com/nemo-network/v4-chain/protocol/testutil/prices"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	delaymsgtypes "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -27,7 +27,7 @@ const (
 	NumBlocksAfterTradingEnabled = 50
 	TestMarketId                 = 1001
 	// Expected response log when a order is submitted but oracle price is zero.
-	// https://github.com/dydxprotocol/v4-chain/blob/5ee11ed/protocol/x/perpetuals/keeper/perpetual.go#L1514-L1517
+	// https://github.com/nemo-network/v4-chain/blob/5ee11ed/protocol/x/perpetuals/keeper/perpetual.go#L1514-L1517
 	ExpectedPlaceOrderCheckTxResponseLog = "recovered: type: perpetual, id: 1001: product position is not updatable"
 )
 

@@ -4,7 +4,7 @@ import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   PerpetualMarketColumns,
   PerpetualMarketFromDatabase,
@@ -18,9 +18,9 @@ import {
   perpetualMarketRefresher,
   LiquidityTiersTable,
   liquidityTierRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { KafkaMessage } from 'kafkajs';
-import { createKafkaMessage, producer } from '@dydxprotocol-indexer/kafka';
+import { createKafkaMessage, producer } from '@nemo-network-indexer/kafka';
 import { onMessage } from '../../src/lib/on-message';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {

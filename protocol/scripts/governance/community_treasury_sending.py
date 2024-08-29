@@ -34,7 +34,7 @@ DEPOSIT = "{}{}".format(str(decimal.Decimal(10000)*TOKEN_MULTIPLE), NATIVE_TOKEN
 
 def get_single_send_message(recipient_address, token_amount):
     return {
-        "@type": "/dydxprotocol.sending.MsgSendFromModuleToAccount",
+        "@type": "/nemo-network.sending.MsgSendFromModuleToAccount",
         "authority": GOV_MODULE_ADDRESS,
         "sender_module_name": COMMUNITY_TREASURY_MODULE_NAME,
         "recipient": recipient_address,

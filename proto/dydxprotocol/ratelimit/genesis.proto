@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.ratelimit;
+package nemo-network.ratelimit;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/ratelimit/limit_params.proto";
+import "nemo-network/ratelimit/limit_params.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types";
 
 // GenesisState defines the ratelimit module's genesis state.
 message GenesisState {

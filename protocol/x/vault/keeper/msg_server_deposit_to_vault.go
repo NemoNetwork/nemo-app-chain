@@ -3,12 +3,12 @@ package keeper
 import (
 	"context"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	sendingtypes "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 // DepositToVault deposits from a subaccount to a vault.

@@ -1,5 +1,5 @@
-import { MARKETS_WEBSOCKET_MESSAGE_VERSION, WebsocketTopics } from '@dydxprotocol-indexer/kafka';
-import { MarketMessage } from '@dydxprotocol-indexer/v4-protos';
+import { MARKETS_WEBSOCKET_MESSAGE_VERSION, WebsocketTopics } from '@nemo-network-indexer/kafka';
+import { MarketMessage } from '@nemo-network-indexer/v4-protos';
 import { ProducerRecord } from 'kafkajs';
 
 export function expectMarketWebsocketMessage(

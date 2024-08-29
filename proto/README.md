@@ -3,8 +3,8 @@
 <h1 align="center">dYdX Chain Proto</h1>
 
 <div align="center">
-  <a href="https://github.com/dydxprotocol/v4-chain/actions/workflows/proto.yml?query=branch%3Amain" style="text-decoration:none;">
-    <img src="https://github.com/dydxprotocol/v4-chain/actions/workflows/proto.yml/badge.svg?branch=main" />
+  <a href="https://github.com/nemo-network/v4-chain/actions/workflows/proto.yml?query=branch%3Amain" style="text-decoration:none;">
+    <img src="https://github.com/nemo-network/v4-chain/actions/workflows/proto.yml/badge.svg?branch=main" />
   </a>
 </div>
 

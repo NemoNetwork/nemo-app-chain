@@ -1,5 +1,5 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
-import { DeleveragingEventV1, IndexerTendermintBlock, IndexerTendermintEvent } from '@dydxprotocol-indexer/v4-protos';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
+import { DeleveragingEventV1, IndexerTendermintBlock, IndexerTendermintEvent } from '@nemo-network-indexer/v4-protos';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import { DeleveragingValidator } from '../../src/validators/deleveraging-validator';
 import {

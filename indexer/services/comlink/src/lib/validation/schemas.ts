@@ -1,4 +1,4 @@
-import { perpetualMarketRefresher } from '@dydxprotocol-indexer/postgres';
+import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
 import { checkSchema, ParamSchema } from 'express-validator';
 
 import config from '../../config';

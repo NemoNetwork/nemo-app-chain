@@ -6,8 +6,8 @@ import (
 	errorsmod "cosmossdk.io/errors"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
 )
 
 const (

@@ -1,5 +1,5 @@
-import { stats } from '@dydxprotocol-indexer/base';
-import { CANDLES_WEBSOCKET_MESSAGE_VERSION } from '@dydxprotocol-indexer/kafka';
+import { stats } from '@nemo-network-indexer/base';
+import { CANDLES_WEBSOCKET_MESSAGE_VERSION } from '@nemo-network-indexer/kafka';
 import {
   CandlesMap, CandlesResolutionMap,
   CandleColumns,
@@ -18,8 +18,8 @@ import {
   testMocks,
   Transaction,
   helpers,
-} from '@dydxprotocol-indexer/postgres';
-import { CandleMessage, CandleMessage_Resolution } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { CandleMessage, CandleMessage_Resolution } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 import {

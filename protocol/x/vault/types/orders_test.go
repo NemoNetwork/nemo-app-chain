@@ -4,8 +4,8 @@ import (
 	math "math"
 	"testing"
 
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 

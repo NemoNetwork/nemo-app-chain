@@ -6,11 +6,11 @@ echo "Running prod_pregenesis.sh..."
 ./scripts/genesis/prod_pregenesis.sh nemod
 
 echo "Stripping app_version from genesis files..."
-sed 's/.*"app_version":.*//g' "/tmp/prod-chain/.dydxprotocol/config/sorted_genesis.json" > "/tmp/prod-chain/.dydxprotocol/config/sorted_genesis.json.stripped"
+sed 's/.*"app_version":.*//g' "/tmp/prod-chain/.nemo-network/config/sorted_genesis.json" > "/tmp/prod-chain/.nemo-network/config/sorted_genesis.json.stripped"
 sed 's/.*"app_version":.*//g' "./scripts/genesis/sample_pregenesis.json" > "/tmp/sample_pregenesis.json.stripped"
 
 echo "Diffing output against current sample_pregenesis.json..."
-diff_output=$(diff "/tmp/prod-chain/.dydxprotocol/config/sorted_genesis.json.stripped" "/tmp/sample_pregenesis.json.stripped")
+diff_output=$(diff "/tmp/prod-chain/.nemo-network/config/sorted_genesis.json.stripped" "/tmp/sample_pregenesis.json.stripped")
 
 if [ -z "$diff_output" ]; then
     echo "./scripts/genesis/sample_pregenesis.json is up-to-date"

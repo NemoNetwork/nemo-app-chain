@@ -1,5 +1,5 @@
-import { logger } from '@dydxprotocol-indexer/base';
-import { OrderSide } from '@dydxprotocol-indexer/postgres';
+import { logger } from '@nemo-network-indexer/base';
+import { OrderSide } from '@nemo-network-indexer/postgres';
 import Big from 'big.js';
 import _ from 'lodash';
 import { Callback, RedisClient } from 'redis';

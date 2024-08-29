@@ -8,10 +8,10 @@ import (
 	"cosmossdk.io/log"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/gogoproto/proto"
-	ocutypes "github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/streaming/grpc/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	ocutypes "github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates/types"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/streaming/grpc/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 var _ types.GrpcStreamingManager = (*GrpcStreamingManagerImpl)(nil)

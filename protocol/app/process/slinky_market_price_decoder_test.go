@@ -8,10 +8,10 @@ import (
 	"github.com/skip-mev/slinky/abci/testutils"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/app/process"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/app/constants"
+	"github.com/nemo-network/v4-chain/protocol/app/process"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 type SlinkyMarketPriceDecoderSuite struct {

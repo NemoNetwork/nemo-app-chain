@@ -8,14 +8,14 @@ import (
 	"github.com/cosmos/gogoproto/proto"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/msgsender"
-	ocutypes "github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates/types"
-	v1 "github.com/dydxprotocol/v4-chain/protocol/indexer/protocol/v1"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/shared"
-	sharedtypes "github.com/dydxprotocol/v4-chain/protocol/indexer/shared/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/indexer/msgsender"
+	ocutypes "github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates/types"
+	v1 "github.com/nemo-network/v4-chain/protocol/indexer/protocol/v1"
+	"github.com/nemo-network/v4-chain/protocol/indexer/shared"
+	sharedtypes "github.com/nemo-network/v4-chain/protocol/indexer/shared/types"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // MustCreateOrderPlaceMessage invokes CreateOrderPlaceMessage and panics if creation was unsuccessful.

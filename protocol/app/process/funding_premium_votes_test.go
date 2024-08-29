@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/process"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
+	"github.com/nemo-network/v4-chain/protocol/app/process"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	"github.com/stretchr/testify/require"
 )
 

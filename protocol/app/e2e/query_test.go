@@ -3,8 +3,8 @@ package e2e_test
 import (
 	"context"
 	abcitypes "github.com/cometbft/cometbft/abci/types"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	blocktime "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	blocktime "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
 	"github.com/stretchr/testify/require"
 	"sync"
 	"sync/atomic"
@@ -81,7 +81,7 @@ func TestParallelQuery(t *testing.T) {
 			resp, err := tApp.App.Query(
 				context.Background(),
 				&abcitypes.RequestQuery{
-					Path: "/dydxprotocol.blocktime.Query/PreviousBlockInfo",
+					Path: "/nemo-network.blocktime.Query/PreviousBlockInfo",
 					Data: blockTimeRequestBytes,
 				},
 			)

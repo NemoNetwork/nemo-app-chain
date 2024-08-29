@@ -1,13 +1,13 @@
-import { generateSubaccountMessageContents } from '@dydxprotocol-indexer/kafka';
+import { generateSubaccountMessageContents } from '@nemo-network-indexer/kafka';
 import {
   OrderFromDatabase, OrderModel,
   OrderTable,
   PerpetualMarketFromDatabase,
   perpetualMarketRefresher,
   SubaccountMessageContents,
-} from '@dydxprotocol-indexer/postgres';
-import { convertToRedisOrder } from '@dydxprotocol-indexer/redis';
-import { getOrderIdHash } from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/postgres';
+import { convertToRedisOrder } from '@nemo-network-indexer/redis';
+import { getOrderIdHash } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,
   IndexerSubaccountId,
@@ -16,7 +16,7 @@ import {
   RedisOrder,
   StatefulOrderEventV1,
   SubaccountId,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 
 import config from '../../config';

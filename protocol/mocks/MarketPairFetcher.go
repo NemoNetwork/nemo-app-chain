@@ -5,8 +5,8 @@ package mocks
 import (
 	context "context"
 
-	flags "github.com/dydxprotocol/v4-chain/protocol/app/flags"
-	daemonstypes "github.com/dydxprotocol/v4-chain/protocol/daemons/types"
+	flags "github.com/nemo-network/v4-chain/protocol/app/flags"
+	daemonstypes "github.com/nemo-network/v4-chain/protocol/daemons/types"
 
 	mock "github.com/stretchr/testify/mock"
 

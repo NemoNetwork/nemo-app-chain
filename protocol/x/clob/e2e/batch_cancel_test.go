@@ -7,15 +7,15 @@ import (
 	"github.com/cometbft/cometbft/types"
 	"github.com/stretchr/testify/require"
 
-	"github.com/dydxprotocol/v4-chain/protocol/indexer"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/msgsender"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates"
-	ocutypes "github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates/types"
-	indexersharedtypes "github.com/dydxprotocol/v4-chain/protocol/indexer/shared/types"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/indexer"
+	"github.com/nemo-network/v4-chain/protocol/indexer/msgsender"
+	"github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates"
+	ocutypes "github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates/types"
+	indexersharedtypes "github.com/nemo-network/v4-chain/protocol/indexer/shared/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // These tests are the same as the e2e tests for single order cancellations.

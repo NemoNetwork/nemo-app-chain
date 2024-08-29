@@ -1,5 +1,5 @@
-import { SubaccountTable } from '@dydxprotocol-indexer/postgres';
-import { IndexerSubaccountId } from '@dydxprotocol-indexer/v4-protos';
+import { SubaccountTable } from '@nemo-network-indexer/postgres';
+import { IndexerSubaccountId } from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 import { RedisClient } from 'redis';
 

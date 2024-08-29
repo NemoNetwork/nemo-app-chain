@@ -19,14 +19,14 @@ export class LCDQueryClient {
 
 
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `dydxprotocol/vault/params`;
+    const endpoint = `nemo-network/vault/params`;
     return await this.req.get<QueryParamsResponseSDKType>(endpoint);
   }
   /* Queries a Vault by type and number. */
 
 
   async vault(params: QueryVaultRequest): Promise<QueryVaultResponseSDKType> {
-    const endpoint = `dydxprotocol/vault/vault/${params.type}/${params.number}`;
+    const endpoint = `nemo-network/vault/vault/${params.type}/${params.number}`;
     return await this.req.get<QueryVaultResponseSDKType>(endpoint);
   }
   /* Queries all vaults. */
@@ -43,7 +43,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `dydxprotocol/vault/vault`;
+    const endpoint = `nemo-network/vault/vault`;
     return await this.req.get<QueryAllVaultsResponseSDKType>(endpoint, options);
   }
   /* Queries owner shares of a vault. */
@@ -58,7 +58,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `dydxprotocol/vault/owner_shares/${params.type}/${params.number}`;
+    const endpoint = `nemo-network/vault/owner_shares/${params.type}/${params.number}`;
     return await this.req.get<QueryOwnerSharesResponseSDKType>(endpoint, options);
   }
 

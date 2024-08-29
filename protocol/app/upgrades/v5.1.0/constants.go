@@ -1,7 +1,7 @@
 package v_5_1_0
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/app/upgrades"
+	"github.com/nemo-network/v4-chain/protocol/app/upgrades"
 )
 
 const (

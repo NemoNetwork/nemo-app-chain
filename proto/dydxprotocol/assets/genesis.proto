@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.assets;
+package nemo-network.assets;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/assets/asset.proto";
+import "nemo-network/assets/asset.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/assets/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/assets/types";
 
 // GenesisState defines the assets module's genesis state.
 message GenesisState {

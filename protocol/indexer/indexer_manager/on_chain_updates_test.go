@@ -5,8 +5,8 @@ import (
 
 	"github.com/cosmos/gogoproto/proto"
 
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/msgsender"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/indexer/msgsender"
 	"github.com/stretchr/testify/require"
 )
 

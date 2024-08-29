@@ -8,7 +8,7 @@ import {
   PerpetualMarketTable,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 import {
   getCandle, getCandlesMap, updateCandleCacheWithCandle, startCandleCache, clearCandlesMap,

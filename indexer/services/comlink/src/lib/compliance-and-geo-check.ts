@@ -3,12 +3,12 @@ import {
   isRestrictedCountryHeaders,
   INDEXER_GEOBLOCKED_PAYLOAD,
   INDEXER_COMPLIANCE_BLOCKED_PAYLOAD,
-} from '@dydxprotocol-indexer/compliance';
+} from '@nemo-network-indexer/compliance';
 import {
   ComplianceStatus,
   ComplianceStatusFromDatabase,
   ComplianceStatusTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import express from 'express';
 import { matchedData } from 'express-validator';
 

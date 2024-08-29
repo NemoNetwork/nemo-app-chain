@@ -4,7 +4,7 @@ import {
   LiquidityTierUpsertEventV1,
   LiquidityTierUpsertEventV2,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   BlockTable,
   dbHelpers,
@@ -21,9 +21,9 @@ import {
   MarketTable,
   protocolTranslations,
   QUOTE_CURRENCY_ATOMIC_RESOLUTION,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { KafkaMessage } from 'kafkajs';
-import { createKafkaMessage, producer } from '@dydxprotocol-indexer/kafka';
+import { createKafkaMessage, producer } from '@nemo-network-indexer/kafka';
 import { onMessage } from '../../src/lib/on-message';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {
@@ -41,7 +41,7 @@ import {
   defaultLiquidityTierUpsertEventV1,
 } from '../helpers/constants';
 import { updateBlockCache } from '../../src/caches/block-cache';
-import { defaultLiquidityTier } from '@dydxprotocol-indexer/postgres/build/__tests__/helpers/constants';
+import { defaultLiquidityTier } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
 import _ from 'lodash';
 import { createPostgresFunctions } from '../../src/helpers/postgres/postgres-functions';
 

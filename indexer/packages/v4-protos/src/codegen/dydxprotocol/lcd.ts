@@ -8,7 +8,7 @@ export const createLCDClient = async ({
     restEndpoint
   });
   return {
-    dydxprotocol: {
+    nemo-network: {
       assets: new (await import("./assets/query.lcd")).LCDQueryClient({
         requestClient
       }),

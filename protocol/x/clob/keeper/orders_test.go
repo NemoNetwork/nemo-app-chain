@@ -6,34 +6,34 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
 
 	cmt "github.com/cometbft/cometbft/types"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	perptest "github.com/dydxprotocol/v4-chain/protocol/testutil/perpetuals"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	perptest "github.com/nemo-network/v4-chain/protocol/testutil/perpetuals"
 
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	clobtest "github.com/dydxprotocol/v4-chain/protocol/testutil/clob"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	memclobtest "github.com/dydxprotocol/v4-chain/protocol/testutil/memclob"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/tracer"
-	blocktimetypes "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/memclob"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	feetypes "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices"
-	rewardtypes "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
-	statstypes "github.com/dydxprotocol/v4-chain/protocol/x/stats/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	clobtest "github.com/nemo-network/v4-chain/protocol/testutil/clob"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	memclobtest "github.com/nemo-network/v4-chain/protocol/testutil/memclob"
+	"github.com/nemo-network/v4-chain/protocol/testutil/tracer"
+	blocktimetypes "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/memclob"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	feetypes "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	"github.com/nemo-network/v4-chain/protocol/x/prices"
+	rewardtypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
+	statstypes "github.com/nemo-network/v4-chain/protocol/x/stats/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -409,7 +409,7 @@ func TestPlaceShortTermOrder(t *testing.T) {
 		// that weren't placed on the first CLOB. If firstClobPair.QuantumConversionExponent >
 		// expectedClobPair.QuantumConversionExponent, then sellers receive more quote quantums and buyers are charged
 		// more. Vice versa if firstClobPair.QuantumConversionExponent < expectedClobPair.QuantumConversionExponent.
-		// Context: https://github.com/dydxprotocol/v4-chain/protocol/pull/562#discussion_r1024319468
+		// Context: https://github.com/nemo-network/v4-chain/protocol/pull/562#discussion_r1024319468
 		`Regression: New order should be fully collateralized when matching with previous fills
 				because the correct quantum conversion exponent was used`: {
 			perpetuals: []perptypes.Perpetual{

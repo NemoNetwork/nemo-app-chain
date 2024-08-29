@@ -1,12 +1,12 @@
 syntax = "proto3";
-package dydxprotocol.govplus;
+package nemo-network.govplus;
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
 import "gogoproto/gogo.proto";
 import "amino/amino.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/govplus/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/govplus/types";
 
 // Msg defines the Msg service.
 service Msg {
@@ -44,7 +44,7 @@ message MsgSlashValidator {
   // this.
   bytes tokens_at_infraction_height = 4 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 

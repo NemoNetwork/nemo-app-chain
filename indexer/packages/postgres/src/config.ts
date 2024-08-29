@@ -8,7 +8,7 @@ import {
   parseString,
   parseSchema,
   baseConfigSchema,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 
 export const configSecrets: (keyof typeof postgresConfigSchema)[] = [
   'DB_PASSWORD',

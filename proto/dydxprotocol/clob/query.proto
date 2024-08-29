@@ -1,37 +1,37 @@
 syntax = "proto3";
-package dydxprotocol.clob;
+package nemo-network.clob;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "dydxprotocol/clob/block_rate_limit_config.proto";
-import "dydxprotocol/clob/clob_pair.proto";
-import "dydxprotocol/clob/equity_tier_limit_config.proto";
-import "dydxprotocol/clob/order.proto";
-import "dydxprotocol/clob/matches.proto";
-import "dydxprotocol/clob/liquidations_config.proto";
-import "dydxprotocol/clob/mev.proto";
-import "dydxprotocol/indexer/off_chain_updates/off_chain_updates.proto";
+import "nemo-network/clob/block_rate_limit_config.proto";
+import "nemo-network/clob/clob_pair.proto";
+import "nemo-network/clob/equity_tier_limit_config.proto";
+import "nemo-network/clob/order.proto";
+import "nemo-network/clob/matches.proto";
+import "nemo-network/clob/liquidations_config.proto";
+import "nemo-network/clob/mev.proto";
+import "nemo-network/indexer/off_chain_updates/off_chain_updates.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/clob/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries a ClobPair by id.
   rpc ClobPair(QueryGetClobPairRequest) returns (QueryClobPairResponse) {
-    option (google.api.http).get = "/dydxprotocol/clob/clob_pair/{id}";
+    option (google.api.http).get = "/nemo-network/clob/clob_pair/{id}";
   }
 
   // Queries a list of ClobPair items.
   rpc ClobPairAll(QueryAllClobPairRequest) returns (QueryClobPairAllResponse) {
-    option (google.api.http).get = "/dydxprotocol/clob/clob_pair";
+    option (google.api.http).get = "/nemo-network/clob/clob_pair";
   }
 
   // Runs the MEV node <> node calculation with the provided parameters.
   rpc MevNodeToNodeCalculation(MevNodeToNodeCalculationRequest)
       returns (MevNodeToNodeCalculationResponse) {
     option (google.api.http) = {
-      post : "/dydxprotocol/clob/mev_node_to_node_calculation"
+      post : "/nemo-network/clob/mev_node_to_node_calculation"
       body : "*"
     };
   }
@@ -39,19 +39,19 @@ service Query {
   // Queries EquityTierLimitConfiguration.
   rpc EquityTierLimitConfiguration(QueryEquityTierLimitConfigurationRequest)
       returns (QueryEquityTierLimitConfigurationResponse) {
-    option (google.api.http).get = "/dydxprotocol/clob/equity_tier";
+    option (google.api.http).get = "/nemo-network/clob/equity_tier";
   }
 
   // Queries BlockRateLimitConfiguration.
   rpc BlockRateLimitConfiguration(QueryBlockRateLimitConfigurationRequest)
       returns (QueryBlockRateLimitConfigurationResponse) {
-    option (google.api.http).get = "/dydxprotocol/clob/block_rate";
+    option (google.api.http).get = "/nemo-network/clob/block_rate";
   }
 
   // Queries LiquidationsConfiguration.
   rpc LiquidationsConfiguration(QueryLiquidationsConfigurationRequest)
       returns (QueryLiquidationsConfigurationResponse) {
-    option (google.api.http).get = "/dydxprotocol/clob/liquidations_config";
+    option (google.api.http).get = "/nemo-network/clob/liquidations_config";
   }
 
   // Queries the stateful order for a given order id.
@@ -92,9 +92,9 @@ message MevNodeToNodeCalculationRequest {
   // does not need to be the actual block proposer's matches for a block, since
   // the MEV calculation logic is run with this nodes matches as the "block
   // proposer" matches.
-  dydxprotocol.clob.ValidatorMevMatches block_proposer_matches = 1;
+  nemo-network.clob.ValidatorMevMatches block_proposer_matches = 1;
   // Represents the matches and mid-prices on the validator.
-  dydxprotocol.clob.MevNodeToNodeMetrics validator_mev_metrics = 2;
+  nemo-network.clob.MevNodeToNodeMetrics validator_mev_metrics = 2;
 }
 
 // MevNodeToNodeCalculationResponse is a response message that contains the
@@ -196,7 +196,7 @@ message StreamUpdate {
 message StreamOrderbookUpdate {
   // Orderbook updates for the clob pair. Can contain order place, removals,
   // or updates.
-  repeated dydxprotocol.indexer.off_chain_updates.OffChainUpdateV1 updates = 1
+  repeated nemo-network.indexer.off_chain_updates.OffChainUpdateV1 updates = 1
       [ (gogoproto.nullable) = false ];
 
   // Snapshot indicates if the response is from a snapshot of the orderbook.

@@ -1,48 +1,48 @@
 syntax = "proto3";
-package dydxprotocol.perpetuals;
+package nemo-network.perpetuals;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "dydxprotocol/perpetuals/params.proto";
-import "dydxprotocol/perpetuals/perpetual.proto";
+import "nemo-network/perpetuals/params.proto";
+import "nemo-network/perpetuals/perpetual.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries a Perpetual by id.
   rpc Perpetual(QueryPerpetualRequest) returns (QueryPerpetualResponse) {
-    option (google.api.http).get = "/dydxprotocol/perpetuals/perpetual/{id}";
+    option (google.api.http).get = "/nemo-network/perpetuals/perpetual/{id}";
   }
 
   // Queries a list of Perpetual items.
   rpc AllPerpetuals(QueryAllPerpetualsRequest)
       returns (QueryAllPerpetualsResponse) {
-    option (google.api.http).get = "/dydxprotocol/perpetuals/perpetual";
+    option (google.api.http).get = "/nemo-network/perpetuals/perpetual";
   }
 
   // Queries a list of LiquidityTiers.
   rpc AllLiquidityTiers(QueryAllLiquidityTiersRequest)
       returns (QueryAllLiquidityTiersResponse) {
-    option (google.api.http).get = "/dydxprotocol/perpetuals/liquidity_tiers";
+    option (google.api.http).get = "/nemo-network/perpetuals/liquidity_tiers";
   }
 
   // Queries a list of premium votes.
   rpc PremiumVotes(QueryPremiumVotesRequest)
       returns (QueryPremiumVotesResponse) {
-    option (google.api.http).get = "/dydxprotocol/perpetuals/premium_votes";
+    option (google.api.http).get = "/nemo-network/perpetuals/premium_votes";
   }
 
   // Queries a list of premium samples.
   rpc PremiumSamples(QueryPremiumSamplesRequest)
       returns (QueryPremiumSamplesResponse) {
-    option (google.api.http).get = "/dydxprotocol/perpetuals/premium_samples";
+    option (google.api.http).get = "/nemo-network/perpetuals/premium_samples";
   }
 
   // Queries the perpetual params.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/perpetuals/params";
+    option (google.api.http).get = "/nemo-network/perpetuals/params";
   }
 }
 

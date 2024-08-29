@@ -3,13 +3,13 @@ package prices_test
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/dydxprotocol/v4-chain/protocol/app/module"
+	"github.com/nemo-network/v4-chain/protocol/app/module"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 
 	errorsmod "cosmossdk.io/errors"
 
@@ -17,12 +17,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices"
-	prices_keeper "github.com/dydxprotocol/v4-chain/protocol/x/prices/keeper"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed"
+	"github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/prices"
+	prices_keeper "github.com/nemo-network/v4-chain/protocol/x/prices/keeper"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -179,21 +179,21 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect AllMarkets route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/dydxprotocol/prices/market", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/prices/market", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect Markets route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/prices/market/0", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/prices/market/0", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect unexpected route not registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/prices/foo/bar/baz", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/prices/foo/bar/baz", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

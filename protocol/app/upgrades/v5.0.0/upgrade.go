@@ -9,16 +9,16 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	consensustypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vaulttypes "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	consensusparamkeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 )
 
 // perpetuals upgrade handler for v5.0.0

@@ -1,13 +1,13 @@
 syntax = "proto3";
-package dydxprotocol.clob;
+package nemo-network.clob;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/clob/block_rate_limit_config.proto";
-import "dydxprotocol/clob/clob_pair.proto";
-import "dydxprotocol/clob/equity_tier_limit_config.proto";
-import "dydxprotocol/clob/liquidations_config.proto";
+import "nemo-network/clob/block_rate_limit_config.proto";
+import "nemo-network/clob/clob_pair.proto";
+import "nemo-network/clob/equity_tier_limit_config.proto";
+import "nemo-network/clob/liquidations_config.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/clob/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 
 // GenesisState defines the clob module's genesis state.
 message GenesisState {

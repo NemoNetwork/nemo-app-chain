@@ -2,10 +2,10 @@ package prices
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // InitGenesis initializes the x/prices module's state from a provided genesis

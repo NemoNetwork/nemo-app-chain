@@ -7,9 +7,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // getValidSubaccountUpdatesForTransfer generates subaccount updates and check

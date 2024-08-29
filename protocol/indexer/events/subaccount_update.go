@@ -1,9 +1,9 @@
 package events
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/protocol/v1"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/indexer/protocol/v1"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // NewSubaccountUpdateEvent creates a SubaccountUpdateEvent representing a subaccount update

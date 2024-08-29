@@ -20,7 +20,7 @@ export class MsgClientImpl implements Msg {
 
   delayMessage(request: MsgDelayMessage): Promise<MsgDelayMessageResponse> {
     const data = MsgDelayMessage.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.delaymsg.Msg", "DelayMessage", data);
+    const promise = this.rpc.request("nemo-network.delaymsg.Msg", "DelayMessage", data);
     return promise.then(data => MsgDelayMessageResponse.decode(new _m0.Reader(data)));
   }
 

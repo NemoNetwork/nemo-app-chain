@@ -6,9 +6,9 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // GetEquityTierLimitConfiguration gets the equity tier limit configuration from state.
@@ -96,7 +96,7 @@ func (k Keeper) getEquityTierLimitForSubaccount(
 }
 
 // Deprecated: Equity tier limits were removed for short term orders.
-// See https://github.com/dydxprotocol/v4-chain/pull/1318.
+// See https://github.com/nemo-network/v4-chain/pull/1318.
 //
 // ValidateSubaccountEquityTierLimitForShortTermOrder returns an error if adding the order would exceed the equity
 // tier limit on how many short term open orders a subaccount can have. Short-term fill-or-kill and immediate-or-cancel

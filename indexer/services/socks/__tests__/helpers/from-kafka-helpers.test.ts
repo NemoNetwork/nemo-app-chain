@@ -27,14 +27,14 @@ import {
   OrderbookMessage,
   SubaccountMessage,
   TradeMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { V4_MARKETS_ID } from '../../src/lib/constants';
 import {
   dbHelpers,
   testMocks,
   perpetualMarketRefresher,
   CandleResolution,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 
 describe('from-kafka-helpers', () => {
   describe('getChannel', () => {

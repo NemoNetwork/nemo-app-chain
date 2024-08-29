@@ -22,7 +22,7 @@ export class QueryClientImpl implements Query {
 
   epochInfo(request: QueryGetEpochInfoRequest): Promise<QueryEpochInfoResponse> {
     const data = QueryGetEpochInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.epochs.Query", "EpochInfo", data);
+    const promise = this.rpc.request("nemo-network.epochs.Query", "EpochInfo", data);
     return promise.then(data => QueryEpochInfoResponse.decode(new _m0.Reader(data)));
   }
 
@@ -30,7 +30,7 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryEpochInfoAllResponse> {
     const data = QueryAllEpochInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.epochs.Query", "EpochInfoAll", data);
+    const promise = this.rpc.request("nemo-network.epochs.Query", "EpochInfoAll", data);
     return promise.then(data => QueryEpochInfoAllResponse.decode(new _m0.Reader(data)));
   }
 

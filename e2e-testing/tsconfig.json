@@ -20,7 +20,7 @@
     "strict": true,
     "useUnknownInCatchVariables": false,
     "paths": {
-      "@dydxprotocol-indexer/example-package": ["packages/example-package/src"],
+      "@nemo-network-indexer/example-package": ["packages/example-package/src"],
     },
     "baseUrl": ".",
     "outDir": "build",

@@ -1,11 +1,11 @@
 syntax = "proto3";
-package dydxprotocol.feetiers;
+package nemo-network.feetiers;
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/feetiers/types";
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
-import "dydxprotocol/feetiers/params.proto";
+import "nemo-network/feetiers/params.proto";
 import "gogoproto/gogo.proto";
 
 // Msg defines the Msg service.

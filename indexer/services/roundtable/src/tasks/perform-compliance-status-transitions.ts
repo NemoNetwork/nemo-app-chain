@@ -1,13 +1,13 @@
 import {
   ONE_DAY_IN_MILLISECONDS,
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   ComplianceStatusFromDatabase,
   ComplianceStatusTable,
   ComplianceStatus,
   ComplianceStatusUpsertObject,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 
 import config from '../config';
 

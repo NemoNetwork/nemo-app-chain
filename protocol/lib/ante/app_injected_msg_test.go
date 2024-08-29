@@ -5,11 +5,11 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	appmsgs "github.com/dydxprotocol/v4-chain/protocol/app/msgs"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/ante"
-	testmsgs "github.com/dydxprotocol/v4-chain/protocol/testutil/msgs"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	appmsgs "github.com/nemo-network/v4-chain/protocol/app/msgs"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/ante"
+	testmsgs "github.com/nemo-network/v4-chain/protocol/testutil/msgs"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/stretchr/testify/require"
 )
 

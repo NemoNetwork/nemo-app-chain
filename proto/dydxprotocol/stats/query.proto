@@ -1,34 +1,34 @@
 syntax = "proto3";
-package dydxprotocol.stats;
+package nemo-network.stats;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "dydxprotocol/stats/params.proto";
-import "dydxprotocol/stats/stats.proto";
+import "nemo-network/stats/params.proto";
+import "nemo-network/stats/stats.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/stats/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/stats/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries the Params.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/params";
+    option (google.api.http).get = "/nemo-network/v4/stats/params";
   }
 
   // Queries StatsMetadata.
   rpc StatsMetadata(QueryStatsMetadataRequest)
       returns (QueryStatsMetadataResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/stats_metadata";
+    option (google.api.http).get = "/nemo-network/v4/stats/stats_metadata";
   }
 
   // Queries GlobalStats.
   rpc GlobalStats(QueryGlobalStatsRequest) returns (QueryGlobalStatsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/global_stats";
+    option (google.api.http).get = "/nemo-network/v4/stats/global_stats";
   }
 
   // Queries UserStats.
   rpc UserStats(QueryUserStatsRequest) returns (QueryUserStatsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/user_stats";
+    option (google.api.http).get = "/nemo-network/v4/stats/user_stats";
   }
 }
 

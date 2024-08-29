@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.daemons.pricefeed;
+package nemo-network.daemons.pricefeed;
 
 import "gogoproto/gogo.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/api";
+option go_package = "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/api";
 
 // PriceFeedService provides methods related to market prices.
 service PriceFeedService {

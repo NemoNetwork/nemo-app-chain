@@ -3,7 +3,7 @@ import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   AssetColumns,
   AssetFromDatabase,
@@ -15,9 +15,9 @@ import {
   BlockTable,
   TendermintEventTable,
   assetRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { KafkaMessage } from 'kafkajs';
-import { createKafkaMessage } from '@dydxprotocol-indexer/kafka';
+import { createKafkaMessage } from '@nemo-network-indexer/kafka';
 import { onMessage } from '../../src/lib/on-message';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {

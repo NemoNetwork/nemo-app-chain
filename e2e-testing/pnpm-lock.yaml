@@ -1,13 +1,13 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@dydxprotocol-indexer/base': file:../indexer/packages/base
-  '@dydxprotocol-indexer/dev': file:../indexer/packages/dev
-  '@dydxprotocol-indexer/kafka': file:../indexer/packages/kafka
-  '@dydxprotocol-indexer/postgres': file:../indexer/packages/postgres
-  '@dydxprotocol-indexer/v4-proto-parser': file:../indexer/packages/v4-proto-parser
-  '@dydxprotocol-indexer/v4-protos': file:../indexer/packages/v4-protos
-  '@dydxprotocol/v4-client-js': ^1.0.12
+  '@nemo-network-indexer/base': file:../indexer/packages/base
+  '@nemo-network-indexer/dev': file:../indexer/packages/dev
+  '@nemo-network-indexer/kafka': file:../indexer/packages/kafka
+  '@nemo-network-indexer/postgres': file:../indexer/packages/postgres
+  '@nemo-network-indexer/v4-proto-parser': file:../indexer/packages/v4-proto-parser
+  '@nemo-network-indexer/v4-protos': file:../indexer/packages/v4-protos
+  '@nemo-network/v4-client-js': ^1.0.12
   '@types/big.js': ^6.1.5
   '@types/jest': ^28.1.4
   '@types/long': 4.0.2
@@ -37,12 +37,12 @@ specifiers:
   yargs: ^13.3.0
 
 dependencies:
-  '@dydxprotocol-indexer/base': link:../indexer/packages/base
-  '@dydxprotocol-indexer/kafka': link:../indexer/packages/kafka
-  '@dydxprotocol-indexer/postgres': link:../indexer/packages/postgres
-  '@dydxprotocol-indexer/v4-proto-parser': link:../indexer/packages/v4-proto-parser
-  '@dydxprotocol-indexer/v4-protos': link:../indexer/packages/v4-protos
-  '@dydxprotocol/v4-client-js': 1.0.12
+  '@nemo-network-indexer/base': link:../indexer/packages/base
+  '@nemo-network-indexer/kafka': link:../indexer/packages/kafka
+  '@nemo-network-indexer/postgres': link:../indexer/packages/postgres
+  '@nemo-network-indexer/v4-proto-parser': link:../indexer/packages/v4-proto-parser
+  '@nemo-network-indexer/v4-protos': link:../indexer/packages/v4-protos
+  '@nemo-network/v4-client-js': 1.0.12
   big.js: 6.2.1
   dotenv-flow: 3.3.0
   kafkajs: 2.2.4
@@ -52,7 +52,7 @@ dependencies:
   yargs: 13.3.2
 
 devDependencies:
-  '@dydxprotocol-indexer/dev': link:../indexer/packages/dev
+  '@nemo-network-indexer/dev': link:../indexer/packages/dev
   '@types/big.js': 6.2.2
   '@types/jest': 28.1.8
   '@types/long': 4.0.2
@@ -545,7 +545,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@dydxprotocol/v4-client-js/1.0.12:
+  /@nemo-network/v4-client-js/1.0.12:
     resolution: {integrity: sha512-PeB541a9CgHxtgzLjAa0Yw+qJfIyGcfhGYN0g7/MGvDzlkX45g0dLTfmglYG+w4GCe7rQFoIhSPLLS/w4VjVjg==}
     dependencies:
       '@cosmjs/amino': 0.32.1
@@ -555,7 +555,7 @@ packages:
       '@cosmjs/stargate': 0.32.1
       '@cosmjs/tendermint-rpc': 0.32.1
       '@cosmjs/utils': 0.32.1
-      '@dydxprotocol/v4-proto': 3.0.0-dev.0
+      '@nemo-network/v4-proto': 3.0.0-dev.0
       '@osmonauts/lcd': 0.6.0
       '@scure/bip32': 1.3.2
       '@scure/bip39': 1.2.1
@@ -573,7 +573,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@dydxprotocol/v4-proto/3.0.0-dev.0:
+  /@nemo-network/v4-proto/3.0.0-dev.0:
     resolution: {integrity: sha512-hT6F/AgaTqv8Bwo7twpIhmjXvJE/Fx+3mmHHTuIXMeL6OhVtlOpcEQyHvBEAdh1VrNq/S7qWvdQD0fvC/UgKyA==}
     dependencies:
       protobufjs: 6.11.4

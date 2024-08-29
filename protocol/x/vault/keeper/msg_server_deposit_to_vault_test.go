@@ -9,11 +9,11 @@ import (
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/types"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vaulttypes "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 

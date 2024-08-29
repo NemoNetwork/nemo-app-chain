@@ -5,7 +5,7 @@ set -eo pipefail
 
 source "./genesis.sh"
 
-CHAIN_ID="dydxprotocol-testnet"
+CHAIN_ID="nemo-network-testnet"
 
 # Define mnemonics for all validators.
 MNEMONICS=(
@@ -99,7 +99,7 @@ NODE_KEYS=(
 )
 
 # Define monikers for each validator. These are made up strings and can be anything.
-# This also controls in which directory the validator's home will be located. i.e. `/dydxprotocol/chain/.alice`
+# This also controls in which directory the validator's home will be located. i.e. `/nemo-network/chain/.alice`
 MONIKERS=(
 	"alice"
 	"bob"

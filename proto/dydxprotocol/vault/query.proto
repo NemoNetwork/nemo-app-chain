@@ -1,33 +1,33 @@
 syntax = "proto3";
-package dydxprotocol.vault;
+package nemo-network.vault;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "dydxprotocol/subaccounts/subaccount.proto";
-import "dydxprotocol/vault/params.proto";
-import "dydxprotocol/vault/vault.proto";
+import "nemo-network/subaccounts/subaccount.proto";
+import "nemo-network/vault/params.proto";
+import "nemo-network/vault/vault.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/vault/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries the Params.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/vault/params";
+    option (google.api.http).get = "/nemo-network/vault/params";
   }
   // Queries a Vault by type and number.
   rpc Vault(QueryVaultRequest) returns (QueryVaultResponse) {
-    option (google.api.http).get = "/dydxprotocol/vault/vault/{type}/{number}";
+    option (google.api.http).get = "/nemo-network/vault/vault/{type}/{number}";
   }
   // Queries all vaults.
   rpc AllVaults(QueryAllVaultsRequest) returns (QueryAllVaultsResponse) {
-    option (google.api.http).get = "/dydxprotocol/vault/vault";
+    option (google.api.http).get = "/nemo-network/vault/vault";
   }
   // Queries owner shares of a vault.
   rpc OwnerShares(QueryOwnerSharesRequest) returns (QueryOwnerSharesResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/vault/owner_shares/{type}/{number}";
+        "/nemo-network/vault/owner_shares/{type}/{number}";
   }
 }
 
@@ -48,16 +48,16 @@ message QueryVaultRequest {
 // QueryVaultResponse is a response type for the Vault RPC method.
 message QueryVaultResponse {
   VaultId vault_id = 1 [ (gogoproto.nullable) = false ];
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 2
+  nemo-network.subaccounts.SubaccountId subaccount_id = 2
       [ (gogoproto.nullable) = false ];
   bytes equity = 3 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
   bytes inventory = 4 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
   NumShares total_shares = 5 [ (gogoproto.nullable) = false ];

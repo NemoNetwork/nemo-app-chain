@@ -5,8 +5,8 @@ import (
 
 	tmcfg "github.com/cometbft/cometbft/config"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	oracleconfig "github.com/skip-mev/slinky/oracle/config"
 )
 
@@ -113,7 +113,7 @@ func initTendermintConfig() *tmcfg.Config {
 
 	// Set default commit timeout to 500ms for faster block time.
 	// Note: avoid using 1s since it's considered tne default Tendermint value
-	// (https://github.com/dydxprotocol/tendermint/blob/dc03b21cf5d54c641e1d14b14fae5920fa7ba656/config/config.go#L982)
+	// (https://github.com/nemo-network/tendermint/blob/dc03b21cf5d54c641e1d14b14fae5920fa7ba656/config/config.go#L982)
 	// and will be overridden by `interceptConfigs` in `cosmos-sdk`.
 	cfg.Consensus.TimeoutCommit = 500 * time.Millisecond
 

@@ -15,7 +15,7 @@ export class LCDQueryClient {
 
 
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `dydxprotocol/v4/rewards/params`;
+    const endpoint = `nemo-network/v4/rewards/params`;
     return await this.req.get<QueryParamsResponseSDKType>(endpoint);
   }
 

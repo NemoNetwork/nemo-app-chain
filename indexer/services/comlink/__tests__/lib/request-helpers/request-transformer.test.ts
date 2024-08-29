@@ -14,12 +14,12 @@ import {
   BestEffortOpenedStatus,
   LiquidityTiersFromDatabase,
   helpers,
-} from '@dydxprotocol-indexer/postgres';
-import { OrderbookLevels, redisTestConstants } from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/postgres';
+import { OrderbookLevels, redisTestConstants } from '@nemo-network-indexer/redis';
 import {
   IndexerOrder_TimeInForce,
   RedisOrder,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import {
   OrderbookLevelsToResponseObject,

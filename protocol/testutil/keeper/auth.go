@@ -12,10 +12,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	perpetualstypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	perpetualstypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 func createAccountKeeper(

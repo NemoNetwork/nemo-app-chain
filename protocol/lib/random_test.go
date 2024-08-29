@@ -2,7 +2,7 @@ package lib_test
 
 import (
 	"bytes"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 	"math/rand"
 	"testing"
 

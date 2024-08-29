@@ -23,7 +23,7 @@ export class LCDQueryClient {
       options.params.vester_account = params.vesterAccount;
     }
 
-    const endpoint = `dydxprotocol/v4/vest/vest_entry`;
+    const endpoint = `nemo-network/v4/vest/vest_entry`;
     return await this.req.get<QueryVestEntryResponseSDKType>(endpoint, options);
   }
 

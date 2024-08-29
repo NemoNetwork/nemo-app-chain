@@ -1,4 +1,4 @@
-import { delay, logger } from '@dydxprotocol-indexer/base';
+import { delay, logger } from '@nemo-network-indexer/base';
 
 export async function startUpdateLoop(
   updateFunction: () => Promise<void>,

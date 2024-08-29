@@ -1,16 +1,16 @@
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 import {
   dbHelpers,
   OrderSide,
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   OpenOrdersCache,
   OrderbookLevelsCache,
   redis,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 import
 orderbookInstrumentationTask,
 { priceToSubticks }

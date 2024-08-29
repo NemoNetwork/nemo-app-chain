@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/liquidation/api"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/server/types"
-	liquidationtypes "github.com/dydxprotocol/v4-chain/protocol/daemons/server/types/liquidations"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/daemons/liquidation/api"
+	"github.com/nemo-network/v4-chain/protocol/daemons/server/types"
+	liquidationtypes "github.com/nemo-network/v4-chain/protocol/daemons/server/types/liquidations"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
 )
 
 // LiquidationServer defines the fields required for liquidation updates.

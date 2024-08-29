@@ -147,7 +147,7 @@ import * as _157 from "./vest/tx.rpc.msg";
 import * as _158 from "./lcd";
 import * as _159 from "./rpc.query";
 import * as _160 from "./rpc.tx";
-export namespace dydxprotocol {
+export namespace nemo-network {
   export const assets = { ..._5,
     ..._6,
     ..._7,

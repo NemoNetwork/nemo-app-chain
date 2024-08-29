@@ -7,8 +7,8 @@ import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/x/govplus/types"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/x/govplus/types"
 )
 
 type msgServer struct {

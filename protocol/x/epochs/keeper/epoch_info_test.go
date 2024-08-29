@@ -9,10 +9,10 @@ import (
 	errorsmod "cosmossdk.io/errors"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/nullify"
-	"github.com/dydxprotocol/v4-chain/protocol/x/epochs/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/epochs/types"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/testutil/nullify"
+	"github.com/nemo-network/v4-chain/protocol/x/epochs/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/epochs/types"
 	"github.com/stretchr/testify/require"
 )
 

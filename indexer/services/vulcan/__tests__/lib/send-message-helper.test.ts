@@ -1,16 +1,16 @@
 import {
   delay, logger, stats, STATS_NO_SAMPLING, wrapBackgroundTask,
-} from '@dydxprotocol-indexer/base';
-import { synchronizeWrapBackgroundTask } from '@dydxprotocol-indexer/dev';
-import { producer, WebsocketTopics } from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/base';
+import { synchronizeWrapBackgroundTask } from '@nemo-network-indexer/dev';
+import { producer, WebsocketTopics } from '@nemo-network-indexer/kafka';
 import {
   flushAllQueues, sendMessageWrapper, sizeStat, timingStat,
 } from '../../src/lib/send-message-helper';
 import config from '../../src/config';
 import { Message, ProducerRecord } from 'kafkajs';
 
-jest.mock('@dydxprotocol-indexer/base', () => ({
-  ...jest.requireActual('@dydxprotocol-indexer/base'),
+jest.mock('@nemo-network-indexer/base', () => ({
+  ...jest.requireActual('@nemo-network-indexer/base'),
   wrapBackgroundTask: jest.fn(),
 }));
 

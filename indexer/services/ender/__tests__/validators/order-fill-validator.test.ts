@@ -1,10 +1,10 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   OrderFillEventV1,
   IndexerOrder_Side,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import { OrderFillValidator } from '../../src/validators/order-fill-validator';
 import {
@@ -21,7 +21,7 @@ import {
 import { createIndexerTendermintBlock, createIndexerTendermintEvent } from '../helpers/indexer-proto-helpers';
 import { expectDidntLogError, expectLoggedParseMessageError } from '../helpers/validator-helpers';
 import { OrderFillWithLiquidity } from '../../src/lib/translated-types';
-import { Liquidity } from '@dydxprotocol-indexer/postgres';
+import { Liquidity } from '@nemo-network-indexer/postgres';
 
 describe('order-fill-validator', () => {
   beforeEach(() => {

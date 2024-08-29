@@ -1,11 +1,11 @@
-import { Liquidity } from '@dydxprotocol-indexer/postgres';
+import { Liquidity } from '@nemo-network-indexer/postgres';
 import {
   IndexerAssetPosition,
   IndexerOrder,
   IndexerPerpetualPosition,
   IndexerSubaccountId, LiquidationOrderV1,
-} from '@dydxprotocol-indexer/v4-protos';
-import { Long } from '@dydxprotocol-indexer/v4-protos/build/codegen/helpers';
+} from '@nemo-network-indexer/v4-protos';
+import { Long } from '@nemo-network-indexer/v4-protos/build/codegen/helpers';
 
 /* Canonical object types for handling onchain messages from the protocol. */
 

@@ -2,9 +2,9 @@ package price_fetcher
 
 import (
 	"cosmossdk.io/log"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/stretchr/testify/require"
 	"testing"
 )

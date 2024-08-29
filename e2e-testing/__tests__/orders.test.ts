@@ -8,7 +8,7 @@ import {
   SocketClient,
   SubaccountInfo,
   ValidatorClient,
-} from '@dydxprotocol/v4-client-js';
+} from '@nemo-network/v4-client-js';
 import {
   DYDX_LOCAL_ADDRESS,
   DYDX_LOCAL_ADDRESS_2,
@@ -30,7 +30,7 @@ import {
   OrderSide,
   OrderTable,
   SubaccountTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 
 async function placeOrder(
   mnemonic: string,

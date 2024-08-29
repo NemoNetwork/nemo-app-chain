@@ -1,4 +1,4 @@
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   FundingIndexUpdatesTable,
   PerpetualMarketFromDatabase,
@@ -7,13 +7,13 @@ import {
   PerpetualMarketModel,
   FundingIndexUpdatesFromDatabase,
   FundingIndexUpdatesModel,
-} from '@dydxprotocol-indexer/postgres';
-import { NextFundingCache } from '@dydxprotocol-indexer/redis';
-import { bytesToBigInt } from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/postgres';
+import { NextFundingCache } from '@nemo-network-indexer/redis';
+import { bytesToBigInt } from '@nemo-network-indexer/v4-proto-parser';
 import {
   FundingEventV1_Type,
   FundingUpdateV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 import * as pg from 'pg';

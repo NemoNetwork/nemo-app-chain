@@ -18,12 +18,12 @@ import (
 	icahosttypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/host/types"
 	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
 	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	bridgemoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	perpetualsmoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	rewardsmoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vestmoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	bridgemoduletypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	perpetualsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	rewardsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vestmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 )
 
 var (
@@ -114,7 +114,7 @@ func InitializeModuleAccs(ctx sdk.Context, ak authkeeper.AccountKeeper) {
 
 		// Account has not been initialized at all. Initialize it as module.
 		// Implementation taken from
-		// https://github.com/dydxprotocol/cosmos-sdk/blob/bdf96fdd/x/auth/keeper/keeper.go#L213
+		// https://github.com/nemo-network/cosmos-sdk/blob/bdf96fdd/x/auth/keeper/keeper.go#L213
 		newModuleAccount := authtypes.NewEmptyModuleAccount(modAccName, perms...)
 		maccI := (ak.NewAccount(ctx, newModuleAccount)).(sdk.ModuleAccountI) // this set the account number
 		ak.SetModuleAccount(ctx, maccI)

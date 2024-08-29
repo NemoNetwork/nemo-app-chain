@@ -33,7 +33,7 @@ export class QueryClientImpl implements Query {
 
   subaccount(request: QueryGetSubaccountRequest): Promise<QuerySubaccountResponse> {
     const data = QueryGetSubaccountRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.subaccounts.Query", "Subaccount", data);
+    const promise = this.rpc.request("nemo-network.subaccounts.Query", "Subaccount", data);
     return promise.then(data => QuerySubaccountResponse.decode(new _m0.Reader(data)));
   }
 
@@ -41,19 +41,19 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QuerySubaccountAllResponse> {
     const data = QueryAllSubaccountRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.subaccounts.Query", "SubaccountAll", data);
+    const promise = this.rpc.request("nemo-network.subaccounts.Query", "SubaccountAll", data);
     return promise.then(data => QuerySubaccountAllResponse.decode(new _m0.Reader(data)));
   }
 
   getWithdrawalAndTransfersBlockedInfo(request: QueryGetWithdrawalAndTransfersBlockedInfoRequest): Promise<QueryGetWithdrawalAndTransfersBlockedInfoResponse> {
     const data = QueryGetWithdrawalAndTransfersBlockedInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.subaccounts.Query", "GetWithdrawalAndTransfersBlockedInfo", data);
+    const promise = this.rpc.request("nemo-network.subaccounts.Query", "GetWithdrawalAndTransfersBlockedInfo", data);
     return promise.then(data => QueryGetWithdrawalAndTransfersBlockedInfoResponse.decode(new _m0.Reader(data)));
   }
 
   collateralPoolAddress(request: QueryCollateralPoolAddressRequest): Promise<QueryCollateralPoolAddressResponse> {
     const data = QueryCollateralPoolAddressRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.subaccounts.Query", "CollateralPoolAddress", data);
+    const promise = this.rpc.request("nemo-network.subaccounts.Query", "CollateralPoolAddress", data);
     return promise.then(data => QueryCollateralPoolAddressResponse.decode(new _m0.Reader(data)));
   }
 

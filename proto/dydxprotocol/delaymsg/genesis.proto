@@ -1,9 +1,9 @@
 syntax = "proto3";
-package dydxprotocol.delaymsg;
+package nemo-network.delaymsg;
 
-import "dydxprotocol/delaymsg/delayed_message.proto";
+import "nemo-network/delaymsg/delayed_message.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types";
 
 // GenesisState defines the delaymsg module's genesis state.
 message GenesisState {

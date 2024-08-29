@@ -3,9 +3,9 @@ package lib
 import (
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // GetSettlementPpm returns the net settlement amount ppm (in quote quantums) given

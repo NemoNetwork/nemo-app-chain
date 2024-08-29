@@ -10,9 +10,9 @@ import (
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"github.com/stretchr/testify/require"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/network"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/client/cli"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/network"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/client/cli"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 // Prevent strconv unused error

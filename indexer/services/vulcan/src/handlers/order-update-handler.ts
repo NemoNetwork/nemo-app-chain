@@ -2,27 +2,27 @@ import {
   logger,
   runFuncWithTimingStat,
   stats,
-} from '@dydxprotocol-indexer/base';
-import { KafkaTopics } from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/base';
+import { KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   PerpetualMarketFromDatabase,
   protocolTranslations,
   perpetualMarketRefresher,
   OrderTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   updateOrder,
   UpdateOrderResult,
   OrderbookLevelsCache,
   OpenOrdersCache,
   StatefulOrderUpdatesCache,
-} from '@dydxprotocol-indexer/redis';
-import { isStatefulOrder, requiresImmediateExecution } from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/redis';
+import { isStatefulOrder, requiresImmediateExecution } from '@nemo-network-indexer/v4-proto-parser';
 import {
   OffChainUpdateV1,
   OrderUpdateV1,
   RedisOrder,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import { IHeaders, Message } from 'kafkajs';
 

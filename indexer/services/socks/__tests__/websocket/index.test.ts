@@ -14,7 +14,7 @@ import {
 } from '../../src/types';
 import { InvalidMessageHandler } from '../../src/lib/invalid-message';
 import { PingHandler } from '../../src/lib/ping';
-import { COUNTRY_HEADER_KEY } from '@dydxprotocol-indexer/compliance';
+import { COUNTRY_HEADER_KEY } from '@nemo-network-indexer/compliance';
 
 jest.mock('uuid');
 jest.mock('../../src/helpers/wss');

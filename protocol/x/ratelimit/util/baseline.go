@@ -3,8 +3,8 @@ package util
 import (
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
 )
 
 // GetBaseline returns the current capacity baseline for the given limiter.

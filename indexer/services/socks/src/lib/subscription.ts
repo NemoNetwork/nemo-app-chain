@@ -2,8 +2,8 @@ import {
   AxiosSafeServerError,
   logger,
   stats,
-} from '@dydxprotocol-indexer/base';
-import { CandleResolution, perpetualMarketRefresher } from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/base';
+import { CandleResolution, perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
 import WebSocket from 'ws';
 
 import config from '../config';

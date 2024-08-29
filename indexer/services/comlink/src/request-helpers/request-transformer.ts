@@ -26,9 +26,9 @@ import {
   TradingRewardFromDatabase,
   TransferFromDatabase,
   TransferType,
-} from '@dydxprotocol-indexer/postgres';
-import { OrderbookLevels, PriceLevel } from '@dydxprotocol-indexer/redis';
-import { RedisOrder } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { OrderbookLevels, PriceLevel } from '@nemo-network-indexer/redis';
+import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 

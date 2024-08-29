@@ -4,8 +4,8 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // FillAmountToQuoteQuantums converts a fill amount denoted in base quantums, to a price denoted in quote

@@ -12,12 +12,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
-	ratelimitutil "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/util"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	ratelimitutil "github.com/nemo-network/v4-chain/protocol/x/ratelimit/util"
 	gometrics "github.com/hashicorp/go-metrics"
 )
 

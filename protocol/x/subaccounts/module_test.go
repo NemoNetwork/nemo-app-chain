@@ -9,20 +9,20 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/module"
+	"github.com/nemo-network/v4-chain/protocol/app/module"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/sample"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts"
-	sa_keeper "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/keeper"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/testutil/sample"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts"
+	sa_keeper "github.com/nemo-network/v4-chain/protocol/x/subaccounts/keeper"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -163,21 +163,21 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect SubaccountAll route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/dydxprotocol/subaccounts/subaccount", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/subaccounts/subaccount", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect Subaccount route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/subaccounts/subaccount/foo/127", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/subaccounts/subaccount/foo/127", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect unexpected route not registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/subaccounts/foo/bar/baz", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/subaccounts/foo/bar/baz", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

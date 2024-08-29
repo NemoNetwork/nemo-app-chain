@@ -4,10 +4,10 @@ import (
 	"os"
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	"github.com/dydxprotocol/v4-chain/protocol/app/config"
-	"github.com/dydxprotocol/v4-chain/protocol/app/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/cmd/nemod/cmd"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	"github.com/nemo-network/v4-chain/protocol/app/config"
+	"github.com/nemo-network/v4-chain/protocol/app/constants"
+	"github.com/nemo-network/v4-chain/protocol/cmd/nemod/cmd"
 )
 
 func main() {

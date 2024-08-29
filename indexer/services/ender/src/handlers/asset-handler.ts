@@ -2,8 +2,8 @@ import {
   AssetFromDatabase,
   AssetModel,
   assetRefresher,
-} from '@dydxprotocol-indexer/postgres';
-import { AssetCreateEventV1 } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { AssetCreateEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 
 import { ConsolidatedKafkaEvent } from '../lib/types';

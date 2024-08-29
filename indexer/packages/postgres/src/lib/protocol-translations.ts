@@ -1,11 +1,11 @@
-import { bytesToBigInt } from '@dydxprotocol-indexer/v4-proto-parser';
+import { bytesToBigInt } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,
   IndexerOrder_Side,
   IndexerOrder_TimeInForce,
   IndexerOrder_ConditionType,
   ClobPairStatus,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import { DateTime } from 'luxon';
 
@@ -305,7 +305,7 @@ export function getGoodTilBlockTime(order: IndexerOrder): IsoString | undefined 
   if (order.goodTilBlockTime !== undefined) {
     // `goodTilBlockTime` is the unix timestamp in seconds
     // Reference:
-    // https://github.com/dydxprotocol/v4/blob/main/proto/dydxprotocol/clob/order.proto#L138-L144
+    // https://github.com/nemo-network/v4/blob/main/proto/nemo-network/clob/order.proto#L138-L144
     return DateTime.fromSeconds(order.goodTilBlockTime).toUTC().toISO();
   }
   return undefined;

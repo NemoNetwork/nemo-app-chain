@@ -9,8 +9,8 @@ import (
 	oracleclient "github.com/skip-mev/slinky/service/clients/oracle"
 	"github.com/skip-mev/slinky/service/servers/oracle/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/api"
-	pricefeedtypes "github.com/dydxprotocol/v4-chain/protocol/daemons/server/types/pricefeed"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/api"
+	pricefeedtypes "github.com/nemo-network/v4-chain/protocol/daemons/server/types/pricefeed"
 )
 
 // PriceFetcher is responsible for pulling prices from the slinky sidecar and sending them to the pricefeed server.

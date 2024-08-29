@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.ratelimit;
+package nemo-network.ratelimit;
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types";
 
 import "cosmos/msg/v1/msg.proto";
-import "dydxprotocol/ratelimit/limit_params.proto";
+import "nemo-network/ratelimit/limit_params.proto";
 import "gogoproto/gogo.proto";
 
 // Msg defines the Msg service.

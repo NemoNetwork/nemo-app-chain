@@ -1,5 +1,5 @@
-import { CountryHeaders, isRestrictedCountryHeaders } from '@dydxprotocol-indexer/compliance';
-import { ComplianceReason } from '@dydxprotocol-indexer/postgres';
+import { CountryHeaders, isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance';
+import { ComplianceReason } from '@nemo-network-indexer/postgres';
 
 export function getGeoComplianceReason(
   headers: CountryHeaders,

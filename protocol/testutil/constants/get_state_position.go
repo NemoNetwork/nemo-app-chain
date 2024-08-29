@@ -3,8 +3,8 @@ package constants
 import (
 	"math/big"
 
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 var (

@@ -5,17 +5,17 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 
 	"github.com/cometbft/cometbft/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	sendingtypes "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	vesttypes "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	vesttypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 	"github.com/stretchr/testify/require"
 )
 

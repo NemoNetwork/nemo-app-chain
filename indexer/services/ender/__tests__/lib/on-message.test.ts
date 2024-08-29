@@ -20,7 +20,7 @@ import {
   testMocks,
   TransactionFromDatabase,
   TransactionTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   FundingEventV1,
   IndexerTendermintBlock,
@@ -31,17 +31,17 @@ import {
   SubaccountUpdateEventV1,
   Timestamp,
   TransferEventV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { createIndexerTendermintBlock, createIndexerTendermintEvent } from '../helpers/indexer-proto-helpers';
 import { onMessage } from '../../src/lib/on-message';
 import { KafkaMessage } from 'kafkajs';
 import {
   createKafkaMessage, KafkaTopics, producer,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import { MILLIS_IN_NANOS, SECONDS_IN_MILLIS } from '../../src/constants';
 import { ConsolidatedKafkaEvent, DydxIndexerSubtypes } from '../../src/lib/types';
 import config from '../../src/config';
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   defaultFundingUpdateSampleEvent,
   defaultHeight,

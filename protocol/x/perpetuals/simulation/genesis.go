@@ -8,17 +8,17 @@ import (
 	"math/big"
 	"math/rand"
 
-	v4module "github.com/dydxprotocol/v4-chain/protocol/app/module"
+	v4module "github.com/nemo-network/v4-chain/protocol/app/module"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/sim_helpers"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/testutil/sim_helpers"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // genNumPerpetuals returns randomized number of perpetuals.

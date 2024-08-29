@@ -1,12 +1,12 @@
 package constants
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/json"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed"
+	"github.com/nemo-network/v4-chain/protocol/testutil/json"
 	"github.com/stretchr/testify/require"
 )
 

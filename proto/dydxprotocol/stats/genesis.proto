@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.stats;
+package nemo-network.stats;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/stats/params.proto";
+import "nemo-network/stats/params.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/stats/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/stats/types";
 
 // GenesisState defines the stats module's genesis state.
 message GenesisState {

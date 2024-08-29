@@ -1,6 +1,6 @@
 import {
   CandleResolution, CandleTable, dbHelpers, perpetualMarketRefresher, testConstants, testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 import request from 'supertest';
 

@@ -1,11 +1,11 @@
 syntax = "proto3";
-package dydxprotocol.rewards;
+package nemo-network.rewards;
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/rewards/types";
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
-import "dydxprotocol/rewards/params.proto";
+import "nemo-network/rewards/params.proto";
 import "gogoproto/gogo.proto";
 
 // Msg defines the Msg service.

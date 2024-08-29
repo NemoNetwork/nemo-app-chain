@@ -1,13 +1,13 @@
 syntax = "proto3";
-package dydxprotocol.perpetuals;
+package nemo-network.perpetuals;
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
 import "gogoproto/gogo.proto";
-import "dydxprotocol/perpetuals/params.proto";
-import "dydxprotocol/perpetuals/perpetual.proto";
+import "nemo-network/perpetuals/params.proto";
+import "nemo-network/perpetuals/perpetual.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types";
 
 // Msg defines the Msg service.
 service Msg {

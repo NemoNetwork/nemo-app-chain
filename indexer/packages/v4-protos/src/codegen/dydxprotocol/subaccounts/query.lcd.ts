@@ -19,7 +19,7 @@ export class LCDQueryClient {
 
 
   async subaccount(params: QueryGetSubaccountRequest): Promise<QuerySubaccountResponseSDKType> {
-    const endpoint = `dydxprotocol/subaccounts/subaccount/${params.owner}/${params.number}`;
+    const endpoint = `nemo-network/subaccounts/subaccount/${params.owner}/${params.number}`;
     return await this.req.get<QuerySubaccountResponseSDKType>(endpoint);
   }
   /* Queries a list of Subaccount items. */
@@ -36,7 +36,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `dydxprotocol/subaccounts/subaccount`;
+    const endpoint = `nemo-network/subaccounts/subaccount`;
     return await this.req.get<QuerySubaccountAllResponseSDKType>(endpoint, options);
   }
   /* Queries information about whether withdrawal and transfers are blocked, and
@@ -44,14 +44,14 @@ export class LCDQueryClient {
 
 
   async getWithdrawalAndTransfersBlockedInfo(params: QueryGetWithdrawalAndTransfersBlockedInfoRequest): Promise<QueryGetWithdrawalAndTransfersBlockedInfoResponseSDKType> {
-    const endpoint = `dydxprotocol/subaccounts/withdrawals_and_transfers_blocked_info/${params.perpetualId}`;
+    const endpoint = `nemo-network/subaccounts/withdrawals_and_transfers_blocked_info/${params.perpetualId}`;
     return await this.req.get<QueryGetWithdrawalAndTransfersBlockedInfoResponseSDKType>(endpoint);
   }
   /* Queries the collateral pool account address for a perpetual id. */
 
 
   async collateralPoolAddress(params: QueryCollateralPoolAddressRequest): Promise<QueryCollateralPoolAddressResponseSDKType> {
-    const endpoint = `dydxprotocol/subaccounts/collateral_pool_address/${params.perpetualId}`;
+    const endpoint = `nemo-network/subaccounts/collateral_pool_address/${params.perpetualId}`;
     return await this.req.get<QueryCollateralPoolAddressResponseSDKType>(endpoint);
   }
 

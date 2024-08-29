@@ -3,9 +3,9 @@ package memclob
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	sdktest "github.com/dydxprotocol/v4-chain/protocol/testutil/sdk"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	sdktest "github.com/nemo-network/v4-chain/protocol/testutil/sdk"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -5,11 +5,11 @@ CREATE OR REPLACE FUNCTION dydx_trading_rewards_handler(
   Parameters:
     - block_height: the height of the block being processing.
     - block_time: the time of the block being processed.
-    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/proto/dydxprotocol/indexer/indexer_manager/event.proto#L25)
+    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/nemo-network/v4-chain/blob/9ed26bd/proto/nemo-network/indexer/indexer_manager/event.proto#L25)
         converted to JSON format. Conversion to JSON is expected to be done by JSON.stringify.
     - event_index: The 'event_index' of the IndexerTendermintEvent.
     - transaction_index: The transaction_index of the IndexerTendermintEvent after the conversion that takes into
-        account the block_event (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/indexer/services/ender/src/lib/helper.ts#L41)
+        account the block_event (https://github.com/nemo-network/v4-chain/blob/9ed26bd/indexer/services/ender/src/lib/helper.ts#L41)
     - transaction_hash: The transaction hash corresponding to this event from the IndexerTendermintBlock 'tx_hashes'.
   Returns: JSON object containing fields:
     - tradingRewards: A list of the trading rewards in the trading-reward-model format (indexer/packages/postgres/src/models/trading-reward-model.ts)

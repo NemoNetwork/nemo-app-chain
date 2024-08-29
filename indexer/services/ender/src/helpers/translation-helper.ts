@@ -1,4 +1,4 @@
-import { SubaccountUpdateEventV1 } from '@dydxprotocol-indexer/v4-protos';
+import { SubaccountUpdateEventV1 } from '@nemo-network-indexer/v4-protos';
 
 import { OrderFillWithLiquidity, SubaccountUpdate } from '../lib/translated-types';
 import { OrderFillEventWithLiquidation, OrderFillEventWithLiquidity, OrderFillEventWithOrder } from '../lib/types';

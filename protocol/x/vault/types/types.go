@@ -4,7 +4,7 @@ import (
 	"math/big"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 type VaultKeeper interface {

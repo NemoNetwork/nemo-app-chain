@@ -4,8 +4,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/msgs"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/app/msgs"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/stretchr/testify/require"
 )
 
@@ -64,84 +64,84 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
 
 		// blocktime
-		"/dydxprotocol.blocktime.MsgUpdateDowntimeParams",
-		"/dydxprotocol.blocktime.MsgUpdateDowntimeParamsResponse",
+		"/nemo-network.blocktime.MsgUpdateDowntimeParams",
+		"/nemo-network.blocktime.MsgUpdateDowntimeParamsResponse",
 
 		// bridge
-		"/dydxprotocol.bridge.MsgCompleteBridge",
-		"/dydxprotocol.bridge.MsgCompleteBridgeResponse",
-		"/dydxprotocol.bridge.MsgUpdateEventParams",
-		"/dydxprotocol.bridge.MsgUpdateEventParamsResponse",
-		"/dydxprotocol.bridge.MsgUpdateProposeParams",
-		"/dydxprotocol.bridge.MsgUpdateProposeParamsResponse",
-		"/dydxprotocol.bridge.MsgUpdateSafetyParams",
-		"/dydxprotocol.bridge.MsgUpdateSafetyParamsResponse",
+		"/nemo-network.bridge.MsgCompleteBridge",
+		"/nemo-network.bridge.MsgCompleteBridgeResponse",
+		"/nemo-network.bridge.MsgUpdateEventParams",
+		"/nemo-network.bridge.MsgUpdateEventParamsResponse",
+		"/nemo-network.bridge.MsgUpdateProposeParams",
+		"/nemo-network.bridge.MsgUpdateProposeParamsResponse",
+		"/nemo-network.bridge.MsgUpdateSafetyParams",
+		"/nemo-network.bridge.MsgUpdateSafetyParamsResponse",
 
 		// clob
-		"/dydxprotocol.clob.MsgCreateClobPair",
-		"/dydxprotocol.clob.MsgCreateClobPairResponse",
-		"/dydxprotocol.clob.MsgUpdateBlockRateLimitConfiguration",
-		"/dydxprotocol.clob.MsgUpdateBlockRateLimitConfigurationResponse",
-		"/dydxprotocol.clob.MsgUpdateClobPair",
-		"/dydxprotocol.clob.MsgUpdateClobPairResponse",
-		"/dydxprotocol.clob.MsgUpdateEquityTierLimitConfiguration",
-		"/dydxprotocol.clob.MsgUpdateEquityTierLimitConfigurationResponse",
-		"/dydxprotocol.clob.MsgUpdateLiquidationsConfig",
-		"/dydxprotocol.clob.MsgUpdateLiquidationsConfigResponse",
+		"/nemo-network.clob.MsgCreateClobPair",
+		"/nemo-network.clob.MsgCreateClobPairResponse",
+		"/nemo-network.clob.MsgUpdateBlockRateLimitConfiguration",
+		"/nemo-network.clob.MsgUpdateBlockRateLimitConfigurationResponse",
+		"/nemo-network.clob.MsgUpdateClobPair",
+		"/nemo-network.clob.MsgUpdateClobPairResponse",
+		"/nemo-network.clob.MsgUpdateEquityTierLimitConfiguration",
+		"/nemo-network.clob.MsgUpdateEquityTierLimitConfigurationResponse",
+		"/nemo-network.clob.MsgUpdateLiquidationsConfig",
+		"/nemo-network.clob.MsgUpdateLiquidationsConfigResponse",
 
 		// delaymsg
-		"/dydxprotocol.delaymsg.MsgDelayMessage",
-		"/dydxprotocol.delaymsg.MsgDelayMessageResponse",
+		"/nemo-network.delaymsg.MsgDelayMessage",
+		"/nemo-network.delaymsg.MsgDelayMessageResponse",
 
 		// feetiers
-		"/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams",
-		"/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParamsResponse",
+		"/nemo-network.feetiers.MsgUpdatePerpetualFeeParams",
+		"/nemo-network.feetiers.MsgUpdatePerpetualFeeParamsResponse",
 
 		// govplus
-		"/dydxprotocol.govplus.MsgSlashValidator",
-		"/dydxprotocol.govplus.MsgSlashValidatorResponse",
+		"/nemo-network.govplus.MsgSlashValidator",
+		"/nemo-network.govplus.MsgSlashValidatorResponse",
 
 		// perpeutals
-		"/dydxprotocol.perpetuals.MsgCreatePerpetual",
-		"/dydxprotocol.perpetuals.MsgCreatePerpetualResponse",
-		"/dydxprotocol.perpetuals.MsgSetLiquidityTier",
-		"/dydxprotocol.perpetuals.MsgSetLiquidityTierResponse",
-		"/dydxprotocol.perpetuals.MsgUpdateParams",
-		"/dydxprotocol.perpetuals.MsgUpdateParamsResponse",
-		"/dydxprotocol.perpetuals.MsgUpdatePerpetualParams",
-		"/dydxprotocol.perpetuals.MsgUpdatePerpetualParamsResponse",
+		"/nemo-network.perpetuals.MsgCreatePerpetual",
+		"/nemo-network.perpetuals.MsgCreatePerpetualResponse",
+		"/nemo-network.perpetuals.MsgSetLiquidityTier",
+		"/nemo-network.perpetuals.MsgSetLiquidityTierResponse",
+		"/nemo-network.perpetuals.MsgUpdateParams",
+		"/nemo-network.perpetuals.MsgUpdateParamsResponse",
+		"/nemo-network.perpetuals.MsgUpdatePerpetualParams",
+		"/nemo-network.perpetuals.MsgUpdatePerpetualParamsResponse",
 
 		// prices
-		"/dydxprotocol.prices.MsgCreateOracleMarket",
-		"/dydxprotocol.prices.MsgCreateOracleMarketResponse",
-		"/dydxprotocol.prices.MsgUpdateMarketParam",
-		"/dydxprotocol.prices.MsgUpdateMarketParamResponse",
+		"/nemo-network.prices.MsgCreateOracleMarket",
+		"/nemo-network.prices.MsgCreateOracleMarketResponse",
+		"/nemo-network.prices.MsgUpdateMarketParam",
+		"/nemo-network.prices.MsgUpdateMarketParamResponse",
 
 		// ratelimit
-		"/dydxprotocol.ratelimit.MsgSetLimitParams",
-		"/dydxprotocol.ratelimit.MsgSetLimitParamsResponse",
+		"/nemo-network.ratelimit.MsgSetLimitParams",
+		"/nemo-network.ratelimit.MsgSetLimitParamsResponse",
 
 		// rewards
-		"/dydxprotocol.rewards.MsgUpdateParams",
-		"/dydxprotocol.rewards.MsgUpdateParamsResponse",
+		"/nemo-network.rewards.MsgUpdateParams",
+		"/nemo-network.rewards.MsgUpdateParamsResponse",
 
 		// sending
-		"/dydxprotocol.sending.MsgSendFromModuleToAccount",
-		"/dydxprotocol.sending.MsgSendFromModuleToAccountResponse",
+		"/nemo-network.sending.MsgSendFromModuleToAccount",
+		"/nemo-network.sending.MsgSendFromModuleToAccountResponse",
 
 		// stats
-		"/dydxprotocol.stats.MsgUpdateParams",
-		"/dydxprotocol.stats.MsgUpdateParamsResponse",
+		"/nemo-network.stats.MsgUpdateParams",
+		"/nemo-network.stats.MsgUpdateParamsResponse",
 
 		// vault
-		"/dydxprotocol.vault.MsgUpdateParams",
-		"/dydxprotocol.vault.MsgUpdateParamsResponse",
+		"/nemo-network.vault.MsgUpdateParams",
+		"/nemo-network.vault.MsgUpdateParamsResponse",
 
 		// vest
-		"/dydxprotocol.vest.MsgDeleteVestEntry",
-		"/dydxprotocol.vest.MsgDeleteVestEntryResponse",
-		"/dydxprotocol.vest.MsgSetVestEntry",
-		"/dydxprotocol.vest.MsgSetVestEntryResponse",
+		"/nemo-network.vest.MsgDeleteVestEntry",
+		"/nemo-network.vest.MsgDeleteVestEntryResponse",
+		"/nemo-network.vest.MsgSetVestEntry",
+		"/nemo-network.vest.MsgSetVestEntryResponse",
 
 		// ibc
 		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",

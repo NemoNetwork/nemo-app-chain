@@ -1,11 +1,11 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   FundingEventV1,
   FundingEventV1_Type,
   IndexerTendermintBlock,
   IndexerTendermintEvent,
-} from '@dydxprotocol-indexer/v4-protos';
-import { dbHelpers, perpetualMarketRefresher, testMocks } from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/v4-protos';
+import { dbHelpers, perpetualMarketRefresher, testMocks } from '@nemo-network-indexer/postgres';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import { FundingValidator } from '../../src/validators/funding-validator';
 import {
@@ -20,7 +20,7 @@ import {
   createIndexerTendermintEvent,
 } from '../helpers/indexer-proto-helpers';
 import { expectDidntLogError, expectLoggedParseMessageError } from '../helpers/validator-helpers';
-import { bigIntToBytes } from '@dydxprotocol-indexer/v4-proto-parser';
+import { bigIntToBytes } from '@nemo-network-indexer/v4-proto-parser';
 
 describe('funding-validator', () => {
   beforeEach(async () => {

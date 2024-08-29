@@ -6,7 +6,7 @@ import {
   perpetualMarketRefresher,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { HistoricalFundingResponseObject, RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { sendRequest } from '../../../helpers/helpers';

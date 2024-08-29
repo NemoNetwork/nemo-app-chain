@@ -4,16 +4,16 @@ import {
   ParseMessageError,
   wrapBackgroundTask,
   STATS_NO_SAMPLING,
-} from '@dydxprotocol-indexer/base';
-import { KafkaTopics } from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/base';
+import { KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   Transaction,
   IsolationLevel,
   CandleFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   IndexerTendermintBlock,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   KafkaMessage,
 } from 'kafkajs';

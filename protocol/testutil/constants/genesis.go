@@ -1,13 +1,13 @@
 package constants
 
 // This is a copy of the localnet genesis.json. This can be retrieved from the localnet docker container path:
-// /dydxprotocol/chain/.alice/config/genesis.json
+// /nemo-network/chain/.alice/config/genesis.json
 // Disable linter for exchange config.
 //
 //nolint:all
 const GenesisState = `{
   "genesis_time": "2023-07-10T19:23:15.891430637Z",
-  "chain_id": "localdydxprotocol",
+  "chain_id": "localnemo-network",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -338,7 +338,7 @@ const GenesisState = `{
         {
           "id": 0,
           "msg": {
-            "@type": "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams",
+            "@type": "/nemo-network.feetiers.MsgUpdatePerpetualFeeParams",
             "authority": "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr",
             "params": {
               "tiers": [

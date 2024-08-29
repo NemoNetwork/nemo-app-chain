@@ -6,7 +6,7 @@ import {
   perpetualMarketRefresher,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
@@ -14,7 +14,7 @@ import {
   OrderRemovalReason,
   OrderRemoveV1_OrderRemovalStatus,
   StatefulOrderEventV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { KafkaMessage } from 'kafkajs';
 import { onMessage } from '../../../src/lib/on-message';
 import { DydxIndexerSubtypes } from '../../../src/lib/types';
@@ -35,7 +35,7 @@ import {
 } from '../../helpers/indexer-proto-helpers';
 import { StatefulOrderRemovalHandler } from '../../../src/handlers/stateful-order/stateful-order-removal-handler';
 import { STATEFUL_ORDER_ORDER_FILL_EVENT_TYPE } from '../../../src/constants';
-import { producer } from '@dydxprotocol-indexer/kafka';
+import { producer } from '@nemo-network-indexer/kafka';
 import { createPostgresFunctions } from '../../../src/helpers/postgres/postgres-functions';
 
 describe('statefulOrderRemovalHandler', () => {

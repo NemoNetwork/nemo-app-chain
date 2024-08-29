@@ -2,8 +2,8 @@ package grpc
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/streaming/grpc/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/streaming/grpc/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 var _ types.GrpcStreamingManager = (*NoopGrpcStreamingManager)(nil)

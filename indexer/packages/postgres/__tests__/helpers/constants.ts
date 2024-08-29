@@ -2,7 +2,7 @@ import {
   ORDER_FLAG_CONDITIONAL,
   ORDER_FLAG_LONG_TERM,
   ORDER_FLAG_SHORT_TERM,
-} from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/v4-proto-parser';
 import { DateTime } from 'luxon';
 
 import * as AssetPositionTable from '../../src/stores/asset-position-table';

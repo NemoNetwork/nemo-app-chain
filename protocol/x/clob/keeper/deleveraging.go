@@ -10,16 +10,16 @@ import (
 	"github.com/cosmos/cosmos-sdk/telemetry"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	perplib "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/lib"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	perplib "github.com/nemo-network/v4-chain/protocol/x/perpetuals/lib"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // MaybeDeleverageSubaccount is the main entry point to deleverage a subaccount. It attempts to find positions

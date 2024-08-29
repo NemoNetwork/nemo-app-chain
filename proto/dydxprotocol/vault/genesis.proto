@@ -1,11 +1,11 @@
 syntax = "proto3";
-package dydxprotocol.vault;
+package nemo-network.vault;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/vault/params.proto";
-import "dydxprotocol/vault/vault.proto";
+import "nemo-network/vault/params.proto";
+import "nemo-network/vault/vault.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/vault/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
 // GenesisState defines `x/vault`'s genesis state.
 message GenesisState {

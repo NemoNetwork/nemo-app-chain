@@ -6,7 +6,7 @@ import (
 	"math/rand"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 type SubaccountsKeeper interface {

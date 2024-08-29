@@ -1,13 +1,13 @@
-import { createKafkaMessage } from '@dydxprotocol-indexer/kafka';
-import { OrderSide } from '@dydxprotocol-indexer/postgres';
+import { createKafkaMessage } from '@nemo-network-indexer/kafka';
+import { OrderSide } from '@nemo-network-indexer/postgres';
 import {
   OpenOrdersCache,
   redisTestConstants,
   OrderbookLevelsCache,
   CanceledOrdersCache,
   CanceledOrderStatus,
-} from '@dydxprotocol-indexer/redis';
-import { OffChainUpdateV1 } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/redis';
+import { OffChainUpdateV1 } from '@nemo-network-indexer/v4-protos';
 import { KafkaMessage } from 'kafkajs';
 
 import { redisClient } from '../../src/helpers/redis/redis-controller';

@@ -6,8 +6,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server/config"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/flags"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/app/flags"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"

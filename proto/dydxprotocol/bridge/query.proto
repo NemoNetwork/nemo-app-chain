@@ -1,31 +1,31 @@
 syntax = "proto3";
-package dydxprotocol.bridge;
+package nemo-network.bridge;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "dydxprotocol/bridge/bridge_event_info.proto";
-import "dydxprotocol/bridge/params.proto";
-import "dydxprotocol/bridge/tx.proto";
+import "nemo-network/bridge/bridge_event_info.proto";
+import "nemo-network/bridge/params.proto";
+import "nemo-network/bridge/tx.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/bridge/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Queries the EventParams.
   rpc EventParams(QueryEventParamsRequest) returns (QueryEventParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/bridge/event_params";
+    option (google.api.http).get = "/nemo-network/v4/bridge/event_params";
   }
 
   // Queries the ProposeParams.
   rpc ProposeParams(QueryProposeParamsRequest)
       returns (QueryProposeParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/bridge/propose_params";
+    option (google.api.http).get = "/nemo-network/v4/bridge/propose_params";
   }
 
   // Queries the SafetyParams.
   rpc SafetyParams(QuerySafetyParamsRequest)
       returns (QuerySafetyParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/bridge/safety_params";
+    option (google.api.http).get = "/nemo-network/v4/bridge/safety_params";
   }
 
   // Queries the AcknowledgedEventInfo.
@@ -34,7 +34,7 @@ service Query {
   rpc AcknowledgedEventInfo(QueryAcknowledgedEventInfoRequest)
       returns (QueryAcknowledgedEventInfoResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/v4/bridge/acknowledged_event_info";
+        "/nemo-network/v4/bridge/acknowledged_event_info";
   }
 
   // Queries the RecognizedEventInfo.
@@ -43,7 +43,7 @@ service Query {
   rpc RecognizedEventInfo(QueryRecognizedEventInfoRequest)
       returns (QueryRecognizedEventInfoResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/v4/bridge/recognized_event_info";
+        "/nemo-network/v4/bridge/recognized_event_info";
   }
 
   // Queries all `MsgCompleteBridge` messages that are delayed (not yet
@@ -51,7 +51,7 @@ service Query {
   rpc DelayedCompleteBridgeMessages(QueryDelayedCompleteBridgeMessagesRequest)
       returns (QueryDelayedCompleteBridgeMessagesResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/v4/bridge/delayed_complete_bridge_messages";
+        "/nemo-network/v4/bridge/delayed_complete_bridge_messages";
   }
 }
 

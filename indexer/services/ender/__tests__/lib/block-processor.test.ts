@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { dbHelpers, Transaction } from '@dydxprotocol-indexer/postgres';
+import { dbHelpers, Transaction } from '@nemo-network-indexer/postgres';
 import {
   AssetCreateEventV1,
   IndexerTendermintBlock,
@@ -7,7 +7,7 @@ import {
   MarketEventV1,
   SubaccountUpdateEventV1,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { createIndexerTendermintBlock, createIndexerTendermintEvent } from '../helpers/indexer-proto-helpers';
 import { MILLIS_IN_NANOS, SECONDS_IN_MILLIS } from '../../src/constants';
 import { DydxIndexerSubtypes } from '../../src/lib/types';

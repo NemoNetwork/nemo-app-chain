@@ -7,16 +7,16 @@ import {
   baseConfigSchema,
   parseInteger,
   parseBoolean,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   kafkaConfigSchema,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import {
   postgresConfigSchema,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   redisConfigSchema,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 
 export const configSchema = {
   ...baseConfigSchema,

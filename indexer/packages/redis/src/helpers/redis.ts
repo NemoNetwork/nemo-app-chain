@@ -4,7 +4,7 @@ import {
   InfoObject,
   logger,
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import bluebird from 'bluebird';
 import _ from 'lodash';
 import redis, {

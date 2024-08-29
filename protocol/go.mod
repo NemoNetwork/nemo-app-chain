@@ -1,4 +1,4 @@
-module github.com/dydxprotocol/v4-chain/protocol
+module github.com/nemo-network/v4-chain/protocol
 
 go 1.22.2
 
@@ -445,17 +445,17 @@ replace (
 	// should use v0.11.0. The Cosmos build fails with types/context.go:65:29: undefined: comet.BlockInfo otherwise.
 	cosmossdk.io/core => cosmossdk.io/core v0.11.0
 	// Use dYdX fork of Cosmos SDK/store
-	cosmossdk.io/store => github.com/dydxprotocol/cosmos-sdk/store v1.0.3-0.20240326192503-dd116391188d
+	cosmossdk.io/store => github.com/nemo-network/cosmos-sdk/store v1.0.3-0.20240326192503-dd116391188d
 	// Use dYdX fork of CometBFT
-	github.com/cometbft/cometbft => github.com/dydxprotocol/cometbft v0.38.6-0.20240426214049-c8beeeada40a
+	github.com/cometbft/cometbft => github.com/nemo-network/cometbft v0.38.6-0.20240426214049-c8beeeada40a
 	// Use dYdX fork of Cosmos SDK
-	github.com/cosmos/cosmos-sdk => github.com/dydxprotocol/cosmos-sdk v0.50.6-0.20240606183841-18966898625f
-	github.com/cosmos/iavl => github.com/dydxprotocol/iavl v1.1.1-0.20240509161911-1c8b8e787e85
+	github.com/cosmos/cosmos-sdk => github.com/nemo-network/cosmos-sdk v0.50.6-0.20240606183841-18966898625f
+	github.com/cosmos/iavl => github.com/nemo-network/iavl v1.1.1-0.20240509161911-1c8b8e787e85
 )
 
 replace (
 	// Copy over the same replace functions for Cosmos SDK.
-	// https://github.com/dydxprotocol/cosmos-sdk/blob/fbb26831d28f66e86bfc31283b4be9290929a4a5/go.mod#L171
+	// https://github.com/nemo-network/cosmos-sdk/blob/fbb26831d28f66e86bfc31283b4be9290929a4a5/go.mod#L171
 	// use cosmos fork of keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
 	// dgrijalva/jwt-go is deprecated and doesn't receive security updates.

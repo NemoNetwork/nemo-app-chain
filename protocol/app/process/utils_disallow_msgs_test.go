@@ -4,11 +4,11 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/msgs"
-	"github.com/dydxprotocol/v4-chain/protocol/app/process"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/app/msgs"
+	"github.com/nemo-network/v4-chain/protocol/app/process"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	"github.com/stretchr/testify/require"
 )
 

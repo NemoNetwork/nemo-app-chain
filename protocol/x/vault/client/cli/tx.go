@@ -9,9 +9,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 // GetTxCmd returns the transaction commands for this module.

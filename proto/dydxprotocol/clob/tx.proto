@@ -1,21 +1,21 @@
 syntax = "proto3";
-package dydxprotocol.clob;
+package nemo-network.clob;
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
 import "gogoproto/gogo.proto";
-import "dydxprotocol/clob/block_rate_limit_config.proto";
-import "dydxprotocol/clob/clob_pair.proto";
-import "dydxprotocol/clob/equity_tier_limit_config.proto";
-import "dydxprotocol/clob/matches.proto";
-import "dydxprotocol/clob/order.proto";
-import "dydxprotocol/clob/order_removals.proto";
-import "dydxprotocol/clob/liquidations_config.proto";
-import "dydxprotocol/subaccounts/subaccount.proto";
+import "nemo-network/clob/block_rate_limit_config.proto";
+import "nemo-network/clob/clob_pair.proto";
+import "nemo-network/clob/equity_tier_limit_config.proto";
+import "nemo-network/clob/matches.proto";
+import "nemo-network/clob/order.proto";
+import "nemo-network/clob/order_removals.proto";
+import "nemo-network/clob/liquidations_config.proto";
+import "nemo-network/subaccounts/subaccount.proto";
 
 // this line is used by starport scaffolding # proto/tx/import
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/clob/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 
 // Msg defines the Msg service.
 service Msg {
@@ -106,7 +106,7 @@ message MsgCancelOrderResponse {}
 // if some cancels are invalid or fail.
 message MsgBatchCancel {
   // The subaccount this batch cancel will be applied for.
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 1
+  nemo-network.subaccounts.SubaccountId subaccount_id = 1
       [ (gogoproto.nullable) = false ];
 
   // The batch of short term orders that will be cancelled.

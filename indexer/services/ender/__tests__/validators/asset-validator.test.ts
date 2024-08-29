@@ -1,6 +1,6 @@
-import { logger } from '@dydxprotocol-indexer/base';
-import { AssetCreateEventV1, IndexerTendermintBlock, IndexerTendermintEvent } from '@dydxprotocol-indexer/v4-protos';
-import { dbHelpers, testMocks } from '@dydxprotocol-indexer/postgres';
+import { logger } from '@nemo-network-indexer/base';
+import { AssetCreateEventV1, IndexerTendermintBlock, IndexerTendermintEvent } from '@nemo-network-indexer/v4-protos';
+import { dbHelpers, testMocks } from '@nemo-network-indexer/postgres';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {
   defaultAssetCreateEvent, defaultHeight, defaultTime, defaultTxHash,

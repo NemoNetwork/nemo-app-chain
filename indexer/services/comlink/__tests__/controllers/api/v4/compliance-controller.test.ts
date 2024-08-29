@@ -6,12 +6,12 @@ import {
   dbHelpers,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
-import { stats } from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/postgres';
+import { stats } from '@nemo-network-indexer/base';
 import { complianceProvider } from '../../../../src/helpers/compliance/compliance-clients';
-import { ComplianceClientResponse, INDEXER_COMPLIANCE_BLOCKED_PAYLOAD } from '@dydxprotocol-indexer/compliance';
+import { ComplianceClientResponse, INDEXER_COMPLIANCE_BLOCKED_PAYLOAD } from '@nemo-network-indexer/compliance';
 import { ratelimitRedis } from '../../../../src/caches/rate-limiters';
-import { redis } from '@dydxprotocol-indexer/redis';
+import { redis } from '@nemo-network-indexer/redis';
 import { DateTime } from 'luxon';
 import config from '../../../../src/config';
 import { getIpAddr } from '../../../../src/lib/utils';

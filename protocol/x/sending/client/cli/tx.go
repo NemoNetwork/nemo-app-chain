@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
+	"github.com/nemo-network/v4-chain/protocol/x/sending/types"
 )
 
 var (

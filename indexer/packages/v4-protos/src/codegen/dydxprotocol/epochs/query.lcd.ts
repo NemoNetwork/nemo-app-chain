@@ -17,7 +17,7 @@ export class LCDQueryClient {
 
 
   async epochInfo(params: QueryGetEpochInfoRequest): Promise<QueryEpochInfoResponseSDKType> {
-    const endpoint = `dydxprotocol/v4/epochs/epoch_info/${params.name}`;
+    const endpoint = `nemo-network/v4/epochs/epoch_info/${params.name}`;
     return await this.req.get<QueryEpochInfoResponseSDKType>(endpoint);
   }
   /* Queries a list of EpochInfo items. */
@@ -34,7 +34,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `dydxprotocol/v4/epochs/epoch_info`;
+    const endpoint = `nemo-network/v4/epochs/epoch_info`;
     return await this.req.get<QueryEpochInfoAllResponseSDKType>(endpoint, options);
   }
 

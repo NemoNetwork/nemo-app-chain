@@ -5,12 +5,12 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
 	"github.com/stretchr/testify/require"
 )
 

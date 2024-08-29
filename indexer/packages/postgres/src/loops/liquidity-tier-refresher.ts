@@ -2,7 +2,7 @@ import {
   NodeEnv,
   logger,
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 
 import config from '../config';
 import * as LiquidityTiersTable from '../stores/liquidity-tiers-table';

@@ -63,55 +63,55 @@ export class MsgClientImpl implements Msg {
 
   proposedOperations(request: MsgProposedOperations): Promise<MsgProposedOperationsResponse> {
     const data = MsgProposedOperations.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "ProposedOperations", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "ProposedOperations", data);
     return promise.then(data => MsgProposedOperationsResponse.decode(new _m0.Reader(data)));
   }
 
   placeOrder(request: MsgPlaceOrder): Promise<MsgPlaceOrderResponse> {
     const data = MsgPlaceOrder.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "PlaceOrder", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "PlaceOrder", data);
     return promise.then(data => MsgPlaceOrderResponse.decode(new _m0.Reader(data)));
   }
 
   cancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse> {
     const data = MsgCancelOrder.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "CancelOrder", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "CancelOrder", data);
     return promise.then(data => MsgCancelOrderResponse.decode(new _m0.Reader(data)));
   }
 
   batchCancel(request: MsgBatchCancel): Promise<MsgBatchCancelResponse> {
     const data = MsgBatchCancel.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "BatchCancel", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "BatchCancel", data);
     return promise.then(data => MsgBatchCancelResponse.decode(new _m0.Reader(data)));
   }
 
   createClobPair(request: MsgCreateClobPair): Promise<MsgCreateClobPairResponse> {
     const data = MsgCreateClobPair.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "CreateClobPair", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "CreateClobPair", data);
     return promise.then(data => MsgCreateClobPairResponse.decode(new _m0.Reader(data)));
   }
 
   updateClobPair(request: MsgUpdateClobPair): Promise<MsgUpdateClobPairResponse> {
     const data = MsgUpdateClobPair.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "UpdateClobPair", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "UpdateClobPair", data);
     return promise.then(data => MsgUpdateClobPairResponse.decode(new _m0.Reader(data)));
   }
 
   updateEquityTierLimitConfiguration(request: MsgUpdateEquityTierLimitConfiguration): Promise<MsgUpdateEquityTierLimitConfigurationResponse> {
     const data = MsgUpdateEquityTierLimitConfiguration.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "UpdateEquityTierLimitConfiguration", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "UpdateEquityTierLimitConfiguration", data);
     return promise.then(data => MsgUpdateEquityTierLimitConfigurationResponse.decode(new _m0.Reader(data)));
   }
 
   updateBlockRateLimitConfiguration(request: MsgUpdateBlockRateLimitConfiguration): Promise<MsgUpdateBlockRateLimitConfigurationResponse> {
     const data = MsgUpdateBlockRateLimitConfiguration.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "UpdateBlockRateLimitConfiguration", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "UpdateBlockRateLimitConfiguration", data);
     return promise.then(data => MsgUpdateBlockRateLimitConfigurationResponse.decode(new _m0.Reader(data)));
   }
 
   updateLiquidationsConfig(request: MsgUpdateLiquidationsConfig): Promise<MsgUpdateLiquidationsConfigResponse> {
     const data = MsgUpdateLiquidationsConfig.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.clob.Msg", "UpdateLiquidationsConfig", data);
+    const promise = this.rpc.request("nemo-network.clob.Msg", "UpdateLiquidationsConfig", data);
     return promise.then(data => MsgUpdateLiquidationsConfigResponse.decode(new _m0.Reader(data)));
   }
 

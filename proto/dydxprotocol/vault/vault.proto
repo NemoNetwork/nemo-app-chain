@@ -1,11 +1,11 @@
 syntax = "proto3";
-package dydxprotocol.vault;
+package nemo-network.vault;
 
-import "dydxprotocol/prices/market_price.proto";
+import "nemo-network/prices/market_price.proto";
 import "gogoproto/gogo.proto";
 import "cosmos_proto/cosmos.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/vault/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
 // VaultType represents different types of vaults.
 enum VaultType {
@@ -30,7 +30,7 @@ message NumShares {
   // Number of shares.
   bytes num_shares = 2 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }
@@ -44,5 +44,5 @@ message OwnerShare {
 // VaultParams is the individual parameters of a vault.
 message VaultParams {
   // Lagged price that the vault quotes at.
-  dydxprotocol.prices.MarketPrice lagged_price = 1;
+  nemo-network.prices.MarketPrice lagged_price = 1;
 }

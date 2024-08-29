@@ -1,10 +1,10 @@
 syntax = "proto3";
-package dydxprotocol.feetiers;
+package nemo-network.feetiers;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/feetiers/params.proto";
+import "nemo-network/feetiers/params.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/feetiers/types";
 
 // GenesisState defines the feetiers module's genesis state.
 message GenesisState {

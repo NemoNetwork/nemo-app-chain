@@ -8,14 +8,14 @@ import {
   SocketClient,
   SubaccountInfo,
   ValidatorClient,
-} from '@dydxprotocol/v4-client-js';
+} from '@nemo-network/v4-client-js';
 import {
   Ordering,
   SubaccountTable,
   TransferColumns,
   TransferFromDatabase,
   TransferTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import * as utils from './helpers/utils';
 import Big from 'big.js';
 import { DYDX_LOCAL_ADDRESS, DYDX_LOCAL_MNEMONIC } from './helpers/constants';

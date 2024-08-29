@@ -1,7 +1,7 @@
 syntax = "proto3";
-package dydxprotocol.perpetuals;
+package nemo-network.perpetuals;
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types";
 
 // Params defines the parameters for x/perpetuals module.
 message Params {

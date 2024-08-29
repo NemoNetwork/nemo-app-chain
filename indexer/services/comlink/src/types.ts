@@ -23,8 +23,8 @@ import {
   TradeType,
   TradingRewardAggregationPeriod,
   TransferType,
-} from '@dydxprotocol-indexer/postgres';
-import { RedisOrder } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import express from 'express';
 

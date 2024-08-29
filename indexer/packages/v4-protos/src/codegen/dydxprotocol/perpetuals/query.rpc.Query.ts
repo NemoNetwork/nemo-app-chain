@@ -38,7 +38,7 @@ export class QueryClientImpl implements Query {
 
   perpetual(request: QueryPerpetualRequest): Promise<QueryPerpetualResponse> {
     const data = QueryPerpetualRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.perpetuals.Query", "Perpetual", data);
+    const promise = this.rpc.request("nemo-network.perpetuals.Query", "Perpetual", data);
     return promise.then(data => QueryPerpetualResponse.decode(new _m0.Reader(data)));
   }
 
@@ -46,7 +46,7 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryAllPerpetualsResponse> {
     const data = QueryAllPerpetualsRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.perpetuals.Query", "AllPerpetuals", data);
+    const promise = this.rpc.request("nemo-network.perpetuals.Query", "AllPerpetuals", data);
     return promise.then(data => QueryAllPerpetualsResponse.decode(new _m0.Reader(data)));
   }
 
@@ -54,25 +54,25 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryAllLiquidityTiersResponse> {
     const data = QueryAllLiquidityTiersRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.perpetuals.Query", "AllLiquidityTiers", data);
+    const promise = this.rpc.request("nemo-network.perpetuals.Query", "AllLiquidityTiers", data);
     return promise.then(data => QueryAllLiquidityTiersResponse.decode(new _m0.Reader(data)));
   }
 
   premiumVotes(request: QueryPremiumVotesRequest = {}): Promise<QueryPremiumVotesResponse> {
     const data = QueryPremiumVotesRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.perpetuals.Query", "PremiumVotes", data);
+    const promise = this.rpc.request("nemo-network.perpetuals.Query", "PremiumVotes", data);
     return promise.then(data => QueryPremiumVotesResponse.decode(new _m0.Reader(data)));
   }
 
   premiumSamples(request: QueryPremiumSamplesRequest = {}): Promise<QueryPremiumSamplesResponse> {
     const data = QueryPremiumSamplesRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.perpetuals.Query", "PremiumSamples", data);
+    const promise = this.rpc.request("nemo-network.perpetuals.Query", "PremiumSamples", data);
     return promise.then(data => QueryPremiumSamplesResponse.decode(new _m0.Reader(data)));
   }
 
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.perpetuals.Query", "Params", data);
+    const promise = this.rpc.request("nemo-network.perpetuals.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 

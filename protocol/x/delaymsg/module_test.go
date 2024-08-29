@@ -3,24 +3,24 @@ package delaymsg_test
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/dydxprotocol/v4-chain/protocol/app/module"
+	"github.com/nemo-network/v4-chain/protocol/app/module"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed"
-	testutildelaymsg "github.com/dydxprotocol/v4-chain/protocol/testutil/delaymsg"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed"
+	testutildelaymsg "github.com/nemo-network/v4-chain/protocol/testutil/delaymsg"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg"
-	delaymsg_keeper "github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/keeper"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg"
+	delaymsg_keeper "github.com/nemo-network/v4-chain/protocol/x/delaymsg/keeper"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -147,28 +147,28 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect NextDelayedMessageId route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/dydxprotocol/v4/delaymsg/next_id", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/v4/delaymsg/next_id", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect Messages route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/v4/delaymsg/message/0", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/v4/delaymsg/message/0", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect BlockMessageIds route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/v4/delaymsg/block/message_ids/100", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/v4/delaymsg/block/message_ids/100", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect unexpected route not registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/v4/delaymsg/foo/bar/baz", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/v4/delaymsg/foo/bar/baz", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

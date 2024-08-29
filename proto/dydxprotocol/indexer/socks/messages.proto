@@ -1,7 +1,7 @@
 syntax = "proto3";
-package dydxprotocol.indexer.socks;
+package nemo-network.indexer.socks;
 
-import "dydxprotocol/indexer/protocol/v1/subaccount.proto";
+import "nemo-network/indexer/protocol/v1/subaccount.proto";
 
 // Message to be sent through the 'to-websockets-orderbooks` kafka topic.
 message OrderbookMessage {
@@ -30,7 +30,7 @@ message SubaccountMessage {
   string contents = 4;
 
   // Subaccount id that the content corresponds to.
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 5;
+  nemo-network.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 5;
 
   // Version of the websocket message.
   string version = 6;

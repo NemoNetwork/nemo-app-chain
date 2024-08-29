@@ -16,7 +16,7 @@ ARG COMMIT
 RUN set -eux; apk add --no-cache ca-certificates build-base; apk add git linux-headers bash binutils-gold
 
 # Download go dependencies
-WORKDIR /dydxprotocol
+WORKDIR /nemo-network
 COPY go.* ./
 RUN --mount=type=cache,target=/root/.cache/go-build \
     --mount=type=cache,target=/root/go/pkg/mod \
@@ -31,14 +31,14 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
     go build \
       -mod=readonly \
       -tags "netgo,ledger,muslc" \
-      -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="dydxprotocol" \
+      -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="nemo-network" \
               -X github.com/cosmos/cosmos-sdk/version.AppName="nemod" \
               -X github.com/cosmos/cosmos-sdk/version.Version=$VERSION \
               -X github.com/cosmos/cosmos-sdk/version.Commit=$COMMIT \
               -X github.com/cosmos/cosmos-sdk/version.BuildTags='netgo,ledger,muslc' \
               -w -s -linkmode=external -extldflags '-Wl,-z,muldefs -static'" \
       -trimpath \
-      -o /dydxprotocol/build/ \
+      -o /nemo-network/build/ \
       ./...
 
 
@@ -50,9 +50,9 @@ FROM golang@sha256:${GOLANG_1_22_ALPINE_DIGEST}
 
 RUN apk add --no-cache bash
 
-COPY --from=builder /dydxprotocol/build/nemod /bin/nemod
+COPY --from=builder /nemo-network/build/nemod /bin/nemod
 
-ENV HOME /dydxprotocol
+ENV HOME /nemo-network
 WORKDIR $HOME
 
 # tendermint p2p

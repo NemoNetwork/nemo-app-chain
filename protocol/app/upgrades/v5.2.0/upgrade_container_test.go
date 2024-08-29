@@ -6,13 +6,13 @@ import (
 	"testing"
 
 	"github.com/cosmos/gogoproto/proto"
-	v_5_2_0 "github.com/dydxprotocol/v4-chain/protocol/app/upgrades/v5.2.0"
-	"github.com/dydxprotocol/v4-chain/protocol/testing/containertest"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	feetierstypes "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vaulttypes "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	v_5_2_0 "github.com/nemo-network/v4-chain/protocol/app/upgrades/v5.2.0"
+	"github.com/nemo-network/v4-chain/protocol/testing/containertest"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	feetierstypes "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 

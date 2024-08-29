@@ -4,16 +4,16 @@ import (
 	"testing"
 
 	dbm "github.com/cosmos/cosmos-db"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	delaymsgtypes "github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	delaymsgtypes "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
 
 	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 func VaultKeepers(

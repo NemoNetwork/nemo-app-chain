@@ -12,12 +12,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 
-	customante "github.com/dydxprotocol/v4-chain/protocol/app/ante"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	libante "github.com/dydxprotocol/v4-chain/protocol/lib/ante"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	clobante "github.com/dydxprotocol/v4-chain/protocol/x/clob/ante"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	customante "github.com/nemo-network/v4-chain/protocol/app/ante"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	libante "github.com/nemo-network/v4-chain/protocol/lib/ante"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	clobante "github.com/nemo-network/v4-chain/protocol/x/clob/ante"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 // HandlerOptions are the options required for constructing an SDK AnteHandler.

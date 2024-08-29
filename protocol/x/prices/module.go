@@ -17,11 +17,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/client/cli"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/client/cli"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 var (

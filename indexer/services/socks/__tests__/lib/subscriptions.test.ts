@@ -5,16 +5,16 @@ import { sendMessage, sendMessageString } from '../../src/helpers/wss';
 import { RateLimiter } from '../../src/lib/rate-limit';
 import {
   dbHelpers, testMocks, perpetualMarketRefresher, CandleResolution,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { btcTicker, invalidChannel, invalidTicker } from '../constants';
 import { axiosRequest } from '../../src/lib/axios';
-import { AxiosSafeServerError, makeAxiosSafeServerError } from '@dydxprotocol-indexer/base';
+import { AxiosSafeServerError, makeAxiosSafeServerError } from '@nemo-network-indexer/base';
 import { BlockedError } from '../../src/lib/errors';
 
 jest.mock('ws');
 jest.mock('../../src/helpers/wss');
 jest.mock('../../src/lib/axios');
-jest.mock('@dydxprotocol-indexer/compliance');
+jest.mock('@nemo-network-indexer/compliance');
 
 describe('Subscriptions', () => {
   let subscriptions: Subscriptions;

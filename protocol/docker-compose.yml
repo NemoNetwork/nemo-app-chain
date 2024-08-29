@@ -2,7 +2,7 @@ version: "3"
 
 services:
   nemod0:
-    image: local:dydxprotocol
+    image: local:nemo-network
     entrypoint:
       - cosmovisor
       - run
@@ -12,7 +12,7 @@ services:
       # Change to `debug` for more verbose log-level.
       - info
       - --home
-      - /dydxprotocol/chain/.alice
+      - /nemo-network/chain/.alice
       - --p2p.persistent_peers
       - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
       - --bridge-daemon-eth-rpc-endpoint
@@ -25,16 +25,16 @@ services:
       # See https://docs.datadoghq.com/profiler/enabling/go/ for DD_ specific environment variables
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - DAEMON_HOME=/dydxprotocol/chain/.alice
+      - DAEMON_HOME=/nemo-network/chain/.alice
     volumes:
-      - ./localnet/dydxprotocol0:/dydxprotocol/chain/.alice/data
+      - ./localnet/nemo-network0:/nemo-network/chain/.alice/data
     ports:
       - "26657:26657"
       - "9090:9090"
       - "1317:1317"
 
   nemod1:
-    image: local:dydxprotocol
+    image: local:nemo-network
     entrypoint:
        - cosmovisor
        - run
@@ -42,7 +42,7 @@ services:
        - --log_level
        - error
        - --home
-       - /dydxprotocol/chain/.bob
+       - /nemo-network/chain/.bob
        - --p2p.persistent_peers
        - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
        - --bridge-daemon-eth-rpc-endpoint
@@ -55,14 +55,14 @@ services:
       # See https://docs.datadoghq.com/profiler/enabling/go/ for DD_ specific environment variables
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - DAEMON_HOME=/dydxprotocol/chain/.bob
+      - DAEMON_HOME=/nemo-network/chain/.bob
     volumes:
-      - ./localnet/dydxprotocol1:/dydxprotocol/chain/.bob/data
+      - ./localnet/nemo-network1:/nemo-network/chain/.bob/data
     ports:
       - "26658:26657"
 
   nemod2:
-    image: local:dydxprotocol
+    image: local:nemo-network
     entrypoint:
        - cosmovisor
        - run
@@ -70,7 +70,7 @@ services:
        - --log_level
        - error
        - --home
-       - /dydxprotocol/chain/.carl
+       - /nemo-network/chain/.carl
        - --p2p.persistent_peers
        - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
        - --bridge-daemon-eth-rpc-endpoint
@@ -83,12 +83,12 @@ services:
       # See https://docs.datadoghq.com/profiler/enabling/go/ for DD_ specific environment variables
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - DAEMON_HOME=/dydxprotocol/chain/.carl
+      - DAEMON_HOME=/nemo-network/chain/.carl
     volumes:
-      - ./localnet/dydxprotocol2:/dydxprotocol/chain/.carl/data
+      - ./localnet/nemo-network2:/nemo-network/chain/.carl/data
 
   nemod3:
-    image: local:dydxprotocol
+    image: local:nemo-network
     entrypoint:
        - cosmovisor
        - run
@@ -96,7 +96,7 @@ services:
        - --log_level
        - error
        - --home
-       - /dydxprotocol/chain/.dave
+       - /nemo-network/chain/.dave
        - --p2p.persistent_peers
        - "17e5e45691f0d01449c84fd4ae87279578cdd7ec@nemod0:26656,b69182310be02559483e42c77b7b104352713166@nemod1:26656,47539956aaa8e624e0f1d926040e54908ad0eb44@nemod2:26656,5882428984d83b03d0c907c1f0af343534987052@nemod3:26656"
        - --bridge-daemon-eth-rpc-endpoint
@@ -109,9 +109,9 @@ services:
       # See https://docs.datadoghq.com/profiler/enabling/go/ for DD_ specific environment variables
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - DAEMON_HOME=/dydxprotocol/chain/.dave
+      - DAEMON_HOME=/nemo-network/chain/.dave
     volumes:
-      - ./localnet/dydxprotocol3:/dydxprotocol/chain/.dave/data
+      - ./localnet/nemo-network3:/nemo-network/chain/.dave/data
   slinky0:
     image: ghcr.io/skip-mev/slinky-sidecar:v0.3.2
     entrypoint: >

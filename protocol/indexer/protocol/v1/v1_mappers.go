@@ -3,11 +3,11 @@ package v1
 import (
 	"fmt"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	v1types "github.com/dydxprotocol/v4-chain/protocol/indexer/protocol/v1/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	v1types "github.com/nemo-network/v4-chain/protocol/indexer/protocol/v1/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 func SubaccountIdToIndexerSubaccountId(

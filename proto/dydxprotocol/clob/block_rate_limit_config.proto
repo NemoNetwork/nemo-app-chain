@@ -1,9 +1,9 @@
 syntax = "proto3";
-package dydxprotocol.clob;
+package nemo-network.clob;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/clob/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 
 // Defines the block rate limits for CLOB specific operations.
 message BlockRateLimitConfiguration {

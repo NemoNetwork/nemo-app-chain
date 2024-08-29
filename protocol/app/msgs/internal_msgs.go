@@ -15,21 +15,21 @@ import (
 	ibctransfer "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 	ibcclient "github.com/cosmos/ibc-go/v8/modules/core/02-client/types" //nolint:staticcheck
 	ibcconn "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	blocktime "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
-	bridge "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	clob "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	delaymsg "github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
-	feetiers "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
-	govplus "github.com/dydxprotocol/v4-chain/protocol/x/govplus/types"
-	perpetuals "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	prices "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	ratelimit "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
-	rewards "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
-	sending "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	stats "github.com/dydxprotocol/v4-chain/protocol/x/stats/types"
-	vault "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
-	vest "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	blocktime "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
+	bridge "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	clob "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	delaymsg "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
+	feetiers "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
+	govplus "github.com/nemo-network/v4-chain/protocol/x/govplus/types"
+	perpetuals "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	prices "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	ratelimit "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	rewards "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
+	sending "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	stats "github.com/nemo-network/v4-chain/protocol/x/stats/types"
+	vault "github.com/nemo-network/v4-chain/protocol/x/vault/types"
+	vest "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 )
 
 var (
@@ -104,83 +104,83 @@ var (
 	// Custom modules
 	InternalMsgSamplesDydxCustom = map[string]sdk.Msg{
 		// blocktime
-		"/dydxprotocol.blocktime.MsgUpdateDowntimeParams":         &blocktime.MsgUpdateDowntimeParams{},
-		"/dydxprotocol.blocktime.MsgUpdateDowntimeParamsResponse": nil,
+		"/nemo-network.blocktime.MsgUpdateDowntimeParams":         &blocktime.MsgUpdateDowntimeParams{},
+		"/nemo-network.blocktime.MsgUpdateDowntimeParamsResponse": nil,
 
 		// bridge
-		"/dydxprotocol.bridge.MsgCompleteBridge":              &bridge.MsgCompleteBridge{},
-		"/dydxprotocol.bridge.MsgCompleteBridgeResponse":      nil,
-		"/dydxprotocol.bridge.MsgUpdateEventParams":           &bridge.MsgUpdateEventParams{},
-		"/dydxprotocol.bridge.MsgUpdateEventParamsResponse":   nil,
-		"/dydxprotocol.bridge.MsgUpdateProposeParams":         &bridge.MsgUpdateProposeParams{},
-		"/dydxprotocol.bridge.MsgUpdateProposeParamsResponse": nil,
-		"/dydxprotocol.bridge.MsgUpdateSafetyParams":          &bridge.MsgUpdateSafetyParams{},
-		"/dydxprotocol.bridge.MsgUpdateSafetyParamsResponse":  nil,
+		"/nemo-network.bridge.MsgCompleteBridge":              &bridge.MsgCompleteBridge{},
+		"/nemo-network.bridge.MsgCompleteBridgeResponse":      nil,
+		"/nemo-network.bridge.MsgUpdateEventParams":           &bridge.MsgUpdateEventParams{},
+		"/nemo-network.bridge.MsgUpdateEventParamsResponse":   nil,
+		"/nemo-network.bridge.MsgUpdateProposeParams":         &bridge.MsgUpdateProposeParams{},
+		"/nemo-network.bridge.MsgUpdateProposeParamsResponse": nil,
+		"/nemo-network.bridge.MsgUpdateSafetyParams":          &bridge.MsgUpdateSafetyParams{},
+		"/nemo-network.bridge.MsgUpdateSafetyParamsResponse":  nil,
 
 		// clob
-		"/dydxprotocol.clob.MsgCreateClobPair":                             &clob.MsgCreateClobPair{},
-		"/dydxprotocol.clob.MsgCreateClobPairResponse":                     nil,
-		"/dydxprotocol.clob.MsgUpdateBlockRateLimitConfiguration":          &clob.MsgUpdateBlockRateLimitConfiguration{},
-		"/dydxprotocol.clob.MsgUpdateBlockRateLimitConfigurationResponse":  nil,
-		"/dydxprotocol.clob.MsgUpdateClobPair":                             &clob.MsgUpdateClobPair{},
-		"/dydxprotocol.clob.MsgUpdateClobPairResponse":                     nil,
-		"/dydxprotocol.clob.MsgUpdateEquityTierLimitConfiguration":         &clob.MsgUpdateEquityTierLimitConfiguration{},
-		"/dydxprotocol.clob.MsgUpdateEquityTierLimitConfigurationResponse": nil,
-		"/dydxprotocol.clob.MsgUpdateLiquidationsConfig":                   &clob.MsgUpdateLiquidationsConfig{},
-		"/dydxprotocol.clob.MsgUpdateLiquidationsConfigResponse":           nil,
+		"/nemo-network.clob.MsgCreateClobPair":                             &clob.MsgCreateClobPair{},
+		"/nemo-network.clob.MsgCreateClobPairResponse":                     nil,
+		"/nemo-network.clob.MsgUpdateBlockRateLimitConfiguration":          &clob.MsgUpdateBlockRateLimitConfiguration{},
+		"/nemo-network.clob.MsgUpdateBlockRateLimitConfigurationResponse":  nil,
+		"/nemo-network.clob.MsgUpdateClobPair":                             &clob.MsgUpdateClobPair{},
+		"/nemo-network.clob.MsgUpdateClobPairResponse":                     nil,
+		"/nemo-network.clob.MsgUpdateEquityTierLimitConfiguration":         &clob.MsgUpdateEquityTierLimitConfiguration{},
+		"/nemo-network.clob.MsgUpdateEquityTierLimitConfigurationResponse": nil,
+		"/nemo-network.clob.MsgUpdateLiquidationsConfig":                   &clob.MsgUpdateLiquidationsConfig{},
+		"/nemo-network.clob.MsgUpdateLiquidationsConfigResponse":           nil,
 
 		// delaymsg
-		"/dydxprotocol.delaymsg.MsgDelayMessage":         &delaymsg.MsgDelayMessage{},
-		"/dydxprotocol.delaymsg.MsgDelayMessageResponse": nil,
+		"/nemo-network.delaymsg.MsgDelayMessage":         &delaymsg.MsgDelayMessage{},
+		"/nemo-network.delaymsg.MsgDelayMessageResponse": nil,
 
 		// feetiers
-		"/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams":         &feetiers.MsgUpdatePerpetualFeeParams{},
-		"/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParamsResponse": nil,
+		"/nemo-network.feetiers.MsgUpdatePerpetualFeeParams":         &feetiers.MsgUpdatePerpetualFeeParams{},
+		"/nemo-network.feetiers.MsgUpdatePerpetualFeeParamsResponse": nil,
 
 		// govplus
-		"/dydxprotocol.govplus.MsgSlashValidator":         &govplus.MsgSlashValidator{},
-		"/dydxprotocol.govplus.MsgSlashValidatorResponse": nil,
+		"/nemo-network.govplus.MsgSlashValidator":         &govplus.MsgSlashValidator{},
+		"/nemo-network.govplus.MsgSlashValidatorResponse": nil,
 
 		// perpetuals
-		"/dydxprotocol.perpetuals.MsgCreatePerpetual":               &perpetuals.MsgCreatePerpetual{},
-		"/dydxprotocol.perpetuals.MsgCreatePerpetualResponse":       nil,
-		"/dydxprotocol.perpetuals.MsgSetLiquidityTier":              &perpetuals.MsgSetLiquidityTier{},
-		"/dydxprotocol.perpetuals.MsgSetLiquidityTierResponse":      nil,
-		"/dydxprotocol.perpetuals.MsgUpdateParams":                  &perpetuals.MsgUpdateParams{},
-		"/dydxprotocol.perpetuals.MsgUpdateParamsResponse":          nil,
-		"/dydxprotocol.perpetuals.MsgUpdatePerpetualParams":         &perpetuals.MsgUpdatePerpetualParams{},
-		"/dydxprotocol.perpetuals.MsgUpdatePerpetualParamsResponse": nil,
+		"/nemo-network.perpetuals.MsgCreatePerpetual":               &perpetuals.MsgCreatePerpetual{},
+		"/nemo-network.perpetuals.MsgCreatePerpetualResponse":       nil,
+		"/nemo-network.perpetuals.MsgSetLiquidityTier":              &perpetuals.MsgSetLiquidityTier{},
+		"/nemo-network.perpetuals.MsgSetLiquidityTierResponse":      nil,
+		"/nemo-network.perpetuals.MsgUpdateParams":                  &perpetuals.MsgUpdateParams{},
+		"/nemo-network.perpetuals.MsgUpdateParamsResponse":          nil,
+		"/nemo-network.perpetuals.MsgUpdatePerpetualParams":         &perpetuals.MsgUpdatePerpetualParams{},
+		"/nemo-network.perpetuals.MsgUpdatePerpetualParamsResponse": nil,
 
 		// prices
-		"/dydxprotocol.prices.MsgCreateOracleMarket":         &prices.MsgCreateOracleMarket{},
-		"/dydxprotocol.prices.MsgCreateOracleMarketResponse": nil,
-		"/dydxprotocol.prices.MsgUpdateMarketParam":          &prices.MsgUpdateMarketParam{},
-		"/dydxprotocol.prices.MsgUpdateMarketParamResponse":  nil,
+		"/nemo-network.prices.MsgCreateOracleMarket":         &prices.MsgCreateOracleMarket{},
+		"/nemo-network.prices.MsgCreateOracleMarketResponse": nil,
+		"/nemo-network.prices.MsgUpdateMarketParam":          &prices.MsgUpdateMarketParam{},
+		"/nemo-network.prices.MsgUpdateMarketParamResponse":  nil,
 
 		// ratelimit
-		"/dydxprotocol.ratelimit.MsgSetLimitParams":         &ratelimit.MsgSetLimitParams{},
-		"/dydxprotocol.ratelimit.MsgSetLimitParamsResponse": nil,
+		"/nemo-network.ratelimit.MsgSetLimitParams":         &ratelimit.MsgSetLimitParams{},
+		"/nemo-network.ratelimit.MsgSetLimitParamsResponse": nil,
 
 		// rewards
-		"/dydxprotocol.rewards.MsgUpdateParams":         &rewards.MsgUpdateParams{},
-		"/dydxprotocol.rewards.MsgUpdateParamsResponse": nil,
+		"/nemo-network.rewards.MsgUpdateParams":         &rewards.MsgUpdateParams{},
+		"/nemo-network.rewards.MsgUpdateParamsResponse": nil,
 
 		// sending
-		"/dydxprotocol.sending.MsgSendFromModuleToAccount":         &sending.MsgSendFromModuleToAccount{},
-		"/dydxprotocol.sending.MsgSendFromModuleToAccountResponse": nil,
+		"/nemo-network.sending.MsgSendFromModuleToAccount":         &sending.MsgSendFromModuleToAccount{},
+		"/nemo-network.sending.MsgSendFromModuleToAccountResponse": nil,
 
 		// stats
-		"/dydxprotocol.stats.MsgUpdateParams":         &stats.MsgUpdateParams{},
-		"/dydxprotocol.stats.MsgUpdateParamsResponse": nil,
+		"/nemo-network.stats.MsgUpdateParams":         &stats.MsgUpdateParams{},
+		"/nemo-network.stats.MsgUpdateParamsResponse": nil,
 
 		// vault
-		"/dydxprotocol.vault.MsgUpdateParams":         &vault.MsgUpdateParams{},
-		"/dydxprotocol.vault.MsgUpdateParamsResponse": nil,
+		"/nemo-network.vault.MsgUpdateParams":         &vault.MsgUpdateParams{},
+		"/nemo-network.vault.MsgUpdateParamsResponse": nil,
 
 		// vest
-		"/dydxprotocol.vest.MsgSetVestEntry":            &vest.MsgSetVestEntry{},
-		"/dydxprotocol.vest.MsgSetVestEntryResponse":    nil,
-		"/dydxprotocol.vest.MsgDeleteVestEntry":         &vest.MsgDeleteVestEntry{},
-		"/dydxprotocol.vest.MsgDeleteVestEntryResponse": nil,
+		"/nemo-network.vest.MsgSetVestEntry":            &vest.MsgSetVestEntry{},
+		"/nemo-network.vest.MsgSetVestEntryResponse":    nil,
+		"/nemo-network.vest.MsgDeleteVestEntry":         &vest.MsgDeleteVestEntry{},
+		"/nemo-network.vest.MsgDeleteVestEntryResponse": nil,
 	}
 )

@@ -4,8 +4,8 @@ import {
   InfoObject,
   safeJsonStringify,
   STATS_NO_SAMPLING,
-} from '@dydxprotocol-indexer/base';
-import { updateOnMessageFunction } from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/base';
+import { updateOnMessageFunction } from '@nemo-network-indexer/kafka';
 import { KafkaMessage } from 'kafkajs';
 import _ from 'lodash';
 

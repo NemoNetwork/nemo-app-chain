@@ -1,10 +1,10 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   LiquidityTierUpsertEventV2,
-} from '@dydxprotocol-indexer/v4-protos';
-import { dbHelpers, testMocks } from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/v4-protos';
+import { dbHelpers, testMocks } from '@nemo-network-indexer/postgres';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {
   defaultHeight, defaultLiquidityTierUpsertEventV2, defaultTime, defaultTxHash,

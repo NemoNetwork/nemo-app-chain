@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

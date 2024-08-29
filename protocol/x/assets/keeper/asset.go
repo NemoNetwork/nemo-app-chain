@@ -9,10 +9,10 @@ import (
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/assets/types"
 )
 
 func (k Keeper) CreateAsset(

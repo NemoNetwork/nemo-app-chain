@@ -77,30 +77,30 @@ func NewInterfaceRegistry(addrPrefix string, valAddrPrefix string) (types.Interf
 			// https://github.com/cosmos/cosmos-sdk/issues/18722 is fixed, replace this with the cosmos.msg.v1.signing
 			// annotation on the protos.
 			CustomGetSigners: map[protoreflect.FullName]signing.GetSignersFunc{
-				"dydxprotocol.clob.MsgBatchCancel": getLegacyMsgSignerFn(
+				"nemo-network.clob.MsgBatchCancel": getLegacyMsgSignerFn(
 					[]string{"subaccount_id", "owner"},
 				),
-				"dydxprotocol.clob.MsgCancelOrder": getLegacyMsgSignerFn(
+				"nemo-network.clob.MsgCancelOrder": getLegacyMsgSignerFn(
 					[]string{"order_id", "subaccount_id", "owner"},
 				),
-				"dydxprotocol.clob.MsgPlaceOrder": getLegacyMsgSignerFn(
+				"nemo-network.clob.MsgPlaceOrder": getLegacyMsgSignerFn(
 					[]string{"order", "order_id", "subaccount_id", "owner"},
 				),
-				"dydxprotocol.sending.MsgCreateTransfer": getLegacyMsgSignerFn(
+				"nemo-network.sending.MsgCreateTransfer": getLegacyMsgSignerFn(
 					[]string{"transfer", "sender", "owner"},
 				),
-				"dydxprotocol.sending.MsgWithdrawFromSubaccount": getLegacyMsgSignerFn(
+				"nemo-network.sending.MsgWithdrawFromSubaccount": getLegacyMsgSignerFn(
 					[]string{"sender", "owner"},
 				),
-				"dydxprotocol.vault.MsgDepositToVault": getLegacyMsgSignerFn(
+				"nemo-network.vault.MsgDepositToVault": getLegacyMsgSignerFn(
 					[]string{"subaccount_id", "owner"},
 				),
 
 				// App injected messages have no signers.
-				"dydxprotocol.bridge.MsgAcknowledgeBridges":  noSigners,
-				"dydxprotocol.clob.MsgProposedOperations":    noSigners,
-				"dydxprotocol.perpetuals.MsgAddPremiumVotes": noSigners,
-				"dydxprotocol.prices.MsgUpdateMarketPrices":  noSigners,
+				"nemo-network.bridge.MsgAcknowledgeBridges":  noSigners,
+				"nemo-network.clob.MsgProposedOperations":    noSigners,
+				"nemo-network.perpetuals.MsgAddPremiumVotes": noSigners,
+				"nemo-network.prices.MsgUpdateMarketPrices":  noSigners,
 			},
 		},
 	})

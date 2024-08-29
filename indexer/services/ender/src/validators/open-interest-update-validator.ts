@@ -1,4 +1,4 @@
-import { IndexerTendermintEvent, OpenInterestUpdateEventV1 } from '@dydxprotocol-indexer/v4-protos';
+import { IndexerTendermintEvent, OpenInterestUpdateEventV1 } from '@nemo-network-indexer/v4-protos';
 
 import { Handler } from '../handlers/handler';
 import { OpenInterestUpdateHandler } from '../handlers/open-interest-update-handler';

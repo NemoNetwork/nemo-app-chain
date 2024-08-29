@@ -20,10 +20,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	"github.com/dydxprotocol/v4-chain/protocol/app/basic_manager"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/appoptions"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/ci"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	"github.com/nemo-network/v4-chain/protocol/app/basic_manager"
+	"github.com/nemo-network/v4-chain/protocol/testutil/appoptions"
+	"github.com/nemo-network/v4-chain/protocol/testutil/ci"
 	"github.com/gofrs/flock"
 	"github.com/stretchr/testify/require"
 )
@@ -151,12 +151,12 @@ func DefaultConfig(options *NetworkConfigOptions) network.Config {
 				appOptions,
 				baseapp.SetPruning(pruningtypes.NewPruningOptionsFromString(val.GetAppConfig().Pruning)),
 				baseapp.SetMinGasPrices(val.GetAppConfig().MinGasPrices),
-				baseapp.SetChainID("dydxprotocol"),
+				baseapp.SetChainID("nemo-network"),
 			)
 		},
 		GenesisState:    basic_manager.ModuleBasics.DefaultGenesis(encoding.Codec),
 		TimeoutCommit:   2 * time.Second,
-		ChainID:         "dydxprotocol",
+		ChainID:         "nemo-network",
 		NumValidators:   1,
 		BondDenom:       sdk.DefaultBondDenom,
 		MinGasPrices:    fmt.Sprintf("0.000006%s", sdk.DefaultBondDenom),

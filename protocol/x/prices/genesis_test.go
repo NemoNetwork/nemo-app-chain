@@ -1,12 +1,12 @@
 package prices_test
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/prices"
 	"github.com/stretchr/testify/require"
 )
 

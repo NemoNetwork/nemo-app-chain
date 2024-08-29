@@ -4,12 +4,12 @@ import {
   parseInteger,
   parseSchema,
   parseString,
-} from '@dydxprotocol-indexer/base';
-import { complianceConfigSchema } from '@dydxprotocol-indexer/compliance';
+} from '@nemo-network-indexer/base';
+import { complianceConfigSchema } from '@nemo-network-indexer/compliance';
 import {
   postgresConfigSchema,
-} from '@dydxprotocol-indexer/postgres';
-import { redisConfigSchema } from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/postgres';
+import { redisConfigSchema } from '@nemo-network-indexer/redis';
 
 export const configSchema = {
   ...baseConfigSchema,
@@ -17,7 +17,7 @@ export const configSchema = {
   ...redisConfigSchema,
   ...complianceConfigSchema,
 
-  CHAIN_ID: parseString({ default: 'dydxprotocol' }),
+  CHAIN_ID: parseString({ default: 'nemo-network' }),
   API_LIMIT_V4: parseInteger({
     default: 100,
   }),

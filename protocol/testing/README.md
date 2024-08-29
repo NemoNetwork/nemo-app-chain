@@ -28,10 +28,10 @@ It's necessary to specify the `--home` flag as this is how the container knows w
 
 ```sh
 # dev
-docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /dydxprotocol/chain/.alice
+docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /nemo-network/chain/.alice
 
 # staging
-docker build . --progress=plain --no-cache -f ./testing/testnet-staging/Dockerfile -t testnet && docker run testnet start --home /dydxprotocol/chain/.alice
+docker build . --progress=plain --no-cache -f ./testing/testnet-staging/Dockerfile -t testnet && docker run testnet start --home /nemo-network/chain/.alice
 ```
 
 # Building and Pushing the Docker container image to ECR
@@ -54,8 +54,8 @@ $ docker run -it --entrypoint /bin/sh <image id>
 
 # Running a full-node
 
-If you wish to run as a full-node instead of a validator, specify the `--home` flag as ` /dydxprotocol/chain/.full-node`.
+If you wish to run as a full-node instead of a validator, specify the `--home` flag as ` /nemo-network/chain/.full-node`.
 
 ```sh
-$ docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /dydxprotocol/chain/.full-node
+$ docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /nemo-network/chain/.full-node
 ```

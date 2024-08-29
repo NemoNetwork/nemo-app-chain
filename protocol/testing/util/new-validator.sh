@@ -8,7 +8,7 @@ echo "Generating new validator information.."
 apk add dasel jq >/dev/null 2>&1
 
 mkdir ./tmp-new-validator
-nemod init tmp --chain-id dydxprotocol --home ./tmp-new-validator >/dev/null 2>&1
+nemod init tmp --chain-id nemo-network --home ./tmp-new-validator >/dev/null 2>&1
 
 # Take the last line of the output which contains the new mnemonic
 mnemonic=$(nemod keys add val --home ./tmp-new-validator --keyring-backend=test 2>&1 >/dev/null | tail -1)

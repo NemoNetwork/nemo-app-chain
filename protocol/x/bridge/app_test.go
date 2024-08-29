@@ -10,11 +10,11 @@ import (
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/bridge/api"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	testtx "github.com/dydxprotocol/v4-chain/protocol/testutil/tx"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/daemons/bridge/api"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	testtx "github.com/nemo-network/v4-chain/protocol/testutil/tx"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -408,7 +408,7 @@ func TestBridge_AcknowledgedEventIdGreaterThanRecognizedEventId(t *testing.T) {
 	abciResponse, err := tApp.App.Query(
 		context.Background(),
 		&abcitypes.RequestQuery{
-			Path: "/dydxprotocol.bridge.Query/RecognizedEventInfo",
+			Path: "/nemo-network.bridge.Query/RecognizedEventInfo",
 			Data: tApp.App.AppCodec().MustMarshal(&reiRequest),
 		},
 	)

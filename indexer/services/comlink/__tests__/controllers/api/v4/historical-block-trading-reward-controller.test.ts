@@ -14,8 +14,8 @@ import {
   testConstants,
   testConversionHelpers,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
-import { stats } from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/postgres';
+import { stats } from '@nemo-network-indexer/base';
 import request from 'supertest';
 import { tradingRewardToResponse } from '../../../../src/request-helpers/request-transformer';
 

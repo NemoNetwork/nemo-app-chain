@@ -36,31 +36,31 @@ export class MsgClientImpl implements Msg {
 
   acknowledgeBridges(request: MsgAcknowledgeBridges): Promise<MsgAcknowledgeBridgesResponse> {
     const data = MsgAcknowledgeBridges.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.bridge.Msg", "AcknowledgeBridges", data);
+    const promise = this.rpc.request("nemo-network.bridge.Msg", "AcknowledgeBridges", data);
     return promise.then(data => MsgAcknowledgeBridgesResponse.decode(new _m0.Reader(data)));
   }
 
   completeBridge(request: MsgCompleteBridge): Promise<MsgCompleteBridgeResponse> {
     const data = MsgCompleteBridge.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.bridge.Msg", "CompleteBridge", data);
+    const promise = this.rpc.request("nemo-network.bridge.Msg", "CompleteBridge", data);
     return promise.then(data => MsgCompleteBridgeResponse.decode(new _m0.Reader(data)));
   }
 
   updateEventParams(request: MsgUpdateEventParams): Promise<MsgUpdateEventParamsResponse> {
     const data = MsgUpdateEventParams.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.bridge.Msg", "UpdateEventParams", data);
+    const promise = this.rpc.request("nemo-network.bridge.Msg", "UpdateEventParams", data);
     return promise.then(data => MsgUpdateEventParamsResponse.decode(new _m0.Reader(data)));
   }
 
   updateProposeParams(request: MsgUpdateProposeParams): Promise<MsgUpdateProposeParamsResponse> {
     const data = MsgUpdateProposeParams.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.bridge.Msg", "UpdateProposeParams", data);
+    const promise = this.rpc.request("nemo-network.bridge.Msg", "UpdateProposeParams", data);
     return promise.then(data => MsgUpdateProposeParamsResponse.decode(new _m0.Reader(data)));
   }
 
   updateSafetyParams(request: MsgUpdateSafetyParams): Promise<MsgUpdateSafetyParamsResponse> {
     const data = MsgUpdateSafetyParams.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.bridge.Msg", "UpdateSafetyParams", data);
+    const promise = this.rpc.request("nemo-network.bridge.Msg", "UpdateSafetyParams", data);
     return promise.then(data => MsgUpdateSafetyParamsResponse.decode(new _m0.Reader(data)));
   }
 

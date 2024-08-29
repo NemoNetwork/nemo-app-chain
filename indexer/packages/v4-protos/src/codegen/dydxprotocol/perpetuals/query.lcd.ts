@@ -21,7 +21,7 @@ export class LCDQueryClient {
 
 
   async perpetual(params: QueryPerpetualRequest): Promise<QueryPerpetualResponseSDKType> {
-    const endpoint = `dydxprotocol/perpetuals/perpetual/${params.id}`;
+    const endpoint = `nemo-network/perpetuals/perpetual/${params.id}`;
     return await this.req.get<QueryPerpetualResponseSDKType>(endpoint);
   }
   /* Queries a list of Perpetual items. */
@@ -38,7 +38,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `dydxprotocol/perpetuals/perpetual`;
+    const endpoint = `nemo-network/perpetuals/perpetual`;
     return await this.req.get<QueryAllPerpetualsResponseSDKType>(endpoint, options);
   }
   /* Queries a list of LiquidityTiers. */
@@ -55,28 +55,28 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `dydxprotocol/perpetuals/liquidity_tiers`;
+    const endpoint = `nemo-network/perpetuals/liquidity_tiers`;
     return await this.req.get<QueryAllLiquidityTiersResponseSDKType>(endpoint, options);
   }
   /* Queries a list of premium votes. */
 
 
   async premiumVotes(_params: QueryPremiumVotesRequest = {}): Promise<QueryPremiumVotesResponseSDKType> {
-    const endpoint = `dydxprotocol/perpetuals/premium_votes`;
+    const endpoint = `nemo-network/perpetuals/premium_votes`;
     return await this.req.get<QueryPremiumVotesResponseSDKType>(endpoint);
   }
   /* Queries a list of premium samples. */
 
 
   async premiumSamples(_params: QueryPremiumSamplesRequest = {}): Promise<QueryPremiumSamplesResponseSDKType> {
-    const endpoint = `dydxprotocol/perpetuals/premium_samples`;
+    const endpoint = `nemo-network/perpetuals/premium_samples`;
     return await this.req.get<QueryPremiumSamplesResponseSDKType>(endpoint);
   }
   /* Queries the perpetual params. */
 
 
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `dydxprotocol/perpetuals/params`;
+    const endpoint = `nemo-network/perpetuals/params`;
     return await this.req.get<QueryParamsResponseSDKType>(endpoint);
   }
 

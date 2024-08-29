@@ -6,17 +6,17 @@ import (
 
 	"github.com/cometbft/cometbft/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	feetiertypes "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	prices "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	feetiertypes "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	prices "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/require"
 )
 

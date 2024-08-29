@@ -7,12 +7,12 @@ import (
 	"testing"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	clobtest "github.com/dydxprotocol/v4-chain/protocol/testutil/clob"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	testutil_memclob "github.com/dydxprotocol/v4-chain/protocol/testutil/memclob"
-	sdktest "github.com/dydxprotocol/v4-chain/protocol/testutil/sdk"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	clobtest "github.com/nemo-network/v4-chain/protocol/testutil/clob"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	testutil_memclob "github.com/nemo-network/v4-chain/protocol/testutil/memclob"
+	sdktest "github.com/nemo-network/v4-chain/protocol/testutil/sdk"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,13 +1,13 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   PerpetualMarketCreateEventV1,
   PerpetualMarketCreateEventV2,
   IndexerTendermintBlock,
   IndexerTendermintEvent,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   dbHelpers, testMocks, perpetualMarketRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {
   defaultPerpetualMarketCreateEventV1,

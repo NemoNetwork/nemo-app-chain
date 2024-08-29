@@ -1,4 +1,4 @@
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   Batch,
   EachBatchPayload,

@@ -1,9 +1,9 @@
 syntax = "proto3";
-package dydxprotocol.perpetuals;
+package nemo-network.perpetuals;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types";
 
 // Perpetual represents a perpetual on the dYdX exchange.
 message Perpetual {
@@ -14,14 +14,14 @@ message Perpetual {
   // history of the funding mechanism. Starts at zero.
   bytes funding_index = 2 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 
   // Total size of open long contracts, measured in base_quantums.
   bytes open_interest = 3 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

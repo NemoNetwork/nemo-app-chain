@@ -18,7 +18,7 @@ export class QueryClientImpl implements Query {
 
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("dydxprotocol.rewards.Query", "Params", data);
+    const promise = this.rpc.request("nemo-network.rewards.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 

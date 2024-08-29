@@ -16,10 +16,10 @@ import (
 	ibcclient "github.com/cosmos/ibc-go/v8/modules/core/02-client/types" //nolint:staticcheck
 	ibcconn "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
 	ibccore "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	clob "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	sending "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	vault "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	clob "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	sending "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	vault "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 var (
@@ -216,27 +216,27 @@ var (
 	// Custom modules
 	NormalMsgsDydxCustom = map[string]sdk.Msg{
 		// clob
-		"/dydxprotocol.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
-		"/dydxprotocol.clob.MsgBatchCancelResponse": nil,
-		"/dydxprotocol.clob.MsgCancelOrder":         &clob.MsgCancelOrder{},
-		"/dydxprotocol.clob.MsgCancelOrderResponse": nil,
-		"/dydxprotocol.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
-		"/dydxprotocol.clob.MsgPlaceOrderResponse":  nil,
+		"/nemo-network.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
+		"/nemo-network.clob.MsgBatchCancelResponse": nil,
+		"/nemo-network.clob.MsgCancelOrder":         &clob.MsgCancelOrder{},
+		"/nemo-network.clob.MsgCancelOrderResponse": nil,
+		"/nemo-network.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
+		"/nemo-network.clob.MsgPlaceOrderResponse":  nil,
 
 		// perpetuals
 
 		// prices
 
 		// sending
-		"/dydxprotocol.sending.MsgCreateTransfer":                 &sending.MsgCreateTransfer{},
-		"/dydxprotocol.sending.MsgCreateTransferResponse":         nil,
-		"/dydxprotocol.sending.MsgDepositToSubaccount":            &sending.MsgDepositToSubaccount{},
-		"/dydxprotocol.sending.MsgDepositToSubaccountResponse":    nil,
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccount":         &sending.MsgWithdrawFromSubaccount{},
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccountResponse": nil,
+		"/nemo-network.sending.MsgCreateTransfer":                 &sending.MsgCreateTransfer{},
+		"/nemo-network.sending.MsgCreateTransferResponse":         nil,
+		"/nemo-network.sending.MsgDepositToSubaccount":            &sending.MsgDepositToSubaccount{},
+		"/nemo-network.sending.MsgDepositToSubaccountResponse":    nil,
+		"/nemo-network.sending.MsgWithdrawFromSubaccount":         &sending.MsgWithdrawFromSubaccount{},
+		"/nemo-network.sending.MsgWithdrawFromSubaccountResponse": nil,
 
 		// vault
-		"/dydxprotocol.vault.MsgDepositToVault":         &vault.MsgDepositToVault{},
-		"/dydxprotocol.vault.MsgDepositToVaultResponse": nil,
+		"/nemo-network.vault.MsgDepositToVault":         &vault.MsgDepositToVault{},
+		"/nemo-network.vault.MsgDepositToVaultResponse": nil,
 	}
 )

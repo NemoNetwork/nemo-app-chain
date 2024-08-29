@@ -9,12 +9,12 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
 	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	bridgemoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	perpetualsmoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	rewardsmoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vestmoduletypes "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	bridgemoduletypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	perpetualsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	rewardsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vestmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 	"github.com/stretchr/testify/require"
 )
 

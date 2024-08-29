@@ -1,11 +1,11 @@
 syntax = "proto3";
-package dydxprotocol.blocktime;
+package nemo-network.blocktime;
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/blocktime/types";
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
-import "dydxprotocol/blocktime/params.proto";
+import "nemo-network/blocktime/params.proto";
 import "gogoproto/gogo.proto";
 
 // Msg defines the Msg service.

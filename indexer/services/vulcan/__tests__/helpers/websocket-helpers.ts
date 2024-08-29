@@ -1,5 +1,5 @@
-import { KafkaTopics } from '@dydxprotocol-indexer/kafka';
-import { OffChainUpdateV1, OrderbookMessage, SubaccountMessage } from '@dydxprotocol-indexer/v4-protos';
+import { KafkaTopics } from '@nemo-network-indexer/kafka';
+import { OffChainUpdateV1, OrderbookMessage, SubaccountMessage } from '@nemo-network-indexer/v4-protos';
 import { IHeaders, ProducerRecord } from 'kafkajs';
 
 export function expectWebsocketSubaccountMessage(

@@ -1,6 +1,6 @@
-import { logger, startBugsnag, wrapBackgroundTask } from '@dydxprotocol-indexer/base';
-import { startConsumer } from '@dydxprotocol-indexer/kafka';
-import { perpetualMarketRefresher } from '@dydxprotocol-indexer/postgres';
+import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base';
+import { startConsumer } from '@nemo-network-indexer/kafka';
+import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
 
 import config from './config';
 import {

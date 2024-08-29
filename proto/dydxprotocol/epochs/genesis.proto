@@ -1,11 +1,11 @@
 syntax = "proto3";
-package dydxprotocol.epochs;
+package nemo-network.epochs;
 
 import "gogoproto/gogo.proto";
-import "dydxprotocol/epochs/epoch_info.proto";
+import "nemo-network/epochs/epoch_info.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
-option go_package = "github.com/dydxprotocol/v4-chain/protocol/x/epochs/types";
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/epochs/types";
 
 // GenesisState defines the epochs module's genesis state.
 message GenesisState {

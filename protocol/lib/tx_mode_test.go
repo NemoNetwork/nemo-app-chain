@@ -3,9 +3,9 @@ package lib_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	testApp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	testApp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 	"github.com/stretchr/testify/require"
 )
 

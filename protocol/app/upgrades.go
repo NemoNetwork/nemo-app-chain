@@ -3,11 +3,11 @@ package app
 import (
 	"fmt"
 
-	v5_2_0 "github.com/dydxprotocol/v4-chain/protocol/app/upgrades/v5.2.0"
+	v5_2_0 "github.com/nemo-network/v4-chain/protocol/app/upgrades/v5.2.0"
 
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/upgrades"
+	"github.com/nemo-network/v4-chain/protocol/app/upgrades"
 )
 
 var (

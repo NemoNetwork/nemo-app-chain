@@ -1,5 +1,5 @@
-import { stats } from '@dydxprotocol-indexer/base';
-import { CANDLES_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@dydxprotocol-indexer/kafka';
+import { stats } from '@nemo-network-indexer/base';
+import { CANDLES_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   CANDLE_RESOLUTION_TO_PROTO,
   CandleColumns,
@@ -19,8 +19,8 @@ import {
   TradeContent,
   TradeMessageContents,
   helpers,
-} from '@dydxprotocol-indexer/postgres';
-import { CandleMessage } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { CandleMessage } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 import { DateTime } from 'luxon';
