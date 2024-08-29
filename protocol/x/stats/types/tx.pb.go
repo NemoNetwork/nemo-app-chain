@@ -122,11 +122,11 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgUpdateParams)(nil), "nemo-network.stats.MsgUpdateParams")
-	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo-network.stats.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgUpdateParams)(nil), "nemo_network.stats.MsgUpdateParams")
+	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo_network.stats.MsgUpdateParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/stats/tx.proto", fileDescriptor_3a92b5f3711d70d1) }
+func init() { proto.RegisterFile("nemo_network/stats/tx.proto", fileDescriptor_3a92b5f3711d70d1) }
 
 var fileDescriptor_3a92b5f3711d70d1 = []byte{
 	// 313 bytes of a gzipped FileDescriptorProto
@@ -178,7 +178,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.stats.Msg/UpdateParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.stats.Msg/UpdateParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.stats.Msg/UpdateParams",
+		FullMethod: "/nemo_network.stats.Msg/UpdateParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateParams(ctx, req.(*MsgUpdateParams))
@@ -222,7 +222,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.stats.Msg",
+	ServiceName: "nemo_network.stats.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -231,7 +231,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/stats/tx.proto",
+	Metadata: "nemo_network/stats/tx.proto",
 }
 
 func (m *MsgUpdateParams) Marshal() (dAtA []byte, err error) {

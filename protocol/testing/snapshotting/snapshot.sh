@@ -27,7 +27,7 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
 fi
 
 
-CHAIN_ID="nemo-network-testnet"
+CHAIN_ID="nemo_network.-testnet"
 # local path to temporary snapshots. snapshots are deleted after uploading to S3.
 SNAP_PATH="/nemo-network/chain/local_node/snapshots/nemo-network/"
 # logfile containing snapshot timestamps

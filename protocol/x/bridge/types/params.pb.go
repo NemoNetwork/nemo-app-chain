@@ -230,12 +230,12 @@ func (m *SafetyParams) GetDelayBlocks() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*EventParams)(nil), "nemo-network.bridge.EventParams")
-	proto.RegisterType((*ProposeParams)(nil), "nemo-network.bridge.ProposeParams")
-	proto.RegisterType((*SafetyParams)(nil), "nemo-network.bridge.SafetyParams")
+	proto.RegisterType((*EventParams)(nil), "nemo_network.bridge.EventParams")
+	proto.RegisterType((*ProposeParams)(nil), "nemo_network.bridge.ProposeParams")
+	proto.RegisterType((*SafetyParams)(nil), "nemo_network.bridge.SafetyParams")
 }
 
-func init() { proto.RegisterFile("nemo-network/bridge/params.proto", fileDescriptor_29afb5e8a05168cd) }
+func init() { proto.RegisterFile("nemo_network/bridge/params.proto", fileDescriptor_29afb5e8a05168cd) }
 
 var fileDescriptor_29afb5e8a05168cd = []byte{
 	// 442 bytes of a gzipped FileDescriptorProto

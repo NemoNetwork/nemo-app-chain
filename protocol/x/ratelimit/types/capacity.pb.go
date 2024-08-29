@@ -122,12 +122,12 @@ func (m *LimiterCapacity) GetLimiter() Limiter {
 }
 
 func init() {
-	proto.RegisterType((*DenomCapacity)(nil), "nemo-network.ratelimit.DenomCapacity")
-	proto.RegisterType((*LimiterCapacity)(nil), "nemo-network.ratelimit.LimiterCapacity")
+	proto.RegisterType((*DenomCapacity)(nil), "nemo_network.ratelimit.DenomCapacity")
+	proto.RegisterType((*LimiterCapacity)(nil), "nemo_network.ratelimit.LimiterCapacity")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/ratelimit/capacity.proto", fileDescriptor_1d7e1de92ba2a318)
+	proto.RegisterFile("nemo_network/ratelimit/capacity.proto", fileDescriptor_1d7e1de92ba2a318)
 }
 
 var fileDescriptor_1d7e1de92ba2a318 = []byte{

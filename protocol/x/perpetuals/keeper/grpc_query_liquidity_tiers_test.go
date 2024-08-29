@@ -31,7 +31,7 @@ func TestAllLiquidityTiers(
 	abciResponse, err := tApp.App.Query(
 		context.Background(),
 		&abci.RequestQuery{
-			Path: "/nemo-network.perpetuals.Query/AllLiquidityTiers",
+			Path: "/nemo_network.perpetuals.Query/AllLiquidityTiers",
 			Data: tApp.App.AppCodec().MustMarshal(&request),
 		})
 	require.NoError(t, err)

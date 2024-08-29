@@ -97,10 +97,10 @@ func (m *GenesisState) GetAcknowledgedEventInfo() BridgeEventInfo {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.bridge.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.bridge.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/bridge/genesis.proto", fileDescriptor_d57e751403447d26) }
+func init() { proto.RegisterFile("nemo_network/bridge/genesis.proto", fileDescriptor_d57e751403447d26) }
 
 var fileDescriptor_d57e751403447d26 = []byte{
 	// 320 bytes of a gzipped FileDescriptorProto

@@ -476,13 +476,13 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Subaccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"nemo-network", "subaccounts", "subaccount", "owner", "number"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Subaccount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 1, 0, 4, 1, 5, 4}, []string{"nemo_network.", "subaccounts", "subaccount", "owner", "number"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_SubaccountAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "subaccounts", "subaccount"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_SubaccountAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "subaccounts", "subaccount"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GetWithdrawalAndTransfersBlockedInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo-network", "subaccounts", "withdrawals_and_transfers_blocked_info", "perpetual_id"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GetWithdrawalAndTransfersBlockedInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo_network.", "subaccounts", "withdrawals_and_transfers_blocked_info", "perpetual_id"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_CollateralPoolAddress_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo-network", "subaccounts", "collateral_pool_address", "perpetual_id"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_CollateralPoolAddress_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo_network.", "subaccounts", "collateral_pool_address", "perpetual_id"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

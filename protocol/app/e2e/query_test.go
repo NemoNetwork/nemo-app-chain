@@ -2,13 +2,14 @@ package e2e_test
 
 import (
 	"context"
+	"sync"
+	"sync/atomic"
+	"testing"
+
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 	blocktime "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
 	"github.com/stretchr/testify/require"
-	"sync"
-	"sync/atomic"
-	"testing"
 )
 
 // There is some basic validation in this test to ensure that numbers are monotonically increasing
@@ -81,7 +82,7 @@ func TestParallelQuery(t *testing.T) {
 			resp, err := tApp.App.Query(
 				context.Background(),
 				&abcitypes.RequestQuery{
-					Path: "/nemo-network.blocktime.Query/PreviousBlockInfo",
+					Path: "/nemo_network.blocktime.Query/PreviousBlockInfo",
 					Data: blockTimeRequestBytes,
 				},
 			)

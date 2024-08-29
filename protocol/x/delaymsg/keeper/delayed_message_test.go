@@ -26,7 +26,7 @@ type FakeRoutableMsg struct {
 // registered CompleteBridge message type. This is done so that we can bypass the handler check and trigger
 // the ValidateBasic error.
 func (msg *FakeRoutableMsg) XXX_MessageName() string {
-	return "nemo-network.bridge.MsgCompleteBridge"
+	return "nemo_network.bridge.MsgCompleteBridge"
 }
 
 // implementing XXX_Size along with XXX_Marshal proto interface methods allows us to simulate an encoding failure.

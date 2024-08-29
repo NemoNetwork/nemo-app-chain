@@ -88,11 +88,11 @@ func (m *DelayedMessage) GetBlockHeight() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*DelayedMessage)(nil), "nemo-network.delaymsg.DelayedMessage")
+	proto.RegisterType((*DelayedMessage)(nil), "nemo_network.delaymsg.DelayedMessage")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/delaymsg/delayed_message.proto", fileDescriptor_ff78478f6237d0fe)
+	proto.RegisterFile("nemo_network/delaymsg/delayed_message.proto", fileDescriptor_ff78478f6237d0fe)
 }
 
 var fileDescriptor_ff78478f6237d0fe = []byte{

@@ -224,14 +224,14 @@ func (m *MsgSendFromModuleToAccountResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgSendFromModuleToAccountResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgCreateTransfer)(nil), "nemo-network.sending.MsgCreateTransfer")
-	proto.RegisterType((*MsgCreateTransferResponse)(nil), "nemo-network.sending.MsgCreateTransferResponse")
-	proto.RegisterType((*MsgDepositToSubaccountResponse)(nil), "nemo-network.sending.MsgDepositToSubaccountResponse")
-	proto.RegisterType((*MsgWithdrawFromSubaccountResponse)(nil), "nemo-network.sending.MsgWithdrawFromSubaccountResponse")
-	proto.RegisterType((*MsgSendFromModuleToAccountResponse)(nil), "nemo-network.sending.MsgSendFromModuleToAccountResponse")
+	proto.RegisterType((*MsgCreateTransfer)(nil), "nemo_network.sending.MsgCreateTransfer")
+	proto.RegisterType((*MsgCreateTransferResponse)(nil), "nemo_network.sending.MsgCreateTransferResponse")
+	proto.RegisterType((*MsgDepositToSubaccountResponse)(nil), "nemo_network.sending.MsgDepositToSubaccountResponse")
+	proto.RegisterType((*MsgWithdrawFromSubaccountResponse)(nil), "nemo_network.sending.MsgWithdrawFromSubaccountResponse")
+	proto.RegisterType((*MsgSendFromModuleToAccountResponse)(nil), "nemo_network.sending.MsgSendFromModuleToAccountResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/sending/tx.proto", fileDescriptor_056a3cb0feba7dbf) }
+func init() { proto.RegisterFile("nemo_network/sending/tx.proto", fileDescriptor_056a3cb0feba7dbf) }
 
 var fileDescriptor_056a3cb0feba7dbf = []byte{
 	// 349 bytes of a gzipped FileDescriptorProto
@@ -294,7 +294,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) CreateTransfer(ctx context.Context, in *MsgCreateTransfer, opts ...grpc.CallOption) (*MsgCreateTransferResponse, error) {
 	out := new(MsgCreateTransferResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.sending.Msg/CreateTransfer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.sending.Msg/CreateTransfer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -303,7 +303,7 @@ func (c *msgClient) CreateTransfer(ctx context.Context, in *MsgCreateTransfer, o
 
 func (c *msgClient) DepositToSubaccount(ctx context.Context, in *MsgDepositToSubaccount, opts ...grpc.CallOption) (*MsgDepositToSubaccountResponse, error) {
 	out := new(MsgDepositToSubaccountResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.sending.Msg/DepositToSubaccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.sending.Msg/DepositToSubaccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -312,7 +312,7 @@ func (c *msgClient) DepositToSubaccount(ctx context.Context, in *MsgDepositToSub
 
 func (c *msgClient) WithdrawFromSubaccount(ctx context.Context, in *MsgWithdrawFromSubaccount, opts ...grpc.CallOption) (*MsgWithdrawFromSubaccountResponse, error) {
 	out := new(MsgWithdrawFromSubaccountResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.sending.Msg/WithdrawFromSubaccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.sending.Msg/WithdrawFromSubaccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -321,7 +321,7 @@ func (c *msgClient) WithdrawFromSubaccount(ctx context.Context, in *MsgWithdrawF
 
 func (c *msgClient) SendFromModuleToAccount(ctx context.Context, in *MsgSendFromModuleToAccount, opts ...grpc.CallOption) (*MsgSendFromModuleToAccountResponse, error) {
 	out := new(MsgSendFromModuleToAccountResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.sending.Msg/SendFromModuleToAccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.sending.Msg/SendFromModuleToAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -374,7 +374,7 @@ func _Msg_CreateTransfer_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.sending.Msg/CreateTransfer",
+		FullMethod: "/nemo_network.sending.Msg/CreateTransfer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).CreateTransfer(ctx, req.(*MsgCreateTransfer))
@@ -392,7 +392,7 @@ func _Msg_DepositToSubaccount_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.sending.Msg/DepositToSubaccount",
+		FullMethod: "/nemo_network.sending.Msg/DepositToSubaccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).DepositToSubaccount(ctx, req.(*MsgDepositToSubaccount))
@@ -410,7 +410,7 @@ func _Msg_WithdrawFromSubaccount_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.sending.Msg/WithdrawFromSubaccount",
+		FullMethod: "/nemo_network.sending.Msg/WithdrawFromSubaccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).WithdrawFromSubaccount(ctx, req.(*MsgWithdrawFromSubaccount))
@@ -428,7 +428,7 @@ func _Msg_SendFromModuleToAccount_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.sending.Msg/SendFromModuleToAccount",
+		FullMethod: "/nemo_network.sending.Msg/SendFromModuleToAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SendFromModuleToAccount(ctx, req.(*MsgSendFromModuleToAccount))
@@ -437,7 +437,7 @@ func _Msg_SendFromModuleToAccount_Handler(srv interface{}, ctx context.Context, 
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.sending.Msg",
+	ServiceName: "nemo_network.sending.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -458,7 +458,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/sending/tx.proto",
+	Metadata: "nemo_network/sending/tx.proto",
 }
 
 func (m *MsgCreateTransfer) Marshal() (dAtA []byte, err error) {

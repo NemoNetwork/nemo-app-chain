@@ -408,7 +408,7 @@ func TestBridge_AcknowledgedEventIdGreaterThanRecognizedEventId(t *testing.T) {
 	abciResponse, err := tApp.App.Query(
 		context.Background(),
 		&abcitypes.RequestQuery{
-			Path: "/nemo-network.bridge.Query/RecognizedEventInfo",
+			Path: "/nemo_network.bridge.Query/RecognizedEventInfo",
 			Data: tApp.App.AppCodec().MustMarshal(&reiRequest),
 		},
 	)

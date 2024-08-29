@@ -257,11 +257,11 @@ func (*InternalOperation) XXX_OneofWrappers() []interface{} {
 }
 
 func init() {
-	proto.RegisterType((*Operation)(nil), "nemo-network.clob.Operation")
-	proto.RegisterType((*InternalOperation)(nil), "nemo-network.clob.InternalOperation")
+	proto.RegisterType((*Operation)(nil), "nemo_network.clob.Operation")
+	proto.RegisterType((*InternalOperation)(nil), "nemo_network.clob.InternalOperation")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/operation.proto", fileDescriptor_5906bab2b2e9b3cf) }
+func init() { proto.RegisterFile("nemo_network/clob/operation.proto", fileDescriptor_5906bab2b2e9b3cf) }
 
 var fileDescriptor_5906bab2b2e9b3cf = []byte{
 	// 397 bytes of a gzipped FileDescriptorProto

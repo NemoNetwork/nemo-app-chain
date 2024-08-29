@@ -75,11 +75,11 @@ func (m *DowntimeParams) GetDurations() []time.Duration {
 }
 
 func init() {
-	proto.RegisterType((*DowntimeParams)(nil), "nemo-network.blocktime.DowntimeParams")
+	proto.RegisterType((*DowntimeParams)(nil), "nemo_network.blocktime.DowntimeParams")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/blocktime/params.proto", fileDescriptor_d036653b2617e4cf)
+	proto.RegisterFile("nemo_network/blocktime/params.proto", fileDescriptor_d036653b2617e4cf)
 }
 
 var fileDescriptor_d036653b2617e4cf = []byte{

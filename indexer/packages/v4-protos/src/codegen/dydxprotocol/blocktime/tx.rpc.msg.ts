@@ -17,7 +17,7 @@ export class MsgClientImpl implements Msg {
 
   updateDowntimeParams(request: MsgUpdateDowntimeParams): Promise<MsgUpdateDowntimeParamsResponse> {
     const data = MsgUpdateDowntimeParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.blocktime.Msg", "UpdateDowntimeParams", data);
+    const promise = this.rpc.request("nemo_network.blocktime.Msg", "UpdateDowntimeParams", data);
     return promise.then(data => MsgUpdateDowntimeParamsResponse.decode(new _m0.Reader(data)));
   }
 

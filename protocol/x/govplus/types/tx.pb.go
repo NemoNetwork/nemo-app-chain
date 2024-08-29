@@ -152,11 +152,11 @@ func (m *MsgSlashValidatorResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgSlashValidatorResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgSlashValidator)(nil), "nemo-network.govplus.MsgSlashValidator")
-	proto.RegisterType((*MsgSlashValidatorResponse)(nil), "nemo-network.govplus.MsgSlashValidatorResponse")
+	proto.RegisterType((*MsgSlashValidator)(nil), "nemo_network.govplus.MsgSlashValidator")
+	proto.RegisterType((*MsgSlashValidatorResponse)(nil), "nemo_network.govplus.MsgSlashValidatorResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/govplus/tx.proto", fileDescriptor_9394a0d94676770f) }
+func init() { proto.RegisterFile("nemo_network/govplus/tx.proto", fileDescriptor_9394a0d94676770f) }
 
 var fileDescriptor_9394a0d94676770f = []byte{
 	// 483 bytes of a gzipped FileDescriptorProto
@@ -220,7 +220,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) SlashValidator(ctx context.Context, in *MsgSlashValidator, opts ...grpc.CallOption) (*MsgSlashValidatorResponse, error) {
 	out := new(MsgSlashValidatorResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.govplus.Msg/SlashValidator", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.govplus.Msg/SlashValidator", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +256,7 @@ func _Msg_SlashValidator_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.govplus.Msg/SlashValidator",
+		FullMethod: "/nemo_network.govplus.Msg/SlashValidator",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SlashValidator(ctx, req.(*MsgSlashValidator))
@@ -265,7 +265,7 @@ func _Msg_SlashValidator_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.govplus.Msg",
+	ServiceName: "nemo_network.govplus.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -274,7 +274,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/govplus/tx.proto",
+	Metadata: "nemo_network/govplus/tx.proto",
 }
 
 func (m *MsgSlashValidator) Marshal() (dAtA []byte, err error) {

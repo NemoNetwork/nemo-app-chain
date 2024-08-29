@@ -468,17 +468,17 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_EventParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "bridge", "event_params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EventParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "bridge", "event_params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_ProposeParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "bridge", "propose_params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ProposeParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "bridge", "propose_params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_SafetyParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "bridge", "safety_params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_SafetyParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "bridge", "safety_params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AcknowledgedEventInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "bridge", "acknowledged_event_info"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AcknowledgedEventInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "bridge", "acknowledged_event_info"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_RecognizedEventInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "bridge", "recognized_event_info"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_RecognizedEventInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "bridge", "recognized_event_info"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_DelayedCompleteBridgeMessages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "bridge", "delayed_complete_bridge_messages"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_DelayedCompleteBridgeMessages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "bridge", "delayed_complete_bridge_messages"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

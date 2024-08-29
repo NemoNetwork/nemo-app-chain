@@ -135,7 +135,7 @@ func (t *Testnet) initializeNode(moniker string) (*Node, error) {
 	resource, err := t.pool.RunWithOptions(
 		&dockertest.RunOptions{
 			Name:       fmt.Sprintf("testnet-local-%s", moniker),
-			Repository: "nemo-network-container-test",
+			Repository: "nemo_network.-container-test",
 			Tag:        "",
 			NetworkID:  t.network.Network.ID,
 			ExposedPorts: []string{

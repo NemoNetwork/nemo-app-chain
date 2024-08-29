@@ -354,16 +354,16 @@ func (m *MsgUpdateMarketParamResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateMarketParamResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgCreateOracleMarket)(nil), "nemo-network.prices.MsgCreateOracleMarket")
-	proto.RegisterType((*MsgCreateOracleMarketResponse)(nil), "nemo-network.prices.MsgCreateOracleMarketResponse")
-	proto.RegisterType((*MsgUpdateMarketPrices)(nil), "nemo-network.prices.MsgUpdateMarketPrices")
-	proto.RegisterType((*MsgUpdateMarketPrices_MarketPrice)(nil), "nemo-network.prices.MsgUpdateMarketPrices.MarketPrice")
-	proto.RegisterType((*MsgUpdateMarketPricesResponse)(nil), "nemo-network.prices.MsgUpdateMarketPricesResponse")
-	proto.RegisterType((*MsgUpdateMarketParam)(nil), "nemo-network.prices.MsgUpdateMarketParam")
-	proto.RegisterType((*MsgUpdateMarketParamResponse)(nil), "nemo-network.prices.MsgUpdateMarketParamResponse")
+	proto.RegisterType((*MsgCreateOracleMarket)(nil), "nemo_network.prices.MsgCreateOracleMarket")
+	proto.RegisterType((*MsgCreateOracleMarketResponse)(nil), "nemo_network.prices.MsgCreateOracleMarketResponse")
+	proto.RegisterType((*MsgUpdateMarketPrices)(nil), "nemo_network.prices.MsgUpdateMarketPrices")
+	proto.RegisterType((*MsgUpdateMarketPrices_MarketPrice)(nil), "nemo_network.prices.MsgUpdateMarketPrices.MarketPrice")
+	proto.RegisterType((*MsgUpdateMarketPricesResponse)(nil), "nemo_network.prices.MsgUpdateMarketPricesResponse")
+	proto.RegisterType((*MsgUpdateMarketParam)(nil), "nemo_network.prices.MsgUpdateMarketParam")
+	proto.RegisterType((*MsgUpdateMarketParamResponse)(nil), "nemo_network.prices.MsgUpdateMarketParamResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/prices/tx.proto", fileDescriptor_70ca248e15be37c4) }
+func init() { proto.RegisterFile("nemo_network/prices/tx.proto", fileDescriptor_70ca248e15be37c4) }
 
 var fileDescriptor_70ca248e15be37c4 = []byte{
 	// 491 bytes of a gzipped FileDescriptorProto
@@ -432,7 +432,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) UpdateMarketPrices(ctx context.Context, in *MsgUpdateMarketPrices, opts ...grpc.CallOption) (*MsgUpdateMarketPricesResponse, error) {
 	out := new(MsgUpdateMarketPricesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Msg/UpdateMarketPrices", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Msg/UpdateMarketPrices", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -441,7 +441,7 @@ func (c *msgClient) UpdateMarketPrices(ctx context.Context, in *MsgUpdateMarketP
 
 func (c *msgClient) CreateOracleMarket(ctx context.Context, in *MsgCreateOracleMarket, opts ...grpc.CallOption) (*MsgCreateOracleMarketResponse, error) {
 	out := new(MsgCreateOracleMarketResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Msg/CreateOracleMarket", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Msg/CreateOracleMarket", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -450,7 +450,7 @@ func (c *msgClient) CreateOracleMarket(ctx context.Context, in *MsgCreateOracleM
 
 func (c *msgClient) UpdateMarketParam(ctx context.Context, in *MsgUpdateMarketParam, opts ...grpc.CallOption) (*MsgUpdateMarketParamResponse, error) {
 	out := new(MsgUpdateMarketParamResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Msg/UpdateMarketParam", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Msg/UpdateMarketParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -497,7 +497,7 @@ func _Msg_UpdateMarketPrices_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Msg/UpdateMarketPrices",
+		FullMethod: "/nemo_network.prices.Msg/UpdateMarketPrices",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateMarketPrices(ctx, req.(*MsgUpdateMarketPrices))
@@ -515,7 +515,7 @@ func _Msg_CreateOracleMarket_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Msg/CreateOracleMarket",
+		FullMethod: "/nemo_network.prices.Msg/CreateOracleMarket",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).CreateOracleMarket(ctx, req.(*MsgCreateOracleMarket))
@@ -533,7 +533,7 @@ func _Msg_UpdateMarketParam_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Msg/UpdateMarketParam",
+		FullMethod: "/nemo_network.prices.Msg/UpdateMarketParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateMarketParam(ctx, req.(*MsgUpdateMarketParam))
@@ -542,7 +542,7 @@ func _Msg_UpdateMarketParam_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.prices.Msg",
+	ServiceName: "nemo_network.prices.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -559,7 +559,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/prices/tx.proto",
+	Metadata: "nemo_network/prices/tx.proto",
 }
 
 func (m *MsgCreateOracleMarket) Marshal() (dAtA []byte, err error) {

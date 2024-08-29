@@ -64,84 +64,84 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
 
 		// blocktime
-		"/nemo-network.blocktime.MsgUpdateDowntimeParams",
-		"/nemo-network.blocktime.MsgUpdateDowntimeParamsResponse",
+		"/nemo_network.blocktime.MsgUpdateDowntimeParams",
+		"/nemo_network.blocktime.MsgUpdateDowntimeParamsResponse",
 
 		// bridge
-		"/nemo-network.bridge.MsgCompleteBridge",
-		"/nemo-network.bridge.MsgCompleteBridgeResponse",
-		"/nemo-network.bridge.MsgUpdateEventParams",
-		"/nemo-network.bridge.MsgUpdateEventParamsResponse",
-		"/nemo-network.bridge.MsgUpdateProposeParams",
-		"/nemo-network.bridge.MsgUpdateProposeParamsResponse",
-		"/nemo-network.bridge.MsgUpdateSafetyParams",
-		"/nemo-network.bridge.MsgUpdateSafetyParamsResponse",
+		"/nemo_network.bridge.MsgCompleteBridge",
+		"/nemo_network.bridge.MsgCompleteBridgeResponse",
+		"/nemo_network.bridge.MsgUpdateEventParams",
+		"/nemo_network.bridge.MsgUpdateEventParamsResponse",
+		"/nemo_network.bridge.MsgUpdateProposeParams",
+		"/nemo_network.bridge.MsgUpdateProposeParamsResponse",
+		"/nemo_network.bridge.MsgUpdateSafetyParams",
+		"/nemo_network.bridge.MsgUpdateSafetyParamsResponse",
 
 		// clob
-		"/nemo-network.clob.MsgCreateClobPair",
-		"/nemo-network.clob.MsgCreateClobPairResponse",
-		"/nemo-network.clob.MsgUpdateBlockRateLimitConfiguration",
-		"/nemo-network.clob.MsgUpdateBlockRateLimitConfigurationResponse",
-		"/nemo-network.clob.MsgUpdateClobPair",
-		"/nemo-network.clob.MsgUpdateClobPairResponse",
-		"/nemo-network.clob.MsgUpdateEquityTierLimitConfiguration",
-		"/nemo-network.clob.MsgUpdateEquityTierLimitConfigurationResponse",
-		"/nemo-network.clob.MsgUpdateLiquidationsConfig",
-		"/nemo-network.clob.MsgUpdateLiquidationsConfigResponse",
+		"/nemo_network.clob.MsgCreateClobPair",
+		"/nemo_network.clob.MsgCreateClobPairResponse",
+		"/nemo_network.clob.MsgUpdateBlockRateLimitConfiguration",
+		"/nemo_network.clob.MsgUpdateBlockRateLimitConfigurationResponse",
+		"/nemo_network.clob.MsgUpdateClobPair",
+		"/nemo_network.clob.MsgUpdateClobPairResponse",
+		"/nemo_network.clob.MsgUpdateEquityTierLimitConfiguration",
+		"/nemo_network.clob.MsgUpdateEquityTierLimitConfigurationResponse",
+		"/nemo_network.clob.MsgUpdateLiquidationsConfig",
+		"/nemo_network.clob.MsgUpdateLiquidationsConfigResponse",
 
 		// delaymsg
-		"/nemo-network.delaymsg.MsgDelayMessage",
-		"/nemo-network.delaymsg.MsgDelayMessageResponse",
+		"/nemo_network.delaymsg.MsgDelayMessage",
+		"/nemo_network.delaymsg.MsgDelayMessageResponse",
 
 		// feetiers
-		"/nemo-network.feetiers.MsgUpdatePerpetualFeeParams",
-		"/nemo-network.feetiers.MsgUpdatePerpetualFeeParamsResponse",
+		"/nemo_network.feetiers.MsgUpdatePerpetualFeeParams",
+		"/nemo_network.feetiers.MsgUpdatePerpetualFeeParamsResponse",
 
 		// govplus
-		"/nemo-network.govplus.MsgSlashValidator",
-		"/nemo-network.govplus.MsgSlashValidatorResponse",
+		"/nemo_network.govplus.MsgSlashValidator",
+		"/nemo_network.govplus.MsgSlashValidatorResponse",
 
 		// perpeutals
-		"/nemo-network.perpetuals.MsgCreatePerpetual",
-		"/nemo-network.perpetuals.MsgCreatePerpetualResponse",
-		"/nemo-network.perpetuals.MsgSetLiquidityTier",
-		"/nemo-network.perpetuals.MsgSetLiquidityTierResponse",
-		"/nemo-network.perpetuals.MsgUpdateParams",
-		"/nemo-network.perpetuals.MsgUpdateParamsResponse",
-		"/nemo-network.perpetuals.MsgUpdatePerpetualParams",
-		"/nemo-network.perpetuals.MsgUpdatePerpetualParamsResponse",
+		"/nemo_network.perpetuals.MsgCreatePerpetual",
+		"/nemo_network.perpetuals.MsgCreatePerpetualResponse",
+		"/nemo_network.perpetuals.MsgSetLiquidityTier",
+		"/nemo_network.perpetuals.MsgSetLiquidityTierResponse",
+		"/nemo_network.perpetuals.MsgUpdateParams",
+		"/nemo_network.perpetuals.MsgUpdateParamsResponse",
+		"/nemo_network.perpetuals.MsgUpdatePerpetualParams",
+		"/nemo_network.perpetuals.MsgUpdatePerpetualParamsResponse",
 
 		// prices
-		"/nemo-network.prices.MsgCreateOracleMarket",
-		"/nemo-network.prices.MsgCreateOracleMarketResponse",
-		"/nemo-network.prices.MsgUpdateMarketParam",
-		"/nemo-network.prices.MsgUpdateMarketParamResponse",
+		"/nemo_network.prices.MsgCreateOracleMarket",
+		"/nemo_network.prices.MsgCreateOracleMarketResponse",
+		"/nemo_network.prices.MsgUpdateMarketParam",
+		"/nemo_network.prices.MsgUpdateMarketParamResponse",
 
 		// ratelimit
-		"/nemo-network.ratelimit.MsgSetLimitParams",
-		"/nemo-network.ratelimit.MsgSetLimitParamsResponse",
+		"/nemo_network.ratelimit.MsgSetLimitParams",
+		"/nemo_network.ratelimit.MsgSetLimitParamsResponse",
 
 		// rewards
-		"/nemo-network.rewards.MsgUpdateParams",
-		"/nemo-network.rewards.MsgUpdateParamsResponse",
+		"/nemo_network.rewards.MsgUpdateParams",
+		"/nemo_network.rewards.MsgUpdateParamsResponse",
 
 		// sending
-		"/nemo-network.sending.MsgSendFromModuleToAccount",
-		"/nemo-network.sending.MsgSendFromModuleToAccountResponse",
+		"/nemo_network.sending.MsgSendFromModuleToAccount",
+		"/nemo_network.sending.MsgSendFromModuleToAccountResponse",
 
 		// stats
-		"/nemo-network.stats.MsgUpdateParams",
-		"/nemo-network.stats.MsgUpdateParamsResponse",
+		"/nemo_network.stats.MsgUpdateParams",
+		"/nemo_network.stats.MsgUpdateParamsResponse",
 
 		// vault
-		"/nemo-network.vault.MsgUpdateParams",
-		"/nemo-network.vault.MsgUpdateParamsResponse",
+		"/nemo_network.vault.MsgUpdateParams",
+		"/nemo_network.vault.MsgUpdateParamsResponse",
 
 		// vest
-		"/nemo-network.vest.MsgDeleteVestEntry",
-		"/nemo-network.vest.MsgDeleteVestEntryResponse",
-		"/nemo-network.vest.MsgSetVestEntry",
-		"/nemo-network.vest.MsgSetVestEntryResponse",
+		"/nemo_network.vest.MsgDeleteVestEntry",
+		"/nemo_network.vest.MsgDeleteVestEntryResponse",
+		"/nemo_network.vest.MsgSetVestEntry",
+		"/nemo_network.vest.MsgSetVestEntryResponse",
 
 		// ibc
 		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",

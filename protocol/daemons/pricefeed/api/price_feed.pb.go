@@ -229,14 +229,14 @@ func (m *MarketPriceUpdate) GetExchangePrices() []*ExchangePrice {
 }
 
 func init() {
-	proto.RegisterType((*UpdateMarketPricesRequest)(nil), "nemo-network.daemons.pricefeed.UpdateMarketPricesRequest")
-	proto.RegisterType((*UpdateMarketPricesResponse)(nil), "nemo-network.daemons.pricefeed.UpdateMarketPricesResponse")
-	proto.RegisterType((*ExchangePrice)(nil), "nemo-network.daemons.pricefeed.ExchangePrice")
-	proto.RegisterType((*MarketPriceUpdate)(nil), "nemo-network.daemons.pricefeed.MarketPriceUpdate")
+	proto.RegisterType((*UpdateMarketPricesRequest)(nil), "nemo_network.daemons.pricefeed.UpdateMarketPricesRequest")
+	proto.RegisterType((*UpdateMarketPricesResponse)(nil), "nemo_network.daemons.pricefeed.UpdateMarketPricesResponse")
+	proto.RegisterType((*ExchangePrice)(nil), "nemo_network.daemons.pricefeed.ExchangePrice")
+	proto.RegisterType((*MarketPriceUpdate)(nil), "nemo_network.daemons.pricefeed.MarketPriceUpdate")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/daemons/pricefeed/price_feed.proto", fileDescriptor_3d8cd2726a0e97cb)
+	proto.RegisterFile("nemo_network/daemons/pricefeed/price_feed.proto", fileDescriptor_3d8cd2726a0e97cb)
 }
 
 var fileDescriptor_3d8cd2726a0e97cb = []byte{
@@ -297,7 +297,7 @@ func NewPriceFeedServiceClient(cc grpc1.ClientConn) PriceFeedServiceClient {
 
 func (c *priceFeedServiceClient) UpdateMarketPrices(ctx context.Context, in *UpdateMarketPricesRequest, opts ...grpc.CallOption) (*UpdateMarketPricesResponse, error) {
 	out := new(UpdateMarketPricesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.daemons.pricefeed.PriceFeedService/UpdateMarketPrices", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.daemons.pricefeed.PriceFeedService/UpdateMarketPrices", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +332,7 @@ func _PriceFeedService_UpdateMarketPrices_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.daemons.pricefeed.PriceFeedService/UpdateMarketPrices",
+		FullMethod: "/nemo_network.daemons.pricefeed.PriceFeedService/UpdateMarketPrices",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PriceFeedServiceServer).UpdateMarketPrices(ctx, req.(*UpdateMarketPricesRequest))
@@ -341,7 +341,7 @@ func _PriceFeedService_UpdateMarketPrices_Handler(srv interface{}, ctx context.C
 }
 
 var _PriceFeedService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.daemons.pricefeed.PriceFeedService",
+	ServiceName: "nemo_network.daemons.pricefeed.PriceFeedService",
 	HandlerType: (*PriceFeedServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -350,7 +350,7 @@ var _PriceFeedService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/daemons/pricefeed/price_feed.proto",
+	Metadata: "nemo_network/daemons/pricefeed/price_feed.proto",
 }
 
 func (m *UpdateMarketPricesRequest) Marshal() (dAtA []byte, err error) {

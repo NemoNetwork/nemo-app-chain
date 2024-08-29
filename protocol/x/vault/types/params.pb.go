@@ -124,10 +124,10 @@ func (m *Params) GetOrderExpirationSeconds() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "nemo-network.vault.Params")
+	proto.RegisterType((*Params)(nil), "nemo_network.vault.Params")
 }
 
-func init() { proto.RegisterFile("nemo-network/vault/params.proto", fileDescriptor_6043e0b8bfdbca9f) }
+func init() { proto.RegisterFile("nemo_network/vault/params.proto", fileDescriptor_6043e0b8bfdbca9f) }
 
 var fileDescriptor_6043e0b8bfdbca9f = []byte{
 	// 388 bytes of a gzipped FileDescriptorProto

@@ -567,22 +567,22 @@ func (m *QueryParamsResponse) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*QueryPerpetualRequest)(nil), "nemo-network.perpetuals.QueryPerpetualRequest")
-	proto.RegisterType((*QueryPerpetualResponse)(nil), "nemo-network.perpetuals.QueryPerpetualResponse")
-	proto.RegisterType((*QueryAllPerpetualsRequest)(nil), "nemo-network.perpetuals.QueryAllPerpetualsRequest")
-	proto.RegisterType((*QueryAllPerpetualsResponse)(nil), "nemo-network.perpetuals.QueryAllPerpetualsResponse")
-	proto.RegisterType((*QueryAllLiquidityTiersRequest)(nil), "nemo-network.perpetuals.QueryAllLiquidityTiersRequest")
-	proto.RegisterType((*QueryAllLiquidityTiersResponse)(nil), "nemo-network.perpetuals.QueryAllLiquidityTiersResponse")
-	proto.RegisterType((*QueryPremiumVotesRequest)(nil), "nemo-network.perpetuals.QueryPremiumVotesRequest")
-	proto.RegisterType((*QueryPremiumVotesResponse)(nil), "nemo-network.perpetuals.QueryPremiumVotesResponse")
-	proto.RegisterType((*QueryPremiumSamplesRequest)(nil), "nemo-network.perpetuals.QueryPremiumSamplesRequest")
-	proto.RegisterType((*QueryPremiumSamplesResponse)(nil), "nemo-network.perpetuals.QueryPremiumSamplesResponse")
-	proto.RegisterType((*QueryParamsRequest)(nil), "nemo-network.perpetuals.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "nemo-network.perpetuals.QueryParamsResponse")
+	proto.RegisterType((*QueryPerpetualRequest)(nil), "nemo_network.perpetuals.QueryPerpetualRequest")
+	proto.RegisterType((*QueryPerpetualResponse)(nil), "nemo_network.perpetuals.QueryPerpetualResponse")
+	proto.RegisterType((*QueryAllPerpetualsRequest)(nil), "nemo_network.perpetuals.QueryAllPerpetualsRequest")
+	proto.RegisterType((*QueryAllPerpetualsResponse)(nil), "nemo_network.perpetuals.QueryAllPerpetualsResponse")
+	proto.RegisterType((*QueryAllLiquidityTiersRequest)(nil), "nemo_network.perpetuals.QueryAllLiquidityTiersRequest")
+	proto.RegisterType((*QueryAllLiquidityTiersResponse)(nil), "nemo_network.perpetuals.QueryAllLiquidityTiersResponse")
+	proto.RegisterType((*QueryPremiumVotesRequest)(nil), "nemo_network.perpetuals.QueryPremiumVotesRequest")
+	proto.RegisterType((*QueryPremiumVotesResponse)(nil), "nemo_network.perpetuals.QueryPremiumVotesResponse")
+	proto.RegisterType((*QueryPremiumSamplesRequest)(nil), "nemo_network.perpetuals.QueryPremiumSamplesRequest")
+	proto.RegisterType((*QueryPremiumSamplesResponse)(nil), "nemo_network.perpetuals.QueryPremiumSamplesResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "nemo_network.perpetuals.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "nemo_network.perpetuals.QueryParamsResponse")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/perpetuals/query.proto", fileDescriptor_13b6d29860ccef6b)
+	proto.RegisterFile("nemo_network/perpetuals/query.proto", fileDescriptor_13b6d29860ccef6b)
 }
 
 var fileDescriptor_13b6d29860ccef6b = []byte{
@@ -670,7 +670,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Perpetual(ctx context.Context, in *QueryPerpetualRequest, opts ...grpc.CallOption) (*QueryPerpetualResponse, error) {
 	out := new(QueryPerpetualResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Query/Perpetual", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Query/Perpetual", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -679,7 +679,7 @@ func (c *queryClient) Perpetual(ctx context.Context, in *QueryPerpetualRequest, 
 
 func (c *queryClient) AllPerpetuals(ctx context.Context, in *QueryAllPerpetualsRequest, opts ...grpc.CallOption) (*QueryAllPerpetualsResponse, error) {
 	out := new(QueryAllPerpetualsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Query/AllPerpetuals", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Query/AllPerpetuals", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -688,7 +688,7 @@ func (c *queryClient) AllPerpetuals(ctx context.Context, in *QueryAllPerpetualsR
 
 func (c *queryClient) AllLiquidityTiers(ctx context.Context, in *QueryAllLiquidityTiersRequest, opts ...grpc.CallOption) (*QueryAllLiquidityTiersResponse, error) {
 	out := new(QueryAllLiquidityTiersResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Query/AllLiquidityTiers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Query/AllLiquidityTiers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -697,7 +697,7 @@ func (c *queryClient) AllLiquidityTiers(ctx context.Context, in *QueryAllLiquidi
 
 func (c *queryClient) PremiumVotes(ctx context.Context, in *QueryPremiumVotesRequest, opts ...grpc.CallOption) (*QueryPremiumVotesResponse, error) {
 	out := new(QueryPremiumVotesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Query/PremiumVotes", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Query/PremiumVotes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -706,7 +706,7 @@ func (c *queryClient) PremiumVotes(ctx context.Context, in *QueryPremiumVotesReq
 
 func (c *queryClient) PremiumSamples(ctx context.Context, in *QueryPremiumSamplesRequest, opts ...grpc.CallOption) (*QueryPremiumSamplesResponse, error) {
 	out := new(QueryPremiumSamplesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Query/PremiumSamples", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Query/PremiumSamples", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -715,7 +715,7 @@ func (c *queryClient) PremiumSamples(ctx context.Context, in *QueryPremiumSample
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -775,7 +775,7 @@ func _Query_Perpetual_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Query/Perpetual",
+		FullMethod: "/nemo_network.perpetuals.Query/Perpetual",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Perpetual(ctx, req.(*QueryPerpetualRequest))
@@ -793,7 +793,7 @@ func _Query_AllPerpetuals_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Query/AllPerpetuals",
+		FullMethod: "/nemo_network.perpetuals.Query/AllPerpetuals",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllPerpetuals(ctx, req.(*QueryAllPerpetualsRequest))
@@ -811,7 +811,7 @@ func _Query_AllLiquidityTiers_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Query/AllLiquidityTiers",
+		FullMethod: "/nemo_network.perpetuals.Query/AllLiquidityTiers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllLiquidityTiers(ctx, req.(*QueryAllLiquidityTiersRequest))
@@ -829,7 +829,7 @@ func _Query_PremiumVotes_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Query/PremiumVotes",
+		FullMethod: "/nemo_network.perpetuals.Query/PremiumVotes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).PremiumVotes(ctx, req.(*QueryPremiumVotesRequest))
@@ -847,7 +847,7 @@ func _Query_PremiumSamples_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Query/PremiumSamples",
+		FullMethod: "/nemo_network.perpetuals.Query/PremiumSamples",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).PremiumSamples(ctx, req.(*QueryPremiumSamplesRequest))
@@ -865,7 +865,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Query/Params",
+		FullMethod: "/nemo_network.perpetuals.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -874,7 +874,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.perpetuals.Query",
+	ServiceName: "nemo_network.perpetuals.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -903,7 +903,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/perpetuals/query.proto",
+	Metadata: "nemo_network/perpetuals/query.proto",
 }
 
 func (m *QueryPerpetualRequest) Marshal() (dAtA []byte, err error) {

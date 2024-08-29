@@ -1096,29 +1096,29 @@ func (m *StreamOrderbookFill) GetFillAmounts() []uint64 {
 }
 
 func init() {
-	proto.RegisterType((*QueryGetClobPairRequest)(nil), "nemo-network.clob.QueryGetClobPairRequest")
-	proto.RegisterType((*QueryClobPairResponse)(nil), "nemo-network.clob.QueryClobPairResponse")
-	proto.RegisterType((*QueryAllClobPairRequest)(nil), "nemo-network.clob.QueryAllClobPairRequest")
-	proto.RegisterType((*QueryClobPairAllResponse)(nil), "nemo-network.clob.QueryClobPairAllResponse")
-	proto.RegisterType((*MevNodeToNodeCalculationRequest)(nil), "nemo-network.clob.MevNodeToNodeCalculationRequest")
-	proto.RegisterType((*MevNodeToNodeCalculationResponse)(nil), "nemo-network.clob.MevNodeToNodeCalculationResponse")
-	proto.RegisterType((*MevNodeToNodeCalculationResponse_MevAndVolumePerClob)(nil), "nemo-network.clob.MevNodeToNodeCalculationResponse.MevAndVolumePerClob")
-	proto.RegisterType((*QueryEquityTierLimitConfigurationRequest)(nil), "nemo-network.clob.QueryEquityTierLimitConfigurationRequest")
-	proto.RegisterType((*QueryEquityTierLimitConfigurationResponse)(nil), "nemo-network.clob.QueryEquityTierLimitConfigurationResponse")
-	proto.RegisterType((*QueryBlockRateLimitConfigurationRequest)(nil), "nemo-network.clob.QueryBlockRateLimitConfigurationRequest")
-	proto.RegisterType((*QueryBlockRateLimitConfigurationResponse)(nil), "nemo-network.clob.QueryBlockRateLimitConfigurationResponse")
-	proto.RegisterType((*QueryStatefulOrderRequest)(nil), "nemo-network.clob.QueryStatefulOrderRequest")
-	proto.RegisterType((*QueryStatefulOrderResponse)(nil), "nemo-network.clob.QueryStatefulOrderResponse")
-	proto.RegisterType((*QueryLiquidationsConfigurationRequest)(nil), "nemo-network.clob.QueryLiquidationsConfigurationRequest")
-	proto.RegisterType((*QueryLiquidationsConfigurationResponse)(nil), "nemo-network.clob.QueryLiquidationsConfigurationResponse")
-	proto.RegisterType((*StreamOrderbookUpdatesRequest)(nil), "nemo-network.clob.StreamOrderbookUpdatesRequest")
-	proto.RegisterType((*StreamOrderbookUpdatesResponse)(nil), "nemo-network.clob.StreamOrderbookUpdatesResponse")
-	proto.RegisterType((*StreamUpdate)(nil), "nemo-network.clob.StreamUpdate")
-	proto.RegisterType((*StreamOrderbookUpdate)(nil), "nemo-network.clob.StreamOrderbookUpdate")
-	proto.RegisterType((*StreamOrderbookFill)(nil), "nemo-network.clob.StreamOrderbookFill")
+	proto.RegisterType((*QueryGetClobPairRequest)(nil), "nemo_network.clob.QueryGetClobPairRequest")
+	proto.RegisterType((*QueryClobPairResponse)(nil), "nemo_network.clob.QueryClobPairResponse")
+	proto.RegisterType((*QueryAllClobPairRequest)(nil), "nemo_network.clob.QueryAllClobPairRequest")
+	proto.RegisterType((*QueryClobPairAllResponse)(nil), "nemo_network.clob.QueryClobPairAllResponse")
+	proto.RegisterType((*MevNodeToNodeCalculationRequest)(nil), "nemo_network.clob.MevNodeToNodeCalculationRequest")
+	proto.RegisterType((*MevNodeToNodeCalculationResponse)(nil), "nemo_network.clob.MevNodeToNodeCalculationResponse")
+	proto.RegisterType((*MevNodeToNodeCalculationResponse_MevAndVolumePerClob)(nil), "nemo_network.clob.MevNodeToNodeCalculationResponse.MevAndVolumePerClob")
+	proto.RegisterType((*QueryEquityTierLimitConfigurationRequest)(nil), "nemo_network.clob.QueryEquityTierLimitConfigurationRequest")
+	proto.RegisterType((*QueryEquityTierLimitConfigurationResponse)(nil), "nemo_network.clob.QueryEquityTierLimitConfigurationResponse")
+	proto.RegisterType((*QueryBlockRateLimitConfigurationRequest)(nil), "nemo_network.clob.QueryBlockRateLimitConfigurationRequest")
+	proto.RegisterType((*QueryBlockRateLimitConfigurationResponse)(nil), "nemo_network.clob.QueryBlockRateLimitConfigurationResponse")
+	proto.RegisterType((*QueryStatefulOrderRequest)(nil), "nemo_network.clob.QueryStatefulOrderRequest")
+	proto.RegisterType((*QueryStatefulOrderResponse)(nil), "nemo_network.clob.QueryStatefulOrderResponse")
+	proto.RegisterType((*QueryLiquidationsConfigurationRequest)(nil), "nemo_network.clob.QueryLiquidationsConfigurationRequest")
+	proto.RegisterType((*QueryLiquidationsConfigurationResponse)(nil), "nemo_network.clob.QueryLiquidationsConfigurationResponse")
+	proto.RegisterType((*StreamOrderbookUpdatesRequest)(nil), "nemo_network.clob.StreamOrderbookUpdatesRequest")
+	proto.RegisterType((*StreamOrderbookUpdatesResponse)(nil), "nemo_network.clob.StreamOrderbookUpdatesResponse")
+	proto.RegisterType((*StreamUpdate)(nil), "nemo_network.clob.StreamUpdate")
+	proto.RegisterType((*StreamOrderbookUpdate)(nil), "nemo_network.clob.StreamOrderbookUpdate")
+	proto.RegisterType((*StreamOrderbookFill)(nil), "nemo_network.clob.StreamOrderbookFill")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/query.proto", fileDescriptor_3365c195b25c5bc0) }
+func init() { proto.RegisterFile("nemo_network/clob/query.proto", fileDescriptor_3365c195b25c5bc0) }
 
 var fileDescriptor_3365c195b25c5bc0 = []byte{
 	// 1407 bytes of a gzipped FileDescriptorProto
@@ -1253,7 +1253,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) ClobPair(ctx context.Context, in *QueryGetClobPairRequest, opts ...grpc.CallOption) (*QueryClobPairResponse, error) {
 	out := new(QueryClobPairResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/ClobPair", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/ClobPair", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1262,7 +1262,7 @@ func (c *queryClient) ClobPair(ctx context.Context, in *QueryGetClobPairRequest,
 
 func (c *queryClient) ClobPairAll(ctx context.Context, in *QueryAllClobPairRequest, opts ...grpc.CallOption) (*QueryClobPairAllResponse, error) {
 	out := new(QueryClobPairAllResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/ClobPairAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/ClobPairAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1271,7 +1271,7 @@ func (c *queryClient) ClobPairAll(ctx context.Context, in *QueryAllClobPairReque
 
 func (c *queryClient) MevNodeToNodeCalculation(ctx context.Context, in *MevNodeToNodeCalculationRequest, opts ...grpc.CallOption) (*MevNodeToNodeCalculationResponse, error) {
 	out := new(MevNodeToNodeCalculationResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/MevNodeToNodeCalculation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/MevNodeToNodeCalculation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1280,7 +1280,7 @@ func (c *queryClient) MevNodeToNodeCalculation(ctx context.Context, in *MevNodeT
 
 func (c *queryClient) EquityTierLimitConfiguration(ctx context.Context, in *QueryEquityTierLimitConfigurationRequest, opts ...grpc.CallOption) (*QueryEquityTierLimitConfigurationResponse, error) {
 	out := new(QueryEquityTierLimitConfigurationResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/EquityTierLimitConfiguration", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/EquityTierLimitConfiguration", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1289,7 +1289,7 @@ func (c *queryClient) EquityTierLimitConfiguration(ctx context.Context, in *Quer
 
 func (c *queryClient) BlockRateLimitConfiguration(ctx context.Context, in *QueryBlockRateLimitConfigurationRequest, opts ...grpc.CallOption) (*QueryBlockRateLimitConfigurationResponse, error) {
 	out := new(QueryBlockRateLimitConfigurationResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/BlockRateLimitConfiguration", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/BlockRateLimitConfiguration", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1298,7 +1298,7 @@ func (c *queryClient) BlockRateLimitConfiguration(ctx context.Context, in *Query
 
 func (c *queryClient) LiquidationsConfiguration(ctx context.Context, in *QueryLiquidationsConfigurationRequest, opts ...grpc.CallOption) (*QueryLiquidationsConfigurationResponse, error) {
 	out := new(QueryLiquidationsConfigurationResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/LiquidationsConfiguration", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/LiquidationsConfiguration", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1307,7 +1307,7 @@ func (c *queryClient) LiquidationsConfiguration(ctx context.Context, in *QueryLi
 
 func (c *queryClient) StatefulOrder(ctx context.Context, in *QueryStatefulOrderRequest, opts ...grpc.CallOption) (*QueryStatefulOrderResponse, error) {
 	out := new(QueryStatefulOrderResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.clob.Query/StatefulOrder", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.clob.Query/StatefulOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1315,7 +1315,7 @@ func (c *queryClient) StatefulOrder(ctx context.Context, in *QueryStatefulOrderR
 }
 
 func (c *queryClient) StreamOrderbookUpdates(ctx context.Context, in *StreamOrderbookUpdatesRequest, opts ...grpc.CallOption) (Query_StreamOrderbookUpdatesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Query_serviceDesc.Streams[0], "/nemo-network.clob.Query/StreamOrderbookUpdates", opts...)
+	stream, err := c.cc.NewStream(ctx, &_Query_serviceDesc.Streams[0], "/nemo_network.clob.Query/StreamOrderbookUpdates", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1410,7 +1410,7 @@ func _Query_ClobPair_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/ClobPair",
+		FullMethod: "/nemo_network.clob.Query/ClobPair",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ClobPair(ctx, req.(*QueryGetClobPairRequest))
@@ -1428,7 +1428,7 @@ func _Query_ClobPairAll_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/ClobPairAll",
+		FullMethod: "/nemo_network.clob.Query/ClobPairAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ClobPairAll(ctx, req.(*QueryAllClobPairRequest))
@@ -1446,7 +1446,7 @@ func _Query_MevNodeToNodeCalculation_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/MevNodeToNodeCalculation",
+		FullMethod: "/nemo_network.clob.Query/MevNodeToNodeCalculation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).MevNodeToNodeCalculation(ctx, req.(*MevNodeToNodeCalculationRequest))
@@ -1464,7 +1464,7 @@ func _Query_EquityTierLimitConfiguration_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/EquityTierLimitConfiguration",
+		FullMethod: "/nemo_network.clob.Query/EquityTierLimitConfiguration",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).EquityTierLimitConfiguration(ctx, req.(*QueryEquityTierLimitConfigurationRequest))
@@ -1482,7 +1482,7 @@ func _Query_BlockRateLimitConfiguration_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/BlockRateLimitConfiguration",
+		FullMethod: "/nemo_network.clob.Query/BlockRateLimitConfiguration",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).BlockRateLimitConfiguration(ctx, req.(*QueryBlockRateLimitConfigurationRequest))
@@ -1500,7 +1500,7 @@ func _Query_LiquidationsConfiguration_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/LiquidationsConfiguration",
+		FullMethod: "/nemo_network.clob.Query/LiquidationsConfiguration",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).LiquidationsConfiguration(ctx, req.(*QueryLiquidationsConfigurationRequest))
@@ -1518,7 +1518,7 @@ func _Query_StatefulOrder_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.clob.Query/StatefulOrder",
+		FullMethod: "/nemo_network.clob.Query/StatefulOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).StatefulOrder(ctx, req.(*QueryStatefulOrderRequest))
@@ -1548,7 +1548,7 @@ func (x *queryStreamOrderbookUpdatesServer) Send(m *StreamOrderbookUpdatesRespon
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.clob.Query",
+	ServiceName: "nemo_network.clob.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -1587,7 +1587,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "nemo-network/clob/query.proto",
+	Metadata: "nemo_network/clob/query.proto",
 }
 
 func (m *QueryGetClobPairRequest) Marshal() (dAtA []byte, err error) {

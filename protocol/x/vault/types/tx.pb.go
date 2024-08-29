@@ -219,13 +219,13 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgDepositToVault)(nil), "nemo-network.vault.MsgDepositToVault")
-	proto.RegisterType((*MsgDepositToVaultResponse)(nil), "nemo-network.vault.MsgDepositToVaultResponse")
-	proto.RegisterType((*MsgUpdateParams)(nil), "nemo-network.vault.MsgUpdateParams")
-	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo-network.vault.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgDepositToVault)(nil), "nemo_network.vault.MsgDepositToVault")
+	proto.RegisterType((*MsgDepositToVaultResponse)(nil), "nemo_network.vault.MsgDepositToVaultResponse")
+	proto.RegisterType((*MsgUpdateParams)(nil), "nemo_network.vault.MsgUpdateParams")
+	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo_network.vault.MsgUpdateParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/vault/tx.proto", fileDescriptor_ced574c6017ce006) }
+func init() { proto.RegisterFile("nemo_network/vault/tx.proto", fileDescriptor_ced574c6017ce006) }
 
 var fileDescriptor_ced574c6017ce006 = []byte{
 	// 504 bytes of a gzipped FileDescriptorProto
@@ -291,7 +291,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) DepositToVault(ctx context.Context, in *MsgDepositToVault, opts ...grpc.CallOption) (*MsgDepositToVaultResponse, error) {
 	out := new(MsgDepositToVaultResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vault.Msg/DepositToVault", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vault.Msg/DepositToVault", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +300,7 @@ func (c *msgClient) DepositToVault(ctx context.Context, in *MsgDepositToVault, o
 
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vault.Msg/UpdateParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vault.Msg/UpdateParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -340,7 +340,7 @@ func _Msg_DepositToVault_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vault.Msg/DepositToVault",
+		FullMethod: "/nemo_network.vault.Msg/DepositToVault",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).DepositToVault(ctx, req.(*MsgDepositToVault))
@@ -358,7 +358,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vault.Msg/UpdateParams",
+		FullMethod: "/nemo_network.vault.Msg/UpdateParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateParams(ctx, req.(*MsgUpdateParams))
@@ -367,7 +367,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.vault.Msg",
+	ServiceName: "nemo_network.vault.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -380,7 +380,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/vault/tx.proto",
+	Metadata: "nemo_network/vault/tx.proto",
 }
 
 func (m *MsgDepositToVault) Marshal() (dAtA []byte, err error) {

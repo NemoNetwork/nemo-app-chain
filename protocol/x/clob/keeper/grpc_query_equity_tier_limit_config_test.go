@@ -20,7 +20,7 @@ func TestEquityTierLimitConfiguration(
 
 	request := types.QueryEquityTierLimitConfigurationRequest{}
 	abciResponse, err := tApp.App.Query(ctx, &abci.RequestQuery{
-		Path: "/nemo-network.clob.Query/EquityTierLimitConfiguration",
+		Path: "/nemo_network.clob.Query/EquityTierLimitConfiguration",
 		Data: tApp.App.AppCodec().MustMarshal(&request),
 	})
 	require.NoError(t, err)

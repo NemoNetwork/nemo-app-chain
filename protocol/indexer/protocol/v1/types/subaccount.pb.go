@@ -199,13 +199,13 @@ func (m *IndexerAssetPosition) GetIndex() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*IndexerSubaccountId)(nil), "nemo-network.indexer.protocol.v1.IndexerSubaccountId")
-	proto.RegisterType((*IndexerPerpetualPosition)(nil), "nemo-network.indexer.protocol.v1.IndexerPerpetualPosition")
-	proto.RegisterType((*IndexerAssetPosition)(nil), "nemo-network.indexer.protocol.v1.IndexerAssetPosition")
+	proto.RegisterType((*IndexerSubaccountId)(nil), "nemo_network.indexer.protocol.v1.IndexerSubaccountId")
+	proto.RegisterType((*IndexerPerpetualPosition)(nil), "nemo_network.indexer.protocol.v1.IndexerPerpetualPosition")
+	proto.RegisterType((*IndexerAssetPosition)(nil), "nemo_network.indexer.protocol.v1.IndexerAssetPosition")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/indexer/protocol/v1/subaccount.proto", fileDescriptor_4c5845963309ad8f)
+	proto.RegisterFile("nemo_network/indexer/protocol/v1/subaccount.proto", fileDescriptor_4c5845963309ad8f)
 }
 
 var fileDescriptor_4c5845963309ad8f = []byte{

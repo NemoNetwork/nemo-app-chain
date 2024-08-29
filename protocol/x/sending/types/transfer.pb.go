@@ -325,14 +325,14 @@ func (m *MsgSendFromModuleToAccount) GetCoin() types1.Coin {
 }
 
 func init() {
-	proto.RegisterType((*Transfer)(nil), "nemo-network.sending.Transfer")
-	proto.RegisterType((*MsgDepositToSubaccount)(nil), "nemo-network.sending.MsgDepositToSubaccount")
-	proto.RegisterType((*MsgWithdrawFromSubaccount)(nil), "nemo-network.sending.MsgWithdrawFromSubaccount")
-	proto.RegisterType((*MsgSendFromModuleToAccount)(nil), "nemo-network.sending.MsgSendFromModuleToAccount")
+	proto.RegisterType((*Transfer)(nil), "nemo_network.sending.Transfer")
+	proto.RegisterType((*MsgDepositToSubaccount)(nil), "nemo_network.sending.MsgDepositToSubaccount")
+	proto.RegisterType((*MsgWithdrawFromSubaccount)(nil), "nemo_network.sending.MsgWithdrawFromSubaccount")
+	proto.RegisterType((*MsgSendFromModuleToAccount)(nil), "nemo_network.sending.MsgSendFromModuleToAccount")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/sending/transfer.proto", fileDescriptor_6ef1d018df19de71)
+	proto.RegisterFile("nemo_network/sending/transfer.proto", fileDescriptor_6ef1d018df19de71)
 }
 
 var fileDescriptor_6ef1d018df19de71 = []byte{

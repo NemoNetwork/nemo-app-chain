@@ -49,37 +49,37 @@ export class QueryClientImpl implements Query {
 
   eventParams(request: QueryEventParamsRequest = {}): Promise<QueryEventParamsResponse> {
     const data = QueryEventParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.bridge.Query", "EventParams", data);
+    const promise = this.rpc.request("nemo_network.bridge.Query", "EventParams", data);
     return promise.then(data => QueryEventParamsResponse.decode(new _m0.Reader(data)));
   }
 
   proposeParams(request: QueryProposeParamsRequest = {}): Promise<QueryProposeParamsResponse> {
     const data = QueryProposeParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.bridge.Query", "ProposeParams", data);
+    const promise = this.rpc.request("nemo_network.bridge.Query", "ProposeParams", data);
     return promise.then(data => QueryProposeParamsResponse.decode(new _m0.Reader(data)));
   }
 
   safetyParams(request: QuerySafetyParamsRequest = {}): Promise<QuerySafetyParamsResponse> {
     const data = QuerySafetyParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.bridge.Query", "SafetyParams", data);
+    const promise = this.rpc.request("nemo_network.bridge.Query", "SafetyParams", data);
     return promise.then(data => QuerySafetyParamsResponse.decode(new _m0.Reader(data)));
   }
 
   acknowledgedEventInfo(request: QueryAcknowledgedEventInfoRequest = {}): Promise<QueryAcknowledgedEventInfoResponse> {
     const data = QueryAcknowledgedEventInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.bridge.Query", "AcknowledgedEventInfo", data);
+    const promise = this.rpc.request("nemo_network.bridge.Query", "AcknowledgedEventInfo", data);
     return promise.then(data => QueryAcknowledgedEventInfoResponse.decode(new _m0.Reader(data)));
   }
 
   recognizedEventInfo(request: QueryRecognizedEventInfoRequest = {}): Promise<QueryRecognizedEventInfoResponse> {
     const data = QueryRecognizedEventInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.bridge.Query", "RecognizedEventInfo", data);
+    const promise = this.rpc.request("nemo_network.bridge.Query", "RecognizedEventInfo", data);
     return promise.then(data => QueryRecognizedEventInfoResponse.decode(new _m0.Reader(data)));
   }
 
   delayedCompleteBridgeMessages(request: QueryDelayedCompleteBridgeMessagesRequest): Promise<QueryDelayedCompleteBridgeMessagesResponse> {
     const data = QueryDelayedCompleteBridgeMessagesRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.bridge.Query", "DelayedCompleteBridgeMessages", data);
+    const promise = this.rpc.request("nemo_network.bridge.Query", "DelayedCompleteBridgeMessages", data);
     return promise.then(data => QueryDelayedCompleteBridgeMessagesResponse.decode(new _m0.Reader(data)));
   }
 

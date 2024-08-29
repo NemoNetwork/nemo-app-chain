@@ -120,11 +120,11 @@ func (m *QueryVestEntryResponse) GetEntry() VestEntry {
 }
 
 func init() {
-	proto.RegisterType((*QueryVestEntryRequest)(nil), "nemo-network.vest.QueryVestEntryRequest")
-	proto.RegisterType((*QueryVestEntryResponse)(nil), "nemo-network.vest.QueryVestEntryResponse")
+	proto.RegisterType((*QueryVestEntryRequest)(nil), "nemo_network.vest.QueryVestEntryRequest")
+	proto.RegisterType((*QueryVestEntryResponse)(nil), "nemo_network.vest.QueryVestEntryResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/vest/query.proto", fileDescriptor_3a660be800e547c7) }
+func init() { proto.RegisterFile("nemo_network/vest/query.proto", fileDescriptor_3a660be800e547c7) }
 
 var fileDescriptor_3a660be800e547c7 = []byte{
 	// 307 bytes of a gzipped FileDescriptorProto
@@ -176,7 +176,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) VestEntry(ctx context.Context, in *QueryVestEntryRequest, opts ...grpc.CallOption) (*QueryVestEntryResponse, error) {
 	out := new(QueryVestEntryResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vest.Query/VestEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vest.Query/VestEntry", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func _Query_VestEntry_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vest.Query/VestEntry",
+		FullMethod: "/nemo_network.vest.Query/VestEntry",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).VestEntry(ctx, req.(*QueryVestEntryRequest))
@@ -220,7 +220,7 @@ func _Query_VestEntry_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.vest.Query",
+	ServiceName: "nemo_network.vest.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -229,7 +229,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/vest/query.proto",
+	Metadata: "nemo_network/vest/query.proto",
 }
 
 func (m *QueryVestEntryRequest) Marshal() (dAtA []byte, err error) {

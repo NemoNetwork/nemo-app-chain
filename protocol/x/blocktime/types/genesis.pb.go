@@ -69,11 +69,11 @@ func (m *GenesisState) GetParams() DowntimeParams {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.blocktime.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.blocktime.GenesisState")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/blocktime/genesis.proto", fileDescriptor_8b7bbc5d69b00988)
+	proto.RegisterFile("nemo_network/blocktime/genesis.proto", fileDescriptor_8b7bbc5d69b00988)
 }
 
 var fileDescriptor_8b7bbc5d69b00988 = []byte{

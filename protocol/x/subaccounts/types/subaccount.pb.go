@@ -157,12 +157,12 @@ func (m *Subaccount) GetMarginEnabled() bool {
 }
 
 func init() {
-	proto.RegisterType((*SubaccountId)(nil), "nemo-network.subaccounts.SubaccountId")
-	proto.RegisterType((*Subaccount)(nil), "nemo-network.subaccounts.Subaccount")
+	proto.RegisterType((*SubaccountId)(nil), "nemo_network.subaccounts.SubaccountId")
+	proto.RegisterType((*Subaccount)(nil), "nemo_network.subaccounts.Subaccount")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/subaccounts/subaccount.proto", fileDescriptor_5a7b1af2704a634c)
+	proto.RegisterFile("nemo_network/subaccounts/subaccount.proto", fileDescriptor_5a7b1af2704a634c)
 }
 
 var fileDescriptor_5a7b1af2704a634c = []byte{

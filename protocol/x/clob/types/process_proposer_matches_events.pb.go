@@ -138,11 +138,11 @@ func (m *ProcessProposerMatchesEvents) GetBlockHeight() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*ProcessProposerMatchesEvents)(nil), "nemo-network.clob.ProcessProposerMatchesEvents")
+	proto.RegisterType((*ProcessProposerMatchesEvents)(nil), "nemo_network.clob.ProcessProposerMatchesEvents")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/clob/process_proposer_matches_events.proto", fileDescriptor_4626e94e6961a770)
+	proto.RegisterFile("nemo_network/clob/process_proposer_matches_events.proto", fileDescriptor_4626e94e6961a770)
 }
 
 var fileDescriptor_4626e94e6961a770 = []byte{

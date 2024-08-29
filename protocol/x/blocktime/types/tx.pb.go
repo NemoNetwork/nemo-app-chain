@@ -123,11 +123,11 @@ func (m *MsgUpdateDowntimeParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateDowntimeParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgUpdateDowntimeParams)(nil), "nemo-network.blocktime.MsgUpdateDowntimeParams")
-	proto.RegisterType((*MsgUpdateDowntimeParamsResponse)(nil), "nemo-network.blocktime.MsgUpdateDowntimeParamsResponse")
+	proto.RegisterType((*MsgUpdateDowntimeParams)(nil), "nemo_network.blocktime.MsgUpdateDowntimeParams")
+	proto.RegisterType((*MsgUpdateDowntimeParamsResponse)(nil), "nemo_network.blocktime.MsgUpdateDowntimeParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/blocktime/tx.proto", fileDescriptor_4b4afda7c355c8b6) }
+func init() { proto.RegisterFile("nemo_network/blocktime/tx.proto", fileDescriptor_4b4afda7c355c8b6) }
 
 var fileDescriptor_4b4afda7c355c8b6 = []byte{
 	// 326 bytes of a gzipped FileDescriptorProto
@@ -180,7 +180,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) UpdateDowntimeParams(ctx context.Context, in *MsgUpdateDowntimeParams, opts ...grpc.CallOption) (*MsgUpdateDowntimeParamsResponse, error) {
 	out := new(MsgUpdateDowntimeParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.blocktime.Msg/UpdateDowntimeParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.blocktime.Msg/UpdateDowntimeParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +215,7 @@ func _Msg_UpdateDowntimeParams_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.blocktime.Msg/UpdateDowntimeParams",
+		FullMethod: "/nemo_network.blocktime.Msg/UpdateDowntimeParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateDowntimeParams(ctx, req.(*MsgUpdateDowntimeParams))
@@ -224,7 +224,7 @@ func _Msg_UpdateDowntimeParams_Handler(srv interface{}, ctx context.Context, dec
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.blocktime.Msg",
+	ServiceName: "nemo_network.blocktime.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -233,7 +233,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/blocktime/tx.proto",
+	Metadata: "nemo_network/blocktime/tx.proto",
 }
 
 func (m *MsgUpdateDowntimeParams) Marshal() (dAtA []byte, err error) {

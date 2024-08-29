@@ -30,7 +30,7 @@ export class QueryClientImpl implements Query {
 
   marketPrice(request: QueryMarketPriceRequest): Promise<QueryMarketPriceResponse> {
     const data = QueryMarketPriceRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Query", "MarketPrice", data);
+    const promise = this.rpc.request("nemo_network.prices.Query", "MarketPrice", data);
     return promise.then(data => QueryMarketPriceResponse.decode(new _m0.Reader(data)));
   }
 
@@ -38,13 +38,13 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryAllMarketPricesResponse> {
     const data = QueryAllMarketPricesRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Query", "AllMarketPrices", data);
+    const promise = this.rpc.request("nemo_network.prices.Query", "AllMarketPrices", data);
     return promise.then(data => QueryAllMarketPricesResponse.decode(new _m0.Reader(data)));
   }
 
   marketParam(request: QueryMarketParamRequest): Promise<QueryMarketParamResponse> {
     const data = QueryMarketParamRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Query", "MarketParam", data);
+    const promise = this.rpc.request("nemo_network.prices.Query", "MarketParam", data);
     return promise.then(data => QueryMarketParamResponse.decode(new _m0.Reader(data)));
   }
 
@@ -52,7 +52,7 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryAllMarketParamsResponse> {
     const data = QueryAllMarketParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Query", "AllMarketParams", data);
+    const promise = this.rpc.request("nemo_network.prices.Query", "AllMarketParams", data);
     return promise.then(data => QueryAllMarketParamsResponse.decode(new _m0.Reader(data)));
   }
 

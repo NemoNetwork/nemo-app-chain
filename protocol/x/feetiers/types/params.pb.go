@@ -160,12 +160,12 @@ func (m *PerpetualFeeTier) GetTakerFeePpm() int32 {
 }
 
 func init() {
-	proto.RegisterType((*PerpetualFeeParams)(nil), "nemo-network.feetiers.PerpetualFeeParams")
-	proto.RegisterType((*PerpetualFeeTier)(nil), "nemo-network.feetiers.PerpetualFeeTier")
+	proto.RegisterType((*PerpetualFeeParams)(nil), "nemo_network.feetiers.PerpetualFeeParams")
+	proto.RegisterType((*PerpetualFeeTier)(nil), "nemo_network.feetiers.PerpetualFeeTier")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/feetiers/params.proto", fileDescriptor_c2cb51fc3ff0866a)
+	proto.RegisterFile("nemo_network/feetiers/params.proto", fileDescriptor_c2cb51fc3ff0866a)
 }
 
 var fileDescriptor_c2cb51fc3ff0866a = []byte{

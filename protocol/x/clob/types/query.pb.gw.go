@@ -520,17 +520,17 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_ClobPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo-network", "clob", "clob_pair", "id"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ClobPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo_network.", "clob", "clob_pair", "id"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_ClobPairAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "clob", "clob_pair"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ClobPairAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "clob", "clob_pair"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_MevNodeToNodeCalculation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "clob", "mev_node_to_node_calculation"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_MevNodeToNodeCalculation_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "clob", "mev_node_to_node_calculation"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_EquityTierLimitConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "clob", "equity_tier"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_EquityTierLimitConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "clob", "equity_tier"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_BlockRateLimitConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "clob", "block_rate"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_BlockRateLimitConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "clob", "block_rate"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_LiquidationsConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "clob", "liquidations_config"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_LiquidationsConfiguration_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "clob", "liquidations_config"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

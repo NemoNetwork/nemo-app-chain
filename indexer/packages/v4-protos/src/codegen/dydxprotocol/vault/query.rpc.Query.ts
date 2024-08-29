@@ -30,13 +30,13 @@ export class QueryClientImpl implements Query {
 
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Query", "Params", data);
+    const promise = this.rpc.request("nemo_network.vault.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
   vault(request: QueryVaultRequest): Promise<QueryVaultResponse> {
     const data = QueryVaultRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Query", "Vault", data);
+    const promise = this.rpc.request("nemo_network.vault.Query", "Vault", data);
     return promise.then(data => QueryVaultResponse.decode(new _m0.Reader(data)));
   }
 
@@ -44,13 +44,13 @@ export class QueryClientImpl implements Query {
     pagination: undefined
   }): Promise<QueryAllVaultsResponse> {
     const data = QueryAllVaultsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Query", "AllVaults", data);
+    const promise = this.rpc.request("nemo_network.vault.Query", "AllVaults", data);
     return promise.then(data => QueryAllVaultsResponse.decode(new _m0.Reader(data)));
   }
 
   ownerShares(request: QueryOwnerSharesRequest): Promise<QueryOwnerSharesResponse> {
     const data = QueryOwnerSharesRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Query", "OwnerShares", data);
+    const promise = this.rpc.request("nemo_network.vault.Query", "OwnerShares", data);
     return promise.then(data => QueryOwnerSharesResponse.decode(new _m0.Reader(data)));
   }
 

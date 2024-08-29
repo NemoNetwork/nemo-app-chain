@@ -148,12 +148,12 @@ func (m *Limiter) GetBaselineTvlPpm() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*LimitParams)(nil), "nemo-network.ratelimit.LimitParams")
-	proto.RegisterType((*Limiter)(nil), "nemo-network.ratelimit.Limiter")
+	proto.RegisterType((*LimitParams)(nil), "nemo_network.ratelimit.LimitParams")
+	proto.RegisterType((*Limiter)(nil), "nemo_network.ratelimit.Limiter")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/ratelimit/limit_params.proto", fileDescriptor_b795558e1de1468a)
+	proto.RegisterFile("nemo_network/ratelimit/limit_params.proto", fileDescriptor_b795558e1de1468a)
 }
 
 var fileDescriptor_b795558e1de1468a = []byte{

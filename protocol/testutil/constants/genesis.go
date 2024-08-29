@@ -338,7 +338,7 @@ const GenesisState = `{
         {
           "id": 0,
           "msg": {
-            "@type": "/nemo-network.feetiers.MsgUpdatePerpetualFeeParams",
+            "@type": "/nemo_network.feetiers.MsgUpdatePerpetualFeeParams",
             "authority": "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr",
             "params": {
               "tiers": [

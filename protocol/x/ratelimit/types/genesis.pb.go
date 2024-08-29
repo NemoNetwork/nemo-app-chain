@@ -70,11 +70,11 @@ func (m *GenesisState) GetLimitParamsList() []LimitParams {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.ratelimit.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.ratelimit.GenesisState")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/ratelimit/genesis.proto", fileDescriptor_2a8e01e067b5f0e8)
+	proto.RegisterFile("nemo_network/ratelimit/genesis.proto", fileDescriptor_2a8e01e067b5f0e8)
 }
 
 var fileDescriptor_2a8e01e067b5f0e8 = []byte{

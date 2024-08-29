@@ -217,13 +217,13 @@ func (m *SubaccountOpenPositionInfo) GetSubaccountsWithShortPosition() []types.S
 }
 
 func init() {
-	proto.RegisterType((*PerpetualLiquidationInfo)(nil), "nemo-network.clob.PerpetualLiquidationInfo")
-	proto.RegisterType((*SubaccountLiquidationInfo)(nil), "nemo-network.clob.SubaccountLiquidationInfo")
-	proto.RegisterType((*SubaccountOpenPositionInfo)(nil), "nemo-network.clob.SubaccountOpenPositionInfo")
+	proto.RegisterType((*PerpetualLiquidationInfo)(nil), "nemo_network.clob.PerpetualLiquidationInfo")
+	proto.RegisterType((*SubaccountLiquidationInfo)(nil), "nemo_network.clob.SubaccountLiquidationInfo")
+	proto.RegisterType((*SubaccountOpenPositionInfo)(nil), "nemo_network.clob.SubaccountOpenPositionInfo")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/clob/liquidations.proto", fileDescriptor_e91628d349879778)
+	proto.RegisterFile("nemo_network/clob/liquidations.proto", fileDescriptor_e91628d349879778)
 }
 
 var fileDescriptor_e91628d349879778 = []byte{

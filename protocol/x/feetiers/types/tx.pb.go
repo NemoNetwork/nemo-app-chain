@@ -123,11 +123,11 @@ func (m *MsgUpdatePerpetualFeeParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdatePerpetualFeeParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgUpdatePerpetualFeeParams)(nil), "nemo-network.feetiers.MsgUpdatePerpetualFeeParams")
-	proto.RegisterType((*MsgUpdatePerpetualFeeParamsResponse)(nil), "nemo-network.feetiers.MsgUpdatePerpetualFeeParamsResponse")
+	proto.RegisterType((*MsgUpdatePerpetualFeeParams)(nil), "nemo_network.feetiers.MsgUpdatePerpetualFeeParams")
+	proto.RegisterType((*MsgUpdatePerpetualFeeParamsResponse)(nil), "nemo_network.feetiers.MsgUpdatePerpetualFeeParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/feetiers/tx.proto", fileDescriptor_caa74a3b986b7fd9) }
+func init() { proto.RegisterFile("nemo_network/feetiers/tx.proto", fileDescriptor_caa74a3b986b7fd9) }
 
 var fileDescriptor_caa74a3b986b7fd9 = []byte{
 	// 331 bytes of a gzipped FileDescriptorProto
@@ -180,7 +180,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) UpdatePerpetualFeeParams(ctx context.Context, in *MsgUpdatePerpetualFeeParams, opts ...grpc.CallOption) (*MsgUpdatePerpetualFeeParamsResponse, error) {
 	out := new(MsgUpdatePerpetualFeeParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.feetiers.Msg/UpdatePerpetualFeeParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.feetiers.Msg/UpdatePerpetualFeeParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -215,7 +215,7 @@ func _Msg_UpdatePerpetualFeeParams_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.feetiers.Msg/UpdatePerpetualFeeParams",
+		FullMethod: "/nemo_network.feetiers.Msg/UpdatePerpetualFeeParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdatePerpetualFeeParams(ctx, req.(*MsgUpdatePerpetualFeeParams))
@@ -224,7 +224,7 @@ func _Msg_UpdatePerpetualFeeParams_Handler(srv interface{}, ctx context.Context,
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.feetiers.Msg",
+	ServiceName: "nemo_network.feetiers.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -233,7 +233,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/feetiers/tx.proto",
+	Metadata: "nemo_network/feetiers/tx.proto",
 }
 
 func (m *MsgUpdatePerpetualFeeParams) Marshal() (dAtA []byte, err error) {

@@ -296,7 +296,7 @@ func (m *IndexerOrderId) GetClobPairId() uint32 {
 type IndexerOrder struct {
 	// The unique ID of this order. Meant to be unique across all orders.
 	OrderId IndexerOrderId    `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id"`
-	Side    IndexerOrder_Side `protobuf:"varint,2,opt,name=side,proto3,enum=nemo-network.indexer.protocol.v1.IndexerOrder_Side" json:"side,omitempty"`
+	Side    IndexerOrder_Side `protobuf:"varint,2,opt,name=side,proto3,enum=nemo_network.indexer.protocol.v1.IndexerOrder_Side" json:"side,omitempty"`
 	// The size of this order in base quantums. Must be a multiple of
 	// `ClobPair.StepBaseQuantums` (where `ClobPair.Id = orderId.ClobPairId`).
 	Quantums uint64 `protobuf:"varint,3,opt,name=quantums,proto3" json:"quantums,omitempty"`
@@ -311,7 +311,7 @@ type IndexerOrder struct {
 	//	*IndexerOrder_GoodTilBlockTime
 	GoodTilOneof isIndexerOrder_GoodTilOneof `protobuf_oneof:"good_til_oneof"`
 	// The time in force of this order.
-	TimeInForce IndexerOrder_TimeInForce `protobuf:"varint,7,opt,name=time_in_force,json=timeInForce,proto3,enum=nemo-network.indexer.protocol.v1.IndexerOrder_TimeInForce" json:"time_in_force,omitempty"`
+	TimeInForce IndexerOrder_TimeInForce `protobuf:"varint,7,opt,name=time_in_force,json=timeInForce,proto3,enum=nemo_network.indexer.protocol.v1.IndexerOrder_TimeInForce" json:"time_in_force,omitempty"`
 	// Enforces that the order can only reduce the size of an existing position.
 	// If a ReduceOnly order would change the side of the existing position,
 	// its size is reduced to that of the remaining size of the position.
@@ -322,7 +322,7 @@ type IndexerOrder struct {
 	// Set of bit flags set arbitrarily by clients and ignored by the protocol.
 	// Used by indexer to infer information about a placed order.
 	ClientMetadata uint32                     `protobuf:"varint,9,opt,name=client_metadata,json=clientMetadata,proto3" json:"client_metadata,omitempty"`
-	ConditionType  IndexerOrder_ConditionType `protobuf:"varint,10,opt,name=condition_type,json=conditionType,proto3,enum=nemo-network.indexer.protocol.v1.IndexerOrder_ConditionType" json:"condition_type,omitempty"`
+	ConditionType  IndexerOrder_ConditionType `protobuf:"varint,10,opt,name=condition_type,json=conditionType,proto3,enum=nemo_network.indexer.protocol.v1.IndexerOrder_ConditionType" json:"condition_type,omitempty"`
 	// conditional_order_trigger_subticks represents the price at which this order
 	// will be triggered. If the condition_type is CONDITION_TYPE_UNSPECIFIED,
 	// this value is enforced to be 0. If this value is nonzero, condition_type
@@ -474,16 +474,16 @@ func (*IndexerOrder) XXX_OneofWrappers() []interface{} {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.indexer.protocol.v1.ClobPairStatus", ClobPairStatus_name, ClobPairStatus_value)
-	proto.RegisterEnum("nemo-network.indexer.protocol.v1.IndexerOrder_Side", IndexerOrder_Side_name, IndexerOrder_Side_value)
-	proto.RegisterEnum("nemo-network.indexer.protocol.v1.IndexerOrder_TimeInForce", IndexerOrder_TimeInForce_name, IndexerOrder_TimeInForce_value)
-	proto.RegisterEnum("nemo-network.indexer.protocol.v1.IndexerOrder_ConditionType", IndexerOrder_ConditionType_name, IndexerOrder_ConditionType_value)
-	proto.RegisterType((*IndexerOrderId)(nil), "nemo-network.indexer.protocol.v1.IndexerOrderId")
-	proto.RegisterType((*IndexerOrder)(nil), "nemo-network.indexer.protocol.v1.IndexerOrder")
+	proto.RegisterEnum("nemo_network.indexer.protocol.v1.ClobPairStatus", ClobPairStatus_name, ClobPairStatus_value)
+	proto.RegisterEnum("nemo_network.indexer.protocol.v1.IndexerOrder_Side", IndexerOrder_Side_name, IndexerOrder_Side_value)
+	proto.RegisterEnum("nemo_network.indexer.protocol.v1.IndexerOrder_TimeInForce", IndexerOrder_TimeInForce_name, IndexerOrder_TimeInForce_value)
+	proto.RegisterEnum("nemo_network.indexer.protocol.v1.IndexerOrder_ConditionType", IndexerOrder_ConditionType_name, IndexerOrder_ConditionType_value)
+	proto.RegisterType((*IndexerOrderId)(nil), "nemo_network.indexer.protocol.v1.IndexerOrderId")
+	proto.RegisterType((*IndexerOrder)(nil), "nemo_network.indexer.protocol.v1.IndexerOrder")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/indexer/protocol/v1/clob.proto", fileDescriptor_fac8923e70f7ca3c)
+	proto.RegisterFile("nemo_network/indexer/protocol/v1/clob.proto", fileDescriptor_fac8923e70f7ca3c)
 }
 
 var fileDescriptor_fac8923e70f7ca3c = []byte{

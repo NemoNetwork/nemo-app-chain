@@ -69,10 +69,10 @@ func (m *GenesisState) GetAssets() []Asset {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.assets.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.assets.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/assets/genesis.proto", fileDescriptor_2c3ff19faa92a47a) }
+func init() { proto.RegisterFile("nemo_network/assets/genesis.proto", fileDescriptor_2c3ff19faa92a47a) }
 
 var fileDescriptor_2c3ff19faa92a47a = []byte{
 	// 193 bytes of a gzipped FileDescriptorProto

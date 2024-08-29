@@ -57,7 +57,7 @@ func (VaultType) EnumDescriptor() ([]byte, []int) {
 // VaultId uniquely identifies a vault by its type and number.
 type VaultId struct {
 	// Type of the vault.
-	Type VaultType `protobuf:"varint,1,opt,name=type,proto3,enum=nemo-network.vault.VaultType" json:"type,omitempty"`
+	Type VaultType `protobuf:"varint,1,opt,name=type,proto3,enum=nemo_network.vault.VaultType" json:"type,omitempty"`
 	// Unique ID of the vault within above type.
 	Number uint32 `protobuf:"varint,2,opt,name=number,proto3" json:"number,omitempty"`
 }
@@ -248,14 +248,14 @@ func (m *VaultParams) GetLaggedPrice() *types.MarketPrice {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.vault.VaultType", VaultType_name, VaultType_value)
-	proto.RegisterType((*VaultId)(nil), "nemo-network.vault.VaultId")
-	proto.RegisterType((*NumShares)(nil), "nemo-network.vault.NumShares")
-	proto.RegisterType((*OwnerShare)(nil), "nemo-network.vault.OwnerShare")
-	proto.RegisterType((*VaultParams)(nil), "nemo-network.vault.VaultParams")
+	proto.RegisterEnum("nemo_network.vault.VaultType", VaultType_name, VaultType_value)
+	proto.RegisterType((*VaultId)(nil), "nemo_network.vault.VaultId")
+	proto.RegisterType((*NumShares)(nil), "nemo_network.vault.NumShares")
+	proto.RegisterType((*OwnerShare)(nil), "nemo_network.vault.OwnerShare")
+	proto.RegisterType((*VaultParams)(nil), "nemo_network.vault.VaultParams")
 }
 
-func init() { proto.RegisterFile("nemo-network/vault/vault.proto", fileDescriptor_32accb5830bb2860) }
+func init() { proto.RegisterFile("nemo_network/vault/vault.proto", fileDescriptor_32accb5830bb2860) }
 
 var fileDescriptor_32accb5830bb2860 = []byte{
 	// 439 bytes of a gzipped FileDescriptorProto

@@ -140,7 +140,7 @@ type FundingEventV1 struct {
 	// markets. The list is sorted by `perpetualId`s which are unique.
 	Updates []FundingUpdateV1 `protobuf:"bytes,1,rep,name=updates,proto3" json:"updates"`
 	// type stores the type of funding updates.
-	Type FundingEventV1_Type `protobuf:"varint,2,opt,name=type,proto3,enum=nemo-network.indexer.events.FundingEventV1_Type" json:"type,omitempty"`
+	Type FundingEventV1_Type `protobuf:"varint,2,opt,name=type,proto3,enum=nemo_network.indexer.events.FundingEventV1_Type" json:"type,omitempty"`
 }
 
 func (m *FundingEventV1) Reset()         { *m = FundingEventV1{} }
@@ -1311,7 +1311,7 @@ func (m *StatefulOrderEventV1_StatefulOrderPlacementV1) GetOrder() *types.Indexe
 // placed and is now removed and the reason for the removal.
 type StatefulOrderEventV1_StatefulOrderRemovalV1 struct {
 	RemovedOrderId *types.IndexerOrderId     `protobuf:"bytes,1,opt,name=removed_order_id,json=removedOrderId,proto3" json:"removed_order_id,omitempty"`
-	Reason         types1.OrderRemovalReason `protobuf:"varint,2,opt,name=reason,proto3,enum=nemo-network.indexer.shared.OrderRemovalReason" json:"reason,omitempty"`
+	Reason         types1.OrderRemovalReason `protobuf:"varint,2,opt,name=reason,proto3,enum=nemo_network.indexer.shared.OrderRemovalReason" json:"reason,omitempty"`
 }
 
 func (m *StatefulOrderEventV1_StatefulOrderRemovalV1) Reset() {
@@ -1681,7 +1681,7 @@ type PerpetualMarketCreateEventV1 struct {
 	// Defined in perpetuals.perpetual
 	MarketId uint32 `protobuf:"varint,4,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
 	// Status of the CLOB
-	Status types.ClobPairStatus `protobuf:"varint,5,opt,name=status,proto3,enum=nemo-network.indexer.protocol.v1.ClobPairStatus" json:"status,omitempty"`
+	Status types.ClobPairStatus `protobuf:"varint,5,opt,name=status,proto3,enum=nemo_network.indexer.protocol.v1.ClobPairStatus" json:"status,omitempty"`
 	// `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
 	// per Subtick.
 	// Defined in clob.clob_pair
@@ -1825,7 +1825,7 @@ type PerpetualMarketCreateEventV2 struct {
 	// Defined in perpetuals.perpetual
 	MarketId uint32 `protobuf:"varint,4,opt,name=market_id,json=marketId,proto3" json:"market_id,omitempty"`
 	// Status of the CLOB
-	Status types.ClobPairStatus `protobuf:"varint,5,opt,name=status,proto3,enum=nemo-network.indexer.protocol.v1.ClobPairStatus" json:"status,omitempty"`
+	Status types.ClobPairStatus `protobuf:"varint,5,opt,name=status,proto3,enum=nemo_network.indexer.protocol.v1.ClobPairStatus" json:"status,omitempty"`
 	// `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
 	// per Subtick.
 	// Defined in clob.clob_pair
@@ -1849,7 +1849,7 @@ type PerpetualMarketCreateEventV2 struct {
 	// Defined in perpetuals.perpetual
 	LiquidityTier uint32 `protobuf:"varint,10,opt,name=liquidity_tier,json=liquidityTier,proto3" json:"liquidity_tier,omitempty"`
 	// Market type of the perpetual.
-	MarketType types.PerpetualMarketType `protobuf:"varint,11,opt,name=market_type,json=marketType,proto3,enum=nemo-network.indexer.protocol.v1.PerpetualMarketType" json:"market_type,omitempty"`
+	MarketType types.PerpetualMarketType `protobuf:"varint,11,opt,name=market_type,json=marketType,proto3,enum=nemo_network.indexer.protocol.v1.PerpetualMarketType" json:"market_type,omitempty"`
 }
 
 func (m *PerpetualMarketCreateEventV2) Reset()         { *m = PerpetualMarketCreateEventV2{} }
@@ -2059,7 +2059,7 @@ type UpdateClobPairEventV1 struct {
 	// Defined in clob.clob_pair
 	ClobPairId uint32 `protobuf:"varint,1,opt,name=clob_pair_id,json=clobPairId,proto3" json:"clob_pair_id,omitempty"`
 	// Status of the CLOB
-	Status types.ClobPairStatus `protobuf:"varint,2,opt,name=status,proto3,enum=nemo-network.indexer.protocol.v1.ClobPairStatus" json:"status,omitempty"`
+	Status types.ClobPairStatus `protobuf:"varint,2,opt,name=status,proto3,enum=nemo_network.indexer.protocol.v1.ClobPairStatus" json:"status,omitempty"`
 	// `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
 	// per Subtick.
 	// Defined in clob.clob_pair
@@ -2535,42 +2535,42 @@ func (m *LiquidityTierUpsertEventV2) GetOpenInterestUpperCap() uint64 {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.indexer.events.FundingEventV1_Type", FundingEventV1_Type_name, FundingEventV1_Type_value)
-	proto.RegisterType((*FundingUpdateV1)(nil), "nemo-network.indexer.events.FundingUpdateV1")
-	proto.RegisterType((*FundingEventV1)(nil), "nemo-network.indexer.events.FundingEventV1")
-	proto.RegisterType((*MarketEventV1)(nil), "nemo-network.indexer.events.MarketEventV1")
-	proto.RegisterType((*MarketPriceUpdateEventV1)(nil), "nemo-network.indexer.events.MarketPriceUpdateEventV1")
-	proto.RegisterType((*MarketBaseEventV1)(nil), "nemo-network.indexer.events.MarketBaseEventV1")
-	proto.RegisterType((*MarketCreateEventV1)(nil), "nemo-network.indexer.events.MarketCreateEventV1")
-	proto.RegisterType((*MarketModifyEventV1)(nil), "nemo-network.indexer.events.MarketModifyEventV1")
-	proto.RegisterType((*SourceOfFunds)(nil), "nemo-network.indexer.events.SourceOfFunds")
-	proto.RegisterType((*TransferEventV1)(nil), "nemo-network.indexer.events.TransferEventV1")
-	proto.RegisterType((*OrderFillEventV1)(nil), "nemo-network.indexer.events.OrderFillEventV1")
-	proto.RegisterType((*DeleveragingEventV1)(nil), "nemo-network.indexer.events.DeleveragingEventV1")
-	proto.RegisterType((*LiquidationOrderV1)(nil), "nemo-network.indexer.events.LiquidationOrderV1")
-	proto.RegisterType((*SubaccountUpdateEventV1)(nil), "nemo-network.indexer.events.SubaccountUpdateEventV1")
-	proto.RegisterType((*StatefulOrderEventV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1")
-	proto.RegisterType((*StatefulOrderEventV1_StatefulOrderPlacementV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1.StatefulOrderPlacementV1")
-	proto.RegisterType((*StatefulOrderEventV1_StatefulOrderRemovalV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1.StatefulOrderRemovalV1")
-	proto.RegisterType((*StatefulOrderEventV1_ConditionalOrderPlacementV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1.ConditionalOrderPlacementV1")
-	proto.RegisterType((*StatefulOrderEventV1_ConditionalOrderTriggeredV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1.ConditionalOrderTriggeredV1")
-	proto.RegisterType((*StatefulOrderEventV1_LongTermOrderPlacementV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1.LongTermOrderPlacementV1")
-	proto.RegisterType((*StatefulOrderEventV1_LongTermOrderReplacementV1)(nil), "nemo-network.indexer.events.StatefulOrderEventV1.LongTermOrderReplacementV1")
-	proto.RegisterType((*AssetCreateEventV1)(nil), "nemo-network.indexer.events.AssetCreateEventV1")
-	proto.RegisterType((*PerpetualMarketCreateEventV1)(nil), "nemo-network.indexer.events.PerpetualMarketCreateEventV1")
-	proto.RegisterType((*PerpetualMarketCreateEventV2)(nil), "nemo-network.indexer.events.PerpetualMarketCreateEventV2")
-	proto.RegisterType((*LiquidityTierUpsertEventV1)(nil), "nemo-network.indexer.events.LiquidityTierUpsertEventV1")
-	proto.RegisterType((*UpdateClobPairEventV1)(nil), "nemo-network.indexer.events.UpdateClobPairEventV1")
-	proto.RegisterType((*UpdatePerpetualEventV1)(nil), "nemo-network.indexer.events.UpdatePerpetualEventV1")
-	proto.RegisterType((*TradingRewardsEventV1)(nil), "nemo-network.indexer.events.TradingRewardsEventV1")
-	proto.RegisterType((*AddressTradingReward)(nil), "nemo-network.indexer.events.AddressTradingReward")
-	proto.RegisterType((*OpenInterestUpdateEventV1)(nil), "nemo-network.indexer.events.OpenInterestUpdateEventV1")
-	proto.RegisterType((*OpenInterestUpdate)(nil), "nemo-network.indexer.events.OpenInterestUpdate")
-	proto.RegisterType((*LiquidityTierUpsertEventV2)(nil), "nemo-network.indexer.events.LiquidityTierUpsertEventV2")
+	proto.RegisterEnum("nemo_network.indexer.events.FundingEventV1_Type", FundingEventV1_Type_name, FundingEventV1_Type_value)
+	proto.RegisterType((*FundingUpdateV1)(nil), "nemo_network.indexer.events.FundingUpdateV1")
+	proto.RegisterType((*FundingEventV1)(nil), "nemo_network.indexer.events.FundingEventV1")
+	proto.RegisterType((*MarketEventV1)(nil), "nemo_network.indexer.events.MarketEventV1")
+	proto.RegisterType((*MarketPriceUpdateEventV1)(nil), "nemo_network.indexer.events.MarketPriceUpdateEventV1")
+	proto.RegisterType((*MarketBaseEventV1)(nil), "nemo_network.indexer.events.MarketBaseEventV1")
+	proto.RegisterType((*MarketCreateEventV1)(nil), "nemo_network.indexer.events.MarketCreateEventV1")
+	proto.RegisterType((*MarketModifyEventV1)(nil), "nemo_network.indexer.events.MarketModifyEventV1")
+	proto.RegisterType((*SourceOfFunds)(nil), "nemo_network.indexer.events.SourceOfFunds")
+	proto.RegisterType((*TransferEventV1)(nil), "nemo_network.indexer.events.TransferEventV1")
+	proto.RegisterType((*OrderFillEventV1)(nil), "nemo_network.indexer.events.OrderFillEventV1")
+	proto.RegisterType((*DeleveragingEventV1)(nil), "nemo_network.indexer.events.DeleveragingEventV1")
+	proto.RegisterType((*LiquidationOrderV1)(nil), "nemo_network.indexer.events.LiquidationOrderV1")
+	proto.RegisterType((*SubaccountUpdateEventV1)(nil), "nemo_network.indexer.events.SubaccountUpdateEventV1")
+	proto.RegisterType((*StatefulOrderEventV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1")
+	proto.RegisterType((*StatefulOrderEventV1_StatefulOrderPlacementV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1.StatefulOrderPlacementV1")
+	proto.RegisterType((*StatefulOrderEventV1_StatefulOrderRemovalV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1.StatefulOrderRemovalV1")
+	proto.RegisterType((*StatefulOrderEventV1_ConditionalOrderPlacementV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1.ConditionalOrderPlacementV1")
+	proto.RegisterType((*StatefulOrderEventV1_ConditionalOrderTriggeredV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1.ConditionalOrderTriggeredV1")
+	proto.RegisterType((*StatefulOrderEventV1_LongTermOrderPlacementV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1.LongTermOrderPlacementV1")
+	proto.RegisterType((*StatefulOrderEventV1_LongTermOrderReplacementV1)(nil), "nemo_network.indexer.events.StatefulOrderEventV1.LongTermOrderReplacementV1")
+	proto.RegisterType((*AssetCreateEventV1)(nil), "nemo_network.indexer.events.AssetCreateEventV1")
+	proto.RegisterType((*PerpetualMarketCreateEventV1)(nil), "nemo_network.indexer.events.PerpetualMarketCreateEventV1")
+	proto.RegisterType((*PerpetualMarketCreateEventV2)(nil), "nemo_network.indexer.events.PerpetualMarketCreateEventV2")
+	proto.RegisterType((*LiquidityTierUpsertEventV1)(nil), "nemo_network.indexer.events.LiquidityTierUpsertEventV1")
+	proto.RegisterType((*UpdateClobPairEventV1)(nil), "nemo_network.indexer.events.UpdateClobPairEventV1")
+	proto.RegisterType((*UpdatePerpetualEventV1)(nil), "nemo_network.indexer.events.UpdatePerpetualEventV1")
+	proto.RegisterType((*TradingRewardsEventV1)(nil), "nemo_network.indexer.events.TradingRewardsEventV1")
+	proto.RegisterType((*AddressTradingReward)(nil), "nemo_network.indexer.events.AddressTradingReward")
+	proto.RegisterType((*OpenInterestUpdateEventV1)(nil), "nemo_network.indexer.events.OpenInterestUpdateEventV1")
+	proto.RegisterType((*OpenInterestUpdate)(nil), "nemo_network.indexer.events.OpenInterestUpdate")
+	proto.RegisterType((*LiquidityTierUpsertEventV2)(nil), "nemo_network.indexer.events.LiquidityTierUpsertEventV2")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/indexer/events/events.proto", fileDescriptor_6331dfb59c6fd2bb)
+	proto.RegisterFile("nemo_network/indexer/events/events.proto", fileDescriptor_6331dfb59c6fd2bb)
 }
 
 var fileDescriptor_6331dfb59c6fd2bb = []byte{

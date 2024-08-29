@@ -69,11 +69,11 @@ func (m *GenesisState) GetSubaccounts() []Subaccount {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.subaccounts.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.subaccounts.GenesisState")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/subaccounts/genesis.proto", fileDescriptor_82521a0c7c1b8867)
+	proto.RegisterFile("nemo_network/subaccounts/genesis.proto", fileDescriptor_82521a0c7c1b8867)
 }
 
 var fileDescriptor_82521a0c7c1b8867 = []byte{

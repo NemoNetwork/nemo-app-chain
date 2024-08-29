@@ -74,10 +74,10 @@ func (m *Params) GetWindowDuration() time.Duration {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "nemo-network.stats.Params")
+	proto.RegisterType((*Params)(nil), "nemo_network.stats.Params")
 }
 
-func init() { proto.RegisterFile("nemo-network/stats/params.proto", fileDescriptor_5cbe204566f079f6) }
+func init() { proto.RegisterFile("nemo_network/stats/params.proto", fileDescriptor_5cbe204566f079f6) }
 
 var fileDescriptor_5cbe204566f079f6 = []byte{
 	// 219 bytes of a gzipped FileDescriptorProto

@@ -123,11 +123,11 @@ func (m *MarketParam) GetExchangeConfigJson() string {
 }
 
 func init() {
-	proto.RegisterType((*MarketParam)(nil), "nemo-network.prices.MarketParam")
+	proto.RegisterType((*MarketParam)(nil), "nemo_network.prices.MarketParam")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/prices/market_param.proto", fileDescriptor_39174a2dba54f799)
+	proto.RegisterFile("nemo_network/prices/market_param.proto", fileDescriptor_39174a2dba54f799)
 }
 
 var fileDescriptor_39174a2dba54f799 = []byte{

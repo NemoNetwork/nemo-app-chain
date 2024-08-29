@@ -70,10 +70,10 @@ func (m *GenesisState) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.stats.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.stats.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/stats/genesis.proto", fileDescriptor_8b31bfab9064c65e) }
+func init() { proto.RegisterFile("nemo_network/stats/genesis.proto", fileDescriptor_8b31bfab9064c65e) }
 
 var fileDescriptor_8b31bfab9064c65e = []byte{
 	// 196 bytes of a gzipped FileDescriptorProto

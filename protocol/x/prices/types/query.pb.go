@@ -415,17 +415,17 @@ func (m *QueryAllMarketParamsResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
-	proto.RegisterType((*QueryMarketPriceRequest)(nil), "nemo-network.prices.QueryMarketPriceRequest")
-	proto.RegisterType((*QueryMarketPriceResponse)(nil), "nemo-network.prices.QueryMarketPriceResponse")
-	proto.RegisterType((*QueryAllMarketPricesRequest)(nil), "nemo-network.prices.QueryAllMarketPricesRequest")
-	proto.RegisterType((*QueryAllMarketPricesResponse)(nil), "nemo-network.prices.QueryAllMarketPricesResponse")
-	proto.RegisterType((*QueryMarketParamRequest)(nil), "nemo-network.prices.QueryMarketParamRequest")
-	proto.RegisterType((*QueryMarketParamResponse)(nil), "nemo-network.prices.QueryMarketParamResponse")
-	proto.RegisterType((*QueryAllMarketParamsRequest)(nil), "nemo-network.prices.QueryAllMarketParamsRequest")
-	proto.RegisterType((*QueryAllMarketParamsResponse)(nil), "nemo-network.prices.QueryAllMarketParamsResponse")
+	proto.RegisterType((*QueryMarketPriceRequest)(nil), "nemo_network.prices.QueryMarketPriceRequest")
+	proto.RegisterType((*QueryMarketPriceResponse)(nil), "nemo_network.prices.QueryMarketPriceResponse")
+	proto.RegisterType((*QueryAllMarketPricesRequest)(nil), "nemo_network.prices.QueryAllMarketPricesRequest")
+	proto.RegisterType((*QueryAllMarketPricesResponse)(nil), "nemo_network.prices.QueryAllMarketPricesResponse")
+	proto.RegisterType((*QueryMarketParamRequest)(nil), "nemo_network.prices.QueryMarketParamRequest")
+	proto.RegisterType((*QueryMarketParamResponse)(nil), "nemo_network.prices.QueryMarketParamResponse")
+	proto.RegisterType((*QueryAllMarketParamsRequest)(nil), "nemo_network.prices.QueryAllMarketParamsRequest")
+	proto.RegisterType((*QueryAllMarketParamsResponse)(nil), "nemo_network.prices.QueryAllMarketParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/prices/query.proto", fileDescriptor_c306b315383f34f4) }
+func init() { proto.RegisterFile("nemo_network/prices/query.proto", fileDescriptor_c306b315383f34f4) }
 
 var fileDescriptor_c306b315383f34f4 = []byte{
 	// 556 bytes of a gzipped FileDescriptorProto
@@ -498,7 +498,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) MarketPrice(ctx context.Context, in *QueryMarketPriceRequest, opts ...grpc.CallOption) (*QueryMarketPriceResponse, error) {
 	out := new(QueryMarketPriceResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Query/MarketPrice", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Query/MarketPrice", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -507,7 +507,7 @@ func (c *queryClient) MarketPrice(ctx context.Context, in *QueryMarketPriceReque
 
 func (c *queryClient) AllMarketPrices(ctx context.Context, in *QueryAllMarketPricesRequest, opts ...grpc.CallOption) (*QueryAllMarketPricesResponse, error) {
 	out := new(QueryAllMarketPricesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Query/AllMarketPrices", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Query/AllMarketPrices", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -516,7 +516,7 @@ func (c *queryClient) AllMarketPrices(ctx context.Context, in *QueryAllMarketPri
 
 func (c *queryClient) MarketParam(ctx context.Context, in *QueryMarketParamRequest, opts ...grpc.CallOption) (*QueryMarketParamResponse, error) {
 	out := new(QueryMarketParamResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Query/MarketParam", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Query/MarketParam", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -525,7 +525,7 @@ func (c *queryClient) MarketParam(ctx context.Context, in *QueryMarketParamReque
 
 func (c *queryClient) AllMarketParams(ctx context.Context, in *QueryAllMarketParamsRequest, opts ...grpc.CallOption) (*QueryAllMarketParamsResponse, error) {
 	out := new(QueryAllMarketParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.prices.Query/AllMarketParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.prices.Query/AllMarketParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -575,7 +575,7 @@ func _Query_MarketPrice_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Query/MarketPrice",
+		FullMethod: "/nemo_network.prices.Query/MarketPrice",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).MarketPrice(ctx, req.(*QueryMarketPriceRequest))
@@ -593,7 +593,7 @@ func _Query_AllMarketPrices_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Query/AllMarketPrices",
+		FullMethod: "/nemo_network.prices.Query/AllMarketPrices",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllMarketPrices(ctx, req.(*QueryAllMarketPricesRequest))
@@ -611,7 +611,7 @@ func _Query_MarketParam_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Query/MarketParam",
+		FullMethod: "/nemo_network.prices.Query/MarketParam",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).MarketParam(ctx, req.(*QueryMarketParamRequest))
@@ -629,7 +629,7 @@ func _Query_AllMarketParams_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.prices.Query/AllMarketParams",
+		FullMethod: "/nemo_network.prices.Query/AllMarketParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllMarketParams(ctx, req.(*QueryAllMarketParamsRequest))
@@ -638,7 +638,7 @@ func _Query_AllMarketParams_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.prices.Query",
+	ServiceName: "nemo_network.prices.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -659,7 +659,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/prices/query.proto",
+	Metadata: "nemo_network/prices/query.proto",
 }
 
 func (m *QueryMarketPriceRequest) Marshal() (dAtA []byte, err error) {

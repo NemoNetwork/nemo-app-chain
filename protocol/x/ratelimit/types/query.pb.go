@@ -288,16 +288,16 @@ func (m *QueryAllPendingSendPacketsResponse) GetPendingSendPackets() []PendingSe
 }
 
 func init() {
-	proto.RegisterType((*ListLimitParamsRequest)(nil), "nemo-network.ratelimit.ListLimitParamsRequest")
-	proto.RegisterType((*ListLimitParamsResponse)(nil), "nemo-network.ratelimit.ListLimitParamsResponse")
-	proto.RegisterType((*QueryCapacityByDenomRequest)(nil), "nemo-network.ratelimit.QueryCapacityByDenomRequest")
-	proto.RegisterType((*QueryCapacityByDenomResponse)(nil), "nemo-network.ratelimit.QueryCapacityByDenomResponse")
-	proto.RegisterType((*QueryAllPendingSendPacketsRequest)(nil), "nemo-network.ratelimit.QueryAllPendingSendPacketsRequest")
-	proto.RegisterType((*QueryAllPendingSendPacketsResponse)(nil), "nemo-network.ratelimit.QueryAllPendingSendPacketsResponse")
+	proto.RegisterType((*ListLimitParamsRequest)(nil), "nemo_network.ratelimit.ListLimitParamsRequest")
+	proto.RegisterType((*ListLimitParamsResponse)(nil), "nemo_network.ratelimit.ListLimitParamsResponse")
+	proto.RegisterType((*QueryCapacityByDenomRequest)(nil), "nemo_network.ratelimit.QueryCapacityByDenomRequest")
+	proto.RegisterType((*QueryCapacityByDenomResponse)(nil), "nemo_network.ratelimit.QueryCapacityByDenomResponse")
+	proto.RegisterType((*QueryAllPendingSendPacketsRequest)(nil), "nemo_network.ratelimit.QueryAllPendingSendPacketsRequest")
+	proto.RegisterType((*QueryAllPendingSendPacketsResponse)(nil), "nemo_network.ratelimit.QueryAllPendingSendPacketsResponse")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/ratelimit/query.proto", fileDescriptor_f2e2dd1cb27aa65a)
+	proto.RegisterFile("nemo_network/ratelimit/query.proto", fileDescriptor_f2e2dd1cb27aa65a)
 }
 
 var fileDescriptor_f2e2dd1cb27aa65a = []byte{
@@ -367,7 +367,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) ListLimitParams(ctx context.Context, in *ListLimitParamsRequest, opts ...grpc.CallOption) (*ListLimitParamsResponse, error) {
 	out := new(ListLimitParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.ratelimit.Query/ListLimitParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.ratelimit.Query/ListLimitParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -376,7 +376,7 @@ func (c *queryClient) ListLimitParams(ctx context.Context, in *ListLimitParamsRe
 
 func (c *queryClient) CapacityByDenom(ctx context.Context, in *QueryCapacityByDenomRequest, opts ...grpc.CallOption) (*QueryCapacityByDenomResponse, error) {
 	out := new(QueryCapacityByDenomResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.ratelimit.Query/CapacityByDenom", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.ratelimit.Query/CapacityByDenom", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -385,7 +385,7 @@ func (c *queryClient) CapacityByDenom(ctx context.Context, in *QueryCapacityByDe
 
 func (c *queryClient) AllPendingSendPackets(ctx context.Context, in *QueryAllPendingSendPacketsRequest, opts ...grpc.CallOption) (*QueryAllPendingSendPacketsResponse, error) {
 	out := new(QueryAllPendingSendPacketsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.ratelimit.Query/AllPendingSendPackets", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.ratelimit.Query/AllPendingSendPackets", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -430,7 +430,7 @@ func _Query_ListLimitParams_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.ratelimit.Query/ListLimitParams",
+		FullMethod: "/nemo_network.ratelimit.Query/ListLimitParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ListLimitParams(ctx, req.(*ListLimitParamsRequest))
@@ -448,7 +448,7 @@ func _Query_CapacityByDenom_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.ratelimit.Query/CapacityByDenom",
+		FullMethod: "/nemo_network.ratelimit.Query/CapacityByDenom",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).CapacityByDenom(ctx, req.(*QueryCapacityByDenomRequest))
@@ -466,7 +466,7 @@ func _Query_AllPendingSendPackets_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.ratelimit.Query/AllPendingSendPackets",
+		FullMethod: "/nemo_network.ratelimit.Query/AllPendingSendPackets",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllPendingSendPackets(ctx, req.(*QueryAllPendingSendPacketsRequest))
@@ -475,7 +475,7 @@ func _Query_AllPendingSendPackets_Handler(srv interface{}, ctx context.Context, 
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.ratelimit.Query",
+	ServiceName: "nemo_network.ratelimit.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -492,7 +492,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/ratelimit/query.proto",
+	Metadata: "nemo_network/ratelimit/query.proto",
 }
 
 func (m *ListLimitParamsRequest) Marshal() (dAtA []byte, err error) {

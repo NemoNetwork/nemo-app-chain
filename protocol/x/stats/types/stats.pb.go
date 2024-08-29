@@ -394,16 +394,16 @@ func (m *UserStats) GetMakerNotional() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*BlockStats)(nil), "nemo-network.stats.BlockStats")
-	proto.RegisterType((*BlockStats_Fill)(nil), "nemo-network.stats.BlockStats.Fill")
-	proto.RegisterType((*StatsMetadata)(nil), "nemo-network.stats.StatsMetadata")
-	proto.RegisterType((*EpochStats)(nil), "nemo-network.stats.EpochStats")
-	proto.RegisterType((*EpochStats_UserWithStats)(nil), "nemo-network.stats.EpochStats.UserWithStats")
-	proto.RegisterType((*GlobalStats)(nil), "nemo-network.stats.GlobalStats")
-	proto.RegisterType((*UserStats)(nil), "nemo-network.stats.UserStats")
+	proto.RegisterType((*BlockStats)(nil), "nemo_network.stats.BlockStats")
+	proto.RegisterType((*BlockStats_Fill)(nil), "nemo_network.stats.BlockStats.Fill")
+	proto.RegisterType((*StatsMetadata)(nil), "nemo_network.stats.StatsMetadata")
+	proto.RegisterType((*EpochStats)(nil), "nemo_network.stats.EpochStats")
+	proto.RegisterType((*EpochStats_UserWithStats)(nil), "nemo_network.stats.EpochStats.UserWithStats")
+	proto.RegisterType((*GlobalStats)(nil), "nemo_network.stats.GlobalStats")
+	proto.RegisterType((*UserStats)(nil), "nemo_network.stats.UserStats")
 }
 
-func init() { proto.RegisterFile("nemo-network/stats/stats.proto", fileDescriptor_07475747e6dcccdc) }
+func init() { proto.RegisterFile("nemo_network/stats/stats.proto", fileDescriptor_07475747e6dcccdc) }
 
 var fileDescriptor_07475747e6dcccdc = []byte{
 	// 464 bytes of a gzipped FileDescriptorProto

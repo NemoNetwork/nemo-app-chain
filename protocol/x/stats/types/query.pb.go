@@ -367,17 +367,17 @@ func (m *QueryUserStatsResponse) GetStats() *UserStats {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "nemo-network.stats.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "nemo-network.stats.QueryParamsResponse")
-	proto.RegisterType((*QueryStatsMetadataRequest)(nil), "nemo-network.stats.QueryStatsMetadataRequest")
-	proto.RegisterType((*QueryStatsMetadataResponse)(nil), "nemo-network.stats.QueryStatsMetadataResponse")
-	proto.RegisterType((*QueryGlobalStatsRequest)(nil), "nemo-network.stats.QueryGlobalStatsRequest")
-	proto.RegisterType((*QueryGlobalStatsResponse)(nil), "nemo-network.stats.QueryGlobalStatsResponse")
-	proto.RegisterType((*QueryUserStatsRequest)(nil), "nemo-network.stats.QueryUserStatsRequest")
-	proto.RegisterType((*QueryUserStatsResponse)(nil), "nemo-network.stats.QueryUserStatsResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "nemo_network.stats.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "nemo_network.stats.QueryParamsResponse")
+	proto.RegisterType((*QueryStatsMetadataRequest)(nil), "nemo_network.stats.QueryStatsMetadataRequest")
+	proto.RegisterType((*QueryStatsMetadataResponse)(nil), "nemo_network.stats.QueryStatsMetadataResponse")
+	proto.RegisterType((*QueryGlobalStatsRequest)(nil), "nemo_network.stats.QueryGlobalStatsRequest")
+	proto.RegisterType((*QueryGlobalStatsResponse)(nil), "nemo_network.stats.QueryGlobalStatsResponse")
+	proto.RegisterType((*QueryUserStatsRequest)(nil), "nemo_network.stats.QueryUserStatsRequest")
+	proto.RegisterType((*QueryUserStatsResponse)(nil), "nemo_network.stats.QueryUserStatsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/stats/query.proto", fileDescriptor_17835dac31373c4f) }
+func init() { proto.RegisterFile("nemo_network/stats/query.proto", fileDescriptor_17835dac31373c4f) }
 
 var fileDescriptor_17835dac31373c4f = []byte{
 	// 501 bytes of a gzipped FileDescriptorProto
@@ -447,7 +447,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.stats.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.stats.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -456,7 +456,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) StatsMetadata(ctx context.Context, in *QueryStatsMetadataRequest, opts ...grpc.CallOption) (*QueryStatsMetadataResponse, error) {
 	out := new(QueryStatsMetadataResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.stats.Query/StatsMetadata", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.stats.Query/StatsMetadata", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -465,7 +465,7 @@ func (c *queryClient) StatsMetadata(ctx context.Context, in *QueryStatsMetadataR
 
 func (c *queryClient) GlobalStats(ctx context.Context, in *QueryGlobalStatsRequest, opts ...grpc.CallOption) (*QueryGlobalStatsResponse, error) {
 	out := new(QueryGlobalStatsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.stats.Query/GlobalStats", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.stats.Query/GlobalStats", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -474,7 +474,7 @@ func (c *queryClient) GlobalStats(ctx context.Context, in *QueryGlobalStatsReque
 
 func (c *queryClient) UserStats(ctx context.Context, in *QueryUserStatsRequest, opts ...grpc.CallOption) (*QueryUserStatsResponse, error) {
 	out := new(QueryUserStatsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.stats.Query/UserStats", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.stats.Query/UserStats", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -524,7 +524,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.stats.Query/Params",
+		FullMethod: "/nemo_network.stats.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -542,7 +542,7 @@ func _Query_StatsMetadata_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.stats.Query/StatsMetadata",
+		FullMethod: "/nemo_network.stats.Query/StatsMetadata",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).StatsMetadata(ctx, req.(*QueryStatsMetadataRequest))
@@ -560,7 +560,7 @@ func _Query_GlobalStats_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.stats.Query/GlobalStats",
+		FullMethod: "/nemo_network.stats.Query/GlobalStats",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).GlobalStats(ctx, req.(*QueryGlobalStatsRequest))
@@ -578,7 +578,7 @@ func _Query_UserStats_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.stats.Query/UserStats",
+		FullMethod: "/nemo_network.stats.Query/UserStats",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).UserStats(ctx, req.(*QueryUserStatsRequest))
@@ -587,7 +587,7 @@ func _Query_UserStats_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.stats.Query",
+	ServiceName: "nemo_network.stats.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -608,7 +608,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/stats/query.proto",
+	Metadata: "nemo_network/stats/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

@@ -112,11 +112,11 @@ func (m *QueryParamsResponse) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "nemo-network.rewards.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "nemo-network.rewards.QueryParamsResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "nemo_network.rewards.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "nemo_network.rewards.QueryParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/rewards/query.proto", fileDescriptor_94c9749bc31cbdbc) }
+func init() { proto.RegisterFile("nemo_network/rewards/query.proto", fileDescriptor_94c9749bc31cbdbc) }
 
 var fileDescriptor_94c9749bc31cbdbc = []byte{
 	// 279 bytes of a gzipped FileDescriptorProto
@@ -166,7 +166,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.rewards.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.rewards.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +201,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.rewards.Query/Params",
+		FullMethod: "/nemo_network.rewards.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -210,7 +210,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.rewards.Query",
+	ServiceName: "nemo_network.rewards.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -219,7 +219,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/rewards/query.proto",
+	Metadata: "nemo_network/rewards/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

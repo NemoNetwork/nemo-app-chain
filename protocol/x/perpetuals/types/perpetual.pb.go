@@ -128,7 +128,7 @@ type PerpetualParams struct {
 	// The liquidity_tier that this perpetual is associated with.
 	LiquidityTier uint32 `protobuf:"varint,6,opt,name=liquidity_tier,json=liquidityTier,proto3" json:"liquidity_tier,omitempty"`
 	// The market type specifying if this perpetual is cross or isolated
-	MarketType PerpetualMarketType `protobuf:"varint,7,opt,name=market_type,json=marketType,proto3,enum=nemo-network.perpetuals.PerpetualMarketType" json:"market_type,omitempty"`
+	MarketType PerpetualMarketType `protobuf:"varint,7,opt,name=market_type,json=marketType,proto3,enum=nemo_network.perpetuals.PerpetualMarketType" json:"market_type,omitempty"`
 }
 
 func (m *PerpetualParams) Reset()         { *m = PerpetualParams{} }
@@ -462,16 +462,16 @@ func (m *LiquidityTier) GetOpenInterestUpperCap() uint64 {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.perpetuals.PerpetualMarketType", PerpetualMarketType_name, PerpetualMarketType_value)
-	proto.RegisterType((*Perpetual)(nil), "nemo-network.perpetuals.Perpetual")
-	proto.RegisterType((*PerpetualParams)(nil), "nemo-network.perpetuals.PerpetualParams")
-	proto.RegisterType((*MarketPremiums)(nil), "nemo-network.perpetuals.MarketPremiums")
-	proto.RegisterType((*PremiumStore)(nil), "nemo-network.perpetuals.PremiumStore")
-	proto.RegisterType((*LiquidityTier)(nil), "nemo-network.perpetuals.LiquidityTier")
+	proto.RegisterEnum("nemo_network.perpetuals.PerpetualMarketType", PerpetualMarketType_name, PerpetualMarketType_value)
+	proto.RegisterType((*Perpetual)(nil), "nemo_network.perpetuals.Perpetual")
+	proto.RegisterType((*PerpetualParams)(nil), "nemo_network.perpetuals.PerpetualParams")
+	proto.RegisterType((*MarketPremiums)(nil), "nemo_network.perpetuals.MarketPremiums")
+	proto.RegisterType((*PremiumStore)(nil), "nemo_network.perpetuals.PremiumStore")
+	proto.RegisterType((*LiquidityTier)(nil), "nemo_network.perpetuals.LiquidityTier")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/perpetuals/perpetual.proto", fileDescriptor_ce7204eee10038be)
+	proto.RegisterFile("nemo_network/perpetuals/perpetual.proto", fileDescriptor_ce7204eee10038be)
 }
 
 var fileDescriptor_ce7204eee10038be = []byte{

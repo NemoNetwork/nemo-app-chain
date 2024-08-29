@@ -77,11 +77,11 @@ func (m *PerpetualPosition) GetPerpetualId() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*PerpetualPosition)(nil), "nemo-network.subaccounts.PerpetualPosition")
+	proto.RegisterType((*PerpetualPosition)(nil), "nemo_network.subaccounts.PerpetualPosition")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/subaccounts/perpetual_position.proto", fileDescriptor_e659838f8a8f5498)
+	proto.RegisterFile("nemo_network/subaccounts/perpetual_position.proto", fileDescriptor_e659838f8a8f5498)
 }
 
 var fileDescriptor_e659838f8a8f5498 = []byte{

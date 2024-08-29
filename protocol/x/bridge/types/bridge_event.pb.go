@@ -99,11 +99,11 @@ func (m *BridgeEvent) GetEthBlockHeight() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*BridgeEvent)(nil), "nemo-network.bridge.BridgeEvent")
+	proto.RegisterType((*BridgeEvent)(nil), "nemo_network.bridge.BridgeEvent")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/bridge/bridge_event.proto", fileDescriptor_d8b4b572ecddaf6f)
+	proto.RegisterFile("nemo_network/bridge/bridge_event.proto", fileDescriptor_d8b4b572ecddaf6f)
 }
 
 var fileDescriptor_d8b4b572ecddaf6f = []byte{

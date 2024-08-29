@@ -39,25 +39,25 @@ export class MsgClientImpl implements Msg {
 
   createTransfer(request: MsgCreateTransfer): Promise<MsgCreateTransferResponse> {
     const data = MsgCreateTransfer.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.sending.Msg", "CreateTransfer", data);
+    const promise = this.rpc.request("nemo_network.sending.Msg", "CreateTransfer", data);
     return promise.then(data => MsgCreateTransferResponse.decode(new _m0.Reader(data)));
   }
 
   depositToSubaccount(request: MsgDepositToSubaccount): Promise<MsgDepositToSubaccountResponse> {
     const data = MsgDepositToSubaccount.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.sending.Msg", "DepositToSubaccount", data);
+    const promise = this.rpc.request("nemo_network.sending.Msg", "DepositToSubaccount", data);
     return promise.then(data => MsgDepositToSubaccountResponse.decode(new _m0.Reader(data)));
   }
 
   withdrawFromSubaccount(request: MsgWithdrawFromSubaccount): Promise<MsgWithdrawFromSubaccountResponse> {
     const data = MsgWithdrawFromSubaccount.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.sending.Msg", "WithdrawFromSubaccount", data);
+    const promise = this.rpc.request("nemo_network.sending.Msg", "WithdrawFromSubaccount", data);
     return promise.then(data => MsgWithdrawFromSubaccountResponse.decode(new _m0.Reader(data)));
   }
 
   sendFromModuleToAccount(request: MsgSendFromModuleToAccount): Promise<MsgSendFromModuleToAccountResponse> {
     const data = MsgSendFromModuleToAccount.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.sending.Msg", "SendFromModuleToAccount", data);
+    const promise = this.rpc.request("nemo_network.sending.Msg", "SendFromModuleToAccount", data);
     return promise.then(data => MsgSendFromModuleToAccountResponse.decode(new _m0.Reader(data)));
   }
 

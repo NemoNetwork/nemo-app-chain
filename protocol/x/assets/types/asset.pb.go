@@ -138,10 +138,10 @@ func (m *Asset) GetAtomicResolution() int32 {
 }
 
 func init() {
-	proto.RegisterType((*Asset)(nil), "nemo-network.assets.Asset")
+	proto.RegisterType((*Asset)(nil), "nemo_network.assets.Asset")
 }
 
-func init() { proto.RegisterFile("nemo-network/assets/asset.proto", fileDescriptor_d0b73b5c910a62b5) }
+func init() { proto.RegisterFile("nemo_network/assets/asset.proto", fileDescriptor_d0b73b5c910a62b5) }
 
 var fileDescriptor_d0b73b5c910a62b5 = []byte{
 	// 281 bytes of a gzipped FileDescriptorProto

@@ -77,11 +77,11 @@ func (m *PendingSendPacket) GetSequence() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*PendingSendPacket)(nil), "nemo-network.ratelimit.PendingSendPacket")
+	proto.RegisterType((*PendingSendPacket)(nil), "nemo_network.ratelimit.PendingSendPacket")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/ratelimit/pending_send_packet.proto", fileDescriptor_0fa331693b6a2ba4)
+	proto.RegisterFile("nemo_network/ratelimit/pending_send_packet.proto", fileDescriptor_0fa331693b6a2ba4)
 }
 
 var fileDescriptor_0fa331693b6a2ba4 = []byte{

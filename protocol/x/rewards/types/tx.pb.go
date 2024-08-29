@@ -122,11 +122,11 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgUpdateParams)(nil), "nemo-network.rewards.MsgUpdateParams")
-	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo-network.rewards.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgUpdateParams)(nil), "nemo_network.rewards.MsgUpdateParams")
+	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo_network.rewards.MsgUpdateParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/rewards/tx.proto", fileDescriptor_ccb349b89bfb07b4) }
+func init() { proto.RegisterFile("nemo_network/rewards/tx.proto", fileDescriptor_ccb349b89bfb07b4) }
 
 var fileDescriptor_ccb349b89bfb07b4 = []byte{
 	// 315 bytes of a gzipped FileDescriptorProto
@@ -178,7 +178,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.rewards.Msg/UpdateParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.rewards.Msg/UpdateParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.rewards.Msg/UpdateParams",
+		FullMethod: "/nemo_network.rewards.Msg/UpdateParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateParams(ctx, req.(*MsgUpdateParams))
@@ -222,7 +222,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.rewards.Msg",
+	ServiceName: "nemo_network.rewards.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -231,7 +231,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/rewards/tx.proto",
+	Metadata: "nemo_network/rewards/tx.proto",
 }
 
 func (m *MsgUpdateParams) Marshal() (dAtA []byte, err error) {

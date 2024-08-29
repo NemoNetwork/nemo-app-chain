@@ -23,7 +23,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-func init() { proto.RegisterFile("nemo-network/assets/tx.proto", fileDescriptor_b715ccf58d5be126) }
+func init() { proto.RegisterFile("nemo_network/assets/tx.proto", fileDescriptor_b715ccf58d5be126) }
 
 var fileDescriptor_b715ccf58d5be126 = []byte{
 	// 130 bytes of a gzipped FileDescriptorProto
@@ -73,9 +73,9 @@ func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.assets.Msg",
+	ServiceName: "nemo_network.assets.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},
-	Metadata:    "nemo-network/assets/tx.proto",
+	Metadata:    "nemo_network/assets/tx.proto",
 }

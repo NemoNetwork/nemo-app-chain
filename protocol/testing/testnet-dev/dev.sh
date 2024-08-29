@@ -5,7 +5,7 @@ set -eo pipefail
 
 source "./genesis.sh"
 
-CHAIN_ID="nemo-network-testnet"
+CHAIN_ID="nemo_network.-testnet"
 
 # Define mnemonics for all validators.
 MNEMONICS=(

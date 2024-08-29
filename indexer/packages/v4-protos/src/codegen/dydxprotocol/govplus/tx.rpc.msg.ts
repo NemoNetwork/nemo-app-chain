@@ -20,7 +20,7 @@ export class MsgClientImpl implements Msg {
 
   slashValidator(request: MsgSlashValidator): Promise<MsgSlashValidatorResponse> {
     const data = MsgSlashValidator.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.govplus.Msg", "SlashValidator", data);
+    const promise = this.rpc.request("nemo_network.govplus.Msg", "SlashValidator", data);
     return promise.then(data => MsgSlashValidatorResponse.decode(new _m0.Reader(data)));
   }
 

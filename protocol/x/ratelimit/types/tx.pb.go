@@ -121,11 +121,11 @@ func (m *MsgSetLimitParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgSetLimitParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgSetLimitParams)(nil), "nemo-network.ratelimit.MsgSetLimitParams")
-	proto.RegisterType((*MsgSetLimitParamsResponse)(nil), "nemo-network.ratelimit.MsgSetLimitParamsResponse")
+	proto.RegisterType((*MsgSetLimitParams)(nil), "nemo_network.ratelimit.MsgSetLimitParams")
+	proto.RegisterType((*MsgSetLimitParamsResponse)(nil), "nemo_network.ratelimit.MsgSetLimitParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/ratelimit/tx.proto", fileDescriptor_3c12b4609ad9be85) }
+func init() { proto.RegisterFile("nemo_network/ratelimit/tx.proto", fileDescriptor_3c12b4609ad9be85) }
 
 var fileDescriptor_3c12b4609ad9be85 = []byte{
 	// 292 bytes of a gzipped FileDescriptorProto
@@ -176,7 +176,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) SetLimitParams(ctx context.Context, in *MsgSetLimitParams, opts ...grpc.CallOption) (*MsgSetLimitParamsResponse, error) {
 	out := new(MsgSetLimitParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.ratelimit.Msg/SetLimitParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.ratelimit.Msg/SetLimitParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func _Msg_SetLimitParams_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.ratelimit.Msg/SetLimitParams",
+		FullMethod: "/nemo_network.ratelimit.Msg/SetLimitParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SetLimitParams(ctx, req.(*MsgSetLimitParams))
@@ -220,7 +220,7 @@ func _Msg_SetLimitParams_Handler(srv interface{}, ctx context.Context, dec func(
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.ratelimit.Msg",
+	ServiceName: "nemo_network.ratelimit.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -229,7 +229,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/ratelimit/tx.proto",
+	Metadata: "nemo_network/ratelimit/tx.proto",
 }
 
 func (m *MsgSetLimitParams) Marshal() (dAtA []byte, err error) {

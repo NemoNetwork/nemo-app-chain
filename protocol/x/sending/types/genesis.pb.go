@@ -60,11 +60,11 @@ func (m *GenesisState) XXX_DiscardUnknown() {
 var xxx_messageInfo_GenesisState proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.sending.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.sending.GenesisState")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/sending/genesis.proto", fileDescriptor_27d2abba6d25cc59)
+	proto.RegisterFile("nemo_network/sending/genesis.proto", fileDescriptor_27d2abba6d25cc59)
 }
 
 var fileDescriptor_27d2abba6d25cc59 = []byte{

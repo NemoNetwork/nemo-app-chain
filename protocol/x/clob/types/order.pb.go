@@ -572,7 +572,7 @@ func (m *ConditionalOrderPlacement) GetTriggerIndex() *TransactionOrdering {
 type Order struct {
 	// The unique ID of this order. Meant to be unique across all orders.
 	OrderId OrderId    `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id"`
-	Side    Order_Side `protobuf:"varint,2,opt,name=side,proto3,enum=nemo-network.clob.Order_Side" json:"side,omitempty"`
+	Side    Order_Side `protobuf:"varint,2,opt,name=side,proto3,enum=nemo_network.clob.Order_Side" json:"side,omitempty"`
 	// The size of this order in base quantums. Must be a multiple of
 	// `ClobPair.StepBaseQuantums` (where `ClobPair.Id = orderId.ClobPairId`).
 	Quantums uint64 `protobuf:"varint,3,opt,name=quantums,proto3" json:"quantums,omitempty"`
@@ -588,7 +588,7 @@ type Order struct {
 	//	*Order_GoodTilBlockTime
 	GoodTilOneof isOrder_GoodTilOneof `protobuf_oneof:"good_til_oneof"`
 	// The time in force of this order.
-	TimeInForce Order_TimeInForce `protobuf:"varint,7,opt,name=time_in_force,json=timeInForce,proto3,enum=nemo-network.clob.Order_TimeInForce" json:"time_in_force,omitempty"`
+	TimeInForce Order_TimeInForce `protobuf:"varint,7,opt,name=time_in_force,json=timeInForce,proto3,enum=nemo_network.clob.Order_TimeInForce" json:"time_in_force,omitempty"`
 	// Enforces that the order can only reduce the size of an existing position.
 	// If a ReduceOnly order would change the side of the existing position,
 	// its size is reduced to that of the remaining size of the position.
@@ -599,7 +599,7 @@ type Order struct {
 	// Set of bit flags set arbitrarily by clients and ignored by the protocol.
 	// Used by indexer to infer information about a placed order.
 	ClientMetadata uint32              `protobuf:"varint,9,opt,name=client_metadata,json=clientMetadata,proto3" json:"client_metadata,omitempty"`
-	ConditionType  Order_ConditionType `protobuf:"varint,10,opt,name=condition_type,json=conditionType,proto3,enum=nemo-network.clob.Order_ConditionType" json:"condition_type,omitempty"`
+	ConditionType  Order_ConditionType `protobuf:"varint,10,opt,name=condition_type,json=conditionType,proto3,enum=nemo_network.clob.Order_ConditionType" json:"condition_type,omitempty"`
 	// conditional_order_trigger_subticks represents the price at which this order
 	// will be triggered. If the condition_type is CONDITION_TYPE_UNSPECIFIED,
 	// this value is enforced to be 0. If this value is nonzero, condition_type
@@ -809,21 +809,21 @@ func (m *TransactionOrdering) GetTransactionIndex() uint32 {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.clob.Order_Side", Order_Side_name, Order_Side_value)
-	proto.RegisterEnum("nemo-network.clob.Order_TimeInForce", Order_TimeInForce_name, Order_TimeInForce_value)
-	proto.RegisterEnum("nemo-network.clob.Order_ConditionType", Order_ConditionType_name, Order_ConditionType_value)
-	proto.RegisterType((*OrderId)(nil), "nemo-network.clob.OrderId")
-	proto.RegisterType((*OrdersFilledDuringLatestBlock)(nil), "nemo-network.clob.OrdersFilledDuringLatestBlock")
-	proto.RegisterType((*PotentiallyPrunableOrders)(nil), "nemo-network.clob.PotentiallyPrunableOrders")
-	proto.RegisterType((*OrderFillState)(nil), "nemo-network.clob.OrderFillState")
-	proto.RegisterType((*StatefulOrderTimeSliceValue)(nil), "nemo-network.clob.StatefulOrderTimeSliceValue")
-	proto.RegisterType((*LongTermOrderPlacement)(nil), "nemo-network.clob.LongTermOrderPlacement")
-	proto.RegisterType((*ConditionalOrderPlacement)(nil), "nemo-network.clob.ConditionalOrderPlacement")
-	proto.RegisterType((*Order)(nil), "nemo-network.clob.Order")
-	proto.RegisterType((*TransactionOrdering)(nil), "nemo-network.clob.TransactionOrdering")
+	proto.RegisterEnum("nemo_network.clob.Order_Side", Order_Side_name, Order_Side_value)
+	proto.RegisterEnum("nemo_network.clob.Order_TimeInForce", Order_TimeInForce_name, Order_TimeInForce_value)
+	proto.RegisterEnum("nemo_network.clob.Order_ConditionType", Order_ConditionType_name, Order_ConditionType_value)
+	proto.RegisterType((*OrderId)(nil), "nemo_network.clob.OrderId")
+	proto.RegisterType((*OrdersFilledDuringLatestBlock)(nil), "nemo_network.clob.OrdersFilledDuringLatestBlock")
+	proto.RegisterType((*PotentiallyPrunableOrders)(nil), "nemo_network.clob.PotentiallyPrunableOrders")
+	proto.RegisterType((*OrderFillState)(nil), "nemo_network.clob.OrderFillState")
+	proto.RegisterType((*StatefulOrderTimeSliceValue)(nil), "nemo_network.clob.StatefulOrderTimeSliceValue")
+	proto.RegisterType((*LongTermOrderPlacement)(nil), "nemo_network.clob.LongTermOrderPlacement")
+	proto.RegisterType((*ConditionalOrderPlacement)(nil), "nemo_network.clob.ConditionalOrderPlacement")
+	proto.RegisterType((*Order)(nil), "nemo_network.clob.Order")
+	proto.RegisterType((*TransactionOrdering)(nil), "nemo_network.clob.TransactionOrdering")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/order.proto", fileDescriptor_673c6f4faa93736b) }
+func init() { proto.RegisterFile("nemo_network/clob/order.proto", fileDescriptor_673c6f4faa93736b) }
 
 var fileDescriptor_673c6f4faa93736b = []byte{
 	// 989 bytes of a gzipped FileDescriptorProto

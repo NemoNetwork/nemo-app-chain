@@ -138,11 +138,11 @@ func (m *EpochInfo) GetFastForwardNextTick() bool {
 }
 
 func init() {
-	proto.RegisterType((*EpochInfo)(nil), "nemo-network.epochs.EpochInfo")
+	proto.RegisterType((*EpochInfo)(nil), "nemo_network.epochs.EpochInfo")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/epochs/epoch_info.proto", fileDescriptor_f68fbdc80f51e2c4)
+	proto.RegisterFile("nemo_network/epochs/epoch_info.proto", fileDescriptor_f68fbdc80f51e2c4)
 }
 
 var fileDescriptor_f68fbdc80f51e2c4 = []byte{

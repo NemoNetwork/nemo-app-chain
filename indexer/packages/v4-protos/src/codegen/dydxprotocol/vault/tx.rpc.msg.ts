@@ -21,13 +21,13 @@ export class MsgClientImpl implements Msg {
 
   depositToVault(request: MsgDepositToVault): Promise<MsgDepositToVaultResponse> {
     const data = MsgDepositToVault.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Msg", "DepositToVault", data);
+    const promise = this.rpc.request("nemo_network.vault.Msg", "DepositToVault", data);
     return promise.then(data => MsgDepositToVaultResponse.decode(new _m0.Reader(data)));
   }
 
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Msg", "UpdateParams", data);
+    const promise = this.rpc.request("nemo_network.vault.Msg", "UpdateParams", data);
     return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
   }
 

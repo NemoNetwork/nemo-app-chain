@@ -140,11 +140,11 @@ func (m *MsgDelayMessageResponse) GetId() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*MsgDelayMessage)(nil), "nemo-network.delaymsg.MsgDelayMessage")
-	proto.RegisterType((*MsgDelayMessageResponse)(nil), "nemo-network.delaymsg.MsgDelayMessageResponse")
+	proto.RegisterType((*MsgDelayMessage)(nil), "nemo_network.delaymsg.MsgDelayMessage")
+	proto.RegisterType((*MsgDelayMessageResponse)(nil), "nemo_network.delaymsg.MsgDelayMessageResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/delaymsg/tx.proto", fileDescriptor_aca9ee335b4c07d1) }
+func init() { proto.RegisterFile("nemo_network/delaymsg/tx.proto", fileDescriptor_aca9ee335b4c07d1) }
 
 var fileDescriptor_aca9ee335b4c07d1 = []byte{
 	// 352 bytes of a gzipped FileDescriptorProto
@@ -199,7 +199,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) DelayMessage(ctx context.Context, in *MsgDelayMessage, opts ...grpc.CallOption) (*MsgDelayMessageResponse, error) {
 	out := new(MsgDelayMessageResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.delaymsg.Msg/DelayMessage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.delaymsg.Msg/DelayMessage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -235,7 +235,7 @@ func _Msg_DelayMessage_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.delaymsg.Msg/DelayMessage",
+		FullMethod: "/nemo_network.delaymsg.Msg/DelayMessage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).DelayMessage(ctx, req.(*MsgDelayMessage))
@@ -244,7 +244,7 @@ func _Msg_DelayMessage_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.delaymsg.Msg",
+	ServiceName: "nemo_network.delaymsg.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -253,7 +253,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/delaymsg/tx.proto",
+	Metadata: "nemo_network/delaymsg/tx.proto",
 }
 
 func (m *MsgDelayMessage) Marshal() (dAtA []byte, err error) {

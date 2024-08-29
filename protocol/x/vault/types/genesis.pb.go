@@ -161,11 +161,11 @@ func (m *Vault) GetMostRecentClientIds() []uint32 {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.vault.GenesisState")
-	proto.RegisterType((*Vault)(nil), "nemo-network.vault.Vault")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.vault.GenesisState")
+	proto.RegisterType((*Vault)(nil), "nemo_network.vault.Vault")
 }
 
-func init() { proto.RegisterFile("nemo-network/vault/genesis.proto", fileDescriptor_4be4a747b209e41c) }
+func init() { proto.RegisterFile("nemo_network/vault/genesis.proto", fileDescriptor_4be4a747b209e41c) }
 
 var fileDescriptor_4be4a747b209e41c = []byte{
 	// 379 bytes of a gzipped FileDescriptorProto

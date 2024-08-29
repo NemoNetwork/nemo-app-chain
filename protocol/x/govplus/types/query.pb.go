@@ -23,7 +23,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-func init() { proto.RegisterFile("nemo-network/govplus/query.proto", fileDescriptor_b04547eded25b028) }
+func init() { proto.RegisterFile("nemo_network/govplus/query.proto", fileDescriptor_b04547eded25b028) }
 
 var fileDescriptor_b04547eded25b028 = []byte{
 	// 136 bytes of a gzipped FileDescriptorProto
@@ -73,9 +73,9 @@ func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.govplus.Query",
+	ServiceName: "nemo_network.govplus.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},
-	Metadata:    "nemo-network/govplus/query.proto",
+	Metadata:    "nemo_network/govplus/query.proto",
 }

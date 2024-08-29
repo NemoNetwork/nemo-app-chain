@@ -92,11 +92,11 @@ func (m *Params) GetMinNumVotesPerSample() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "nemo-network.perpetuals.Params")
+	proto.RegisterType((*Params)(nil), "nemo_network.perpetuals.Params")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/perpetuals/params.proto", fileDescriptor_8b16af88c7880f7e)
+	proto.RegisterFile("nemo_network/perpetuals/params.proto", fileDescriptor_8b16af88c7880f7e)
 }
 
 var fileDescriptor_8b16af88c7880f7e = []byte{

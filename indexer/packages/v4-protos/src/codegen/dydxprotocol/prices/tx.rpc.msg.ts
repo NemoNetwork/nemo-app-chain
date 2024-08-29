@@ -31,19 +31,19 @@ export class MsgClientImpl implements Msg {
 
   updateMarketPrices(request: MsgUpdateMarketPrices): Promise<MsgUpdateMarketPricesResponse> {
     const data = MsgUpdateMarketPrices.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Msg", "UpdateMarketPrices", data);
+    const promise = this.rpc.request("nemo_network.prices.Msg", "UpdateMarketPrices", data);
     return promise.then(data => MsgUpdateMarketPricesResponse.decode(new _m0.Reader(data)));
   }
 
   createOracleMarket(request: MsgCreateOracleMarket): Promise<MsgCreateOracleMarketResponse> {
     const data = MsgCreateOracleMarket.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Msg", "CreateOracleMarket", data);
+    const promise = this.rpc.request("nemo_network.prices.Msg", "CreateOracleMarket", data);
     return promise.then(data => MsgCreateOracleMarketResponse.decode(new _m0.Reader(data)));
   }
 
   updateMarketParam(request: MsgUpdateMarketParam): Promise<MsgUpdateMarketParamResponse> {
     const data = MsgUpdateMarketParam.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.prices.Msg", "UpdateMarketParam", data);
+    const promise = this.rpc.request("nemo_network.prices.Msg", "UpdateMarketParam", data);
     return promise.then(data => MsgUpdateMarketParamResponse.decode(new _m0.Reader(data)));
   }
 

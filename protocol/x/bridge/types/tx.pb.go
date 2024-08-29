@@ -479,19 +479,19 @@ func (m *MsgUpdateSafetyParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateSafetyParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgAcknowledgeBridges)(nil), "nemo-network.bridge.MsgAcknowledgeBridges")
-	proto.RegisterType((*MsgAcknowledgeBridgesResponse)(nil), "nemo-network.bridge.MsgAcknowledgeBridgesResponse")
-	proto.RegisterType((*MsgCompleteBridge)(nil), "nemo-network.bridge.MsgCompleteBridge")
-	proto.RegisterType((*MsgCompleteBridgeResponse)(nil), "nemo-network.bridge.MsgCompleteBridgeResponse")
-	proto.RegisterType((*MsgUpdateEventParams)(nil), "nemo-network.bridge.MsgUpdateEventParams")
-	proto.RegisterType((*MsgUpdateEventParamsResponse)(nil), "nemo-network.bridge.MsgUpdateEventParamsResponse")
-	proto.RegisterType((*MsgUpdateProposeParams)(nil), "nemo-network.bridge.MsgUpdateProposeParams")
-	proto.RegisterType((*MsgUpdateProposeParamsResponse)(nil), "nemo-network.bridge.MsgUpdateProposeParamsResponse")
-	proto.RegisterType((*MsgUpdateSafetyParams)(nil), "nemo-network.bridge.MsgUpdateSafetyParams")
-	proto.RegisterType((*MsgUpdateSafetyParamsResponse)(nil), "nemo-network.bridge.MsgUpdateSafetyParamsResponse")
+	proto.RegisterType((*MsgAcknowledgeBridges)(nil), "nemo_network.bridge.MsgAcknowledgeBridges")
+	proto.RegisterType((*MsgAcknowledgeBridgesResponse)(nil), "nemo_network.bridge.MsgAcknowledgeBridgesResponse")
+	proto.RegisterType((*MsgCompleteBridge)(nil), "nemo_network.bridge.MsgCompleteBridge")
+	proto.RegisterType((*MsgCompleteBridgeResponse)(nil), "nemo_network.bridge.MsgCompleteBridgeResponse")
+	proto.RegisterType((*MsgUpdateEventParams)(nil), "nemo_network.bridge.MsgUpdateEventParams")
+	proto.RegisterType((*MsgUpdateEventParamsResponse)(nil), "nemo_network.bridge.MsgUpdateEventParamsResponse")
+	proto.RegisterType((*MsgUpdateProposeParams)(nil), "nemo_network.bridge.MsgUpdateProposeParams")
+	proto.RegisterType((*MsgUpdateProposeParamsResponse)(nil), "nemo_network.bridge.MsgUpdateProposeParamsResponse")
+	proto.RegisterType((*MsgUpdateSafetyParams)(nil), "nemo_network.bridge.MsgUpdateSafetyParams")
+	proto.RegisterType((*MsgUpdateSafetyParamsResponse)(nil), "nemo_network.bridge.MsgUpdateSafetyParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/bridge/tx.proto", fileDescriptor_1851bd29b57dcf2f) }
+func init() { proto.RegisterFile("nemo_network/bridge/tx.proto", fileDescriptor_1851bd29b57dcf2f) }
 
 var fileDescriptor_1851bd29b57dcf2f = []byte{
 	// 557 bytes of a gzipped FileDescriptorProto
@@ -567,7 +567,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) AcknowledgeBridges(ctx context.Context, in *MsgAcknowledgeBridges, opts ...grpc.CallOption) (*MsgAcknowledgeBridgesResponse, error) {
 	out := new(MsgAcknowledgeBridgesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Msg/AcknowledgeBridges", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Msg/AcknowledgeBridges", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -576,7 +576,7 @@ func (c *msgClient) AcknowledgeBridges(ctx context.Context, in *MsgAcknowledgeBr
 
 func (c *msgClient) CompleteBridge(ctx context.Context, in *MsgCompleteBridge, opts ...grpc.CallOption) (*MsgCompleteBridgeResponse, error) {
 	out := new(MsgCompleteBridgeResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Msg/CompleteBridge", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Msg/CompleteBridge", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -585,7 +585,7 @@ func (c *msgClient) CompleteBridge(ctx context.Context, in *MsgCompleteBridge, o
 
 func (c *msgClient) UpdateEventParams(ctx context.Context, in *MsgUpdateEventParams, opts ...grpc.CallOption) (*MsgUpdateEventParamsResponse, error) {
 	out := new(MsgUpdateEventParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Msg/UpdateEventParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Msg/UpdateEventParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -594,7 +594,7 @@ func (c *msgClient) UpdateEventParams(ctx context.Context, in *MsgUpdateEventPar
 
 func (c *msgClient) UpdateProposeParams(ctx context.Context, in *MsgUpdateProposeParams, opts ...grpc.CallOption) (*MsgUpdateProposeParamsResponse, error) {
 	out := new(MsgUpdateProposeParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Msg/UpdateProposeParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Msg/UpdateProposeParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -603,7 +603,7 @@ func (c *msgClient) UpdateProposeParams(ctx context.Context, in *MsgUpdatePropos
 
 func (c *msgClient) UpdateSafetyParams(ctx context.Context, in *MsgUpdateSafetyParams, opts ...grpc.CallOption) (*MsgUpdateSafetyParamsResponse, error) {
 	out := new(MsgUpdateSafetyParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Msg/UpdateSafetyParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Msg/UpdateSafetyParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -659,7 +659,7 @@ func _Msg_AcknowledgeBridges_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Msg/AcknowledgeBridges",
+		FullMethod: "/nemo_network.bridge.Msg/AcknowledgeBridges",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).AcknowledgeBridges(ctx, req.(*MsgAcknowledgeBridges))
@@ -677,7 +677,7 @@ func _Msg_CompleteBridge_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Msg/CompleteBridge",
+		FullMethod: "/nemo_network.bridge.Msg/CompleteBridge",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).CompleteBridge(ctx, req.(*MsgCompleteBridge))
@@ -695,7 +695,7 @@ func _Msg_UpdateEventParams_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Msg/UpdateEventParams",
+		FullMethod: "/nemo_network.bridge.Msg/UpdateEventParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateEventParams(ctx, req.(*MsgUpdateEventParams))
@@ -713,7 +713,7 @@ func _Msg_UpdateProposeParams_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Msg/UpdateProposeParams",
+		FullMethod: "/nemo_network.bridge.Msg/UpdateProposeParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateProposeParams(ctx, req.(*MsgUpdateProposeParams))
@@ -731,7 +731,7 @@ func _Msg_UpdateSafetyParams_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Msg/UpdateSafetyParams",
+		FullMethod: "/nemo_network.bridge.Msg/UpdateSafetyParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateSafetyParams(ctx, req.(*MsgUpdateSafetyParams))
@@ -740,7 +740,7 @@ func _Msg_UpdateSafetyParams_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.bridge.Msg",
+	ServiceName: "nemo_network.bridge.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -765,7 +765,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/bridge/tx.proto",
+	Metadata: "nemo_network/bridge/tx.proto",
 }
 
 func (m *MsgAcknowledgeBridges) Marshal() (dAtA []byte, err error) {

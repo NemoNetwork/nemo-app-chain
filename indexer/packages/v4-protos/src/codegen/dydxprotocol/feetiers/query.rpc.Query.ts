@@ -22,13 +22,13 @@ export class QueryClientImpl implements Query {
 
   perpetualFeeParams(request: QueryPerpetualFeeParamsRequest = {}): Promise<QueryPerpetualFeeParamsResponse> {
     const data = QueryPerpetualFeeParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.feetiers.Query", "PerpetualFeeParams", data);
+    const promise = this.rpc.request("nemo_network.feetiers.Query", "PerpetualFeeParams", data);
     return promise.then(data => QueryPerpetualFeeParamsResponse.decode(new _m0.Reader(data)));
   }
 
   userFeeTier(request: QueryUserFeeTierRequest): Promise<QueryUserFeeTierResponse> {
     const data = QueryUserFeeTierRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.feetiers.Query", "UserFeeTier", data);
+    const promise = this.rpc.request("nemo_network.feetiers.Query", "UserFeeTier", data);
     return promise.then(data => QueryUserFeeTierResponse.decode(new _m0.Reader(data)));
   }
 

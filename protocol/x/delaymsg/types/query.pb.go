@@ -295,15 +295,15 @@ func (m *QueryBlockMessageIdsResponse) GetMessageIds() []uint32 {
 }
 
 func init() {
-	proto.RegisterType((*QueryNextDelayedMessageIdRequest)(nil), "nemo-network.delaymsg.QueryNextDelayedMessageIdRequest")
-	proto.RegisterType((*QueryNextDelayedMessageIdResponse)(nil), "nemo-network.delaymsg.QueryNextDelayedMessageIdResponse")
-	proto.RegisterType((*QueryMessageRequest)(nil), "nemo-network.delaymsg.QueryMessageRequest")
-	proto.RegisterType((*QueryMessageResponse)(nil), "nemo-network.delaymsg.QueryMessageResponse")
-	proto.RegisterType((*QueryBlockMessageIdsRequest)(nil), "nemo-network.delaymsg.QueryBlockMessageIdsRequest")
-	proto.RegisterType((*QueryBlockMessageIdsResponse)(nil), "nemo-network.delaymsg.QueryBlockMessageIdsResponse")
+	proto.RegisterType((*QueryNextDelayedMessageIdRequest)(nil), "nemo_network.delaymsg.QueryNextDelayedMessageIdRequest")
+	proto.RegisterType((*QueryNextDelayedMessageIdResponse)(nil), "nemo_network.delaymsg.QueryNextDelayedMessageIdResponse")
+	proto.RegisterType((*QueryMessageRequest)(nil), "nemo_network.delaymsg.QueryMessageRequest")
+	proto.RegisterType((*QueryMessageResponse)(nil), "nemo_network.delaymsg.QueryMessageResponse")
+	proto.RegisterType((*QueryBlockMessageIdsRequest)(nil), "nemo_network.delaymsg.QueryBlockMessageIdsRequest")
+	proto.RegisterType((*QueryBlockMessageIdsResponse)(nil), "nemo_network.delaymsg.QueryBlockMessageIdsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/delaymsg/query.proto", fileDescriptor_60f81d4d7b29defa) }
+func init() { proto.RegisterFile("nemo_network/delaymsg/query.proto", fileDescriptor_60f81d4d7b29defa) }
 
 var fileDescriptor_60f81d4d7b29defa = []byte{
 	// 471 bytes of a gzipped FileDescriptorProto
@@ -369,7 +369,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) NextDelayedMessageId(ctx context.Context, in *QueryNextDelayedMessageIdRequest, opts ...grpc.CallOption) (*QueryNextDelayedMessageIdResponse, error) {
 	out := new(QueryNextDelayedMessageIdResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.delaymsg.Query/NextDelayedMessageId", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.delaymsg.Query/NextDelayedMessageId", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -378,7 +378,7 @@ func (c *queryClient) NextDelayedMessageId(ctx context.Context, in *QueryNextDel
 
 func (c *queryClient) Message(ctx context.Context, in *QueryMessageRequest, opts ...grpc.CallOption) (*QueryMessageResponse, error) {
 	out := new(QueryMessageResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.delaymsg.Query/Message", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.delaymsg.Query/Message", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -387,7 +387,7 @@ func (c *queryClient) Message(ctx context.Context, in *QueryMessageRequest, opts
 
 func (c *queryClient) BlockMessageIds(ctx context.Context, in *QueryBlockMessageIdsRequest, opts ...grpc.CallOption) (*QueryBlockMessageIdsResponse, error) {
 	out := new(QueryBlockMessageIdsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.delaymsg.Query/BlockMessageIds", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.delaymsg.Query/BlockMessageIds", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +432,7 @@ func _Query_NextDelayedMessageId_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.delaymsg.Query/NextDelayedMessageId",
+		FullMethod: "/nemo_network.delaymsg.Query/NextDelayedMessageId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).NextDelayedMessageId(ctx, req.(*QueryNextDelayedMessageIdRequest))
@@ -450,7 +450,7 @@ func _Query_Message_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.delaymsg.Query/Message",
+		FullMethod: "/nemo_network.delaymsg.Query/Message",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Message(ctx, req.(*QueryMessageRequest))
@@ -468,7 +468,7 @@ func _Query_BlockMessageIds_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.delaymsg.Query/BlockMessageIds",
+		FullMethod: "/nemo_network.delaymsg.Query/BlockMessageIds",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).BlockMessageIds(ctx, req.(*QueryBlockMessageIdsRequest))
@@ -477,7 +477,7 @@ func _Query_BlockMessageIds_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.delaymsg.Query",
+	ServiceName: "nemo_network.delaymsg.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -494,7 +494,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/delaymsg/query.proto",
+	Metadata: "nemo_network/delaymsg/query.proto",
 }
 
 func (m *QueryNextDelayedMessageIdRequest) Marshal() (dAtA []byte, err error) {

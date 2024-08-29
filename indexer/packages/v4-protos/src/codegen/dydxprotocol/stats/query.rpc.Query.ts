@@ -30,25 +30,25 @@ export class QueryClientImpl implements Query {
 
   params(request: QueryParamsRequest = {}): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.stats.Query", "Params", data);
+    const promise = this.rpc.request("nemo_network.stats.Query", "Params", data);
     return promise.then(data => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
   statsMetadata(request: QueryStatsMetadataRequest = {}): Promise<QueryStatsMetadataResponse> {
     const data = QueryStatsMetadataRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.stats.Query", "StatsMetadata", data);
+    const promise = this.rpc.request("nemo_network.stats.Query", "StatsMetadata", data);
     return promise.then(data => QueryStatsMetadataResponse.decode(new _m0.Reader(data)));
   }
 
   globalStats(request: QueryGlobalStatsRequest = {}): Promise<QueryGlobalStatsResponse> {
     const data = QueryGlobalStatsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.stats.Query", "GlobalStats", data);
+    const promise = this.rpc.request("nemo_network.stats.Query", "GlobalStats", data);
     return promise.then(data => QueryGlobalStatsResponse.decode(new _m0.Reader(data)));
   }
 
   userStats(request: QueryUserStatsRequest): Promise<QueryUserStatsResponse> {
     const data = QueryUserStatsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.stats.Query", "UserStats", data);
+    const promise = this.rpc.request("nemo_network.stats.Query", "UserStats", data);
     return promise.then(data => QueryUserStatsResponse.decode(new _m0.Reader(data)));
   }
 

@@ -69,10 +69,10 @@ func (m *GenesisState) GetEpochInfoList() []EpochInfo {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.epochs.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.epochs.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/epochs/genesis.proto", fileDescriptor_3a8238013650f29f) }
+func init() { proto.RegisterFile("nemo_network/epochs/genesis.proto", fileDescriptor_3a8238013650f29f) }
 
 var fileDescriptor_3a8238013650f29f = []byte{
 	// 212 bytes of a gzipped FileDescriptorProto

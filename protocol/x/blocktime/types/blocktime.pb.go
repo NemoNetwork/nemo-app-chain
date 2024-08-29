@@ -182,13 +182,13 @@ func (m *AllDowntimeInfo_DowntimeInfo) GetBlockInfo() BlockInfo {
 }
 
 func init() {
-	proto.RegisterType((*BlockInfo)(nil), "nemo-network.blocktime.BlockInfo")
-	proto.RegisterType((*AllDowntimeInfo)(nil), "nemo-network.blocktime.AllDowntimeInfo")
-	proto.RegisterType((*AllDowntimeInfo_DowntimeInfo)(nil), "nemo-network.blocktime.AllDowntimeInfo.DowntimeInfo")
+	proto.RegisterType((*BlockInfo)(nil), "nemo_network.blocktime.BlockInfo")
+	proto.RegisterType((*AllDowntimeInfo)(nil), "nemo_network.blocktime.AllDowntimeInfo")
+	proto.RegisterType((*AllDowntimeInfo_DowntimeInfo)(nil), "nemo_network.blocktime.AllDowntimeInfo.DowntimeInfo")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/blocktime/blocktime.proto", fileDescriptor_7e16363cb4e2638e)
+	proto.RegisterFile("nemo_network/blocktime/blocktime.proto", fileDescriptor_7e16363cb4e2638e)
 }
 
 var fileDescriptor_7e16363cb4e2638e = []byte{

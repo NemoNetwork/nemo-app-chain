@@ -85,11 +85,11 @@ func (m *AssetPosition) GetIndex() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*AssetPosition)(nil), "nemo-network.subaccounts.AssetPosition")
+	proto.RegisterType((*AssetPosition)(nil), "nemo_network.subaccounts.AssetPosition")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/subaccounts/asset_position.proto", fileDescriptor_21b5b4cb0c7ef07c)
+	proto.RegisterFile("nemo_network/subaccounts/asset_position.proto", fileDescriptor_21b5b4cb0c7ef07c)
 }
 
 var fileDescriptor_21b5b4cb0c7ef07c = []byte{

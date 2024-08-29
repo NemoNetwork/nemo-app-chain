@@ -180,12 +180,12 @@ func (m *MaxPerNBlocksRateLimit) GetLimit() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*BlockRateLimitConfiguration)(nil), "nemo-network.clob.BlockRateLimitConfiguration")
-	proto.RegisterType((*MaxPerNBlocksRateLimit)(nil), "nemo-network.clob.MaxPerNBlocksRateLimit")
+	proto.RegisterType((*BlockRateLimitConfiguration)(nil), "nemo_network.clob.BlockRateLimitConfiguration")
+	proto.RegisterType((*MaxPerNBlocksRateLimit)(nil), "nemo_network.clob.MaxPerNBlocksRateLimit")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/clob/block_rate_limit_config.proto", fileDescriptor_0b7d196450032f13)
+	proto.RegisterFile("nemo_network/clob/block_rate_limit_config.proto", fileDescriptor_0b7d196450032f13)
 }
 
 var fileDescriptor_0b7d196450032f13 = []byte{

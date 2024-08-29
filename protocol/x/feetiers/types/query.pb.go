@@ -214,13 +214,13 @@ func (m *QueryUserFeeTierResponse) GetTier() *PerpetualFeeTier {
 }
 
 func init() {
-	proto.RegisterType((*QueryPerpetualFeeParamsRequest)(nil), "nemo-network.feetiers.QueryPerpetualFeeParamsRequest")
-	proto.RegisterType((*QueryPerpetualFeeParamsResponse)(nil), "nemo-network.feetiers.QueryPerpetualFeeParamsResponse")
-	proto.RegisterType((*QueryUserFeeTierRequest)(nil), "nemo-network.feetiers.QueryUserFeeTierRequest")
-	proto.RegisterType((*QueryUserFeeTierResponse)(nil), "nemo-network.feetiers.QueryUserFeeTierResponse")
+	proto.RegisterType((*QueryPerpetualFeeParamsRequest)(nil), "nemo_network.feetiers.QueryPerpetualFeeParamsRequest")
+	proto.RegisterType((*QueryPerpetualFeeParamsResponse)(nil), "nemo_network.feetiers.QueryPerpetualFeeParamsResponse")
+	proto.RegisterType((*QueryUserFeeTierRequest)(nil), "nemo_network.feetiers.QueryUserFeeTierRequest")
+	proto.RegisterType((*QueryUserFeeTierResponse)(nil), "nemo_network.feetiers.QueryUserFeeTierResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/feetiers/query.proto", fileDescriptor_f31456045d64644f) }
+func init() { proto.RegisterFile("nemo_network/feetiers/query.proto", fileDescriptor_f31456045d64644f) }
 
 var fileDescriptor_f31456045d64644f = []byte{
 	// 440 bytes of a gzipped FileDescriptorProto
@@ -282,7 +282,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) PerpetualFeeParams(ctx context.Context, in *QueryPerpetualFeeParamsRequest, opts ...grpc.CallOption) (*QueryPerpetualFeeParamsResponse, error) {
 	out := new(QueryPerpetualFeeParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.feetiers.Query/PerpetualFeeParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.feetiers.Query/PerpetualFeeParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -291,7 +291,7 @@ func (c *queryClient) PerpetualFeeParams(ctx context.Context, in *QueryPerpetual
 
 func (c *queryClient) UserFeeTier(ctx context.Context, in *QueryUserFeeTierRequest, opts ...grpc.CallOption) (*QueryUserFeeTierResponse, error) {
 	out := new(QueryUserFeeTierResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.feetiers.Query/UserFeeTier", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.feetiers.Query/UserFeeTier", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +331,7 @@ func _Query_PerpetualFeeParams_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.feetiers.Query/PerpetualFeeParams",
+		FullMethod: "/nemo_network.feetiers.Query/PerpetualFeeParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).PerpetualFeeParams(ctx, req.(*QueryPerpetualFeeParamsRequest))
@@ -349,7 +349,7 @@ func _Query_UserFeeTier_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.feetiers.Query/UserFeeTier",
+		FullMethod: "/nemo_network.feetiers.Query/UserFeeTier",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).UserFeeTier(ctx, req.(*QueryUserFeeTierRequest))
@@ -358,7 +358,7 @@ func _Query_UserFeeTier_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.feetiers.Query",
+	ServiceName: "nemo_network.feetiers.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -371,7 +371,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/feetiers/query.proto",
+	Metadata: "nemo_network/feetiers/query.proto",
 }
 
 func (m *QueryPerpetualFeeParamsRequest) Marshal() (dAtA []byte, err error) {

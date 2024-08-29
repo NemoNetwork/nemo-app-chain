@@ -435,7 +435,7 @@ func appExport(
 }
 
 var tempDir = func() string {
-	dir, err := os.MkdirTemp("", "nemo-network")
+	dir, err := os.MkdirTemp("", "nemo_network.")
 	if err != nil {
 		dir = dydxapp.DefaultNodeHome
 	}

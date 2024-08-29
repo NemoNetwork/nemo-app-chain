@@ -1,7 +1,0 @@
-syntax = "proto3";
-package nemo-network.govplus;
-
-option go_package = "github.com/nemo-network/v4-chain/protocol/x/govplus/types";
-
-// GenesisState defines the govplus module's genesis state.
-message GenesisState {}

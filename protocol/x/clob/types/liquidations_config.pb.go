@@ -276,14 +276,14 @@ func (m *FillablePriceConfig) GetSpreadToMaintenanceMarginRatioPpm() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*LiquidationsConfig)(nil), "nemo-network.clob.LiquidationsConfig")
-	proto.RegisterType((*PositionBlockLimits)(nil), "nemo-network.clob.PositionBlockLimits")
-	proto.RegisterType((*SubaccountBlockLimits)(nil), "nemo-network.clob.SubaccountBlockLimits")
-	proto.RegisterType((*FillablePriceConfig)(nil), "nemo-network.clob.FillablePriceConfig")
+	proto.RegisterType((*LiquidationsConfig)(nil), "nemo_network.clob.LiquidationsConfig")
+	proto.RegisterType((*PositionBlockLimits)(nil), "nemo_network.clob.PositionBlockLimits")
+	proto.RegisterType((*SubaccountBlockLimits)(nil), "nemo_network.clob.SubaccountBlockLimits")
+	proto.RegisterType((*FillablePriceConfig)(nil), "nemo_network.clob.FillablePriceConfig")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/clob/liquidations_config.proto", fileDescriptor_d11e0d49099a14b4)
+	proto.RegisterFile("nemo_network/clob/liquidations_config.proto", fileDescriptor_d11e0d49099a14b4)
 }
 
 var fileDescriptor_d11e0d49099a14b4 = []byte{

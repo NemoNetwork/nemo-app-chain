@@ -21,13 +21,13 @@ export class MsgClientImpl implements Msg {
 
   setVestEntry(request: MsgSetVestEntry): Promise<MsgSetVestEntryResponse> {
     const data = MsgSetVestEntry.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vest.Msg", "SetVestEntry", data);
+    const promise = this.rpc.request("nemo_network.vest.Msg", "SetVestEntry", data);
     return promise.then(data => MsgSetVestEntryResponse.decode(new _m0.Reader(data)));
   }
 
   deleteVestEntry(request: MsgDeleteVestEntry): Promise<MsgDeleteVestEntryResponse> {
     const data = MsgDeleteVestEntry.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vest.Msg", "DeleteVestEntry", data);
+    const promise = this.rpc.request("nemo_network.vest.Msg", "DeleteVestEntry", data);
     return promise.then(data => MsgDeleteVestEntryResponse.decode(new _m0.Reader(data)));
   }
 

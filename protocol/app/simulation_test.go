@@ -302,7 +302,7 @@ func TestFullAppSimulation(t *testing.T) {
 			)
 		})
 	dydxApp.WithRandomlyGeneratedOperationsSimulationManager()
-	require.Equal(t, "nemo-network", dydxApp.Name())
+	require.Equal(t, "nemo_network.", dydxApp.Name())
 
 	// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 	// vesting accounts during simulation here:

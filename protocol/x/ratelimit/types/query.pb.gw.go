@@ -285,11 +285,11 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_ListLimitParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "ratelimit", "list_limit_params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ListLimitParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "ratelimit", "list_limit_params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_CapacityByDenom_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "ratelimit", "capacity_by_denom"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_CapacityByDenom_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "ratelimit", "capacity_by_denom"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllPendingSendPackets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "v4", "ratelimit", "get_all_pending_send_packet"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AllPendingSendPackets_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network.", "v4", "ratelimit", "get_all_pending_send_packet"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

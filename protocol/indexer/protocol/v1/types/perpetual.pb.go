@@ -54,11 +54,11 @@ func (PerpetualMarketType) EnumDescriptor() ([]byte, []int) {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.indexer.protocol.v1.PerpetualMarketType", PerpetualMarketType_name, PerpetualMarketType_value)
+	proto.RegisterEnum("nemo_network.indexer.protocol.v1.PerpetualMarketType", PerpetualMarketType_name, PerpetualMarketType_value)
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/indexer/protocol/v1/perpetual.proto", fileDescriptor_ebf0c6c8fa38d8c8)
+	proto.RegisterFile("nemo_network/indexer/protocol/v1/perpetual.proto", fileDescriptor_ebf0c6c8fa38d8c8)
 }
 
 var fileDescriptor_ebf0c6c8fa38d8c8 = []byte{

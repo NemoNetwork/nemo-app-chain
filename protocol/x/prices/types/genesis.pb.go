@@ -77,10 +77,10 @@ func (m *GenesisState) GetMarketPrices() []MarketPrice {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.prices.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.prices.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/prices/genesis.proto", fileDescriptor_5ee434fa69ca0630) }
+func init() { proto.RegisterFile("nemo_network/prices/genesis.proto", fileDescriptor_5ee434fa69ca0630) }
 
 var fileDescriptor_5ee434fa69ca0630 = []byte{
 	// 231 bytes of a gzipped FileDescriptorProto

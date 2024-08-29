@@ -522,17 +522,17 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Perpetual_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo-network", "perpetuals", "perpetual", "id"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Perpetual_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo_network.", "perpetuals", "perpetual", "id"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllPerpetuals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "perpetuals", "perpetual"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AllPerpetuals_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "perpetuals", "perpetual"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllLiquidityTiers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "perpetuals", "liquidity_tiers"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AllLiquidityTiers_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "perpetuals", "liquidity_tiers"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_PremiumVotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "perpetuals", "premium_votes"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_PremiumVotes_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "perpetuals", "premium_votes"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_PremiumSamples_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "perpetuals", "premium_samples"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_PremiumSamples_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "perpetuals", "premium_samples"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "perpetuals", "params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network.", "perpetuals", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

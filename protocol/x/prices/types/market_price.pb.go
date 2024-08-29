@@ -89,11 +89,11 @@ func (m *MarketPrice) GetPrice() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*MarketPrice)(nil), "nemo-network.prices.MarketPrice")
+	proto.RegisterType((*MarketPrice)(nil), "nemo_network.prices.MarketPrice")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/prices/market_price.proto", fileDescriptor_dfe320bc057cd5ae)
+	proto.RegisterFile("nemo_network/prices/market_price.proto", fileDescriptor_dfe320bc057cd5ae)
 }
 
 var fileDescriptor_dfe320bc057cd5ae = []byte{

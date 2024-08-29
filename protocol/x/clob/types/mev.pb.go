@@ -405,14 +405,14 @@ func (m *MevNodeToNodeMetrics) GetProposalReceiveTime() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*MEVMatch)(nil), "nemo-network.clob.MEVMatch")
-	proto.RegisterType((*MEVLiquidationMatch)(nil), "nemo-network.clob.MEVLiquidationMatch")
-	proto.RegisterType((*ClobMidPrice)(nil), "nemo-network.clob.ClobMidPrice")
-	proto.RegisterType((*ValidatorMevMatches)(nil), "nemo-network.clob.ValidatorMevMatches")
-	proto.RegisterType((*MevNodeToNodeMetrics)(nil), "nemo-network.clob.MevNodeToNodeMetrics")
+	proto.RegisterType((*MEVMatch)(nil), "nemo_network.clob.MEVMatch")
+	proto.RegisterType((*MEVLiquidationMatch)(nil), "nemo_network.clob.MEVLiquidationMatch")
+	proto.RegisterType((*ClobMidPrice)(nil), "nemo_network.clob.ClobMidPrice")
+	proto.RegisterType((*ValidatorMevMatches)(nil), "nemo_network.clob.ValidatorMevMatches")
+	proto.RegisterType((*MevNodeToNodeMetrics)(nil), "nemo_network.clob.MevNodeToNodeMetrics")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/mev.proto", fileDescriptor_01e0eddc304623e6) }
+func init() { proto.RegisterFile("nemo_network/clob/mev.proto", fileDescriptor_01e0eddc304623e6) }
 
 var fileDescriptor_01e0eddc304623e6 = []byte{
 	// 696 bytes of a gzipped FileDescriptorProto

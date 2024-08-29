@@ -113,12 +113,12 @@ func (m *AddBridgeEventsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_AddBridgeEventsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*AddBridgeEventsRequest)(nil), "nemo-network.daemons.bridge.AddBridgeEventsRequest")
-	proto.RegisterType((*AddBridgeEventsResponse)(nil), "nemo-network.daemons.bridge.AddBridgeEventsResponse")
+	proto.RegisterType((*AddBridgeEventsRequest)(nil), "nemo_network.daemons.bridge.AddBridgeEventsRequest")
+	proto.RegisterType((*AddBridgeEventsResponse)(nil), "nemo_network.daemons.bridge.AddBridgeEventsResponse")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/daemons/bridge/bridge.proto", fileDescriptor_aa0ec72532d69e10)
+	proto.RegisterFile("nemo_network/daemons/bridge/bridge.proto", fileDescriptor_aa0ec72532d69e10)
 }
 
 var fileDescriptor_aa0ec72532d69e10 = []byte{
@@ -168,7 +168,7 @@ func NewBridgeServiceClient(cc grpc1.ClientConn) BridgeServiceClient {
 
 func (c *bridgeServiceClient) AddBridgeEvents(ctx context.Context, in *AddBridgeEventsRequest, opts ...grpc.CallOption) (*AddBridgeEventsResponse, error) {
 	out := new(AddBridgeEventsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.daemons.bridge.BridgeService/AddBridgeEvents", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.daemons.bridge.BridgeService/AddBridgeEvents", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func _BridgeService_AddBridgeEvents_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.daemons.bridge.BridgeService/AddBridgeEvents",
+		FullMethod: "/nemo_network.daemons.bridge.BridgeService/AddBridgeEvents",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BridgeServiceServer).AddBridgeEvents(ctx, req.(*AddBridgeEventsRequest))
@@ -212,7 +212,7 @@ func _BridgeService_AddBridgeEvents_Handler(srv interface{}, ctx context.Context
 }
 
 var _BridgeService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.daemons.bridge.BridgeService",
+	ServiceName: "nemo_network.daemons.bridge.BridgeService",
 	HandlerType: (*BridgeServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -221,7 +221,7 @@ var _BridgeService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/daemons/bridge/bridge.proto",
+	Metadata: "nemo_network/daemons/bridge/bridge.proto",
 }
 
 func (m *AddBridgeEventsRequest) Marshal() (dAtA []byte, err error) {

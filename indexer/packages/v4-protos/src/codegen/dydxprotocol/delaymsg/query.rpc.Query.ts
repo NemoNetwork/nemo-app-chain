@@ -26,19 +26,19 @@ export class QueryClientImpl implements Query {
 
   nextDelayedMessageId(request: QueryNextDelayedMessageIdRequest = {}): Promise<QueryNextDelayedMessageIdResponse> {
     const data = QueryNextDelayedMessageIdRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.delaymsg.Query", "NextDelayedMessageId", data);
+    const promise = this.rpc.request("nemo_network.delaymsg.Query", "NextDelayedMessageId", data);
     return promise.then(data => QueryNextDelayedMessageIdResponse.decode(new _m0.Reader(data)));
   }
 
   message(request: QueryMessageRequest): Promise<QueryMessageResponse> {
     const data = QueryMessageRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.delaymsg.Query", "Message", data);
+    const promise = this.rpc.request("nemo_network.delaymsg.Query", "Message", data);
     return promise.then(data => QueryMessageResponse.decode(new _m0.Reader(data)));
   }
 
   blockMessageIds(request: QueryBlockMessageIdsRequest): Promise<QueryBlockMessageIdsResponse> {
     const data = QueryBlockMessageIdsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.delaymsg.Query", "BlockMessageIds", data);
+    const promise = this.rpc.request("nemo_network.delaymsg.Query", "BlockMessageIds", data);
     return promise.then(data => QueryBlockMessageIdsResponse.decode(new _m0.Reader(data)));
   }
 

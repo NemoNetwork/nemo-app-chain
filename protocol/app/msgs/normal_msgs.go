@@ -216,27 +216,27 @@ var (
 	// Custom modules
 	NormalMsgsDydxCustom = map[string]sdk.Msg{
 		// clob
-		"/nemo-network.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
-		"/nemo-network.clob.MsgBatchCancelResponse": nil,
-		"/nemo-network.clob.MsgCancelOrder":         &clob.MsgCancelOrder{},
-		"/nemo-network.clob.MsgCancelOrderResponse": nil,
-		"/nemo-network.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
-		"/nemo-network.clob.MsgPlaceOrderResponse":  nil,
+		"/nemo_network.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
+		"/nemo_network.clob.MsgBatchCancelResponse": nil,
+		"/nemo_network.clob.MsgCancelOrder":         &clob.MsgCancelOrder{},
+		"/nemo_network.clob.MsgCancelOrderResponse": nil,
+		"/nemo_network.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
+		"/nemo_network.clob.MsgPlaceOrderResponse":  nil,
 
 		// perpetuals
 
 		// prices
 
 		// sending
-		"/nemo-network.sending.MsgCreateTransfer":                 &sending.MsgCreateTransfer{},
-		"/nemo-network.sending.MsgCreateTransferResponse":         nil,
-		"/nemo-network.sending.MsgDepositToSubaccount":            &sending.MsgDepositToSubaccount{},
-		"/nemo-network.sending.MsgDepositToSubaccountResponse":    nil,
-		"/nemo-network.sending.MsgWithdrawFromSubaccount":         &sending.MsgWithdrawFromSubaccount{},
-		"/nemo-network.sending.MsgWithdrawFromSubaccountResponse": nil,
+		"/nemo_network.sending.MsgCreateTransfer":                 &sending.MsgCreateTransfer{},
+		"/nemo_network.sending.MsgCreateTransferResponse":         nil,
+		"/nemo_network.sending.MsgDepositToSubaccount":            &sending.MsgDepositToSubaccount{},
+		"/nemo_network.sending.MsgDepositToSubaccountResponse":    nil,
+		"/nemo_network.sending.MsgWithdrawFromSubaccount":         &sending.MsgWithdrawFromSubaccount{},
+		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse": nil,
 
 		// vault
-		"/nemo-network.vault.MsgDepositToVault":         &vault.MsgDepositToVault{},
-		"/nemo-network.vault.MsgDepositToVaultResponse": nil,
+		"/nemo_network.vault.MsgDepositToVault":         &vault.MsgDepositToVault{},
+		"/nemo_network.vault.MsgDepositToVaultResponse": nil,
 	}
 )

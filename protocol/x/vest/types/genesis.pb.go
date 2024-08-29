@@ -70,10 +70,10 @@ func (m *GenesisState) GetVestEntries() []VestEntry {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.vest.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.vest.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/vest/genesis.proto", fileDescriptor_a10656b82fcd7137) }
+func init() { proto.RegisterFile("nemo_network/vest/genesis.proto", fileDescriptor_a10656b82fcd7137) }
 
 var fileDescriptor_a10656b82fcd7137 = []byte{
 	// 208 bytes of a gzipped FileDescriptorProto

@@ -17,7 +17,7 @@ export class MsgClientImpl implements Msg {
 
   updatePerpetualFeeParams(request: MsgUpdatePerpetualFeeParams): Promise<MsgUpdatePerpetualFeeParamsResponse> {
     const data = MsgUpdatePerpetualFeeParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.feetiers.Msg", "UpdatePerpetualFeeParams", data);
+    const promise = this.rpc.request("nemo_network.feetiers.Msg", "UpdatePerpetualFeeParams", data);
     return promise.then(data => MsgUpdatePerpetualFeeParamsResponse.decode(new _m0.Reader(data)));
   }
 

@@ -439,18 +439,18 @@ func (m *QueryCollateralPoolAddressResponse) GetCollateralPoolAddress() string {
 }
 
 func init() {
-	proto.RegisterType((*QueryGetSubaccountRequest)(nil), "nemo-network.subaccounts.QueryGetSubaccountRequest")
-	proto.RegisterType((*QuerySubaccountResponse)(nil), "nemo-network.subaccounts.QuerySubaccountResponse")
-	proto.RegisterType((*QueryAllSubaccountRequest)(nil), "nemo-network.subaccounts.QueryAllSubaccountRequest")
-	proto.RegisterType((*QuerySubaccountAllResponse)(nil), "nemo-network.subaccounts.QuerySubaccountAllResponse")
-	proto.RegisterType((*QueryGetWithdrawalAndTransfersBlockedInfoRequest)(nil), "nemo-network.subaccounts.QueryGetWithdrawalAndTransfersBlockedInfoRequest")
-	proto.RegisterType((*QueryGetWithdrawalAndTransfersBlockedInfoResponse)(nil), "nemo-network.subaccounts.QueryGetWithdrawalAndTransfersBlockedInfoResponse")
-	proto.RegisterType((*QueryCollateralPoolAddressRequest)(nil), "nemo-network.subaccounts.QueryCollateralPoolAddressRequest")
-	proto.RegisterType((*QueryCollateralPoolAddressResponse)(nil), "nemo-network.subaccounts.QueryCollateralPoolAddressResponse")
+	proto.RegisterType((*QueryGetSubaccountRequest)(nil), "nemo_network.subaccounts.QueryGetSubaccountRequest")
+	proto.RegisterType((*QuerySubaccountResponse)(nil), "nemo_network.subaccounts.QuerySubaccountResponse")
+	proto.RegisterType((*QueryAllSubaccountRequest)(nil), "nemo_network.subaccounts.QueryAllSubaccountRequest")
+	proto.RegisterType((*QuerySubaccountAllResponse)(nil), "nemo_network.subaccounts.QuerySubaccountAllResponse")
+	proto.RegisterType((*QueryGetWithdrawalAndTransfersBlockedInfoRequest)(nil), "nemo_network.subaccounts.QueryGetWithdrawalAndTransfersBlockedInfoRequest")
+	proto.RegisterType((*QueryGetWithdrawalAndTransfersBlockedInfoResponse)(nil), "nemo_network.subaccounts.QueryGetWithdrawalAndTransfersBlockedInfoResponse")
+	proto.RegisterType((*QueryCollateralPoolAddressRequest)(nil), "nemo_network.subaccounts.QueryCollateralPoolAddressRequest")
+	proto.RegisterType((*QueryCollateralPoolAddressResponse)(nil), "nemo_network.subaccounts.QueryCollateralPoolAddressResponse")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/subaccounts/query.proto", fileDescriptor_adc19ff1d5b72954)
+	proto.RegisterFile("nemo_network/subaccounts/query.proto", fileDescriptor_adc19ff1d5b72954)
 }
 
 var fileDescriptor_adc19ff1d5b72954 = []byte{
@@ -539,7 +539,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Subaccount(ctx context.Context, in *QueryGetSubaccountRequest, opts ...grpc.CallOption) (*QuerySubaccountResponse, error) {
 	out := new(QuerySubaccountResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.subaccounts.Query/Subaccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.subaccounts.Query/Subaccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -548,7 +548,7 @@ func (c *queryClient) Subaccount(ctx context.Context, in *QueryGetSubaccountRequ
 
 func (c *queryClient) SubaccountAll(ctx context.Context, in *QueryAllSubaccountRequest, opts ...grpc.CallOption) (*QuerySubaccountAllResponse, error) {
 	out := new(QuerySubaccountAllResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.subaccounts.Query/SubaccountAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.subaccounts.Query/SubaccountAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -557,7 +557,7 @@ func (c *queryClient) SubaccountAll(ctx context.Context, in *QueryAllSubaccountR
 
 func (c *queryClient) GetWithdrawalAndTransfersBlockedInfo(ctx context.Context, in *QueryGetWithdrawalAndTransfersBlockedInfoRequest, opts ...grpc.CallOption) (*QueryGetWithdrawalAndTransfersBlockedInfoResponse, error) {
 	out := new(QueryGetWithdrawalAndTransfersBlockedInfoResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.subaccounts.Query/GetWithdrawalAndTransfersBlockedInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.subaccounts.Query/GetWithdrawalAndTransfersBlockedInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +566,7 @@ func (c *queryClient) GetWithdrawalAndTransfersBlockedInfo(ctx context.Context, 
 
 func (c *queryClient) CollateralPoolAddress(ctx context.Context, in *QueryCollateralPoolAddressRequest, opts ...grpc.CallOption) (*QueryCollateralPoolAddressResponse, error) {
 	out := new(QueryCollateralPoolAddressResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.subaccounts.Query/CollateralPoolAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.subaccounts.Query/CollateralPoolAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -617,7 +617,7 @@ func _Query_Subaccount_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.subaccounts.Query/Subaccount",
+		FullMethod: "/nemo_network.subaccounts.Query/Subaccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Subaccount(ctx, req.(*QueryGetSubaccountRequest))
@@ -635,7 +635,7 @@ func _Query_SubaccountAll_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.subaccounts.Query/SubaccountAll",
+		FullMethod: "/nemo_network.subaccounts.Query/SubaccountAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).SubaccountAll(ctx, req.(*QueryAllSubaccountRequest))
@@ -653,7 +653,7 @@ func _Query_GetWithdrawalAndTransfersBlockedInfo_Handler(srv interface{}, ctx co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.subaccounts.Query/GetWithdrawalAndTransfersBlockedInfo",
+		FullMethod: "/nemo_network.subaccounts.Query/GetWithdrawalAndTransfersBlockedInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).GetWithdrawalAndTransfersBlockedInfo(ctx, req.(*QueryGetWithdrawalAndTransfersBlockedInfoRequest))
@@ -671,7 +671,7 @@ func _Query_CollateralPoolAddress_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.subaccounts.Query/CollateralPoolAddress",
+		FullMethod: "/nemo_network.subaccounts.Query/CollateralPoolAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).CollateralPoolAddress(ctx, req.(*QueryCollateralPoolAddressRequest))
@@ -680,7 +680,7 @@ func _Query_CollateralPoolAddress_Handler(srv interface{}, ctx context.Context, 
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.subaccounts.Query",
+	ServiceName: "nemo_network.subaccounts.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -701,7 +701,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/subaccounts/query.proto",
+	Metadata: "nemo_network/subaccounts/query.proto",
 }
 
 func (m *QueryGetSubaccountRequest) Marshal() (dAtA []byte, err error) {

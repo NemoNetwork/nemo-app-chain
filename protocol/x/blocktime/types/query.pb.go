@@ -282,16 +282,16 @@ func (m *QueryAllDowntimeInfoResponse) GetInfo() *AllDowntimeInfo {
 }
 
 func init() {
-	proto.RegisterType((*QueryDowntimeParamsRequest)(nil), "nemo-network.blocktime.QueryDowntimeParamsRequest")
-	proto.RegisterType((*QueryDowntimeParamsResponse)(nil), "nemo-network.blocktime.QueryDowntimeParamsResponse")
-	proto.RegisterType((*QueryPreviousBlockInfoRequest)(nil), "nemo-network.blocktime.QueryPreviousBlockInfoRequest")
-	proto.RegisterType((*QueryPreviousBlockInfoResponse)(nil), "nemo-network.blocktime.QueryPreviousBlockInfoResponse")
-	proto.RegisterType((*QueryAllDowntimeInfoRequest)(nil), "nemo-network.blocktime.QueryAllDowntimeInfoRequest")
-	proto.RegisterType((*QueryAllDowntimeInfoResponse)(nil), "nemo-network.blocktime.QueryAllDowntimeInfoResponse")
+	proto.RegisterType((*QueryDowntimeParamsRequest)(nil), "nemo_network.blocktime.QueryDowntimeParamsRequest")
+	proto.RegisterType((*QueryDowntimeParamsResponse)(nil), "nemo_network.blocktime.QueryDowntimeParamsResponse")
+	proto.RegisterType((*QueryPreviousBlockInfoRequest)(nil), "nemo_network.blocktime.QueryPreviousBlockInfoRequest")
+	proto.RegisterType((*QueryPreviousBlockInfoResponse)(nil), "nemo_network.blocktime.QueryPreviousBlockInfoResponse")
+	proto.RegisterType((*QueryAllDowntimeInfoRequest)(nil), "nemo_network.blocktime.QueryAllDowntimeInfoRequest")
+	proto.RegisterType((*QueryAllDowntimeInfoResponse)(nil), "nemo_network.blocktime.QueryAllDowntimeInfoResponse")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/blocktime/query.proto", fileDescriptor_c6fa5ca81d500c56)
+	proto.RegisterFile("nemo_network/blocktime/query.proto", fileDescriptor_c6fa5ca81d500c56)
 }
 
 var fileDescriptor_c6fa5ca81d500c56 = []byte{
@@ -356,7 +356,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) DowntimeParams(ctx context.Context, in *QueryDowntimeParamsRequest, opts ...grpc.CallOption) (*QueryDowntimeParamsResponse, error) {
 	out := new(QueryDowntimeParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.blocktime.Query/DowntimeParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.blocktime.Query/DowntimeParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -365,7 +365,7 @@ func (c *queryClient) DowntimeParams(ctx context.Context, in *QueryDowntimeParam
 
 func (c *queryClient) PreviousBlockInfo(ctx context.Context, in *QueryPreviousBlockInfoRequest, opts ...grpc.CallOption) (*QueryPreviousBlockInfoResponse, error) {
 	out := new(QueryPreviousBlockInfoResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.blocktime.Query/PreviousBlockInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.blocktime.Query/PreviousBlockInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -374,7 +374,7 @@ func (c *queryClient) PreviousBlockInfo(ctx context.Context, in *QueryPreviousBl
 
 func (c *queryClient) AllDowntimeInfo(ctx context.Context, in *QueryAllDowntimeInfoRequest, opts ...grpc.CallOption) (*QueryAllDowntimeInfoResponse, error) {
 	out := new(QueryAllDowntimeInfoResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.blocktime.Query/AllDowntimeInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.blocktime.Query/AllDowntimeInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -419,7 +419,7 @@ func _Query_DowntimeParams_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.blocktime.Query/DowntimeParams",
+		FullMethod: "/nemo_network.blocktime.Query/DowntimeParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).DowntimeParams(ctx, req.(*QueryDowntimeParamsRequest))
@@ -437,7 +437,7 @@ func _Query_PreviousBlockInfo_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.blocktime.Query/PreviousBlockInfo",
+		FullMethod: "/nemo_network.blocktime.Query/PreviousBlockInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).PreviousBlockInfo(ctx, req.(*QueryPreviousBlockInfoRequest))
@@ -455,7 +455,7 @@ func _Query_AllDowntimeInfo_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.blocktime.Query/AllDowntimeInfo",
+		FullMethod: "/nemo_network.blocktime.Query/AllDowntimeInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllDowntimeInfo(ctx, req.(*QueryAllDowntimeInfoRequest))
@@ -464,7 +464,7 @@ func _Query_AllDowntimeInfo_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.blocktime.Query",
+	ServiceName: "nemo_network.blocktime.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -481,7 +481,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/blocktime/query.proto",
+	Metadata: "nemo_network/blocktime/query.proto",
 }
 
 func (m *QueryDowntimeParamsRequest) Marshal() (dAtA []byte, err error) {

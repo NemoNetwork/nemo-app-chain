@@ -113,11 +113,11 @@ func (m *VestEntry) GetEndTime() time.Time {
 }
 
 func init() {
-	proto.RegisterType((*VestEntry)(nil), "nemo-network.vest.VestEntry")
+	proto.RegisterType((*VestEntry)(nil), "nemo_network.vest.VestEntry")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/vest/vest_entry.proto", fileDescriptor_9d3eb625294a27a6)
+	proto.RegisterFile("nemo_network/vest/vest_entry.proto", fileDescriptor_9d3eb625294a27a6)
 }
 
 var fileDescriptor_9d3eb625294a27a6 = []byte{

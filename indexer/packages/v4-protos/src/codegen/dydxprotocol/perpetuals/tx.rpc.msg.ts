@@ -39,31 +39,31 @@ export class MsgClientImpl implements Msg {
 
   addPremiumVotes(request: MsgAddPremiumVotes): Promise<MsgAddPremiumVotesResponse> {
     const data = MsgAddPremiumVotes.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.perpetuals.Msg", "AddPremiumVotes", data);
+    const promise = this.rpc.request("nemo_network.perpetuals.Msg", "AddPremiumVotes", data);
     return promise.then(data => MsgAddPremiumVotesResponse.decode(new _m0.Reader(data)));
   }
 
   createPerpetual(request: MsgCreatePerpetual): Promise<MsgCreatePerpetualResponse> {
     const data = MsgCreatePerpetual.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.perpetuals.Msg", "CreatePerpetual", data);
+    const promise = this.rpc.request("nemo_network.perpetuals.Msg", "CreatePerpetual", data);
     return promise.then(data => MsgCreatePerpetualResponse.decode(new _m0.Reader(data)));
   }
 
   setLiquidityTier(request: MsgSetLiquidityTier): Promise<MsgSetLiquidityTierResponse> {
     const data = MsgSetLiquidityTier.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.perpetuals.Msg", "SetLiquidityTier", data);
+    const promise = this.rpc.request("nemo_network.perpetuals.Msg", "SetLiquidityTier", data);
     return promise.then(data => MsgSetLiquidityTierResponse.decode(new _m0.Reader(data)));
   }
 
   updatePerpetualParams(request: MsgUpdatePerpetualParams): Promise<MsgUpdatePerpetualParamsResponse> {
     const data = MsgUpdatePerpetualParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.perpetuals.Msg", "UpdatePerpetualParams", data);
+    const promise = this.rpc.request("nemo_network.perpetuals.Msg", "UpdatePerpetualParams", data);
     return promise.then(data => MsgUpdatePerpetualParamsResponse.decode(new _m0.Reader(data)));
   }
 
   updateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.perpetuals.Msg", "UpdateParams", data);
+    const promise = this.rpc.request("nemo_network.perpetuals.Msg", "UpdateParams", data);
     return promise.then(data => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
   }
 

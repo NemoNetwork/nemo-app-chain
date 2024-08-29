@@ -17,7 +17,7 @@ var (
 	// These messages are reserved for proposing validator's use only.
 	AppInjectedMsgSamples = map[string]sdk.Msg{
 		// bridge
-		"/nemo-network.bridge.MsgAcknowledgeBridges": &bridgetypes.MsgAcknowledgeBridges{
+		"/nemo_network.bridge.MsgAcknowledgeBridges": &bridgetypes.MsgAcknowledgeBridges{
 			Events: []bridgetypes.BridgeEvent{
 				{
 					Id: 0,
@@ -29,28 +29,28 @@ var (
 				},
 			},
 		},
-		"/nemo-network.bridge.MsgAcknowledgeBridgesResponse": nil,
+		"/nemo_network.bridge.MsgAcknowledgeBridgesResponse": nil,
 
 		// clob
-		"/nemo-network.clob.MsgProposedOperations": &clobtypes.MsgProposedOperations{
+		"/nemo_network.clob.MsgProposedOperations": &clobtypes.MsgProposedOperations{
 			OperationsQueue: make([]clobtypes.OperationRaw, 0),
 		},
-		"/nemo-network.clob.MsgProposedOperationsResponse": nil,
+		"/nemo_network.clob.MsgProposedOperationsResponse": nil,
 
 		// perpetuals
-		"/nemo-network.perpetuals.MsgAddPremiumVotes": &perptypes.MsgAddPremiumVotes{
+		"/nemo_network.perpetuals.MsgAddPremiumVotes": &perptypes.MsgAddPremiumVotes{
 			Votes: []perptypes.FundingPremium{
 				{PerpetualId: 0, PremiumPpm: 1_000},
 			},
 		},
-		"/nemo-network.perpetuals.MsgAddPremiumVotesResponse": nil,
+		"/nemo_network.perpetuals.MsgAddPremiumVotesResponse": nil,
 
 		// prices
-		"/nemo-network.prices.MsgUpdateMarketPrices": &pricestypes.MsgUpdateMarketPrices{
+		"/nemo_network.prices.MsgUpdateMarketPrices": &pricestypes.MsgUpdateMarketPrices{
 			MarketPriceUpdates: []*pricestypes.MsgUpdateMarketPrices_MarketPrice{
 				pricestypes.NewMarketPriceUpdate(constants.MarketId0, 123_000),
 			},
 		},
-		"/nemo-network.prices.MsgUpdateMarketPricesResponse": nil,
+		"/nemo_network.prices.MsgUpdateMarketPricesResponse": nil,
 	}
 )

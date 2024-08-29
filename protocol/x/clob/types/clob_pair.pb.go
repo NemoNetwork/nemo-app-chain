@@ -205,7 +205,7 @@ type ClobPair struct {
 	// `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
 	// per Subtick.
 	QuantumConversionExponent int32           `protobuf:"zigzag32,6,opt,name=quantum_conversion_exponent,json=quantumConversionExponent,proto3" json:"quantum_conversion_exponent,omitempty"`
-	Status                    ClobPair_Status `protobuf:"varint,7,opt,name=status,proto3,enum=nemo-network.clob.ClobPair_Status" json:"status,omitempty"`
+	Status                    ClobPair_Status `protobuf:"varint,7,opt,name=status,proto3,enum=nemo_network.clob.ClobPair_Status" json:"status,omitempty"`
 }
 
 func (m *ClobPair) Reset()         { *m = ClobPair{} }
@@ -322,13 +322,13 @@ func (*ClobPair) XXX_OneofWrappers() []interface{} {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.clob.ClobPair_Status", ClobPair_Status_name, ClobPair_Status_value)
-	proto.RegisterType((*PerpetualClobMetadata)(nil), "nemo-network.clob.PerpetualClobMetadata")
-	proto.RegisterType((*SpotClobMetadata)(nil), "nemo-network.clob.SpotClobMetadata")
-	proto.RegisterType((*ClobPair)(nil), "nemo-network.clob.ClobPair")
+	proto.RegisterEnum("nemo_network.clob.ClobPair_Status", ClobPair_Status_name, ClobPair_Status_value)
+	proto.RegisterType((*PerpetualClobMetadata)(nil), "nemo_network.clob.PerpetualClobMetadata")
+	proto.RegisterType((*SpotClobMetadata)(nil), "nemo_network.clob.SpotClobMetadata")
+	proto.RegisterType((*ClobPair)(nil), "nemo_network.clob.ClobPair")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/clob_pair.proto", fileDescriptor_178b475635886947) }
+func init() { proto.RegisterFile("nemo_network/clob/clob_pair.proto", fileDescriptor_178b475635886947) }
 
 var fileDescriptor_178b475635886947 = []byte{
 	// 596 bytes of a gzipped FileDescriptorProto

@@ -219,13 +219,13 @@ func (m *QueryAllAssetsResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
-	proto.RegisterType((*QueryAssetRequest)(nil), "nemo-network.assets.QueryAssetRequest")
-	proto.RegisterType((*QueryAssetResponse)(nil), "nemo-network.assets.QueryAssetResponse")
-	proto.RegisterType((*QueryAllAssetsRequest)(nil), "nemo-network.assets.QueryAllAssetsRequest")
-	proto.RegisterType((*QueryAllAssetsResponse)(nil), "nemo-network.assets.QueryAllAssetsResponse")
+	proto.RegisterType((*QueryAssetRequest)(nil), "nemo_network.assets.QueryAssetRequest")
+	proto.RegisterType((*QueryAssetResponse)(nil), "nemo_network.assets.QueryAssetResponse")
+	proto.RegisterType((*QueryAllAssetsRequest)(nil), "nemo_network.assets.QueryAllAssetsRequest")
+	proto.RegisterType((*QueryAllAssetsResponse)(nil), "nemo_network.assets.QueryAllAssetsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/assets/query.proto", fileDescriptor_8e6c21d5bfb3fef3) }
+func init() { proto.RegisterFile("nemo_network/assets/query.proto", fileDescriptor_8e6c21d5bfb3fef3) }
 
 var fileDescriptor_8e6c21d5bfb3fef3 = []byte{
 	// 421 bytes of a gzipped FileDescriptorProto
@@ -286,7 +286,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Asset(ctx context.Context, in *QueryAssetRequest, opts ...grpc.CallOption) (*QueryAssetResponse, error) {
 	out := new(QueryAssetResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.assets.Query/Asset", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.assets.Query/Asset", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -295,7 +295,7 @@ func (c *queryClient) Asset(ctx context.Context, in *QueryAssetRequest, opts ...
 
 func (c *queryClient) AllAssets(ctx context.Context, in *QueryAllAssetsRequest, opts ...grpc.CallOption) (*QueryAllAssetsResponse, error) {
 	out := new(QueryAllAssetsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.assets.Query/AllAssets", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.assets.Query/AllAssets", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -335,7 +335,7 @@ func _Query_Asset_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.assets.Query/Asset",
+		FullMethod: "/nemo_network.assets.Query/Asset",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Asset(ctx, req.(*QueryAssetRequest))
@@ -353,7 +353,7 @@ func _Query_AllAssets_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.assets.Query/AllAssets",
+		FullMethod: "/nemo_network.assets.Query/AllAssets",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllAssets(ctx, req.(*QueryAllAssetsRequest))
@@ -362,7 +362,7 @@ func _Query_AllAssets_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.assets.Query",
+	ServiceName: "nemo_network.assets.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -375,7 +375,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/assets/query.proto",
+	Metadata: "nemo_network/assets/query.proto",
 }
 
 func (m *QueryAssetRequest) Marshal() (dAtA []byte, err error) {

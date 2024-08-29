@@ -229,7 +229,7 @@ type IndexerTendermintEvent_TransactionIndex struct {
 	TransactionIndex uint32 `protobuf:"varint,3,opt,name=transaction_index,json=transactionIndex,proto3,oneof" json:"transaction_index,omitempty"`
 }
 type IndexerTendermintEvent_BlockEvent_ struct {
-	BlockEvent IndexerTendermintEvent_BlockEvent `protobuf:"varint,4,opt,name=block_event,json=blockEvent,proto3,enum=nemo-network.indexer.indexer_manager.IndexerTendermintEvent_BlockEvent,oneof" json:"block_event,omitempty"`
+	BlockEvent IndexerTendermintEvent_BlockEvent `protobuf:"varint,4,opt,name=block_event,json=blockEvent,proto3,enum=nemo_network.indexer.indexer_manager.IndexerTendermintEvent_BlockEvent,oneof" json:"block_event,omitempty"`
 }
 
 func (*IndexerTendermintEvent_TransactionIndex) isIndexerTendermintEvent_OrderingWithinBlock() {}
@@ -365,15 +365,15 @@ func (m *IndexerTendermintBlock) GetTxHashes() []string {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.indexer.indexer_manager.IndexerTendermintEvent_BlockEvent", IndexerTendermintEvent_BlockEvent_name, IndexerTendermintEvent_BlockEvent_value)
-	proto.RegisterType((*IndexerTendermintEventWrapper)(nil), "nemo-network.indexer.indexer_manager.IndexerTendermintEventWrapper")
-	proto.RegisterType((*IndexerEventsStoreValue)(nil), "nemo-network.indexer.indexer_manager.IndexerEventsStoreValue")
-	proto.RegisterType((*IndexerTendermintEvent)(nil), "nemo-network.indexer.indexer_manager.IndexerTendermintEvent")
-	proto.RegisterType((*IndexerTendermintBlock)(nil), "nemo-network.indexer.indexer_manager.IndexerTendermintBlock")
+	proto.RegisterEnum("nemo_network.indexer.indexer_manager.IndexerTendermintEvent_BlockEvent", IndexerTendermintEvent_BlockEvent_name, IndexerTendermintEvent_BlockEvent_value)
+	proto.RegisterType((*IndexerTendermintEventWrapper)(nil), "nemo_network.indexer.indexer_manager.IndexerTendermintEventWrapper")
+	proto.RegisterType((*IndexerEventsStoreValue)(nil), "nemo_network.indexer.indexer_manager.IndexerEventsStoreValue")
+	proto.RegisterType((*IndexerTendermintEvent)(nil), "nemo_network.indexer.indexer_manager.IndexerTendermintEvent")
+	proto.RegisterType((*IndexerTendermintBlock)(nil), "nemo_network.indexer.indexer_manager.IndexerTendermintBlock")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/indexer/indexer_manager/event.proto", fileDescriptor_18a6a94c31da6b1f)
+	proto.RegisterFile("nemo_network/indexer/indexer_manager/event.proto", fileDescriptor_18a6a94c31da6b1f)
 }
 
 var fileDescriptor_18a6a94c31da6b1f = []byte{

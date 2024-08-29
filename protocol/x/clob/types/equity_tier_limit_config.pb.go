@@ -131,12 +131,12 @@ func (m *EquityTierLimit) GetLimit() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*EquityTierLimitConfiguration)(nil), "nemo-network.clob.EquityTierLimitConfiguration")
-	proto.RegisterType((*EquityTierLimit)(nil), "nemo-network.clob.EquityTierLimit")
+	proto.RegisterType((*EquityTierLimitConfiguration)(nil), "nemo_network.clob.EquityTierLimitConfiguration")
+	proto.RegisterType((*EquityTierLimit)(nil), "nemo_network.clob.EquityTierLimit")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/clob/equity_tier_limit_config.proto", fileDescriptor_eb08cfe6323c23aa)
+	proto.RegisterFile("nemo_network/clob/equity_tier_limit_config.proto", fileDescriptor_eb08cfe6323c23aa)
 }
 
 var fileDescriptor_eb08cfe6323c23aa = []byte{

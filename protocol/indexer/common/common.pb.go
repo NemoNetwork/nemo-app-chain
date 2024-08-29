@@ -103,11 +103,11 @@ func (OrderRemovalReason) EnumDescriptor() ([]byte, []int) {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.indexer.common.OrderRemovalReason", OrderRemovalReason_name, OrderRemovalReason_value)
+	proto.RegisterEnum("nemo_network.indexer.common.OrderRemovalReason", OrderRemovalReason_name, OrderRemovalReason_value)
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/indexer/common/common.proto", fileDescriptor_cc7f22a39c006b65)
+	proto.RegisterFile("nemo_network/indexer/common/common.proto", fileDescriptor_cc7f22a39c006b65)
 }
 
 var fileDescriptor_cc7f22a39c006b65 = []byte{

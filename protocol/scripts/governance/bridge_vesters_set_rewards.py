@@ -109,7 +109,7 @@ proposal_template = {
     "summary": PROPOSAL_BODY,
     "messages": [
         {
-            "@type": "/nemo-network.sending.MsgSendFromModuleToAccount",
+            "@type": "/nemo_network.sending.MsgSendFromModuleToAccount",
             "authority": GOV_MODULE_ADDRESS,
             "sender_module_name": "bridge",
             "recipient": COMMUNITY_VESTER_ADDRESS,
@@ -119,7 +119,7 @@ proposal_template = {
             }
         },
         {
-            "@type": "/nemo-network.sending.MsgSendFromModuleToAccount",
+            "@type": "/nemo_network.sending.MsgSendFromModuleToAccount",
             "authority": GOV_MODULE_ADDRESS,
             "sender_module_name": "bridge",
             "recipient": REWARDS_VESTER_ADDRESS,
@@ -129,7 +129,7 @@ proposal_template = {
             }
         },
         {
-            "@type": "/nemo-network.rewards.MsgUpdateParams",
+            "@type": "/nemo_network.rewards.MsgUpdateParams",
             "authority": GOV_MODULE_ADDRESS,
             "params": {
                 "treasury_account": "rewards_treasury",
@@ -149,10 +149,10 @@ for delayed_block_number, new_fee_multiplier in [
 ]:
     proposal_template["messages"].append(
         {
-            "@type": "/nemo-network.delaymsg.MsgDelayMessage",
+            "@type": "/nemo_network.delaymsg.MsgDelayMessage",
             "authority": GOV_MODULE_ADDRESS,
             "msg": {
-                "@type": "/nemo-network.rewards.MsgUpdateParams",
+                "@type": "/nemo_network.rewards.MsgUpdateParams",
                 "authority": DELAY_MSG_MODULE_ADDRESS,
                 "params": {
                     "treasury_account": "rewards_treasury",

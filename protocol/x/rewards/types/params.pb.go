@@ -109,10 +109,10 @@ func (m *Params) GetFeeMultiplierPpm() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "nemo-network.rewards.Params")
+	proto.RegisterType((*Params)(nil), "nemo_network.rewards.Params")
 }
 
-func init() { proto.RegisterFile("nemo-network/rewards/params.proto", fileDescriptor_79d7ba76c0df710f) }
+func init() { proto.RegisterFile("nemo_network/rewards/params.proto", fileDescriptor_79d7ba76c0df710f) }
 
 var fileDescriptor_79d7ba76c0df710f = []byte{
 	// 274 bytes of a gzipped FileDescriptorProto

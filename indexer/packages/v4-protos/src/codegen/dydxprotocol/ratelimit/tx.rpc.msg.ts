@@ -17,7 +17,7 @@ export class MsgClientImpl implements Msg {
 
   setLimitParams(request: MsgSetLimitParams): Promise<MsgSetLimitParamsResponse> {
     const data = MsgSetLimitParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.ratelimit.Msg", "SetLimitParams", data);
+    const promise = this.rpc.request("nemo_network.ratelimit.Msg", "SetLimitParams", data);
     return promise.then(data => MsgSetLimitParamsResponse.decode(new _m0.Reader(data)));
   }
 

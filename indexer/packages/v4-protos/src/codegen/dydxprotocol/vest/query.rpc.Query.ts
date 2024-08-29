@@ -18,7 +18,7 @@ export class QueryClientImpl implements Query {
 
   vestEntry(request: QueryVestEntryRequest): Promise<QueryVestEntryResponse> {
     const data = QueryVestEntryRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vest.Query", "VestEntry", data);
+    const promise = this.rpc.request("nemo_network.vest.Query", "VestEntry", data);
     return promise.then(data => QueryVestEntryResponse.decode(new _m0.Reader(data)));
   }
 

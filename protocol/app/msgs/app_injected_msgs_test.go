@@ -20,20 +20,20 @@ import (
 func TestAppInjectedMsgSamples_Key(t *testing.T) {
 	expectedMsgs := []string{
 		// bridge
-		"/nemo-network.bridge.MsgAcknowledgeBridges",
-		"/nemo-network.bridge.MsgAcknowledgeBridgesResponse",
+		"/nemo_network.bridge.MsgAcknowledgeBridges",
+		"/nemo_network.bridge.MsgAcknowledgeBridgesResponse",
 
 		// clob
-		"/nemo-network.clob.MsgProposedOperations",
-		"/nemo-network.clob.MsgProposedOperationsResponse",
+		"/nemo_network.clob.MsgProposedOperations",
+		"/nemo_network.clob.MsgProposedOperationsResponse",
 
 		// perpetuals
-		"/nemo-network.perpetuals.MsgAddPremiumVotes",
-		"/nemo-network.perpetuals.MsgAddPremiumVotesResponse",
+		"/nemo_network.perpetuals.MsgAddPremiumVotes",
+		"/nemo_network.perpetuals.MsgAddPremiumVotesResponse",
 
 		// prices
-		"/nemo-network.prices.MsgUpdateMarketPrices",
-		"/nemo-network.prices.MsgUpdateMarketPricesResponse",
+		"/nemo_network.prices.MsgUpdateMarketPrices",
+		"/nemo_network.prices.MsgUpdateMarketPricesResponse",
 	}
 
 	require.Equal(t, expectedMsgs, lib.GetSortedKeys[sort.StringSlice](msgs.AppInjectedMsgSamples))

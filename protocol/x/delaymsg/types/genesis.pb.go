@@ -78,11 +78,11 @@ func (m *GenesisState) GetNextDelayedMessageId() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.delaymsg.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.delaymsg.GenesisState")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/delaymsg/genesis.proto", fileDescriptor_15d0041ed1900d3a)
+	proto.RegisterFile("nemo_network/delaymsg/genesis.proto", fileDescriptor_15d0041ed1900d3a)
 }
 
 var fileDescriptor_15d0041ed1900d3a = []byte{

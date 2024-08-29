@@ -215,13 +215,13 @@ func (m *MsgSetVestEntryResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgSetVestEntryResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgDeleteVestEntry)(nil), "nemo-network.vest.MsgDeleteVestEntry")
-	proto.RegisterType((*MsgDeleteVestEntryResponse)(nil), "nemo-network.vest.MsgDeleteVestEntryResponse")
-	proto.RegisterType((*MsgSetVestEntry)(nil), "nemo-network.vest.MsgSetVestEntry")
-	proto.RegisterType((*MsgSetVestEntryResponse)(nil), "nemo-network.vest.MsgSetVestEntryResponse")
+	proto.RegisterType((*MsgDeleteVestEntry)(nil), "nemo_network.vest.MsgDeleteVestEntry")
+	proto.RegisterType((*MsgDeleteVestEntryResponse)(nil), "nemo_network.vest.MsgDeleteVestEntryResponse")
+	proto.RegisterType((*MsgSetVestEntry)(nil), "nemo_network.vest.MsgSetVestEntry")
+	proto.RegisterType((*MsgSetVestEntryResponse)(nil), "nemo_network.vest.MsgSetVestEntryResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/vest/tx.proto", fileDescriptor_e68cfe60566e0fc5) }
+func init() { proto.RegisterFile("nemo_network/vest/tx.proto", fileDescriptor_e68cfe60566e0fc5) }
 
 var fileDescriptor_e68cfe60566e0fc5 = []byte{
 	// 384 bytes of a gzipped FileDescriptorProto
@@ -279,7 +279,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) SetVestEntry(ctx context.Context, in *MsgSetVestEntry, opts ...grpc.CallOption) (*MsgSetVestEntryResponse, error) {
 	out := new(MsgSetVestEntryResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vest.Msg/SetVestEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vest.Msg/SetVestEntry", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +288,7 @@ func (c *msgClient) SetVestEntry(ctx context.Context, in *MsgSetVestEntry, opts 
 
 func (c *msgClient) DeleteVestEntry(ctx context.Context, in *MsgDeleteVestEntry, opts ...grpc.CallOption) (*MsgDeleteVestEntryResponse, error) {
 	out := new(MsgDeleteVestEntryResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vest.Msg/DeleteVestEntry", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vest.Msg/DeleteVestEntry", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -328,7 +328,7 @@ func _Msg_SetVestEntry_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vest.Msg/SetVestEntry",
+		FullMethod: "/nemo_network.vest.Msg/SetVestEntry",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SetVestEntry(ctx, req.(*MsgSetVestEntry))
@@ -346,7 +346,7 @@ func _Msg_DeleteVestEntry_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vest.Msg/DeleteVestEntry",
+		FullMethod: "/nemo_network.vest.Msg/DeleteVestEntry",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).DeleteVestEntry(ctx, req.(*MsgDeleteVestEntry))
@@ -355,7 +355,7 @@ func _Msg_DeleteVestEntry_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.vest.Msg",
+	ServiceName: "nemo_network.vest.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -368,7 +368,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/vest/tx.proto",
+	Metadata: "nemo_network/vest/tx.proto",
 }
 
 func (m *MsgDeleteVestEntry) Marshal() (dAtA []byte, err error) {

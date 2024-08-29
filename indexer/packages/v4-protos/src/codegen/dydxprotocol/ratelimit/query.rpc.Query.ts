@@ -26,19 +26,19 @@ export class QueryClientImpl implements Query {
 
   listLimitParams(request: ListLimitParamsRequest = {}): Promise<ListLimitParamsResponse> {
     const data = ListLimitParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.ratelimit.Query", "ListLimitParams", data);
+    const promise = this.rpc.request("nemo_network.ratelimit.Query", "ListLimitParams", data);
     return promise.then(data => ListLimitParamsResponse.decode(new _m0.Reader(data)));
   }
 
   capacityByDenom(request: QueryCapacityByDenomRequest): Promise<QueryCapacityByDenomResponse> {
     const data = QueryCapacityByDenomRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.ratelimit.Query", "CapacityByDenom", data);
+    const promise = this.rpc.request("nemo_network.ratelimit.Query", "CapacityByDenom", data);
     return promise.then(data => QueryCapacityByDenomResponse.decode(new _m0.Reader(data)));
   }
 
   allPendingSendPackets(request: QueryAllPendingSendPacketsRequest = {}): Promise<QueryAllPendingSendPacketsResponse> {
     const data = QueryAllPendingSendPacketsRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.ratelimit.Query", "AllPendingSendPackets", data);
+    const promise = this.rpc.request("nemo_network.ratelimit.Query", "AllPendingSendPackets", data);
     return promise.then(data => QueryAllPendingSendPacketsResponse.decode(new _m0.Reader(data)));
   }
 

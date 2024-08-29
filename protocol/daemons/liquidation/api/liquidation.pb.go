@@ -145,12 +145,12 @@ func (m *LiquidateSubaccountsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_LiquidateSubaccountsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*LiquidateSubaccountsRequest)(nil), "nemo-network.daemons.liquidation.LiquidateSubaccountsRequest")
-	proto.RegisterType((*LiquidateSubaccountsResponse)(nil), "nemo-network.daemons.liquidation.LiquidateSubaccountsResponse")
+	proto.RegisterType((*LiquidateSubaccountsRequest)(nil), "nemo_network.daemons.liquidation.LiquidateSubaccountsRequest")
+	proto.RegisterType((*LiquidateSubaccountsResponse)(nil), "nemo_network.daemons.liquidation.LiquidateSubaccountsResponse")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/daemons/liquidation/liquidation.proto", fileDescriptor_66068592911cfa5a)
+	proto.RegisterFile("nemo_network/daemons/liquidation/liquidation.proto", fileDescriptor_66068592911cfa5a)
 }
 
 var fileDescriptor_66068592911cfa5a = []byte{
@@ -209,7 +209,7 @@ func NewLiquidationServiceClient(cc grpc1.ClientConn) LiquidationServiceClient {
 
 func (c *liquidationServiceClient) LiquidateSubaccounts(ctx context.Context, in *LiquidateSubaccountsRequest, opts ...grpc.CallOption) (*LiquidateSubaccountsResponse, error) {
 	out := new(LiquidateSubaccountsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.daemons.liquidation.LiquidationService/LiquidateSubaccounts", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.daemons.liquidation.LiquidationService/LiquidateSubaccounts", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func _LiquidationService_LiquidateSubaccounts_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.daemons.liquidation.LiquidationService/LiquidateSubaccounts",
+		FullMethod: "/nemo_network.daemons.liquidation.LiquidationService/LiquidateSubaccounts",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LiquidationServiceServer).LiquidateSubaccounts(ctx, req.(*LiquidateSubaccountsRequest))
@@ -253,7 +253,7 @@ func _LiquidationService_LiquidateSubaccounts_Handler(srv interface{}, ctx conte
 }
 
 var _LiquidationService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.daemons.liquidation.LiquidationService",
+	ServiceName: "nemo_network.daemons.liquidation.LiquidationService",
 	HandlerType: (*LiquidationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -262,7 +262,7 @@ var _LiquidationService_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/daemons/liquidation/liquidation.proto",
+	Metadata: "nemo_network/daemons/liquidation/liquidation.proto",
 }
 
 func (m *LiquidateSubaccountsRequest) Marshal() (dAtA []byte, err error) {

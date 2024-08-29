@@ -600,22 +600,22 @@ func (m *DelayedCompleteBridgeMessage) GetBlockHeight() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*QueryEventParamsRequest)(nil), "nemo-network.bridge.QueryEventParamsRequest")
-	proto.RegisterType((*QueryEventParamsResponse)(nil), "nemo-network.bridge.QueryEventParamsResponse")
-	proto.RegisterType((*QueryProposeParamsRequest)(nil), "nemo-network.bridge.QueryProposeParamsRequest")
-	proto.RegisterType((*QueryProposeParamsResponse)(nil), "nemo-network.bridge.QueryProposeParamsResponse")
-	proto.RegisterType((*QuerySafetyParamsRequest)(nil), "nemo-network.bridge.QuerySafetyParamsRequest")
-	proto.RegisterType((*QuerySafetyParamsResponse)(nil), "nemo-network.bridge.QuerySafetyParamsResponse")
-	proto.RegisterType((*QueryAcknowledgedEventInfoRequest)(nil), "nemo-network.bridge.QueryAcknowledgedEventInfoRequest")
-	proto.RegisterType((*QueryAcknowledgedEventInfoResponse)(nil), "nemo-network.bridge.QueryAcknowledgedEventInfoResponse")
-	proto.RegisterType((*QueryRecognizedEventInfoRequest)(nil), "nemo-network.bridge.QueryRecognizedEventInfoRequest")
-	proto.RegisterType((*QueryRecognizedEventInfoResponse)(nil), "nemo-network.bridge.QueryRecognizedEventInfoResponse")
-	proto.RegisterType((*QueryDelayedCompleteBridgeMessagesRequest)(nil), "nemo-network.bridge.QueryDelayedCompleteBridgeMessagesRequest")
-	proto.RegisterType((*QueryDelayedCompleteBridgeMessagesResponse)(nil), "nemo-network.bridge.QueryDelayedCompleteBridgeMessagesResponse")
-	proto.RegisterType((*DelayedCompleteBridgeMessage)(nil), "nemo-network.bridge.DelayedCompleteBridgeMessage")
+	proto.RegisterType((*QueryEventParamsRequest)(nil), "nemo_network.bridge.QueryEventParamsRequest")
+	proto.RegisterType((*QueryEventParamsResponse)(nil), "nemo_network.bridge.QueryEventParamsResponse")
+	proto.RegisterType((*QueryProposeParamsRequest)(nil), "nemo_network.bridge.QueryProposeParamsRequest")
+	proto.RegisterType((*QueryProposeParamsResponse)(nil), "nemo_network.bridge.QueryProposeParamsResponse")
+	proto.RegisterType((*QuerySafetyParamsRequest)(nil), "nemo_network.bridge.QuerySafetyParamsRequest")
+	proto.RegisterType((*QuerySafetyParamsResponse)(nil), "nemo_network.bridge.QuerySafetyParamsResponse")
+	proto.RegisterType((*QueryAcknowledgedEventInfoRequest)(nil), "nemo_network.bridge.QueryAcknowledgedEventInfoRequest")
+	proto.RegisterType((*QueryAcknowledgedEventInfoResponse)(nil), "nemo_network.bridge.QueryAcknowledgedEventInfoResponse")
+	proto.RegisterType((*QueryRecognizedEventInfoRequest)(nil), "nemo_network.bridge.QueryRecognizedEventInfoRequest")
+	proto.RegisterType((*QueryRecognizedEventInfoResponse)(nil), "nemo_network.bridge.QueryRecognizedEventInfoResponse")
+	proto.RegisterType((*QueryDelayedCompleteBridgeMessagesRequest)(nil), "nemo_network.bridge.QueryDelayedCompleteBridgeMessagesRequest")
+	proto.RegisterType((*QueryDelayedCompleteBridgeMessagesResponse)(nil), "nemo_network.bridge.QueryDelayedCompleteBridgeMessagesResponse")
+	proto.RegisterType((*DelayedCompleteBridgeMessage)(nil), "nemo_network.bridge.DelayedCompleteBridgeMessage")
 }
 
-func init() { proto.RegisterFile("nemo-network/bridge/query.proto", fileDescriptor_b4ca11b6b8f7f939) }
+func init() { proto.RegisterFile("nemo_network/bridge/query.proto", fileDescriptor_b4ca11b6b8f7f939) }
 
 var fileDescriptor_b4ca11b6b8f7f939 = []byte{
 	// 737 bytes of a gzipped FileDescriptorProto
@@ -709,7 +709,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) EventParams(ctx context.Context, in *QueryEventParamsRequest, opts ...grpc.CallOption) (*QueryEventParamsResponse, error) {
 	out := new(QueryEventParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Query/EventParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Query/EventParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -718,7 +718,7 @@ func (c *queryClient) EventParams(ctx context.Context, in *QueryEventParamsReque
 
 func (c *queryClient) ProposeParams(ctx context.Context, in *QueryProposeParamsRequest, opts ...grpc.CallOption) (*QueryProposeParamsResponse, error) {
 	out := new(QueryProposeParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Query/ProposeParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Query/ProposeParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -727,7 +727,7 @@ func (c *queryClient) ProposeParams(ctx context.Context, in *QueryProposeParamsR
 
 func (c *queryClient) SafetyParams(ctx context.Context, in *QuerySafetyParamsRequest, opts ...grpc.CallOption) (*QuerySafetyParamsResponse, error) {
 	out := new(QuerySafetyParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Query/SafetyParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Query/SafetyParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -736,7 +736,7 @@ func (c *queryClient) SafetyParams(ctx context.Context, in *QuerySafetyParamsReq
 
 func (c *queryClient) AcknowledgedEventInfo(ctx context.Context, in *QueryAcknowledgedEventInfoRequest, opts ...grpc.CallOption) (*QueryAcknowledgedEventInfoResponse, error) {
 	out := new(QueryAcknowledgedEventInfoResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Query/AcknowledgedEventInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Query/AcknowledgedEventInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -745,7 +745,7 @@ func (c *queryClient) AcknowledgedEventInfo(ctx context.Context, in *QueryAcknow
 
 func (c *queryClient) RecognizedEventInfo(ctx context.Context, in *QueryRecognizedEventInfoRequest, opts ...grpc.CallOption) (*QueryRecognizedEventInfoResponse, error) {
 	out := new(QueryRecognizedEventInfoResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Query/RecognizedEventInfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Query/RecognizedEventInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -754,7 +754,7 @@ func (c *queryClient) RecognizedEventInfo(ctx context.Context, in *QueryRecogniz
 
 func (c *queryClient) DelayedCompleteBridgeMessages(ctx context.Context, in *QueryDelayedCompleteBridgeMessagesRequest, opts ...grpc.CallOption) (*QueryDelayedCompleteBridgeMessagesResponse, error) {
 	out := new(QueryDelayedCompleteBridgeMessagesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.bridge.Query/DelayedCompleteBridgeMessages", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.bridge.Query/DelayedCompleteBridgeMessages", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -819,7 +819,7 @@ func _Query_EventParams_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Query/EventParams",
+		FullMethod: "/nemo_network.bridge.Query/EventParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).EventParams(ctx, req.(*QueryEventParamsRequest))
@@ -837,7 +837,7 @@ func _Query_ProposeParams_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Query/ProposeParams",
+		FullMethod: "/nemo_network.bridge.Query/ProposeParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).ProposeParams(ctx, req.(*QueryProposeParamsRequest))
@@ -855,7 +855,7 @@ func _Query_SafetyParams_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Query/SafetyParams",
+		FullMethod: "/nemo_network.bridge.Query/SafetyParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).SafetyParams(ctx, req.(*QuerySafetyParamsRequest))
@@ -873,7 +873,7 @@ func _Query_AcknowledgedEventInfo_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Query/AcknowledgedEventInfo",
+		FullMethod: "/nemo_network.bridge.Query/AcknowledgedEventInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AcknowledgedEventInfo(ctx, req.(*QueryAcknowledgedEventInfoRequest))
@@ -891,7 +891,7 @@ func _Query_RecognizedEventInfo_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Query/RecognizedEventInfo",
+		FullMethod: "/nemo_network.bridge.Query/RecognizedEventInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).RecognizedEventInfo(ctx, req.(*QueryRecognizedEventInfoRequest))
@@ -909,7 +909,7 @@ func _Query_DelayedCompleteBridgeMessages_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.bridge.Query/DelayedCompleteBridgeMessages",
+		FullMethod: "/nemo_network.bridge.Query/DelayedCompleteBridgeMessages",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).DelayedCompleteBridgeMessages(ctx, req.(*QueryDelayedCompleteBridgeMessagesRequest))
@@ -918,7 +918,7 @@ func _Query_DelayedCompleteBridgeMessages_Handler(srv interface{}, ctx context.C
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.bridge.Query",
+	ServiceName: "nemo_network.bridge.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -947,7 +947,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/bridge/query.proto",
+	Metadata: "nemo_network/bridge/query.proto",
 }
 
 func (m *QueryEventParamsRequest) Marshal() (dAtA []byte, err error) {

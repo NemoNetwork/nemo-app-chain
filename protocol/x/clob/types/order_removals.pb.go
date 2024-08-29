@@ -100,7 +100,7 @@ func (OrderRemoval_RemovalReason) EnumDescriptor() ([]byte, []int) {
 // OrderRemoval is a request type used for forced removal of stateful orders.
 type OrderRemoval struct {
 	OrderId       OrderId                    `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id"`
-	RemovalReason OrderRemoval_RemovalReason `protobuf:"varint,2,opt,name=removal_reason,json=removalReason,proto3,enum=nemo-network.clob.OrderRemoval_RemovalReason" json:"removal_reason,omitempty"`
+	RemovalReason OrderRemoval_RemovalReason `protobuf:"varint,2,opt,name=removal_reason,json=removalReason,proto3,enum=nemo_network.clob.OrderRemoval_RemovalReason" json:"removal_reason,omitempty"`
 }
 
 func (m *OrderRemoval) Reset()         { *m = OrderRemoval{} }
@@ -151,12 +151,12 @@ func (m *OrderRemoval) GetRemovalReason() OrderRemoval_RemovalReason {
 }
 
 func init() {
-	proto.RegisterEnum("nemo-network.clob.OrderRemoval_RemovalReason", OrderRemoval_RemovalReason_name, OrderRemoval_RemovalReason_value)
-	proto.RegisterType((*OrderRemoval)(nil), "nemo-network.clob.OrderRemoval")
+	proto.RegisterEnum("nemo_network.clob.OrderRemoval_RemovalReason", OrderRemoval_RemovalReason_name, OrderRemoval_RemovalReason_value)
+	proto.RegisterType((*OrderRemoval)(nil), "nemo_network.clob.OrderRemoval")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/clob/order_removals.proto", fileDescriptor_60fa12f781955c9f)
+	proto.RegisterFile("nemo_network/clob/order_removals.proto", fileDescriptor_60fa12f781955c9f)
 }
 
 var fileDescriptor_60fa12f781955c9f = []byte{

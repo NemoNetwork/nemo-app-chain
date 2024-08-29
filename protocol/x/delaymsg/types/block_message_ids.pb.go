@@ -71,11 +71,11 @@ func (m *BlockMessageIds) GetIds() []uint32 {
 }
 
 func init() {
-	proto.RegisterType((*BlockMessageIds)(nil), "nemo-network.delaymsg.BlockMessageIds")
+	proto.RegisterType((*BlockMessageIds)(nil), "nemo_network.delaymsg.BlockMessageIds")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/delaymsg/block_message_ids.proto", fileDescriptor_d5e64947ad83d53b)
+	proto.RegisterFile("nemo_network/delaymsg/block_message_ids.proto", fileDescriptor_d5e64947ad83d53b)
 }
 
 var fileDescriptor_d5e64947ad83d53b = []byte{

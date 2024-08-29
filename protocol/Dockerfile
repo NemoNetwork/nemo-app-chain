@@ -31,7 +31,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
     go build \
       -mod=readonly \
       -tags "netgo,ledger,muslc" \
-      -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="nemo-network" \
+      -ldflags "-X github.com/cosmos/cosmos-sdk/version.Name="nemo_network." \
               -X github.com/cosmos/cosmos-sdk/version.AppName="nemod" \
               -X github.com/cosmos/cosmos-sdk/version.Version=$VERSION \
               -X github.com/cosmos/cosmos-sdk/version.Commit=$COMMIT \

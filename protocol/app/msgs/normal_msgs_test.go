@@ -119,28 +119,28 @@ func TestNormalMsgs_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
 
 		// clob
-		"/nemo-network.clob.MsgBatchCancel",
-		"/nemo-network.clob.MsgBatchCancelResponse",
-		"/nemo-network.clob.MsgCancelOrder",
-		"/nemo-network.clob.MsgCancelOrderResponse",
-		"/nemo-network.clob.MsgPlaceOrder",
-		"/nemo-network.clob.MsgPlaceOrderResponse",
+		"/nemo_network.clob.MsgBatchCancel",
+		"/nemo_network.clob.MsgBatchCancelResponse",
+		"/nemo_network.clob.MsgCancelOrder",
+		"/nemo_network.clob.MsgCancelOrderResponse",
+		"/nemo_network.clob.MsgPlaceOrder",
+		"/nemo_network.clob.MsgPlaceOrderResponse",
 
 		// perpetuals
 
 		// prices
 
 		// sending
-		"/nemo-network.sending.MsgCreateTransfer",
-		"/nemo-network.sending.MsgCreateTransferResponse",
-		"/nemo-network.sending.MsgDepositToSubaccount",
-		"/nemo-network.sending.MsgDepositToSubaccountResponse",
-		"/nemo-network.sending.MsgWithdrawFromSubaccount",
-		"/nemo-network.sending.MsgWithdrawFromSubaccountResponse",
+		"/nemo_network.sending.MsgCreateTransfer",
+		"/nemo_network.sending.MsgCreateTransferResponse",
+		"/nemo_network.sending.MsgDepositToSubaccount",
+		"/nemo_network.sending.MsgDepositToSubaccountResponse",
+		"/nemo_network.sending.MsgWithdrawFromSubaccount",
+		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse",
 
 		// vault
-		"/nemo-network.vault.MsgDepositToVault",
-		"/nemo-network.vault.MsgDepositToVaultResponse",
+		"/nemo_network.vault.MsgDepositToVault",
+		"/nemo_network.vault.MsgDepositToVaultResponse",
 
 		// ibc application module: ICA
 		"/ibc.applications.interchain_accounts.v1.InterchainAccount",

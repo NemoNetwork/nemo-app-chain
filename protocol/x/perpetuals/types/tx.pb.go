@@ -541,20 +541,20 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgCreatePerpetual)(nil), "nemo-network.perpetuals.MsgCreatePerpetual")
-	proto.RegisterType((*MsgCreatePerpetualResponse)(nil), "nemo-network.perpetuals.MsgCreatePerpetualResponse")
-	proto.RegisterType((*MsgSetLiquidityTier)(nil), "nemo-network.perpetuals.MsgSetLiquidityTier")
-	proto.RegisterType((*MsgSetLiquidityTierResponse)(nil), "nemo-network.perpetuals.MsgSetLiquidityTierResponse")
-	proto.RegisterType((*MsgUpdatePerpetualParams)(nil), "nemo-network.perpetuals.MsgUpdatePerpetualParams")
-	proto.RegisterType((*MsgUpdatePerpetualParamsResponse)(nil), "nemo-network.perpetuals.MsgUpdatePerpetualParamsResponse")
-	proto.RegisterType((*FundingPremium)(nil), "nemo-network.perpetuals.FundingPremium")
-	proto.RegisterType((*MsgAddPremiumVotes)(nil), "nemo-network.perpetuals.MsgAddPremiumVotes")
-	proto.RegisterType((*MsgAddPremiumVotesResponse)(nil), "nemo-network.perpetuals.MsgAddPremiumVotesResponse")
-	proto.RegisterType((*MsgUpdateParams)(nil), "nemo-network.perpetuals.MsgUpdateParams")
-	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo-network.perpetuals.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgCreatePerpetual)(nil), "nemo_network.perpetuals.MsgCreatePerpetual")
+	proto.RegisterType((*MsgCreatePerpetualResponse)(nil), "nemo_network.perpetuals.MsgCreatePerpetualResponse")
+	proto.RegisterType((*MsgSetLiquidityTier)(nil), "nemo_network.perpetuals.MsgSetLiquidityTier")
+	proto.RegisterType((*MsgSetLiquidityTierResponse)(nil), "nemo_network.perpetuals.MsgSetLiquidityTierResponse")
+	proto.RegisterType((*MsgUpdatePerpetualParams)(nil), "nemo_network.perpetuals.MsgUpdatePerpetualParams")
+	proto.RegisterType((*MsgUpdatePerpetualParamsResponse)(nil), "nemo_network.perpetuals.MsgUpdatePerpetualParamsResponse")
+	proto.RegisterType((*FundingPremium)(nil), "nemo_network.perpetuals.FundingPremium")
+	proto.RegisterType((*MsgAddPremiumVotes)(nil), "nemo_network.perpetuals.MsgAddPremiumVotes")
+	proto.RegisterType((*MsgAddPremiumVotesResponse)(nil), "nemo_network.perpetuals.MsgAddPremiumVotesResponse")
+	proto.RegisterType((*MsgUpdateParams)(nil), "nemo_network.perpetuals.MsgUpdateParams")
+	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo_network.perpetuals.MsgUpdateParamsResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/perpetuals/tx.proto", fileDescriptor_daed24c15760c356) }
+func init() { proto.RegisterFile("nemo_network/perpetuals/tx.proto", fileDescriptor_daed24c15760c356) }
 
 var fileDescriptor_daed24c15760c356 = []byte{
 	// 620 bytes of a gzipped FileDescriptorProto
@@ -635,7 +635,7 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 
 func (c *msgClient) AddPremiumVotes(ctx context.Context, in *MsgAddPremiumVotes, opts ...grpc.CallOption) (*MsgAddPremiumVotesResponse, error) {
 	out := new(MsgAddPremiumVotesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Msg/AddPremiumVotes", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Msg/AddPremiumVotes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -644,7 +644,7 @@ func (c *msgClient) AddPremiumVotes(ctx context.Context, in *MsgAddPremiumVotes,
 
 func (c *msgClient) CreatePerpetual(ctx context.Context, in *MsgCreatePerpetual, opts ...grpc.CallOption) (*MsgCreatePerpetualResponse, error) {
 	out := new(MsgCreatePerpetualResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Msg/CreatePerpetual", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Msg/CreatePerpetual", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -653,7 +653,7 @@ func (c *msgClient) CreatePerpetual(ctx context.Context, in *MsgCreatePerpetual,
 
 func (c *msgClient) SetLiquidityTier(ctx context.Context, in *MsgSetLiquidityTier, opts ...grpc.CallOption) (*MsgSetLiquidityTierResponse, error) {
 	out := new(MsgSetLiquidityTierResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Msg/SetLiquidityTier", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Msg/SetLiquidityTier", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -662,7 +662,7 @@ func (c *msgClient) SetLiquidityTier(ctx context.Context, in *MsgSetLiquidityTie
 
 func (c *msgClient) UpdatePerpetualParams(ctx context.Context, in *MsgUpdatePerpetualParams, opts ...grpc.CallOption) (*MsgUpdatePerpetualParamsResponse, error) {
 	out := new(MsgUpdatePerpetualParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Msg/UpdatePerpetualParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Msg/UpdatePerpetualParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -671,7 +671,7 @@ func (c *msgClient) UpdatePerpetualParams(ctx context.Context, in *MsgUpdatePerp
 
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.perpetuals.Msg/UpdateParams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.perpetuals.Msg/UpdateParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -728,7 +728,7 @@ func _Msg_AddPremiumVotes_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Msg/AddPremiumVotes",
+		FullMethod: "/nemo_network.perpetuals.Msg/AddPremiumVotes",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).AddPremiumVotes(ctx, req.(*MsgAddPremiumVotes))
@@ -746,7 +746,7 @@ func _Msg_CreatePerpetual_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Msg/CreatePerpetual",
+		FullMethod: "/nemo_network.perpetuals.Msg/CreatePerpetual",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).CreatePerpetual(ctx, req.(*MsgCreatePerpetual))
@@ -764,7 +764,7 @@ func _Msg_SetLiquidityTier_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Msg/SetLiquidityTier",
+		FullMethod: "/nemo_network.perpetuals.Msg/SetLiquidityTier",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).SetLiquidityTier(ctx, req.(*MsgSetLiquidityTier))
@@ -782,7 +782,7 @@ func _Msg_UpdatePerpetualParams_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Msg/UpdatePerpetualParams",
+		FullMethod: "/nemo_network.perpetuals.Msg/UpdatePerpetualParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdatePerpetualParams(ctx, req.(*MsgUpdatePerpetualParams))
@@ -800,7 +800,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.perpetuals.Msg/UpdateParams",
+		FullMethod: "/nemo_network.perpetuals.Msg/UpdateParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).UpdateParams(ctx, req.(*MsgUpdateParams))
@@ -809,7 +809,7 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Msg_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.perpetuals.Msg",
+	ServiceName: "nemo_network.perpetuals.Msg",
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -834,7 +834,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/perpetuals/tx.proto",
+	Metadata: "nemo_network/perpetuals/tx.proto",
 }
 
 func (m *MsgCreatePerpetual) Marshal() (dAtA []byte, err error) {

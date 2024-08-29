@@ -93,10 +93,10 @@ func (m *GenesisState) GetEquityTierLimitConfig() EquityTierLimitConfiguration {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.clob.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.clob.GenesisState")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/genesis.proto", fileDescriptor_2de77065a6fbee92) }
+func init() { proto.RegisterFile("nemo_network/clob/genesis.proto", fileDescriptor_2de77065a6fbee92) }
 
 var fileDescriptor_2de77065a6fbee92 = []byte{
 	// 356 bytes of a gzipped FileDescriptorProto

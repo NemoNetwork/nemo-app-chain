@@ -31,7 +31,7 @@ INPUT_JSON="$1"
 # Use jq to construct the messages array from the input JSON
 MESSAGES=$(jq --arg authority "$AUTHORITY" '
   .clob_pair | map({
-    "@type": "/nemo-network.clob.MsgUpdateClobPair",
+    "@type": "/nemo_network.clob.MsgUpdateClobPair",
     "authority": $authority,
     "clob_pair": {
       "id": .id,

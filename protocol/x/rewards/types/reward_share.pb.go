@@ -73,11 +73,11 @@ func (m *RewardShare) GetAddress() string {
 }
 
 func init() {
-	proto.RegisterType((*RewardShare)(nil), "nemo-network.rewards.RewardShare")
+	proto.RegisterType((*RewardShare)(nil), "nemo_network.rewards.RewardShare")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/rewards/reward_share.proto", fileDescriptor_a9d4fef3ba0acce6)
+	proto.RegisterFile("nemo_network/rewards/reward_share.proto", fileDescriptor_a9d4fef3ba0acce6)
 }
 
 var fileDescriptor_a9d4fef3ba0acce6 = []byte{

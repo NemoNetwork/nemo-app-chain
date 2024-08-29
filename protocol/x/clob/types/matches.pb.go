@@ -466,15 +466,15 @@ func (m *MatchPerpetualDeleveraging_Fill) GetFillAmount() uint64 {
 }
 
 func init() {
-	proto.RegisterType((*ClobMatch)(nil), "nemo-network.clob.ClobMatch")
-	proto.RegisterType((*MakerFill)(nil), "nemo-network.clob.MakerFill")
-	proto.RegisterType((*MatchOrders)(nil), "nemo-network.clob.MatchOrders")
-	proto.RegisterType((*MatchPerpetualLiquidation)(nil), "nemo-network.clob.MatchPerpetualLiquidation")
-	proto.RegisterType((*MatchPerpetualDeleveraging)(nil), "nemo-network.clob.MatchPerpetualDeleveraging")
-	proto.RegisterType((*MatchPerpetualDeleveraging_Fill)(nil), "nemo-network.clob.MatchPerpetualDeleveraging.Fill")
+	proto.RegisterType((*ClobMatch)(nil), "nemo_network.clob.ClobMatch")
+	proto.RegisterType((*MakerFill)(nil), "nemo_network.clob.MakerFill")
+	proto.RegisterType((*MatchOrders)(nil), "nemo_network.clob.MatchOrders")
+	proto.RegisterType((*MatchPerpetualLiquidation)(nil), "nemo_network.clob.MatchPerpetualLiquidation")
+	proto.RegisterType((*MatchPerpetualDeleveraging)(nil), "nemo_network.clob.MatchPerpetualDeleveraging")
+	proto.RegisterType((*MatchPerpetualDeleveraging_Fill)(nil), "nemo_network.clob.MatchPerpetualDeleveraging.Fill")
 }
 
-func init() { proto.RegisterFile("nemo-network/clob/matches.proto", fileDescriptor_a5aa660bc05a1de4) }
+func init() { proto.RegisterFile("nemo_network/clob/matches.proto", fileDescriptor_a5aa660bc05a1de4) }
 
 var fileDescriptor_a5aa660bc05a1de4 = []byte{
 	// 615 bytes of a gzipped FileDescriptorProto

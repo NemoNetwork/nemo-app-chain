@@ -116,7 +116,7 @@ func (m *QueryParamsResponse) GetParams() Params {
 
 // QueryVaultRequest is a request type for the Vault RPC method.
 type QueryVaultRequest struct {
-	Type   VaultType `protobuf:"varint,1,opt,name=type,proto3,enum=nemo-network.vault.VaultType" json:"type,omitempty"`
+	Type   VaultType `protobuf:"varint,1,opt,name=type,proto3,enum=nemo_network.vault.VaultType" json:"type,omitempty"`
 	Number uint32    `protobuf:"varint,2,opt,name=number,proto3" json:"number,omitempty"`
 }
 
@@ -330,7 +330,7 @@ func (m *QueryAllVaultsResponse) GetPagination() *query.PageResponse {
 
 // QueryOwnerSharesRequest is a request type for the OwnerShares RPC method.
 type QueryOwnerSharesRequest struct {
-	Type       VaultType          `protobuf:"varint,1,opt,name=type,proto3,enum=nemo-network.vault.VaultType" json:"type,omitempty"`
+	Type       VaultType          `protobuf:"varint,1,opt,name=type,proto3,enum=nemo_network.vault.VaultType" json:"type,omitempty"`
 	Number     uint32             `protobuf:"varint,2,opt,name=number,proto3" json:"number,omitempty"`
 	Pagination *query.PageRequest `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
@@ -443,17 +443,17 @@ func (m *QueryOwnerSharesResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "nemo-network.vault.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "nemo-network.vault.QueryParamsResponse")
-	proto.RegisterType((*QueryVaultRequest)(nil), "nemo-network.vault.QueryVaultRequest")
-	proto.RegisterType((*QueryVaultResponse)(nil), "nemo-network.vault.QueryVaultResponse")
-	proto.RegisterType((*QueryAllVaultsRequest)(nil), "nemo-network.vault.QueryAllVaultsRequest")
-	proto.RegisterType((*QueryAllVaultsResponse)(nil), "nemo-network.vault.QueryAllVaultsResponse")
-	proto.RegisterType((*QueryOwnerSharesRequest)(nil), "nemo-network.vault.QueryOwnerSharesRequest")
-	proto.RegisterType((*QueryOwnerSharesResponse)(nil), "nemo-network.vault.QueryOwnerSharesResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "nemo_network.vault.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "nemo_network.vault.QueryParamsResponse")
+	proto.RegisterType((*QueryVaultRequest)(nil), "nemo_network.vault.QueryVaultRequest")
+	proto.RegisterType((*QueryVaultResponse)(nil), "nemo_network.vault.QueryVaultResponse")
+	proto.RegisterType((*QueryAllVaultsRequest)(nil), "nemo_network.vault.QueryAllVaultsRequest")
+	proto.RegisterType((*QueryAllVaultsResponse)(nil), "nemo_network.vault.QueryAllVaultsResponse")
+	proto.RegisterType((*QueryOwnerSharesRequest)(nil), "nemo_network.vault.QueryOwnerSharesRequest")
+	proto.RegisterType((*QueryOwnerSharesResponse)(nil), "nemo_network.vault.QueryOwnerSharesResponse")
 }
 
-func init() { proto.RegisterFile("nemo-network/vault/query.proto", fileDescriptor_478fb8dc0ff21ea6) }
+func init() { proto.RegisterFile("nemo_network/vault/query.proto", fileDescriptor_478fb8dc0ff21ea6) }
 
 var fileDescriptor_478fb8dc0ff21ea6 = []byte{
 	// 765 bytes of a gzipped FileDescriptorProto
@@ -539,7 +539,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vault.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vault.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -548,7 +548,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) Vault(ctx context.Context, in *QueryVaultRequest, opts ...grpc.CallOption) (*QueryVaultResponse, error) {
 	out := new(QueryVaultResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vault.Query/Vault", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vault.Query/Vault", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -557,7 +557,7 @@ func (c *queryClient) Vault(ctx context.Context, in *QueryVaultRequest, opts ...
 
 func (c *queryClient) AllVaults(ctx context.Context, in *QueryAllVaultsRequest, opts ...grpc.CallOption) (*QueryAllVaultsResponse, error) {
 	out := new(QueryAllVaultsResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vault.Query/AllVaults", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vault.Query/AllVaults", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -566,7 +566,7 @@ func (c *queryClient) AllVaults(ctx context.Context, in *QueryAllVaultsRequest, 
 
 func (c *queryClient) OwnerShares(ctx context.Context, in *QueryOwnerSharesRequest, opts ...grpc.CallOption) (*QueryOwnerSharesResponse, error) {
 	out := new(QueryOwnerSharesResponse)
-	err := c.cc.Invoke(ctx, "/nemo-network.vault.Query/OwnerShares", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nemo_network.vault.Query/OwnerShares", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -616,7 +616,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vault.Query/Params",
+		FullMethod: "/nemo_network.vault.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -634,7 +634,7 @@ func _Query_Vault_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vault.Query/Vault",
+		FullMethod: "/nemo_network.vault.Query/Vault",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Vault(ctx, req.(*QueryVaultRequest))
@@ -652,7 +652,7 @@ func _Query_AllVaults_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vault.Query/AllVaults",
+		FullMethod: "/nemo_network.vault.Query/AllVaults",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).AllVaults(ctx, req.(*QueryAllVaultsRequest))
@@ -670,7 +670,7 @@ func _Query_OwnerShares_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo-network.vault.Query/OwnerShares",
+		FullMethod: "/nemo_network.vault.Query/OwnerShares",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).OwnerShares(ctx, req.(*QueryOwnerSharesRequest))
@@ -679,7 +679,7 @@ func _Query_OwnerShares_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nemo-network.vault.Query",
+	ServiceName: "nemo_network.vault.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -700,7 +700,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nemo-network/vault/query.proto",
+	Metadata: "nemo_network/vault/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

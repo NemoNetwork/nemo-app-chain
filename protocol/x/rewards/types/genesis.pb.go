@@ -70,11 +70,11 @@ func (m *GenesisState) GetParams() Params {
 }
 
 func init() {
-	proto.RegisterType((*GenesisState)(nil), "nemo-network.rewards.GenesisState")
+	proto.RegisterType((*GenesisState)(nil), "nemo_network.rewards.GenesisState")
 }
 
 func init() {
-	proto.RegisterFile("nemo-network/rewards/genesis.proto", fileDescriptor_cf5050587bb71a1f)
+	proto.RegisterFile("nemo_network/rewards/genesis.proto", fileDescriptor_cf5050587bb71a1f)
 }
 
 var fileDescriptor_cf5050587bb71a1f = []byte{
