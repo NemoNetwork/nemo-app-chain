@@ -4,7 +4,7 @@ import { RedisClient } from 'redis';
 import { zRangeByScoreAsync } from '../helpers/redis';
 
 // Cache of order expiry to order uuid
-export const ORDER_EXPIRY_CACHE_KEY: string = 'v4/orderExpiry';
+export const ORDER_EXPIRY_CACHE_KEY: string = 'orderExpiry';
 
 /**
  * Grabs and returns a mapping from order UUID to expiry value for expiries on/before the given

@@ -58,7 +58,7 @@ describe('perpetual-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?address=${testConstants.defaultAddress}` +
+        path: `/perpetualPositions?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -109,7 +109,7 @@ describe('perpetual-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?address=${testConstants.defaultAddress}` +
+        path: `/perpetualPositions?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -160,7 +160,7 @@ describe('perpetual-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?address=${testConstants.defaultAddress}` +
+        path: `/perpetualPositions?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -229,7 +229,7 @@ describe('perpetual-positions-controller#V4', () => {
     ) => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?${getQueryString(queryParams)}`,
+        path: `/perpetualPositions?${getQueryString(queryParams)}`,
         expectedStatus: 400,
       });
 

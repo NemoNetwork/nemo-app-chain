@@ -8,7 +8,7 @@ import { RedisClient } from 'redis';
 import { getAsync } from '../helpers/redis';
 
 // Cache of order uuid to encoded `RedisOrder`
-export const ORDERS_CACHE_KEY_PREFIX: string = 'v4/orders/';
+export const ORDERS_CACHE_KEY_PREFIX: string = 'orders/';
 
 /**
  * Get an order by the UUID of the order.

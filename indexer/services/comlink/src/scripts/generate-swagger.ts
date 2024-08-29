@@ -7,7 +7,7 @@ generateSpec({
   entryFile: '../index.ts',
   outputDirectory: 'public',
   noImplicitAdditionalProperties: 'throw-on-extras',
-  controllerPathGlobs: ['./src/controllers/api/v4/**/*.ts'],
+  controllerPathGlobs: ['./src/controllers/api/**/*.ts'],
   specVersion: 3,
 }).then(() => {
   const filePath: string = './public/swagger.json';

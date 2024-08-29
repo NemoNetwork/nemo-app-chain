@@ -50,7 +50,7 @@ describe('schemas', () => {
     ) => {
       const response: request.Response = await sendRequestToApp({
         type: RequestMethod.GET,
-        path: `/v4/check-subaccount-schema?${getQueryString(queryParams)}`,
+        path: `/check-subaccount-schema?${getQueryString(queryParams)}`,
         expressApp: schemaTestApp,
         expectedStatus: 400,
       });
@@ -128,7 +128,7 @@ describe('schemas', () => {
     ) => {
       const response: request.Response = await sendRequestToApp({
         type: RequestMethod.GET,
-        path: `/v4/check-limit-and-created-before-schema?${getQueryString(queryParams)}`,
+        path: `/check-limit-and-created-before-schema?${getQueryString(queryParams)}`,
         expressApp: schemaTestApp,
         expectedStatus: 400,
       });

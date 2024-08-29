@@ -72,11 +72,11 @@ describe('sparklines-controller#V4', () => {
     await dbHelpers.teardown();
   });
 
-  describe('/v4/sparklines', () => {
+  describe('/sparklines', () => {
     it('successfully returns no sparklines if no candles exist', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/sparklines?timePeriod=ONE_DAY',
+        path: '/sparklines?timePeriod=ONE_DAY',
       });
 
       expect(response.body).toEqual({
@@ -145,7 +145,7 @@ describe('sparklines-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/sparklines?timePeriod=${timePeriod}`,
+        path: `/sparklines?timePeriod=${timePeriod}`,
       });
 
       const resolution: CandleResolution = SPARKLINE_TIME_PERIOD_TO_RESOLUTION_MAP[timePeriod];
@@ -183,7 +183,7 @@ describe('sparklines-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/sparklines?timePeriod=${defaultTimePeriod}`,
+        path: `/sparklines?timePeriod=${defaultTimePeriod}`,
       });
 
       const limit: number = SPARKLINE_TIME_PERIOD_TO_LIMIT_MAP[defaultTimePeriod];
@@ -239,7 +239,7 @@ describe('sparklines-controller#V4', () => {
 
         const response: request.Response = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/sparklines?timePeriod=${timePeriod}`,
+          path: `/sparklines?timePeriod=${timePeriod}`,
         });
 
         expect(response.body).toEqual({

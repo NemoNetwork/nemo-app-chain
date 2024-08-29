@@ -93,15 +93,15 @@ describe('compliance-check', () => {
     isRestrictedCountrySpy.mockReturnValueOnce(false);
     await sendRequestToApp({
       type: RequestMethod.GET,
-      path: '/v4/check-compliance-query',
+      path: '/check-compliance-query',
       expressApp: complianceCheckApp,
       expectedStatus: 200,
     });
   });
 
   it.each([
-    ['query', '/v4/check-compliance-query?address=random'],
-    ['param', '/v4/check-compliance-param/random'],
+    ['query', '/check-compliance-query?address=random'],
+    ['param', '/check-compliance-param/random'],
   ])('does not return 403 if address in request is not in database (%s)', async (
     _name: string,
     path: string,
@@ -116,8 +116,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', '/v4/check-compliance-query?address=random'],
-    ['param', '/v4/check-compliance-param/random'],
+    ['query', '/check-compliance-query?address=random'],
+    ['param', '/check-compliance-param/random'],
   ])('does not return 403 if address in request is not in database (%s) and non-restricted country', async (
     _name: string,
     path: string,
@@ -133,8 +133,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does not return 403 if address in request is not blocked (%s)', async (
     _name: string,
     path: string,
@@ -150,8 +150,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does not return 403 if address in request is in CLOSE_ONLY (%s)', async (
     _name: string,
     path: string,
@@ -170,8 +170,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does not return 403 if address in request is in CLOSE_ONLY and from restricted country (%s)', async (
     _name: string,
     path: string,
@@ -190,8 +190,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does return 403 if request is from restricted country (%s)', async (
     _name: string,
     path: string,
@@ -214,8 +214,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.blockedAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.blockedAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.blockedAddress}`],
+    ['param', `/check-compliance-param/${testConstants.blockedAddress}`],
   ])('does return 403 if address in request is blocked (%s)', async (
     _name: string,
     path: string,

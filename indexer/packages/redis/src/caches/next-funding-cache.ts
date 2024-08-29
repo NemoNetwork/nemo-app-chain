@@ -3,7 +3,7 @@ import { RedisClient } from 'redis';
 
 import { deleteAsync, lRangeAsync, rPushAsync } from '../helpers/redis';
 
-const KEY_PREFIX: string = 'v4/nextFunding/';
+const KEY_PREFIX: string = 'nextFunding/';
 
 function getKey(ticker: string): string {
   return `${KEY_PREFIX}${ticker}`;

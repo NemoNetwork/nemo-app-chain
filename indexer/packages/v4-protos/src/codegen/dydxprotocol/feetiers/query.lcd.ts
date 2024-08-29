@@ -16,7 +16,7 @@ export class LCDQueryClient {
 
 
   async perpetualFeeParams(_params: QueryPerpetualFeeParamsRequest = {}): Promise<QueryPerpetualFeeParamsResponseSDKType> {
-    const endpoint = `nemo-network/v4/feetiers/perpetual_fee_params`;
+    const endpoint = `nemo-network/feetiers/perpetual_fee_params`;
     return await this.req.get<QueryPerpetualFeeParamsResponseSDKType>(endpoint);
   }
   /* Queries a user's fee tier */
@@ -31,7 +31,7 @@ export class LCDQueryClient {
       options.params.user = params.user;
     }
 
-    const endpoint = `nemo-network/v4/feetiers/user_fee_tier`;
+    const endpoint = `nemo-network/feetiers/user_fee_tier`;
     return await this.req.get<QueryUserFeeTierResponseSDKType>(endpoint, options);
   }
 

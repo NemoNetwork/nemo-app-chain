@@ -81,11 +81,11 @@ describe('historical-funding-controller#V4', () => {
   it('Get /historicalFunding', async () => {
     const response: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/v4/historicalFunding/${testConstants.defaultPerpetualMarket.ticker}`,
+      path: `/historicalFunding/${testConstants.defaultPerpetualMarket.ticker}`,
     });
     const response2: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/v4/historicalFunding/${testConstants.defaultPerpetualMarket2.ticker}`,
+      path: `/historicalFunding/${testConstants.defaultPerpetualMarket2.ticker}`,
     });
 
     expect(response.body.historicalFunding).toEqual(
@@ -106,7 +106,7 @@ describe('historical-funding-controller#V4', () => {
     const blockHeight: string = '3';
     const response: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/v4/historicalFunding/${testConstants.defaultPerpetualMarket.ticker}?` +
+      path: `/historicalFunding/${testConstants.defaultPerpetualMarket.ticker}?` +
         `effectiveBeforeOrAtHeight=${blockHeight}`,
     });
 
@@ -121,7 +121,7 @@ describe('historical-funding-controller#V4', () => {
     const unknownTicker = 'DYDX-USD';
     const response: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/v4/historicalFunding/${unknownTicker}`,
+      path: `/historicalFunding/${unknownTicker}`,
       expectedStatus: 400,
     });
 

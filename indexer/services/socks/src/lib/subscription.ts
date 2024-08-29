@@ -448,17 +448,17 @@ export class Subscriptions {
           throw new Error('Invalid undefined channel');
         }
 
-        return `${COMLINK_URL}/v4/trades/perpetualMarket/${id}`;
+        return `${COMLINK_URL}/trades/perpetualMarket/${id}`;
       }
       case (Channel.V4_MARKETS): {
-        return `${COMLINK_URL}/v4/perpetualMarkets`;
+        return `${COMLINK_URL}/perpetualMarkets`;
       }
       case (Channel.V4_ORDERBOOK): {
         if (id === undefined) {
           throw new Error('Invalid undefined channel');
         }
 
-        return `${COMLINK_URL}/v4/orderbooks/perpetualMarket/${id}`;
+        return `${COMLINK_URL}/orderbooks/perpetualMarket/${id}`;
       }
       case (Channel.V4_CANDLES): {
         if (id === undefined) {
@@ -474,7 +474,7 @@ export class Subscriptions {
         } = this.parseCandleChannelId(id);
         // Resolution is guaranteed to be defined here because it is validated in
         // validateSubscription.
-        return `${COMLINK_URL}/v4/candles/perpetualMarkets/${ticker}?resolution=${resolution!}`;
+        return `${COMLINK_URL}/candles/perpetualMarkets/${ticker}?resolution=${resolution!}`;
       }
       default: {
         throw new InvalidChannelError(channel);
@@ -508,7 +508,7 @@ export class Subscriptions {
       ] = await Promise.all([
         axiosRequest({
           method: RequestMethod.GET,
-          url: `${COMLINK_URL}/v4/addresses/${address}/subaccountNumber/${subaccountNumber}`,
+          url: `${COMLINK_URL}/addresses/${address}/subaccountNumber/${subaccountNumber}`,
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,
@@ -518,7 +518,7 @@ export class Subscriptions {
         // TODO(DEC-1462): Use the /active-orders endpoint once it's added.
         axiosRequest({
           method: RequestMethod.GET,
-          url: `${COMLINK_URL}/v4/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=OPEN,UNTRIGGERED,BEST_EFFORT_OPENED`,
+          url: `${COMLINK_URL}/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=OPEN,UNTRIGGERED,BEST_EFFORT_OPENED`,
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,

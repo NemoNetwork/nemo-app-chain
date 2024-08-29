@@ -2,7 +2,7 @@
 
 dYdX offers a WebSocket API for streaming v4 updates.
 
-You can connect to the v4 Testnet's webSockets at: `wss://indexer.v4testnet.dydx.exchange/v4/ws`
+You can connect to the v4 Testnet's webSockets at: `wss://indexer.v4testnet.dydx.exchange/ws`
 
 ## Overall
 
@@ -38,7 +38,7 @@ Use a command-line websocket client such as [interactive-websocket-cli](https:/
 Example (with `interactive-websocket-cli`)
 
 ```tsx
-wscli connect wss://indexer.v4testnet.dydx.exchange/v4/ws
+wscli connect wss://indexer.v4testnet.dydx.exchange/ws
 <output from ws-cli>
 <type 's' to send> { "type": "subscribe", "channel": "v4_trades", "id": "BTC-USD" }
 ```
@@ -57,7 +57,7 @@ This channel provides realtime information about orders, fills, transfers, perpe
 
 ### Initial Response
 
-Returns everything from the `/v4/addresses/:address/subaccountNumber/:subaccountNumber`, and `/v4/orders?addresses=${address}&subaccountNumber=${subaccountNumber}&status=OPEN`.
+Returns everything from the `/addresses/:address/subaccountNumber/:subaccountNumber`, and `/orders?addresses=${address}&subaccountNumber=${subaccountNumber}&status=OPEN`.
 
 ### Example
 ```tsx
@@ -382,7 +382,7 @@ export enum TransferType {
 
 ### Initial Response
 
-Returns everything from `v4/orderbooks/perpetualMarkets/${id}` endpoint.
+Returns everything from `orderbooks/perpetualMarkets/${id}` endpoint.
 
 - Example
     
@@ -525,7 +525,7 @@ type PriceLevel = [string, string];
 
 ### Initial Response
 
-Returns everything from `v4/trades/perpetualMarkets/${id}` endpoint.
+Returns everything from `trades/perpetualMarkets/${id}` endpoint.
 
 - Example
     
@@ -786,7 +786,7 @@ interface TradeContent {
 
 ### Initial Response
 
-Returns everything from `v4/perpetualMarkets` endpoint.
+Returns everything from `perpetualMarkets` endpoint.
 
 ### Example
     

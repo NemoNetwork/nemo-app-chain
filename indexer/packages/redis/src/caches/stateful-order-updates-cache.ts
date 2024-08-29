@@ -7,9 +7,9 @@ import { StatefulOrderUpdateInfo } from '../types';
 import { addStatefulOrderUpdateScript, removeStatefulOrderUpdateScript } from './scripts';
 
 // Cache of order ids of the stateful order updates and when the updates were added to teh cache
-export const ORDER_UPDATE_IDS_CACHE_KEY: string = 'v4/stateful_order_update_ids';
+export const ORDER_UPDATE_IDS_CACHE_KEY: string = 'stateful_order_update_ids';
 // Cache of order updates for stateful orders
-export const ORDER_UPDATES_CACHE_KEY: string = 'v4/stateful_order_updates';
+export const ORDER_UPDATES_CACHE_KEY: string = 'stateful_order_updates';
 
 export async function addStatefulOrderUpdate(
   statefulOrderId: string,

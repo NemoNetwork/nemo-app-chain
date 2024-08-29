@@ -9,7 +9,7 @@ import { OrderData } from '../types';
 // where `totalFilled` = total quantums filled for an order,
 // and `resting on book` = true/false, indicating if the order is resting on the orderbook.
 // These values are for use in Lua scripts.
-export const ORDERS_DATA_CACHE_KEY_PREFIX: string = 'v4/orderData/';
+export const ORDERS_DATA_CACHE_KEY_PREFIX: string = 'orderData/';
 
 export async function getOrderData(
   orderId: IndexerOrderId,

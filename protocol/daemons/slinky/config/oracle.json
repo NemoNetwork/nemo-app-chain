@@ -318,7 +318,7 @@
         "enabled": true,
         "maxBufferSize": 1000,
         "reconnectionTimeout": 10000000000,
-        "wss": "wss://api.gateio.ws/ws/v4/",
+        "wss": "wss://api.gateio.ws/ws/",
         "name": "Gate",
         "readBufferSize": 0,
         "writeBufferSize": 0,

@@ -3,7 +3,7 @@ export enum OrderbookSide {
   ASKS = 'asks',
 }
 
-// Sourced from https://github.com/nemo-network/v4/blob/main/indexer/msgsender/msgsender.go#L7.
+// Sourced from https://github.com/nemo-network/blob/main/indexer/msgsender/msgsender.go#L7.
 export enum DydxRecordHeaderKeys {
   TRANSACTION_HASH_KEY = 'TransactionHash',
 }

@@ -24,7 +24,7 @@ import {
 
 export const BUFFER_ENCODING_UTF_8: BufferEncoding = 'utf-8';
 
-// Sourced from protocol https://github.com/nemo-network/v4/blob/main/lib/constants.go#L6
+// Sourced from protocol https://github.com/nemo-network/blob/main/lib/constants.go#L6
 export const QUOTE_CURRENCY_ATOMIC_RESOLUTION: number = -6;
 
 export const USDC_SYMBOL: string = 'USDC';

@@ -185,7 +185,7 @@ The docker container can then be redeployed with the command in the previous sec
 
 For example, to get all `BTC-USD` trades:
 ```
-curl http://localhost:3002/v4/trades/perpetualMarket/BTC-USD
+curl http://localhost:3002/trades/perpetualMarket/BTC-USD
 ```
 
 ## Subscribing to websocket messages from Indexer
@@ -194,10 +194,10 @@ curl http://localhost:3002/v4/trades/perpetualMarket/BTC-USD
 To connect to the dev/staging endpoints, use the following commands:
 ```
 # dev
-wscli connect ws://dev-indexer-apne1-lb-public-890774175.ap-northeast-1.elb.amazonaws.com/v4/ws
+wscli connect ws://dev-indexer-apne1-lb-public-890774175.ap-northeast-1.elb.amazonaws.com/ws
 
 # staging
-wscli connect wss://indexer.v4staging.dydx.exchange/v4/ws
+wscli connect wss://indexer.v4staging.dydx.exchange/ws
 ```
 
 Use a command-line websocket client such as 

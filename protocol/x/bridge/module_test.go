@@ -3,24 +3,25 @@ package bridge_test
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/nemo-network/v4-chain/protocol/app/module"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 	"time"
 
+	"github.com/nemo-network/v4-chain/protocol/app/module"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	bank_keeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	bridge_servertypes "github.com/nemo-network/v4-chain/protocol/daemons/server/types/bridge"
 	"github.com/nemo-network/v4-chain/protocol/mocks"
 	"github.com/nemo-network/v4-chain/protocol/testutil/keeper"
 	"github.com/nemo-network/v4-chain/protocol/x/bridge"
 	bridge_keeper "github.com/nemo-network/v4-chain/protocol/x/bridge/keeper"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -159,35 +160,35 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect EventParams route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/nemo-network/v4/bridge/event_params", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/bridge/event_params", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect ProposeParams route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/nemo-network/v4/bridge/propose_params", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/bridge/propose_params", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect SafetyParams route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/nemo-network/v4/bridge/safety_params", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/bridge/safety_params", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect AcknowledgedEventInfo route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/nemo-network/v4/bridge/acknowledged_event_info", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/bridge/acknowledged_event_info", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect RecognizedEventInfo route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/nemo-network/v4/bridge/recognized_event_info", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/bridge/recognized_event_info", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")

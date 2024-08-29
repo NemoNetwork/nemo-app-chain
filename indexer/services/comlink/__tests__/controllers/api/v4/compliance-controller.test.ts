@@ -64,7 +64,7 @@ describe('compliance-controller#V4', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/screen?address=${testConstants.defaultAddress}`,
+        path: `/screen?address=${testConstants.defaultAddress}`,
       });
 
       expect(response.body.restricted).toEqual(false);
@@ -96,7 +96,7 @@ describe('compliance-controller#V4', () => {
 
         const response: any = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/screen?address=${testConstants.defaultAddress}`,
+          path: `/screen?address=${testConstants.defaultAddress}`,
         });
 
         expect(response.body.restricted).toEqual(false);
@@ -123,7 +123,7 @@ describe('compliance-controller#V4', () => {
 
         const response: any = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/screen?address=${testConstants.blockedAddress}`,
+          path: `/screen?address=${testConstants.blockedAddress}`,
         });
 
         expect(response.body.restricted).toEqual(true);
@@ -155,7 +155,7 @@ describe('compliance-controller#V4', () => {
 
         const response: any = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/screen?address=${testConstants.defaultAddress}`,
+          path: `/screen?address=${testConstants.defaultAddress}`,
         });
 
         expect(response.body.restricted).toEqual(false);
@@ -197,7 +197,7 @@ describe('compliance-controller#V4', () => {
 
         const response: any = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/screen?address=${testConstants.blockedAddress}`,
+          path: `/screen?address=${testConstants.blockedAddress}`,
         });
 
         expect(response.body.restricted).toEqual(true);
@@ -221,13 +221,13 @@ describe('compliance-controller#V4', () => {
       for (let i: number = 0; i < config.RATE_LIMIT_SCREEN_QUERY_PROVIDER_POINTS; i++) {
         await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/screen?address=${i}`,
+          path: `/screen?address=${i}`,
         });
       }
 
       await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/screen?address=${testConstants.defaultAddress}`,
+        path: `/screen?address=${testConstants.defaultAddress}`,
         errorMsg: 'Too many requests',
         expectedStatus: 429,
       });
@@ -242,13 +242,13 @@ describe('compliance-controller#V4', () => {
       for (let i: number = 0; i < config.RATE_LIMIT_SCREEN_QUERY_PROVIDER_GLOBAL_POINTS; i++) {
         await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/screen?address=${i}`,
+          path: `/screen?address=${i}`,
         });
       }
 
       await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/screen?address=${testConstants.defaultAddress}`,
+        path: `/screen?address=${testConstants.defaultAddress}`,
         errorMsg: 'Too many requests',
         expectedStatus: 429,
       });

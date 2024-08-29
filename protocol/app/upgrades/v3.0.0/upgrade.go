@@ -114,7 +114,7 @@ func InitializeModuleAccs(ctx sdk.Context, ak authkeeper.AccountKeeper) {
 
 		// Account has not been initialized at all. Initialize it as module.
 		// Implementation taken from
-		// https://github.com/nemo-network/cosmos-sdk/blob/bdf96fdd/x/auth/keeper/keeper.go#L213
+		// https://github.com/NemoNetwork/cosmos-sdk/blob/bdf96fdd/x/auth/keeper/keeper.go#L213
 		newModuleAccount := authtypes.NewEmptyModuleAccount(modAccName, perms...)
 		maccI := (ak.NewAccount(ctx, newModuleAccount)).(sdk.ModuleAccountI) // this set the account number
 		ak.SetModuleAccount(ctx, maccI)

@@ -234,7 +234,7 @@ func BenchmarkFullAppSimulation(b *testing.B) {
 
 	// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 	// vesting accounts during simulation here:
-	// https://github.com/nemo-network/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
+	// https://github.com/NemoNetwork/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
 	// For this reason, we need to register the `vesting` module interfaces so that the Genesis state of `auth` can be
 	// marshaled properly.
 	vestingtypes.RegisterInterfaces(dydxApp.InterfaceRegistry())
@@ -306,7 +306,7 @@ func TestFullAppSimulation(t *testing.T) {
 
 	// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 	// vesting accounts during simulation here:
-	// https://github.com/nemo-network/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
+	// https://github.com/NemoNetwork/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
 	// For this reason, we need to register the `vesting` module interfaces so that the Genesis state of `auth` can be
 	// marshaled properly.
 	vestingtypes.RegisterInterfaces(dydxApp.InterfaceRegistry())
@@ -383,7 +383,7 @@ func TestAppStateDeterminism(t *testing.T) {
 
 			// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 			// vesting accounts during simulation here:
-			// https://github.com/nemo-network/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
+			// https://github.com/NemoNetwork/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
 			// For this reason, we need to register the `vesting` module interfaces so that the Genesis state of `auth` can be
 			// marshaled properly.
 			vestingtypes.RegisterInterfaces(dydxApp.InterfaceRegistry())
@@ -566,7 +566,7 @@ func AppStateRandomizedFn(
 		func(r *rand.Rand) {
 			// Since the stake token denom has 18 decimals, the initial stake balance needs to be at least
 			// 1e18 to be considered valid. However, in the current implementation of auth simulation logic
-			// (https://github.com/nemo-network/cosmos-sdk/blob/93454d9f/x/auth/simulation/genesis.go#L38),
+			// (https://github.com/NemoNetwork/cosmos-sdk/blob/93454d9f/x/auth/simulation/genesis.go#L38),
 			// `initialStake` is casted to an `int64` value (max_int64 ~= 9.22e18).
 			// As such today the only valid range of values for `initialStake` is [1e18, max_int64]. Note
 			// this only represents 1~9 full coins.

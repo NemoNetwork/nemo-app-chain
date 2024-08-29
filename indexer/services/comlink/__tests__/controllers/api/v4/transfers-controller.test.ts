@@ -57,7 +57,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers?address=${testConstants.defaultAddress}` +
+        path: `/transfers?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -176,7 +176,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers?address=${testConstants.defaultAddress}` +
+        path: `/transfers?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&createdBeforeOrAt=${createdAt}`,
       });
@@ -235,7 +235,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers?address=${testConstants.defaultAddress}` +
+        path: `/transfers?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&createdBeforeOrAtHeight=${createdAtHeight}`,
       });
@@ -272,7 +272,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers?address=${testConstants.defaultAddress}` +
+        path: `/transfers?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -282,7 +282,7 @@ describe('transfers-controller#V4', () => {
     it('Get /transfers with non-existent address and subaccount number returns 404', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/transfers?address=invalid_address&subaccountNumber=100',
+        path: '/transfers?address=invalid_address&subaccountNumber=100',
         expectedStatus: 404,
       });
 
@@ -320,7 +320,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -453,7 +453,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -541,7 +541,7 @@ describe('transfers-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}`,
       });
 
@@ -664,7 +664,7 @@ describe('transfers-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -674,7 +674,7 @@ describe('transfers-controller#V4', () => {
     it('Get /transfers/parentSubaccountNumber with non-existent address and subaccount number returns 404', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/transfers/parentSubaccountNumber?address=invalid_address&parentSubaccountNumber=100',
+        path: '/transfers/parentSubaccountNumber?address=invalid_address&parentSubaccountNumber=100',
         expectedStatus: 404,
       });
 
@@ -690,7 +690,7 @@ describe('transfers-controller#V4', () => {
     it('Get /transfers/parentSubaccountNumber with invalid parentSubaccountNumber', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             '&parentSubaccountNumber=128',
         expectedStatus: 400,
       });

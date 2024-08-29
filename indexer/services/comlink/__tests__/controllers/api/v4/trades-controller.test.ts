@@ -57,7 +57,7 @@ describe('trades-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/trades/perpetualMarket/${testConstants.defaultPerpetualMarket2.ticker}`,
+        path: `/trades/perpetualMarket/${testConstants.defaultPerpetualMarket2.ticker}`,
       });
 
       const expected: TradeResponseObject = fillToTradeResponseObject(fills.takerFill);
@@ -101,7 +101,7 @@ describe('trades-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/trades/perpetualMarket/${testConstants.defaultPerpetualMarket.ticker}`,
+        path: `/trades/perpetualMarket/${testConstants.defaultPerpetualMarket.ticker}`,
       });
 
       const expected: TradeResponseObject[] = [
@@ -132,7 +132,7 @@ describe('trades-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/trades/perpetualMarket/${testConstants.defaultPerpetualMarket2.ticker}`,
+        path: `/trades/perpetualMarket/${testConstants.defaultPerpetualMarket2.ticker}`,
       });
 
       expect(response.body.trades).toEqual([]);
@@ -160,7 +160,7 @@ describe('trades-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/trades/perpetualMarket/${testConstants.defaultPerpetualMarket3.ticker}`,
+        path: `/trades/perpetualMarket/${testConstants.defaultPerpetualMarket3.ticker}`,
       });
 
       const expected: TradeResponseObject[] = [
@@ -182,7 +182,7 @@ describe('trades-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/trades/perpetualMarket/${invalidTicker}`,
+        path: `/trades/perpetualMarket/${invalidTicker}`,
         expectedStatus: 400,
       });
 

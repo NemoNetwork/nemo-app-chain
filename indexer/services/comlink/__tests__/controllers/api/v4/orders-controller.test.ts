@@ -58,7 +58,7 @@ describe('orders-controller#V4', () => {
     it('Get /:orderId returns 400 if orderId is not found', async () => {
       await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders/${testConstants.defaultOrderId}`,
+        path: `/orders/${testConstants.defaultOrderId}`,
         expectedStatus: 404,
       });
     });
@@ -68,7 +68,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders/${testConstants.defaultOrderId}`,
+        path: `/orders/${testConstants.defaultOrderId}`,
       });
 
       expect(response.body).toEqual(postgresOrderToResponseObject(
@@ -87,7 +87,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders/${testConstants.defaultOrderId}`,
+        path: `/orders/${testConstants.defaultOrderId}`,
       });
 
       expect(response.body).toEqual(
@@ -108,7 +108,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders/${testConstants.defaultOrderId}`,
+        path: `/orders/${testConstants.defaultOrderId}`,
       });
 
       expect(response.body).toEqual(
@@ -125,7 +125,7 @@ describe('orders-controller#V4', () => {
     it('Get /:orderId errors when parameter is not a uuid', async () => {
       await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/orders/1',
+        path: '/orders/1',
         expectedStatus: 400,
       });
     });
@@ -218,7 +218,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(defaultQueryParams)}`,
+        path: `/orders?${getQueryString(defaultQueryParams)}`,
       });
 
       expect(response.body).toEqual([ // by default sort by desc goodTilBlock
@@ -234,7 +234,7 @@ describe('orders-controller#V4', () => {
 
       const response2: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           returnLatestOrders: 'false',
         })}`,
@@ -313,7 +313,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(queryParams)}`,
+        path: `/orders?${getQueryString(queryParams)}`,
       });
 
       expect(response.body).toEqual([redisOrderToResponseObject(expectedRedisOrder)]);
@@ -366,7 +366,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(queryParams)}`,
+        path: `/orders?${getQueryString(queryParams)}`,
       });
 
       expect(response.body).toEqual([
@@ -384,7 +384,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(defaultQueryParams)}`,
+        path: `/orders?${getQueryString(defaultQueryParams)}`,
       });
 
       expect(response.body).toEqual([
@@ -408,7 +408,7 @@ describe('orders-controller#V4', () => {
 
       const response2: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           returnLatestOrders: 'false',
         })}`,
@@ -442,7 +442,7 @@ describe('orders-controller#V4', () => {
 
       const response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(defaultQueryParams)}`,
+        path: `/orders?${getQueryString(defaultQueryParams)}`,
       });
 
       expect(response.body).toEqual([
@@ -458,7 +458,7 @@ describe('orders-controller#V4', () => {
 
       const response2 = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           status: APIOrderStatusEnum.UNTRIGGERED,
           limit: 1,
@@ -490,7 +490,7 @@ describe('orders-controller#V4', () => {
 
       let response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           status: APIOrderStatusEnum.OPEN,
         })}`,
@@ -509,7 +509,7 @@ describe('orders-controller#V4', () => {
 
       response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           status: APIOrderStatusEnum.FILLED,
         })}`,
@@ -530,7 +530,7 @@ describe('orders-controller#V4', () => {
 
       response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           status: APIOrderStatusEnum.BEST_EFFORT_OPENED,
         })}`,
@@ -543,7 +543,7 @@ describe('orders-controller#V4', () => {
 
       response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           status: APIOrderStatusEnum.UNTRIGGERED,
         })}`,
@@ -559,7 +559,7 @@ describe('orders-controller#V4', () => {
 
       response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString({
+        path: `/orders?${getQueryString({
           ...defaultQueryParams,
           status: [APIOrderStatusEnum.UNTRIGGERED, APIOrderStatusEnum.OPEN],
         })}`,
@@ -607,7 +607,7 @@ describe('orders-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(defaultQueryParams)}`,
+        path: `/orders?${getQueryString(defaultQueryParams)}`,
       });
 
       expect(response.body).toEqual([
@@ -690,7 +690,7 @@ describe('orders-controller#V4', () => {
     ) => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orders?${getQueryString(queryParams)}`,
+        path: `/orders?${getQueryString(queryParams)}`,
         expectedStatus: 400,
       });
 

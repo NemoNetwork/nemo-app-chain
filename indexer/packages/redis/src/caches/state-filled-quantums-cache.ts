@@ -2,7 +2,7 @@ import { RedisClient } from 'redis';
 
 import { getAsync, setexAsync } from '../helpers/redis';
 
-export const STATE_FILLED_QUANTUMS_CACHE_KEY_PREFIX: string = 'v4/state_filled_quantums/';
+export const STATE_FILLED_QUANTUMS_CACHE_KEY_PREFIX: string = 'state_filled_quantums/';
 export const STATE_FILLED_QUANTUMS_TTL_SECONDS: number = 300; // 5 minutes
 
 /**

@@ -322,7 +322,7 @@ paths:
           format: int64
       tags:
         - Query
-  /nemo-network/v4/blocktime/all_downtime_info:
+  /nemo-network/blocktime/all_downtime_info:
     get:
       summary: Queries all recorded downtime info.
       operationId: AllDowntimeInfo
@@ -393,7 +393,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/blocktime/downtime_params:
+  /nemo-network/blocktime/downtime_params:
     get:
       summary: Queries the DowntimeParams.
       operationId: DowntimeParams
@@ -445,7 +445,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/bridge/acknowledged_event_info:
+  /nemo-network/bridge/acknowledged_event_info:
     get:
       summary: |-
         Queries the AcknowledgedEventInfo.
@@ -507,7 +507,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/bridge/delayed_complete_bridge_messages:
+  /nemo-network/bridge/delayed_complete_bridge_messages:
     get:
       summary: |-
         Queries all `MsgCompleteBridge` messages that are delayed (not yet
@@ -602,7 +602,7 @@ paths:
           type: string
       tags:
         - Query
-  /nemo-network/v4/bridge/event_params:
+  /nemo-network/bridge/event_params:
     get:
       summary: Queries the EventParams.
       operationId: EventParams
@@ -657,7 +657,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/bridge/propose_params:
+  /nemo-network/bridge/propose_params:
     get:
       summary: Queries the ProposeParams.
       operationId: ProposeParams
@@ -740,7 +740,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/bridge/recognized_event_info:
+  /nemo-network/bridge/recognized_event_info:
     get:
       summary: |-
         Queries the RecognizedEventInfo.
@@ -802,7 +802,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/bridge/safety_params:
+  /nemo-network/bridge/safety_params:
     get:
       summary: Queries the SafetyParams.
       operationId: SafetyParams
@@ -2228,7 +2228,7 @@ paths:
               MEV node <> node calculation.
       tags:
         - Query
-  /nemo-network/v4/delaymsg/block/message_ids/{block_height}:
+  /nemo-network/delaymsg/block/message_ids/{block_height}:
     get:
       summary: Queries the DelayedMessages at a given block height.
       operationId: BlockMessageIds
@@ -2447,7 +2447,7 @@ paths:
           format: int64
       tags:
         - Query
-  /nemo-network/v4/delaymsg/message/{id}:
+  /nemo-network/delaymsg/message/{id}:
     get:
       summary: Queries the DelayedMessage by id.
       operationId: Message
@@ -2850,7 +2850,7 @@ paths:
           format: int64
       tags:
         - Query
-  /nemo-network/v4/delaymsg/next_id:
+  /nemo-network/delaymsg/next_id:
     get:
       summary: Queries the next DelayedMessage's id.
       operationId: NextDelayedMessageId
@@ -3059,7 +3059,7 @@ paths:
                         }
       tags:
         - Query
-  /nemo-network/v4/epochs/epoch_info:
+  /nemo-network/epochs/epoch_info:
     get:
       summary: Queries a list of EpochInfo items.
       operationId: EpochInfoAll
@@ -3257,7 +3257,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /nemo-network/v4/epochs/epoch_info/{name}:
+  /nemo-network/epochs/epoch_info/{name}:
     get:
       summary: Queries a EpochInfo by name.
       operationId: EpochInfo
@@ -3373,7 +3373,7 @@ paths:
           type: string
       tags:
         - Query
-  /nemo-network/v4/feetiers/perpetual_fee_params:
+  /nemo-network/feetiers/perpetual_fee_params:
     get:
       summary: Queries the PerpetualFeeParams.
       operationId: PerpetualFeeParams
@@ -3448,7 +3448,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/feetiers/user_fee_tier:
+  /nemo-network/feetiers/user_fee_tier:
     get:
       summary: Queries a user's fee tier
       operationId: UserFeeTier
@@ -4856,7 +4856,7 @@ paths:
           format: int64
       tags:
         - Query
-  /nemo-network/v4/rewards/params:
+  /nemo-network/rewards/params:
     get:
       summary: Queries the Params.
       operationId: RewardParams
@@ -4927,7 +4927,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/stats/global_stats:
+  /nemo-network/stats/global_stats:
     get:
       summary: Queries GlobalStats.
       operationId: GlobalStats
@@ -4972,7 +4972,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/stats/params:
+  /nemo-network/stats/params:
     get:
       summary: Queries the Params.
       operationId: StatParams
@@ -5014,7 +5014,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/stats/stats_metadata:
+  /nemo-network/stats/stats_metadata:
     get:
       summary: Queries StatsMetadata.
       operationId: StatsMetadata
@@ -5065,7 +5065,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /nemo-network/v4/stats/user_stats:
+  /nemo-network/stats/user_stats:
     get:
       summary: Queries UserStats.
       operationId: UserStats
@@ -5535,7 +5535,7 @@ paths:
           format: int64
       tags:
         - Query
-  /nemo-network/v4/vest/vest_entry:
+  /nemo-network/vest/vest_entry:
     get:
       summary: Queries the VestEntry.
       operationId: VestEntry

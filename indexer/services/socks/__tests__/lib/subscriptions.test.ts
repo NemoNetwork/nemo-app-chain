@@ -48,13 +48,13 @@ describe('Subscriptions', () => {
   };
   const initialResponseUrlPatterns: Record<Channel, string[] | undefined> = {
     [Channel.V4_ACCOUNTS]: [
-      '/v4/addresses/.+/subaccountNumber/.+',
-      '/v4/orders?.+OPEN,UNTRIGGERED,BEST_EFFORT_OPENED',
+      '/addresses/.+/subaccountNumber/.+',
+      '/orders?.+OPEN,UNTRIGGERED,BEST_EFFORT_OPENED',
     ],
-    [Channel.V4_CANDLES]: ['/v4/candles/perpetualMarkets/.+?resolution=.+'],
-    [Channel.V4_MARKETS]: ['/v4/perpetualMarkets'],
-    [Channel.V4_ORDERBOOK]: ['/v4/orderbooks/perpetualMarket/.+'],
-    [Channel.V4_TRADES]: ['/v4/trades/perpetualMarket/.+'],
+    [Channel.V4_CANDLES]: ['/candles/perpetualMarkets/.+?resolution=.+'],
+    [Channel.V4_MARKETS]: ['/perpetualMarkets'],
+    [Channel.V4_ORDERBOOK]: ['/orderbooks/perpetualMarket/.+'],
+    [Channel.V4_TRADES]: ['/trades/perpetualMarket/.+'],
   };
   const initialMessage: Object = { a: 'b' };
   const country: string = 'AR';

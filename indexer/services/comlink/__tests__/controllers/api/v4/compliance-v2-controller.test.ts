@@ -13,10 +13,10 @@ import { RequestMethod } from '../../../../src/types';
 import { logger, stats } from '@nemo-network-indexer/base';
 import { redis } from '@nemo-network-indexer/redis';
 import { ratelimitRedis } from '../../../../src/caches/rate-limiters';
-import { ComplianceControllerHelper } from '../../../../src/controllers/api/v4/compliance-controller';
+import { ComplianceControllerHelper } from '../../../../src/controllers/api/compliance-controller';
 import config from '../../../../src/config';
 import { DateTime } from 'luxon';
-import { ComplianceAction } from '../../../../src/controllers/api/v4/compliance-v2-controller';
+import { ComplianceAction } from '../../../../src/controllers/api/compliance-v2-controller';
 import { ExtendedSecp256k1Signature, Secp256k1, sha256 } from '@cosmjs/crypto';
 import { getGeoComplianceReason } from '../../../../src/helpers/compliance/compliance-utils';
 import { isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance';
@@ -74,7 +74,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/compliance/screen/0x123',
+        path: '/compliance/screen/0x123',
       });
       expect(response.body.status).toEqual(ComplianceStatus.COMPLIANT);
     });
@@ -88,7 +88,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/compliance/screen/0x123',
+        path: '/compliance/screen/0x123',
       });
       expect(response.body.status).toEqual(ComplianceStatus.BLOCKED);
       expect(response.body.reason).toEqual(ComplianceReason.COMPLIANCE_PROVIDER);
@@ -107,7 +107,7 @@ describe('ComplianceV2Controller', () => {
 
         const response: any = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/compliance/screen/${testConstants.defaultAddress}`,
+          path: `/compliance/screen/${testConstants.defaultAddress}`,
         });
         expect(response.body.status).toEqual(ComplianceStatus.BLOCKED);
         expect(response.body.reason).toEqual(ComplianceReason.COMPLIANCE_PROVIDER);
@@ -137,7 +137,7 @@ describe('ComplianceV2Controller', () => {
 
         const response: any = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/compliance/screen/${testConstants.defaultAddress}`,
+          path: `/compliance/screen/${testConstants.defaultAddress}`,
         });
         expect(response.body.status).toEqual(ComplianceStatus.CLOSE_ONLY);
         expect(response.body.reason).toEqual(ComplianceReason.COMPLIANCE_PROVIDER);
@@ -159,7 +159,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/compliance/screen/${testConstants.defaultAddress}`,
+        path: `/compliance/screen/${testConstants.defaultAddress}`,
       });
       expect(response.body.status).toEqual(ComplianceStatus.COMPLIANT);
     });
@@ -181,7 +181,7 @@ describe('ComplianceV2Controller', () => {
       config.EXPOSE_SET_COMPLIANCE_ENDPOINT = true;
       await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/setStatus',
+        path: '/compliance/setStatus',
         body: {
           address: '0x123',
           status: ComplianceStatus.COMPLIANT,
@@ -195,7 +195,7 @@ describe('ComplianceV2Controller', () => {
       expect(data).toHaveLength(0);
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/setStatus',
+        path: '/compliance/setStatus',
         body: {
           address: testConstants.defaultAddress,
           status: ComplianceStatus.COMPLIANT,
@@ -219,7 +219,7 @@ describe('ComplianceV2Controller', () => {
       expect(data).toHaveLength(1);
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/setStatus',
+        path: '/compliance/setStatus',
         body: {
           address: testConstants.defaultAddress,
           status: ComplianceStatus.COMPLIANT,
@@ -274,7 +274,7 @@ describe('ComplianceV2Controller', () => {
     it('should return 400 for non-dYdX address', async () => {
       await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body: {
           ...body,
           address: '0x123', // Non-dYdX address
@@ -286,7 +286,7 @@ describe('ComplianceV2Controller', () => {
     it('should return 400 for invalid timestamp', async () => {
       await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body: {
           ...body,
           timestamp: 1619996600, // More than 30 seconds difference
@@ -301,7 +301,7 @@ describe('ComplianceV2Controller', () => {
 
       await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body,
         expectedStatus: 400,
       });
@@ -312,7 +312,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body,
       });
 
@@ -327,7 +327,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body,
         expectedStatus: 200,
       });
@@ -351,7 +351,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body: {
           ...body,
           action: ComplianceAction.CONNECT,
@@ -377,7 +377,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body,
         expectedStatus: 200,
       });
@@ -403,7 +403,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body: {
           ...body,
           action: ComplianceAction.CONNECT,
@@ -434,7 +434,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body,
         expectedStatus: 200,
       });
@@ -465,7 +465,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body,
         expectedStatus: 200,
       });
@@ -498,7 +498,7 @@ describe('ComplianceV2Controller', () => {
 
       const response: any = await sendRequest({
         type: RequestMethod.POST,
-        path: '/v4/compliance/geoblock',
+        path: '/compliance/geoblock',
         body: {
           ...body,
           action: ComplianceAction.CONNECT,

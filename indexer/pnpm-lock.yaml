@@ -1758,7 +1758,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@aws-sdk/signature-v4/3.347.0:
+  /@aws-sdk/signature-3.347.0:
     resolution: {integrity: sha512-58Uq1do+VsTHYkP11dTK+DF53fguoNNJL9rHRWhzP+OcYv3/mBMLoS2WPz/x9FO5mBg4ESFsug0I6mXbd36tjw==}
     engines: {node: '>=14.0.0'}
     dependencies:
@@ -1772,7 +1772,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@aws-sdk/signature-v4/3.354.0:
+  /@aws-sdk/signature-3.354.0:
     resolution: {integrity: sha512-bDp43P5NkwwznpZqmsr78DuyqNcjtS4mriuajb8XPhFNo8DrMXUrdrKJ+5aNABW7YG8uK8PSKBpq88ado692/w==}
     engines: {node: '>=14.0.0'}
     dependencies:

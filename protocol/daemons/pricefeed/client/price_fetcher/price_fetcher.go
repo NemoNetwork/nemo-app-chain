@@ -3,21 +3,22 @@ package price_fetcher
 import (
 	"context"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/telemetry"
-	daemontypes "github.com/nemo-network/v4-chain/protocol/daemons/types"
 	"math/rand"
 	"sync"
 	"time"
 
+	"github.com/cosmos/cosmos-sdk/telemetry"
+	daemontypes "github.com/nemo-network/v4-chain/protocol/daemons/types"
+	"gopkg.in/typ.v4/lists"
+
 	"cosmossdk.io/log"
+	gometrics "github.com/hashicorp/go-metrics"
 	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants"
 	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/handler"
 	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
 	pricefeedmetrics "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/metrics"
 	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
-	gometrics "github.com/hashicorp/go-metrics"
-	"gopkg.in/typ.v4/lists"
 )
 
 // PriceFetcherSubtaskResponse represents a transformed exchange API response that contains price

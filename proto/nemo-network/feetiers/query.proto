@@ -14,12 +14,12 @@ service Query {
   rpc PerpetualFeeParams(QueryPerpetualFeeParamsRequest)
       returns (QueryPerpetualFeeParamsResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/feetiers/perpetual_fee_params";
+        "/nemo-network/feetiers/perpetual_fee_params";
   }
 
   // Queries a user's fee tier
   rpc UserFeeTier(QueryUserFeeTierRequest) returns (QueryUserFeeTierResponse) {
-    option (google.api.http).get = "/nemo-network/v4/feetiers/user_fee_tier";
+    option (google.api.http).get = "/nemo-network/feetiers/user_fee_tier";
   }
 }
 

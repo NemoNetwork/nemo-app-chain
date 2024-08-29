@@ -71,7 +71,7 @@ describe('addresses-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${testConstants.defaultAddress}/subaccountNumber/` +
+        path: `/addresses/${testConstants.defaultAddress}/subaccountNumber/` +
         `${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -147,7 +147,7 @@ describe('addresses-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${testConstants.defaultAddress}/subaccountNumber/` +
+        path: `/addresses/${testConstants.defaultAddress}/subaccountNumber/` +
           `${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -180,7 +180,7 @@ describe('addresses-controller#V4', () => {
     it('Get / with non-existent address and subaccount number returns 404', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${invalidAddress}/subaccountNumber/` +
+        path: `/addresses/${invalidAddress}/subaccountNumber/` +
         `${testConstants.defaultSubaccount.subaccountNumber}`,
         expectedStatus: 404,
       });
@@ -231,7 +231,7 @@ describe('addresses-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${testConstants.defaultAddress}`,
+        path: `/addresses/${testConstants.defaultAddress}`,
       });
 
       expect(response.body).toEqual({
@@ -335,7 +335,7 @@ describe('addresses-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${testConstants.defaultWalletAddress}`,
+        path: `/addresses/${testConstants.defaultWalletAddress}`,
       });
 
       expect(response.body).toEqual({
@@ -362,7 +362,7 @@ describe('addresses-controller#V4', () => {
     it('Get / with non-existent address returns 404', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${invalidAddress}`,
+        path: `/addresses/${invalidAddress}`,
         expectedStatus: 404,
       });
 
@@ -413,7 +413,7 @@ describe('addresses-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/addresses/${testConstants.defaultAddress}/parentSubaccountNumber/${parentSubaccountNumber}`,
+        path: `/addresses/${testConstants.defaultAddress}/parentSubaccountNumber/${parentSubaccountNumber}`,
       });
 
       expect(response.body).toEqual({
@@ -512,7 +512,7 @@ describe('addresses-controller#V4', () => {
   it('Get /:address/parentSubaccountNumber/ with non-existent address returns 404', async () => {
     const response: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/v4/addresses/${invalidAddress}/parentSubaccountNumber/` +
+      path: `/addresses/${invalidAddress}/parentSubaccountNumber/` +
           `${testConstants.defaultSubaccount.subaccountNumber}`,
       expectedStatus: 404,
     });
@@ -536,7 +536,7 @@ describe('addresses-controller#V4', () => {
     const parentSubaccountNumber: number = 128;
     const response: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/v4/addresses/${defaultAddress}/parentSubaccountNumber/${parentSubaccountNumber}`,
+      path: `/addresses/${defaultAddress}/parentSubaccountNumber/${parentSubaccountNumber}`,
       expectedStatus: 400,
     });
 

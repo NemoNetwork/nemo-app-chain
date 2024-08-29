@@ -17,7 +17,7 @@ export class LCDQueryClient {
 
 
   async listLimitParams(_params: ListLimitParamsRequest = {}): Promise<ListLimitParamsResponseSDKType> {
-    const endpoint = `nemo-network/v4/ratelimit/list_limit_params`;
+    const endpoint = `nemo-network/ratelimit/list_limit_params`;
     return await this.req.get<ListLimitParamsResponseSDKType>(endpoint);
   }
   /* Query capacity by denom. */
@@ -32,14 +32,14 @@ export class LCDQueryClient {
       options.params.denom = params.denom;
     }
 
-    const endpoint = `nemo-network/v4/ratelimit/capacity_by_denom`;
+    const endpoint = `nemo-network/ratelimit/capacity_by_denom`;
     return await this.req.get<QueryCapacityByDenomResponseSDKType>(endpoint, options);
   }
   /* Get all pending send packets */
 
 
   async allPendingSendPackets(_params: QueryAllPendingSendPacketsRequest = {}): Promise<QueryAllPendingSendPacketsResponseSDKType> {
-    const endpoint = `nemo-network/v4/ratelimit/get_all_pending_send_packet`;
+    const endpoint = `nemo-network/ratelimit/get_all_pending_send_packet`;
     return await this.req.get<QueryAllPendingSendPacketsResponseSDKType>(endpoint);
   }
 

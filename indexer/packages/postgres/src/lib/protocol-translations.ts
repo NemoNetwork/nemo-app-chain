@@ -305,7 +305,7 @@ export function getGoodTilBlockTime(order: IndexerOrder): IsoString | undefined 
   if (order.goodTilBlockTime !== undefined) {
     // `goodTilBlockTime` is the unix timestamp in seconds
     // Reference:
-    // https://github.com/nemo-network/v4/blob/main/proto/nemo-network/clob/order.proto#L138-L144
+    // https://github.com/nemo-network/blob/main/proto/nemo-network/clob/order.proto#L138-L144
     return DateTime.fromSeconds(order.goodTilBlockTime).toUTC().toISO();
   }
   return undefined;

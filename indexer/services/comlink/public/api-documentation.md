@@ -23,7 +23,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/addresses/{address}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/addresses/{address}', headers = headers)
 
 print(r.json())
 
@@ -35,7 +35,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/addresses/{address}',
+fetch('https://dydx-testnet.imperator.co/addresses/{address}',
 {
   method: 'GET',
 
@@ -150,7 +150,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/addresses/{address}/subaccountNumber/{subaccountNumber}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{subaccountNumber}', headers = headers)
 
 print(r.json())
 
@@ -162,7 +162,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/addresses/{address}/subaccountNumber/{subaccountNumber}',
+fetch('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{subaccountNumber}',
 {
   method: 'GET',
 
@@ -273,7 +273,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}', headers = headers)
 
 print(r.json())
 
@@ -285,7 +285,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}',
+fetch('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}',
 {
   method: 'GET',
 
@@ -404,7 +404,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/assetPositions', params={
+r = requests.get('https://dydx-testnet.imperator.co/assetPositions', params={
   'address': 'string',  'subaccountNumber': '0'
 }, headers = headers)
 
@@ -418,7 +418,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/assetPositions?address=string&subaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/assetPositions?address=string&subaccountNumber=0',
 {
   method: 'GET',
 
@@ -481,7 +481,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/assetPositions/parentSubaccountNumber', params={
+r = requests.get('https://dydx-testnet.imperator.co/assetPositions/parentSubaccountNumber', params={
   'address': 'string',  'parentSubaccountNumber': '0'
 }, headers = headers)
 
@@ -495,7 +495,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/assetPositions/parentSubaccountNumber?address=string&parentSubaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/assetPositions/parentSubaccountNumber?address=string&parentSubaccountNumber=0',
 {
   method: 'GET',
 
@@ -558,7 +558,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/candles/perpetualMarkets/{ticker}', params={
+r = requests.get('https://dydx-testnet.imperator.co/candles/perpetualMarkets/{ticker}', params={
   'resolution': '1MIN'
 }, headers = headers)
 
@@ -572,7 +572,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/candles/perpetualMarkets/{ticker}?resolution=1MIN',
+fetch('https://dydx-testnet.imperator.co/candles/perpetualMarkets/{ticker}?resolution=1MIN',
 {
   method: 'GET',
 
@@ -657,7 +657,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/compliance/screen/{address}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/compliance/screen/{address}', headers = headers)
 
 print(r.json())
 
@@ -669,7 +669,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/compliance/screen/{address}',
+fetch('https://dydx-testnet.imperator.co/compliance/screen/{address}',
 {
   method: 'GET',
 
@@ -724,7 +724,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/fills', params={
+r = requests.get('https://dydx-testnet.imperator.co/fills', params={
   'address': 'string',  'subaccountNumber': '0'
 }, headers = headers)
 
@@ -738,7 +738,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/fills?address=string&subaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/fills?address=string&subaccountNumber=0',
 {
   method: 'GET',
 
@@ -822,7 +822,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/fills/parentSubaccount', params={
+r = requests.get('https://dydx-testnet.imperator.co/fills/parentSubaccount', params={
   'address': 'string',  'parentSubaccountNumber': '0'
 }, headers = headers)
 
@@ -836,7 +836,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/fills/parentSubaccount?address=string&parentSubaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/fills/parentSubaccount?address=string&parentSubaccountNumber=0',
 {
   method: 'GET',
 
@@ -920,7 +920,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/height', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/height', headers = headers)
 
 print(r.json())
 
@@ -932,7 +932,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/height',
+fetch('https://dydx-testnet.imperator.co/height',
 {
   method: 'GET',
 
@@ -981,7 +981,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/historicalBlockTradingRewards/{address}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/historicalBlockTradingRewards/{address}', headers = headers)
 
 print(r.json())
 
@@ -993,7 +993,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/historicalBlockTradingRewards/{address}',
+fetch('https://dydx-testnet.imperator.co/historicalBlockTradingRewards/{address}',
 {
   method: 'GET',
 
@@ -1056,7 +1056,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/historicalFunding/{ticker}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/historicalFunding/{ticker}', headers = headers)
 
 print(r.json())
 
@@ -1068,7 +1068,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/historicalFunding/{ticker}',
+fetch('https://dydx-testnet.imperator.co/historicalFunding/{ticker}',
 {
   method: 'GET',
 
@@ -1133,7 +1133,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/historical-pnl', params={
+r = requests.get('https://dydx-testnet.imperator.co/historical-pnl', params={
   'address': 'string',  'subaccountNumber': '0'
 }, headers = headers)
 
@@ -1147,7 +1147,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/historical-pnl?address=string&subaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/historical-pnl?address=string&subaccountNumber=0',
 {
   method: 'GET',
 
@@ -1218,7 +1218,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/historicalTradingRewardAggregations/{address}', params={
+r = requests.get('https://dydx-testnet.imperator.co/historicalTradingRewardAggregations/{address}', params={
   'period': 'DAILY'
 }, headers = headers)
 
@@ -1232,7 +1232,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/historicalTradingRewardAggregations/{address}?period=DAILY',
+fetch('https://dydx-testnet.imperator.co/historicalTradingRewardAggregations/{address}?period=DAILY',
 {
   method: 'GET',
 
@@ -1307,7 +1307,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/orderbooks/perpetualMarket/{ticker}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/orderbooks/perpetualMarket/{ticker}', headers = headers)
 
 print(r.json())
 
@@ -1319,7 +1319,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/orderbooks/perpetualMarket/{ticker}',
+fetch('https://dydx-testnet.imperator.co/orderbooks/perpetualMarket/{ticker}',
 {
   method: 'GET',
 
@@ -1384,7 +1384,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/orders', params={
+r = requests.get('https://dydx-testnet.imperator.co/orders', params={
   'address': 'string',  'subaccountNumber': '0'
 }, headers = headers)
 
@@ -1398,7 +1398,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/orders?address=string&subaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/orders?address=string&subaccountNumber=0',
 {
   method: 'GET',
 
@@ -1574,7 +1574,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/orders/{orderId}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/orders/{orderId}', headers = headers)
 
 print(r.json())
 
@@ -1586,7 +1586,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/orders/{orderId}',
+fetch('https://dydx-testnet.imperator.co/orders/{orderId}',
 {
   method: 'GET',
 
@@ -1661,7 +1661,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/perpetualMarkets', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/perpetualMarkets', headers = headers)
 
 print(r.json())
 
@@ -1673,7 +1673,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/perpetualMarkets',
+fetch('https://dydx-testnet.imperator.co/perpetualMarkets',
 {
   method: 'GET',
 
@@ -1775,7 +1775,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/perpetualPositions', params={
+r = requests.get('https://dydx-testnet.imperator.co/perpetualPositions', params={
   'address': 'string',  'subaccountNumber': '0'
 }, headers = headers)
 
@@ -1789,7 +1789,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/perpetualPositions?address=string&subaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/perpetualPositions?address=string&subaccountNumber=0',
 {
   method: 'GET',
 
@@ -1874,7 +1874,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/sparklines', params={
+r = requests.get('https://dydx-testnet.imperator.co/sparklines', params={
   'timePeriod': 'ONE_DAY'
 }, headers = headers)
 
@@ -1888,7 +1888,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/sparklines?timePeriod=ONE_DAY',
+fetch('https://dydx-testnet.imperator.co/sparklines?timePeriod=ONE_DAY',
 {
   method: 'GET',
 
@@ -1954,7 +1954,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/time', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/time', headers = headers)
 
 print(r.json())
 
@@ -1966,7 +1966,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/time',
+fetch('https://dydx-testnet.imperator.co/time',
 {
   method: 'GET',
 
@@ -2015,7 +2015,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/trades/perpetualMarket/{ticker}', headers = headers)
+r = requests.get('https://dydx-testnet.imperator.co/trades/perpetualMarket/{ticker}', headers = headers)
 
 print(r.json())
 
@@ -2027,7 +2027,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/trades/perpetualMarket/{ticker}',
+fetch('https://dydx-testnet.imperator.co/trades/perpetualMarket/{ticker}',
 {
   method: 'GET',
 
@@ -2094,7 +2094,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/transfers', params={
+r = requests.get('https://dydx-testnet.imperator.co/transfers', params={
   'address': 'string',  'subaccountNumber': '0'
 }, headers = headers)
 
@@ -2108,7 +2108,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/transfers?address=string&subaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/transfers?address=string&subaccountNumber=0',
 {
   method: 'GET',
 
@@ -2184,7 +2184,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/v4/transfers/parentSubaccountNumber', params={
+r = requests.get('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber', params={
   'address': 'string',  'parentSubaccountNumber': '0'
 }, headers = headers)
 
@@ -2198,7 +2198,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/v4/transfers/parentSubaccountNumber?address=string&parentSubaccountNumber=0',
+fetch('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber?address=string&parentSubaccountNumber=0',
 {
   method: 'GET',
 

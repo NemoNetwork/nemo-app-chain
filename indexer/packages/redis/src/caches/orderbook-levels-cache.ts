@@ -14,7 +14,7 @@ import { deleteZeroPriceLevelScript, getOrderbookSideScript, incrementOrderbookL
 // orders at the price in quantums
 // TODO(CORE-512): add info/resources around caches. Doc:
 // https://www.notion.so/dydx/Indexer-Technical-Spec-a6b15644502048f994c98dee35b96e96#61d5f8ca5117476caab78b3f0691b1d0
-export const ORDERS_CACHE_KEY_PREFIX: string = 'v4/orderbookLevels/';
+export const ORDERS_CACHE_KEY_PREFIX: string = 'orderbookLevels/';
 
 /**
  * Update the total size of orders at a price level for a specific ticker/side with a delta. The

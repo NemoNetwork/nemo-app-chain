@@ -6,7 +6,7 @@ import { RedisClient } from 'redis';
 import { hGetAllAsync } from '../helpers/redis';
 
 // Cache of subaccount uuid to list of order uuids for the subaccount
-export const SUBACCOUNT_ORDERS_KEY_PREFIX: string = 'v4/subaccountOrderIds/';
+export const SUBACCOUNT_ORDERS_KEY_PREFIX: string = 'subaccountOrderIds/';
 
 /**
  * Get order ids for a subaccount.

@@ -15,20 +15,20 @@ service Query {
   rpc ListLimitParams(ListLimitParamsRequest)
       returns (ListLimitParamsResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/ratelimit/list_limit_params";
+        "/nemo-network/ratelimit/list_limit_params";
   }
 
   // Query capacity by denom.
   rpc CapacityByDenom(QueryCapacityByDenomRequest)
       returns (QueryCapacityByDenomResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/ratelimit/capacity_by_denom";
+        "/nemo-network/ratelimit/capacity_by_denom";
   }
   // Get all pending send packets
   rpc AllPendingSendPackets(QueryAllPendingSendPacketsRequest)
       returns (QueryAllPendingSendPacketsResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/ratelimit/get_all_pending_send_packet";
+        "/nemo-network/ratelimit/get_all_pending_send_packet";
   }
 }
 

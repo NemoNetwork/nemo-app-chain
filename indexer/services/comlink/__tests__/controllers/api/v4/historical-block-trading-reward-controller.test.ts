@@ -66,7 +66,7 @@ describe('historical-block-trading-reward-controller#V4', () => {
     it('Get /historicalBlockTradingReward/:address returns all valid rewards', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalBlockTradingRewards/${testConstants.defaultAddress}`,
+        path: `/historicalBlockTradingRewards/${testConstants.defaultAddress}`,
       });
 
       const responseBody: HistoricalTradingRewardAggregationsResponse = response.body;
@@ -83,7 +83,7 @@ describe('historical-block-trading-reward-controller#V4', () => {
     it('Get /historicalBlockTradingRewards/:address returns all valid rewards with limit', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalBlockTradingRewards/${testConstants.defaultAddress}` +
+        path: `/historicalBlockTradingRewards/${testConstants.defaultAddress}` +
         `?${getQueryString({ limit: 1 })}`,
       });
 
@@ -98,7 +98,7 @@ describe('historical-block-trading-reward-controller#V4', () => {
     it('Get /historicalBlockTradingRewards/:address returns no rewards when none exist', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/historicalBlockTradingRewards/fakeAddress',
+        path: '/historicalBlockTradingRewards/fakeAddress',
       });
 
       const responseBody: HistoricalBlockTradingRewardsResponse = response.body;
@@ -109,7 +109,7 @@ describe('historical-block-trading-reward-controller#V4', () => {
     it('Get /historicalBlockTradingRewards/:address returns rewards with blockTimeBeforeOrAt', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalBlockTradingRewards/${testConstants.defaultAddress}` +
+        path: `/historicalBlockTradingRewards/${testConstants.defaultAddress}` +
         `?${getQueryString({ startingBeforeOrAt: testConstants.defaultBlock.time })}`,
       });
 
@@ -124,7 +124,7 @@ describe('historical-block-trading-reward-controller#V4', () => {
     it('Get /historicalBlockTradingRewards/:address returns rewards with blockHeightBeforeOrAt', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalBlockTradingRewards/${testConstants.defaultAddress}` +
+        path: `/historicalBlockTradingRewards/${testConstants.defaultAddress}` +
         `?${getQueryString({ startingBeforeOrAtHeight: testConstants.defaultBlock.blockHeight })}`,
       });
 

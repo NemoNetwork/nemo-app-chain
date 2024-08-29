@@ -1,6 +1,7 @@
 package memclob
 
 import (
+	"slices"
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -10,7 +11,6 @@ import (
 	indexershared "github.com/nemo-network/v4-chain/protocol/indexer/shared/types"
 	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	"github.com/stretchr/testify/require"
-	"gopkg.in/typ.v4/slices"
 )
 
 func RequireCancelOrderOffchainUpdate(

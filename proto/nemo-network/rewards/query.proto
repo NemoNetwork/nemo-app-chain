@@ -11,7 +11,7 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/rewards/types";
 service Query {
   // Queries the Params.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/nemo-network/v4/rewards/params";
+    option (google.api.http).get = "/nemo-network/rewards/params";
   }
 }
 

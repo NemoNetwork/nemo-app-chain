@@ -1,24 +1,24 @@
 import express from 'express';
 
-import AddressesController from './v4/addresses-controller';
-import AssetPositionsController from './v4/asset-positions-controller';
-import CandlesController from './v4/candles-controller';
-import ComplianceController from './v4/compliance-controller';
-import ComplianceV2Controller from './v4/compliance-v2-controller';
-import FillsController from './v4/fills-controller';
-import HeightController from './v4/height-controller';
-import HistoricalBlockTradingRewardController from './v4/historical-block-trading-rewards-controller';
-import HistoricalFundingController from './v4/historical-funding-controller';
-import PnlticksController from './v4/historical-pnl-controller';
-import HistoricalTradingRewardController from './v4/historical-trading-reward-aggregations-controller';
-import OrderbooksController from './v4/orderbook-controller';
-import OrdersController from './v4/orders-controller';
-import PerpetualMarketController from './v4/perpetual-markets-controller';
-import PerpetualPositionsController from './v4/perpetual-positions-controller';
-import SparklinesController from './v4/sparklines-controller';
-import TimeController from './v4/time-controller';
-import TradesController from './v4/trades-controller';
-import TransfersController from './v4/transfers-controller';
+import AddressesController from './addresses-controller';
+import AssetPositionsController from './asset-positions-controller';
+import CandlesController from './candles-controller';
+import ComplianceController from './compliance-controller';
+import ComplianceV2Controller from './compliance-v2-controller';
+import FillsController from './fills-controller';
+import HeightController from './height-controller';
+import HistoricalBlockTradingRewardController from './historical-block-trading-rewards-controller';
+import HistoricalFundingController from './historical-funding-controller';
+import PnlticksController from './historical-pnl-controller';
+import HistoricalTradingRewardController from './historical-trading-reward-aggregations-controller';
+import OrderbooksController from './orderbook-controller';
+import OrdersController from './orders-controller';
+import PerpetualMarketController from './perpetual-markets-controller';
+import PerpetualPositionsController from './perpetual-positions-controller';
+import SparklinesController from './sparklines-controller';
+import TimeController from './time-controller';
+import TradesController from './trades-controller';
+import TransfersController from './transfers-controller';
 
 // Keep routers in alphabetical order
 

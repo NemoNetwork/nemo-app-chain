@@ -1,8 +1,6 @@
 package types
 
-import (
-	"gopkg.in/typ.v4/lists"
-)
+import "gopkg.in/typ.v4/lists"
 
 const (
 	// SmoothedPriceTrackingBlockHistoryLength is the number of blocks we track smoothed prices for to determine if the

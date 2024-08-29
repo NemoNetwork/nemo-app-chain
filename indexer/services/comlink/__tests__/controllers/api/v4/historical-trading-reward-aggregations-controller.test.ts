@@ -72,7 +72,7 @@ describe('historical-trading-reward-aggregations-controller#V4', () => {
     it('Get /historicalTradingRewardAggregations/:address returns all valid aggregations', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
+        path: `/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
         `?${getQueryString({ period: TradingRewardAggregationPeriod.MONTHLY })}`,
       });
 
@@ -90,7 +90,7 @@ describe('historical-trading-reward-aggregations-controller#V4', () => {
     it('Get /historicalTradingRewardAggregations/:address returns all valid aggregations with limit', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
+        path: `/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
         `?${getQueryString({ period: TradingRewardAggregationPeriod.MONTHLY, limit: 1 })}`,
       });
 
@@ -105,7 +105,7 @@ describe('historical-trading-reward-aggregations-controller#V4', () => {
     it('Get /historicalTradingRewardAggregations/:address returns no aggregations when none exist', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
+        path: `/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
         `?${getQueryString({ period: TradingRewardAggregationPeriod.DAILY })}`,
       });
 
@@ -117,7 +117,7 @@ describe('historical-trading-reward-aggregations-controller#V4', () => {
     it('Get /historicalTradingRewardAggregations/:address returns aggregations with startedAtBeforeOrAt', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
+        path: `/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
         `?${getQueryString({
           period: TradingRewardAggregationPeriod.MONTHLY,
           startingBeforeOrAt: startedAt.toISO(),
@@ -135,7 +135,7 @@ describe('historical-trading-reward-aggregations-controller#V4', () => {
     it('Get /historicalTradingRewardAggregations/:address returns aggregations with startedAtHeightBeforeOrAt', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
+        path: `/historicalTradingRewardAggregations/${testConstants.defaultAddress}` +
         `?${getQueryString({
           period: TradingRewardAggregationPeriod.MONTHLY,
           startingBeforeOrAtHeight: testConstants.defaultBlock.blockHeight,

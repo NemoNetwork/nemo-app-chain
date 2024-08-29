@@ -4,7 +4,7 @@ import { ORDER_FLAG_CONDITIONAL, ORDER_FLAG_LONG_TERM, ORDER_FLAG_SHORT_TERM } f
 
 describe('getOrderIdHash', () => {
   // Test cases match test cases in V4
-  // https://github.com/nemo-network/v4/blob/311411a3ce92230d4866a7c4abb1422fbc4ef3b9/indexer/off_chain_updates/off_chain_updates_test.go#L278-L299
+  // https://github.com/nemo-network/blob/311411a3ce92230d4866a7c4abb1422fbc4ef3b9/indexer/off_chain_updates/off_chain_updates_test.go#L278-L299
   it('hashes an order id correctly', () => {
     const orderId: IndexerOrderId = {
       subaccountId: {

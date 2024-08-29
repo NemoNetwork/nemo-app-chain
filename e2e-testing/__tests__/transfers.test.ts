@@ -72,7 +72,7 @@ describe('transfers', () => {
       }),
     );
 
-    // Check API /v4/transfers endpoint
+    // Check API /transfers endpoint
     const response = await indexerClient.account.getSubaccountTransfers(DYDX_LOCAL_ADDRESS, 0);
     expect(response).not.toBeNull();
     const transfersFromApi = response.transfers;
@@ -93,7 +93,7 @@ describe('transfers', () => {
       }),
     );
 
-    // Check API /v4/assetPositions endpoint
+    // Check API /assetPositions endpoint
     assetPosResp = await indexerClient.account.getSubaccountAssetPositions(DYDX_LOCAL_ADDRESS, 0);
     expect(assetPosResp).not.toBeNull();
     const usdcPositionSizeAfter = assetPosResp.positions[0].size;

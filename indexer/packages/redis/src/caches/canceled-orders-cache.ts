@@ -4,8 +4,8 @@ import { zRemAsync, zScoreAsync } from '../helpers/redis';
 import { CanceledOrderStatus } from '../types';
 import { addCanceledOrderIdScript } from './scripts';
 // Cache of cancelled orders
-export const CANCELED_ORDERS_CACHE_KEY: string = 'v4/cancelled_orders';
-export const BEST_EFFORT_CANCELED_ORDERS_CACHE_KEY: string = 'v4/best_effort_cancelled_orders';
+export const CANCELED_ORDERS_CACHE_KEY: string = 'cancelled_orders';
+export const BEST_EFFORT_CANCELED_ORDERS_CACHE_KEY: string = 'best_effort_cancelled_orders';
 // 10 seconds in milliseconds
 export const CANCELED_ORDER_WINDOW_SIZE: number = 30 * 1000;
 

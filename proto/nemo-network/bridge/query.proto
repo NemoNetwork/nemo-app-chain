@@ -13,19 +13,19 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/bridge/types";
 service Query {
   // Queries the EventParams.
   rpc EventParams(QueryEventParamsRequest) returns (QueryEventParamsResponse) {
-    option (google.api.http).get = "/nemo-network/v4/bridge/event_params";
+    option (google.api.http).get = "/nemo-network/bridge/event_params";
   }
 
   // Queries the ProposeParams.
   rpc ProposeParams(QueryProposeParamsRequest)
       returns (QueryProposeParamsResponse) {
-    option (google.api.http).get = "/nemo-network/v4/bridge/propose_params";
+    option (google.api.http).get = "/nemo-network/bridge/propose_params";
   }
 
   // Queries the SafetyParams.
   rpc SafetyParams(QuerySafetyParamsRequest)
       returns (QuerySafetyParamsResponse) {
-    option (google.api.http).get = "/nemo-network/v4/bridge/safety_params";
+    option (google.api.http).get = "/nemo-network/bridge/safety_params";
   }
 
   // Queries the AcknowledgedEventInfo.
@@ -34,7 +34,7 @@ service Query {
   rpc AcknowledgedEventInfo(QueryAcknowledgedEventInfoRequest)
       returns (QueryAcknowledgedEventInfoResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/bridge/acknowledged_event_info";
+        "/nemo-network/bridge/acknowledged_event_info";
   }
 
   // Queries the RecognizedEventInfo.
@@ -43,7 +43,7 @@ service Query {
   rpc RecognizedEventInfo(QueryRecognizedEventInfoRequest)
       returns (QueryRecognizedEventInfoResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/bridge/recognized_event_info";
+        "/nemo-network/bridge/recognized_event_info";
   }
 
   // Queries all `MsgCompleteBridge` messages that are delayed (not yet
@@ -51,7 +51,7 @@ service Query {
   rpc DelayedCompleteBridgeMessages(QueryDelayedCompleteBridgeMessagesRequest)
       returns (QueryDelayedCompleteBridgeMessagesResponse) {
     option (google.api.http).get =
-        "/nemo-network/v4/bridge/delayed_complete_bridge_messages";
+        "/nemo-network/bridge/delayed_complete_bridge_messages";
   }
 }
 
