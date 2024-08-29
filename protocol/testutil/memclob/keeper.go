@@ -285,7 +285,7 @@ func (f *FakeMemClobKeeper) GetStatefulOrdersTimeSlice(
 }
 
 func (f *FakeMemClobKeeper) addFakePositionSize(
-	ctx sdk.Context,
+	_ sdk.Context,
 	clobPairId types.ClobPairId,
 	subaccountId satypes.SubaccountId,
 	isBuy bool,
@@ -312,7 +312,7 @@ func (f *FakeMemClobKeeper) addFakePositionSize(
 }
 
 func (f *FakeMemClobKeeper) addFakeFillAmount(
-	ctx sdk.Context,
+	_ sdk.Context,
 	orderId types.OrderId,
 	fillAmount satypes.BaseQuantums,
 ) {
