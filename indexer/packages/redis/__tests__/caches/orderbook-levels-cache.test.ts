@@ -16,13 +16,8 @@ import {
 } from '../../src/caches/orderbook-levels-cache';
 import { OrderSide } from '@nemo-network-indexer/postgres';
 import { OrderbookLevels, PriceLevel } from '../../src/types';
-<<<<<<< HEAD
-import { InvalidOptionsError, InvalidPriceLevelUpdateError } from '../../src/errors';
-import { logger } from '@nemo-network-indexer/base';
-=======
 import { InvalidOptionsError } from '../../src/errors';
 import { logger } from '@nemo-network-indexer/base';
->>>>>>> main
 
 describe('orderbookLevelsCache', () => {
   const ticker: string = 'BTC-USD';
