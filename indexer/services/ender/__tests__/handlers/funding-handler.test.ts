@@ -1,7 +1,7 @@
-import { stats } from '@nemo-network-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   FundingEventV1,
-  FundingEventV1_Type,
+  FundingEventV1_Type,nem-newrk
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   Timestamp,
@@ -61,6 +61,9 @@ describe('fundingHandler', () => {
     await perpetualMarketRefresher.updatePerpetualMarkets();
     await assetRefresher.updateAssets();
     updateBlockCache(defaultPreviousHeight);
+
+    jest.spyOn(logger, 'error');
+    jest.resetAllMocks();
   });
 
   afterEach(async () => {
@@ -166,6 +169,28 @@ describe('fundingHandler', () => {
         fundingUpdateSampleEvent2.updates[1].fundingValuePpm,
       )),
     );
+  });
+
+  it('successfully ignores funding rate and index for market with no oracle price', async () => {
+    const kafkaMessage: KafkaMessage = createKafkaMessageFromFundingEvents({
+      fundingEvents: [{
+        ...defaultFundingRateEvent,
+        updates: [
+          {
+            perpetualId: 2,
+            fundingValuePpm: 10,
+            fundingIndex: bigIntToBytes(BigInt(0)),
+          },
+        ],
+      }],
+      height: defaultHeight,
+      time: defaultTime,
+    });
+    await onMessage(kafkaMessage);
+    expect(logger.error).toHaveBeenCalledWith(expect.objectContaining({
+      at: 'FundingHandler#handleFundingSample',
+      message: 'oracle_price not found for marketId.',
+    }));
   });
 
   it('successfully processes and clears cache for a new funding rate with both existing/non-existent market',

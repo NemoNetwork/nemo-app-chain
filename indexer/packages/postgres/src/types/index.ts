@@ -25,4 +25,7 @@ export * from './compliance-data-types';
 export * from './compliance-status-types';
 export * from './trading-reward-types';
 export * from './trading-reward-aggregation-types';
+export * from './pagination-types';
+export * from './subaccount-usernames-types';
+export * from './leaderboard-pnl-types';
 export { PositionSide } from './position-types';

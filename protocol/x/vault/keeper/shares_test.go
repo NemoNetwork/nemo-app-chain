@@ -4,78 +4,83 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/cometbft/cometbft/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/nemo-network/v4-chain/protocol/dtypes"
 	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
-	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/keeper"
 	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGetSetTotalShares(t *testing.T) {
-	tApp := testapp.NewTestAppBuilder(t).Build()
-	ctx := tApp.InitChain()
-	k := tApp.App.VaultKeeper
+	tests := map[string]struct {
+		// Function to set total shares.
+		setFunc func(k keeper.Keeper, ctx sdk.Context) error
+		// Expected total shares.
+		expectedTotalShares vaulttypes.NumShares
+		// Expected error.
+		expectedErr error
+	}{
+		"Success: default total shares is 0": {
+			expectedTotalShares: vaulttypes.NumShares{
+				NumShares: dtypes.NewInt(0),
+			},
+		},
+		"Success: set total shares to 0": {
+			setFunc: func(k keeper.Keeper, ctx sdk.Context) error {
+				return k.SetTotalShares(ctx, vaulttypes.NumShares{
+					NumShares: dtypes.NewInt(0),
+				})
+			},
+			expectedTotalShares: vaulttypes.NumShares{
+				NumShares: dtypes.NewInt(0),
+			},
+		},
+		"Success: set total shares to 777": {
+			setFunc: func(k keeper.Keeper, ctx sdk.Context) error {
+				return k.SetTotalShares(ctx, vaulttypes.NumShares{
+					NumShares: dtypes.NewInt(777),
+				})
+			},
+			expectedTotalShares: vaulttypes.NumShares{
+				NumShares: dtypes.NewInt(777),
+			},
+		},
+		"Failure: set total shares to -1": {
+			setFunc: func(k keeper.Keeper, ctx sdk.Context) error {
+				return k.SetTotalShares(ctx, vaulttypes.NumShares{
+					NumShares: dtypes.NewInt(-1),
+				})
+			},
+			expectedTotalShares: vaulttypes.NumShares{
+				NumShares: dtypes.NewInt(0),
+			},
+			expectedErr: vaulttypes.ErrNegativeShares,
+		},
+	}
 
-	// Get total shares for a non-existing vault.
-	_, exists := k.GetTotalShares(ctx, constants.Vault_Clob_0)
-	require.Equal(t, false, exists)
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			tApp := testapp.NewTestAppBuilder(t).Build()
+			ctx := tApp.InitChain()
+			k := tApp.App.VaultKeeper
 
-	// Set total shares for a vault and then get.
-	numShares := vaulttypes.BigIntToNumShares(
-		big.NewInt(7),
-	)
-	err := k.SetTotalShares(ctx, constants.Vault_Clob_0, numShares)
-	require.NoError(t, err)
-	got, exists := k.GetTotalShares(ctx, constants.Vault_Clob_0)
-	require.Equal(t, true, exists)
-	require.Equal(t, numShares, got)
+			if tc.setFunc != nil {
+				if tc.expectedErr != nil {
+					require.ErrorIs(t, tc.setFunc(k, ctx), tc.expectedErr)
+				} else {
+					require.NoError(t, tc.setFunc(k, ctx))
+				}
+			}
 
-	// Set total shares for another vault and then get.
-	numShares = vaulttypes.BigIntToNumShares(
-		big.NewInt(456),
-	)
-	err = k.SetTotalShares(ctx, constants.Vault_Clob_1, numShares)
-	require.NoError(t, err)
-	got, exists = k.GetTotalShares(ctx, constants.Vault_Clob_1)
-	require.Equal(t, true, exists)
-	require.Equal(t, numShares, got)
-
-	// Set total shares for second vault to 0.
-	numShares = vaulttypes.BigIntToNumShares(
-		big.NewInt(0),
-	)
-	err = k.SetTotalShares(ctx, constants.Vault_Clob_1, numShares)
-	require.NoError(t, err)
-	got, exists = k.GetTotalShares(ctx, constants.Vault_Clob_1)
-	require.Equal(t, true, exists)
-	require.Equal(t, numShares, got)
-
-	// Set total shares for the first vault again and then get.
-	numShares = vaulttypes.BigIntToNumShares(
-		big.NewInt(7283133),
-	)
-	err = k.SetTotalShares(ctx, constants.Vault_Clob_0, numShares)
-	require.NoError(t, err)
-	got, exists = k.GetTotalShares(ctx, constants.Vault_Clob_0)
-	require.Equal(t, true, exists)
-	require.Equal(t, numShares, got)
-
-	// Set total shares for the first vault to a negative value.
-	// Should get error and total shares should remain unchanged.
-	negativeShares := vaulttypes.BigIntToNumShares(
-		big.NewInt(-1),
-	)
-	err = k.SetTotalShares(ctx, constants.Vault_Clob_0, negativeShares)
-	require.Equal(t, vaulttypes.ErrNegativeShares, err)
-	got, exists = k.GetTotalShares(ctx, constants.Vault_Clob_0)
-	require.Equal(t, true, exists)
-	require.Equal(
-		t,
-		numShares,
-		got,
-	)
+			require.Equal(
+				t,
+				tc.expectedTotalShares,
+				k.GetTotalShares(ctx),
+			)
+		})
+	}
 }
 
 func TestGetSetOwnerShares(t *testing.T) {
@@ -86,48 +91,48 @@ func TestGetSetOwnerShares(t *testing.T) {
 	alice := constants.AliceAccAddress.String()
 	bob := constants.BobAccAddress.String()
 
-	// Get owners shares for Alice in vault clob 0.
-	_, exists := k.GetOwnerShares(ctx, constants.Vault_Clob_0, alice)
+	// Get owners shares for Alice.
+	_, exists := k.GetOwnerShares(ctx, alice)
 	require.Equal(t, false, exists)
 
-	// Set owner shares for Alice in vault clob 0 and get.
+	// Set owner shares for Alice and get.
 	numShares := vaulttypes.BigIntToNumShares(
 		big.NewInt(7),
 	)
-	err := k.SetOwnerShares(ctx, constants.Vault_Clob_0, alice, numShares)
+	err := k.SetOwnerShares(ctx, alice, numShares)
 	require.NoError(t, err)
-	got, exists := k.GetOwnerShares(ctx, constants.Vault_Clob_0, alice)
+	got, exists := k.GetOwnerShares(ctx, alice)
 	require.Equal(t, true, exists)
 	require.Equal(t, numShares, got)
 
-	// Set owner shares for Alice in vault clob 1 and then get.
+	// Set owner shares for Alice and then get.
 	numShares = vaulttypes.BigIntToNumShares(
 		big.NewInt(456),
 	)
-	err = k.SetOwnerShares(ctx, constants.Vault_Clob_1, alice, numShares)
+	err = k.SetOwnerShares(ctx, alice, numShares)
 	require.NoError(t, err)
-	got, exists = k.GetOwnerShares(ctx, constants.Vault_Clob_1, alice)
+	got, exists = k.GetOwnerShares(ctx, alice)
 	require.Equal(t, true, exists)
 	require.Equal(t, numShares, got)
 
-	// Set owner shares for Bob in vault clob 1.
+	// Set owner shares for Bob.
 	numShares = vaulttypes.BigIntToNumShares(
 		big.NewInt(0),
 	)
-	err = k.SetOwnerShares(ctx, constants.Vault_Clob_1, bob, numShares)
+	err = k.SetOwnerShares(ctx, bob, numShares)
 	require.NoError(t, err)
-	got, exists = k.GetOwnerShares(ctx, constants.Vault_Clob_1, bob)
+	got, exists = k.GetOwnerShares(ctx, bob)
 	require.Equal(t, true, exists)
 	require.Equal(t, numShares, got)
 
-	// Set owner shares for Bob in vault clob 1 to a negative value.
-	// Should get error and total shares should remain unchanged.
+	// Set owner shares for Bob to a negative value.
+	// Should get error and owner shares should remain unchanged.
 	numSharesInvalid := vaulttypes.BigIntToNumShares(
 		big.NewInt(-1),
 	)
-	err = k.SetOwnerShares(ctx, constants.Vault_Clob_1, bob, numSharesInvalid)
+	err = k.SetOwnerShares(ctx, bob, numSharesInvalid)
 	require.ErrorIs(t, err, vaulttypes.ErrNegativeShares)
-	got, exists = k.GetOwnerShares(ctx, constants.Vault_Clob_1, bob)
+	got, exists = k.GetOwnerShares(ctx, bob)
 	require.Equal(t, true, exists)
 	require.Equal(t, numShares, got)
 }
@@ -137,166 +142,218 @@ func TestGetAllOwnerShares(t *testing.T) {
 	ctx := tApp.InitChain()
 	k := tApp.App.VaultKeeper
 
-	// Get all owner shares of a vault that has no owners.
-	allOwnerShares := k.GetAllOwnerShares(ctx, constants.Vault_Clob_0)
-	require.Equal(t, []*vaulttypes.OwnerShare{}, allOwnerShares)
+	// Get all owner shares when there's no owner.
+	allOwnerShares := k.GetAllOwnerShares(ctx)
+	require.Equal(t, []vaulttypes.OwnerShare{}, allOwnerShares)
 
-	// Set alice and bob as owners of a vault and get all owner shares.
+	// Set alice and bob as owners and get all owner shares.
 	alice := constants.AliceAccAddress.String()
 	aliceShares := vaulttypes.BigIntToNumShares(big.NewInt(7))
 	bob := constants.BobAccAddress.String()
 	bobShares := vaulttypes.BigIntToNumShares(big.NewInt(123))
 
-	err := k.SetOwnerShares(ctx, constants.Vault_Clob_0, alice, aliceShares)
+	err := k.SetOwnerShares(ctx, alice, aliceShares)
 	require.NoError(t, err)
-	err = k.SetOwnerShares(ctx, constants.Vault_Clob_0, bob, bobShares)
+	err = k.SetOwnerShares(ctx, bob, bobShares)
 	require.NoError(t, err)
 
-	allOwnerShares = k.GetAllOwnerShares(ctx, constants.Vault_Clob_0)
+	allOwnerShares = k.GetAllOwnerShares(ctx)
 	require.ElementsMatch(
 		t,
-		[]*vaulttypes.OwnerShare{
+		[]vaulttypes.OwnerShare{
 			{
 				Owner:  alice,
-				Shares: &aliceShares,
+				Shares: aliceShares,
 			},
 			{
 				Owner:  bob,
-				Shares: &bobShares,
+				Shares: bobShares,
 			},
 		},
 		allOwnerShares,
 	)
 }
 
-func TestMintShares(t *testing.T) {
-	tests := map[string]struct {
-		/* --- Setup --- */
-		// Vault ID.
-		vaultId vaulttypes.VaultId
-		// Existing vault equity.
-		equity *big.Int
-		// Existing vault TotalShares.
-		totalShares *big.Int
-		// Owner that deposits.
-		owner string
-		// Existing owner shares.
-		ownerShares *big.Int
-		// Quote quantums to deposit.
-		quantumsToDeposit *big.Int
+func TestGetSetOwnerShareUnlocks(t *testing.T) {
+	tApp := testapp.NewTestAppBuilder(t).Build()
+	ctx := tApp.InitChain()
+	k := tApp.App.VaultKeeper
 
-		/* --- Expectations --- */
-		// Expected TotalShares after minting.
-		expectedTotalShares *big.Int
-		// Expected OwnerShares after minting.
-		expectedOwnerShares *big.Int
+	alice := constants.AliceAccAddress.String()
+	bob := constants.BobAccAddress.String()
+
+	// Get share unlocks for Alice.
+	_, exists := k.GetOwnerShareUnlocks(ctx, alice)
+	require.Equal(t, false, exists)
+
+	// Set share unlocks for Alice and get.
+	aliceShareUnlocks := vaulttypes.OwnerShareUnlocks{
+		OwnerAddress: alice,
+		ShareUnlocks: []vaulttypes.ShareUnlock{
+			{
+				Shares:            vaulttypes.BigIntToNumShares(big.NewInt(7)),
+				UnlockBlockHeight: 1,
+			},
+		},
+	}
+	err := k.SetOwnerShareUnlocks(ctx, alice, aliceShareUnlocks)
+	require.NoError(t, err)
+	got, exists := k.GetOwnerShareUnlocks(ctx, alice)
+	require.Equal(t, true, exists)
+	require.Equal(t, aliceShareUnlocks, got)
+
+	// Set share unlocks for Bob and then get.
+	bobLockedShares := vaulttypes.OwnerShareUnlocks{
+		OwnerAddress: bob,
+		ShareUnlocks: []vaulttypes.ShareUnlock{
+			{
+				Shares:            vaulttypes.BigIntToNumShares(big.NewInt(901)),
+				UnlockBlockHeight: 76,
+			},
+			{
+				Shares:            vaulttypes.BigIntToNumShares(big.NewInt(333)),
+				UnlockBlockHeight: 965,
+			},
+		},
+	}
+	err = k.SetOwnerShareUnlocks(ctx, bob, bobLockedShares)
+	require.NoError(t, err)
+	got, exists = k.GetOwnerShareUnlocks(ctx, bob)
+	require.Equal(t, true, exists)
+	require.Equal(t, bobLockedShares, got)
+
+	// Set invalid share unlocks for Bob.
+	// Should get error and share unlocks should remain unchanged.
+	bobLockedShares.OwnerAddress = ""
+	err = k.SetOwnerShareUnlocks(ctx, bob, bobLockedShares)
+	require.Error(t, err)
+	bobLockedShares.OwnerAddress = constants.BobAccAddress.String()
+	got, exists = k.GetOwnerShareUnlocks(ctx, bob)
+	require.Equal(t, true, exists)
+	require.Equal(t, bobLockedShares, got)
+}
+
+func TestLockShares(t *testing.T) {
+	tests := map[string]struct {
+		// Existing owner share unlocks.
+		existingOwnerShareUnlocks *vaulttypes.OwnerShareUnlocks
+		// Owner address.
+		ownerAddress string
+		// Owner shares.
+		ownerShares *big.Int
+		// Shares to lock.
+		sharesToLock *big.Int
+		// Block height to lock until.
+		lockUntilBlock uint32
+		// Current block height.
+		currentBlockHeight uint32
+		// Expected owner share unlocks.
+		expectedOwnerShareUnlocks vaulttypes.OwnerShareUnlocks
 		// Expected error.
-		expectedErr error
+		expectedErr string
 	}{
-		"Equity 0, TotalShares 0, OwnerShares 0, Deposit 1000": {
-			vaultId:           constants.Vault_Clob_0,
-			equity:            big.NewInt(0),
-			totalShares:       big.NewInt(0),
-			owner:             constants.AliceAccAddress.String(),
-			ownerShares:       big.NewInt(0),
-			quantumsToDeposit: big.NewInt(1_000),
-			// Should mint `1_000` shares.
-			expectedTotalShares: big.NewInt(1_000),
-			expectedOwnerShares: big.NewInt(1_000),
+		"Success - No existing locked shares and lock 7 shares until height 2": {
+			existingOwnerShareUnlocks: nil,
+			ownerAddress:              constants.AliceAccAddress.String(),
+			ownerShares:               big.NewInt(7),
+			sharesToLock:              big.NewInt(7),
+			lockUntilBlock:            2,
+			currentBlockHeight:        1,
+			expectedOwnerShareUnlocks: vaulttypes.OwnerShareUnlocks{
+				OwnerAddress: constants.AliceAccAddress.String(),
+				ShareUnlocks: []vaulttypes.ShareUnlock{
+					{
+						Shares:            vaulttypes.BigIntToNumShares(big.NewInt(7)),
+						UnlockBlockHeight: 2,
+					},
+				},
+			},
 		},
-		"Equity 0, TotalShares non-existent, OwnerShares non-existent, Deposit 12345654321": {
-			vaultId:           constants.Vault_Clob_0,
-			equity:            big.NewInt(0),
-			owner:             constants.AliceAccAddress.String(),
-			quantumsToDeposit: big.NewInt(12_345_654_321),
-			// Should mint `12_345_654_321` shares.
-			expectedTotalShares: big.NewInt(12_345_654_321),
-			expectedOwnerShares: big.NewInt(12_345_654_321),
+		"Success - 1234 existing locked shares and lock 789 shares until height 456": {
+			existingOwnerShareUnlocks: &vaulttypes.OwnerShareUnlocks{
+				OwnerAddress: constants.BobAccAddress.String(),
+				ShareUnlocks: []vaulttypes.ShareUnlock{
+					{
+						Shares:            vaulttypes.BigIntToNumShares(big.NewInt(1_234)),
+						UnlockBlockHeight: 2,
+					},
+				},
+			},
+			ownerAddress:       constants.BobAccAddress.String(),
+			ownerShares:        big.NewInt(2_078),
+			sharesToLock:       big.NewInt(789),
+			lockUntilBlock:     456,
+			currentBlockHeight: 1,
+			expectedOwnerShareUnlocks: vaulttypes.OwnerShareUnlocks{
+				OwnerAddress: constants.BobAccAddress.String(),
+				ShareUnlocks: []vaulttypes.ShareUnlock{
+					{
+						Shares:            vaulttypes.BigIntToNumShares(big.NewInt(1_234)),
+						UnlockBlockHeight: 2,
+					},
+					{
+						Shares:            vaulttypes.BigIntToNumShares(big.NewInt(789)),
+						UnlockBlockHeight: 456,
+					},
+				},
+			},
 		},
-		"Equity 1000, TotalShares non-existent, OwnerShares non-existent, Deposit 500": {
-			vaultId:           constants.Vault_Clob_0,
-			equity:            big.NewInt(1_000),
-			owner:             constants.AliceAccAddress.String(),
-			quantumsToDeposit: big.NewInt(500),
-			// Should mint `500` shares.
-			expectedTotalShares: big.NewInt(500),
-			expectedOwnerShares: big.NewInt(500),
+		"Error - Total locked shares would exceed total owner shares": {
+			existingOwnerShareUnlocks: &vaulttypes.OwnerShareUnlocks{
+				OwnerAddress: constants.CarlAccAddress.String(),
+				ShareUnlocks: []vaulttypes.ShareUnlock{
+					{
+						Shares:            vaulttypes.BigIntToNumShares(big.NewInt(17)),
+						UnlockBlockHeight: 2,
+					},
+				},
+			},
+			ownerAddress:       constants.CarlAccAddress.String(),
+			ownerShares:        big.NewInt(65),
+			sharesToLock:       big.NewInt(49), // greater than 65-17=48 remaining unlocked shares.
+			lockUntilBlock:     3,
+			currentBlockHeight: 1,
+			expectedErr:        vaulttypes.ErrLockedSharesExceedsOwnerShares.Error(),
 		},
-		"Equity 4000, TotalShares 5000, OwnerShares 2500, Deposit 1000": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(4_000),
-			totalShares:       big.NewInt(5_000),
-			owner:             constants.AliceAccAddress.String(),
-			ownerShares:       big.NewInt(2_500),
-			quantumsToDeposit: big.NewInt(1_000),
-			// Should mint `1_250` shares.
-			expectedTotalShares: big.NewInt(6_250),
-			expectedOwnerShares: big.NewInt(3_750),
+		"Error - Empty owner address": {
+			existingOwnerShareUnlocks: nil,
+			ownerAddress:              "",
+			sharesToLock:              big.NewInt(7),
+			lockUntilBlock:            2,
+			currentBlockHeight:        1,
+			expectedErr:               "invalid parameters",
 		},
-		"Equity 1_000_000, TotalShares 2_000, OwnerShares 1, Deposit 1_000": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(1_000_000),
-			totalShares:       big.NewInt(2_000),
-			owner:             constants.BobAccAddress.String(),
-			ownerShares:       big.NewInt(1),
-			quantumsToDeposit: big.NewInt(1_000),
-			// Should mint `2` shares.
-			expectedTotalShares: big.NewInt(2_002),
-			expectedOwnerShares: big.NewInt(3),
+		"Error - 0 shares to lock": {
+			existingOwnerShareUnlocks: nil,
+			ownerAddress:              constants.AliceAccAddress.String(),
+			sharesToLock:              big.NewInt(0),
+			lockUntilBlock:            2,
+			currentBlockHeight:        1,
+			expectedErr:               "invalid parameters",
 		},
-		"Equity 8000, TotalShares 4000, OwnerShares 101, Deposit 455": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(8_000),
-			totalShares:       big.NewInt(4_000),
-			owner:             constants.CarlAccAddress.String(),
-			ownerShares:       big.NewInt(101),
-			quantumsToDeposit: big.NewInt(455),
-			// Should mint `227.5` shares, round down to 227.
-			expectedTotalShares: big.NewInt(4_227),
-			expectedOwnerShares: big.NewInt(328),
+		"Error - Negative shares to lock": {
+			existingOwnerShareUnlocks: nil,
+			ownerAddress:              constants.AliceAccAddress.String(),
+			sharesToLock:              big.NewInt(-1),
+			lockUntilBlock:            2,
+			currentBlockHeight:        1,
+			expectedErr:               "invalid parameters",
 		},
-		"Equity 123456, TotalShares 654321, OwnerShares 0, Deposit 123456789": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(123_456),
-			totalShares:       big.NewInt(654_321),
-			owner:             constants.DaveAccAddress.String(),
-			quantumsToDeposit: big.NewInt(123_456_789),
-			// Should mint `654_325_181.727` shares, round down to 654_325_181.
-			expectedTotalShares: big.NewInt(654_979_502),
-			expectedOwnerShares: big.NewInt(654_325_181),
+		"Error - Lock until height same as current block height": {
+			existingOwnerShareUnlocks: nil,
+			ownerAddress:              constants.AliceAccAddress.String(),
+			sharesToLock:              big.NewInt(7),
+			lockUntilBlock:            14,
+			currentBlockHeight:        14,
+			expectedErr:               "invalid parameters",
 		},
-		"Equity 1000000, TotalShares 1000, OwnerShares 0, Deposit 9_900": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(1_000_000),
-			totalShares:       big.NewInt(1_000),
-			owner:             constants.DaveAccAddress.String(),
-			quantumsToDeposit: big.NewInt(9_900),
-			// Should mint `9_900 * 1_000 / 1_000_000` shares, round down to 9.
-			expectedTotalShares: big.NewInt(1_009),
-			expectedOwnerShares: big.NewInt(9),
-		},
-		"Equity -1, TotalShares 10, Deposit 1": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(-1),
-			totalShares:       big.NewInt(10),
-			owner:             constants.AliceAccAddress.String(),
-			quantumsToDeposit: big.NewInt(1),
-			expectedErr:       vaulttypes.ErrNonPositiveEquity,
-		},
-		"Equity 1, TotalShares 1, Deposit 0": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(1),
-			totalShares:       big.NewInt(1),
-			owner:             constants.AliceAccAddress.String(),
-			quantumsToDeposit: big.NewInt(0),
-			expectedErr:       vaulttypes.ErrInvalidDepositAmount,
-		},
-		"Equity 0, TotalShares non-existent, Deposit -1": {
-			vaultId:           constants.Vault_Clob_1,
-			equity:            big.NewInt(0),
-			owner:             constants.AliceAccAddress.String(),
-			quantumsToDeposit: big.NewInt(-1),
-			expectedErr:       vaulttypes.ErrInvalidDepositAmount,
+		"Error - Lock until height smaller than current block height": {
+			existingOwnerShareUnlocks: nil,
+			ownerAddress:              constants.AliceAccAddress.String(),
+			sharesToLock:              big.NewInt(7),
+			lockUntilBlock:            13,
+			currentBlockHeight:        14,
+			expectedErr:               "invalid parameters",
 		},
 		"Equity 1000, TotalShares 1, Deposit 100": {
 			vaultId:           constants.Vault_Clob_1,
@@ -310,88 +367,44 @@ func TestMintShares(t *testing.T) {
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			// Initialize tApp and ctx.
-			tApp := testapp.NewTestAppBuilder(t).WithGenesisDocFn(func() (genesis types.GenesisDoc) {
-				genesis = testapp.DefaultGenesis()
-				// Initialize vault with its existing equity.
-				testapp.UpdateGenesisDocWithAppStateForModule(
-					&genesis,
-					func(genesisState *satypes.GenesisState) {
-						genesisState.Subaccounts = []satypes.Subaccount{
-							{
-								Id: tc.vaultId.ToSubaccountId(),
-								AssetPositions: []*satypes.AssetPosition{
-									{
-										AssetId:  0,
-										Quantums: dtypes.NewIntFromBigInt(tc.equity),
-									},
-								},
-							},
-						}
-					},
-				)
-				return genesis
-			}).Build()
+			tApp := testapp.NewTestAppBuilder(t).Build()
 			ctx := tApp.InitChain()
+			if tc.currentBlockHeight > 1 {
+				ctx = tApp.AdvanceToBlock(tc.currentBlockHeight, testapp.AdvanceToBlockOptions{})
+			}
+			k := tApp.App.VaultKeeper
 
-			// Set vault's existing total shares if specified.
-			if tc.totalShares != nil {
-				err := tApp.App.VaultKeeper.SetTotalShares(
-					ctx,
-					tc.vaultId,
-					vaulttypes.BigIntToNumShares(tc.totalShares),
-				)
+			if tc.ownerAddress != "" {
+				err := k.SetOwnerShares(ctx, tc.ownerAddress, vaulttypes.BigIntToNumShares(tc.ownerShares))
 				require.NoError(t, err)
 			}
-			// Set vault's existing owner shares if specified.
-			if tc.ownerShares != nil {
-				err := tApp.App.VaultKeeper.SetOwnerShares(
-					ctx,
-					tc.vaultId,
-					tc.owner,
-					vaulttypes.BigIntToNumShares(tc.ownerShares),
-				)
+			if tc.existingOwnerShareUnlocks != nil {
+				err := k.SetOwnerShareUnlocks(ctx, tc.ownerAddress, *tc.existingOwnerShareUnlocks)
 				require.NoError(t, err)
 			}
 
-			// Mint shares.
-			err := tApp.App.VaultKeeper.MintShares(
+			err := k.LockShares(
 				ctx,
-				tc.vaultId,
-				tc.owner,
-				tc.quantumsToDeposit,
+				tc.ownerAddress,
+				vaulttypes.BigIntToNumShares(tc.sharesToLock),
+				tc.lockUntilBlock,
 			)
-			if tc.expectedErr != nil {
-				// Check that error is as expected.
-				require.ErrorContains(t, err, tc.expectedErr.Error())
-				// Check that TotalShares is unchanged.
-				totalShares, _ := tApp.App.VaultKeeper.GetTotalShares(ctx, tc.vaultId)
+			if tc.expectedErr != "" {
+				require.ErrorContains(t, err, tc.expectedErr)
+				l, exists := k.GetOwnerShareUnlocks(ctx, tc.ownerAddress)
 				require.Equal(
 					t,
-					vaulttypes.BigIntToNumShares(tc.totalShares),
-					totalShares,
+					tc.existingOwnerShareUnlocks != nil,
+					exists,
 				)
-				// Check that OwnerShares is unchanged.
-				ownerShares, _ := tApp.App.VaultKeeper.GetOwnerShares(ctx, tc.vaultId, tc.owner)
-				require.Equal(t, vaulttypes.BigIntToNumShares(tc.ownerShares), ownerShares)
+				if exists {
+					require.Equal(t, *tc.existingOwnerShareUnlocks, l)
+				}
 			} else {
 				require.NoError(t, err)
-				// Check that TotalShares is as expected.
-				totalShares, exists := tApp.App.VaultKeeper.GetTotalShares(ctx, tc.vaultId)
+				o, exists := k.GetOwnerShareUnlocks(ctx, tc.ownerAddress)
 				require.True(t, exists)
-				require.Equal(
-					t,
-					vaulttypes.BigIntToNumShares(tc.expectedTotalShares),
-					totalShares,
-				)
-				// Check that OwnerShares is as expected.
-				ownerShares, exists := tApp.App.VaultKeeper.GetOwnerShares(ctx, tc.vaultId, tc.owner)
-				require.True(t, exists)
-				require.Equal(
-					t,
-					vaulttypes.BigIntToNumShares(tc.expectedOwnerShares),
-					ownerShares,
-				)
+				require.Equal(t, tc.expectedOwnerShareUnlocks, o)
 			}
 		})
 	}

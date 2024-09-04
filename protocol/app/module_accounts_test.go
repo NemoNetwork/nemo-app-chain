@@ -3,6 +3,8 @@ package app_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
@@ -14,8 +16,9 @@ import (
 	perpetualsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	rewardsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
 	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaultmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	vestmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
-	"github.com/stretchr/testify/require"
+	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 )
 
 func TestModuleAccountsToAddresses(t *testing.T) {
@@ -34,9 +37,12 @@ func TestModuleAccountsToAddresses(t *testing.T) {
 		vestmoduletypes.CommunityTreasuryAccountName: "dydx15ztc7xy42tn2ukkc0qjthkucw9ac63pgp70urn",
 		vestmoduletypes.CommunityVesterAccountName:   "dydx1wxje320an3karyc6mjw4zghs300dmrjkwn7xtk",
 		icatypes.ModuleName:                          "dydx1vlthgax23ca9syk7xgaz347xmf4nunefw3cnv8",
+		marketmapmoduletypes.ModuleName:              "dydx16j3d86dww8p2rzdlqsv7wle98cxzjxw6gjjyzn",
+		vaultmoduletypes.MegavaultAccountName:        "dydx18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylxqje4r",
 	}
 
-	require.True(t, len(expectedModuleAccToAddresses) == len(app.GetMaccPerms()))
+	require.True(t, len(expectedModuleAccToAddresses) == len(app.GetMaccPerms()),
+		"expected %d, got %d", len(expectedModuleAccToAddresses), len(app.GetMaccPerms()))
 	for acc, address := range expectedModuleAccToAddresses {
 		expectedAddr := authtypes.NewModuleAddress(acc).String()
 		require.Equal(t, address, expectedAddr, "module (%v) should have address (%s)", acc, expectedAddr)
@@ -72,6 +78,8 @@ func TestMaccPerms(t *testing.T) {
 		"rewards_vester":         nil,
 		"community_treasury":     nil,
 		"community_vester":       nil,
+		"marketmap":              nil,
+		"megavault":              nil,
 	}
 	require.Equal(t, expectedMaccPerms, maccPerms, "default macc perms list does not match expected")
 }
@@ -92,6 +100,8 @@ func TestModuleAccountAddrs(t *testing.T) {
 		"dydx1ltyc6y4skclzafvpznpt2qjwmfwgsndp458rmp": true, // x/rewards.vester
 		"dydx15ztc7xy42tn2ukkc0qjthkucw9ac63pgp70urn": true, // x/vest.communityTreasury
 		"dydx1wxje320an3karyc6mjw4zghs300dmrjkwn7xtk": true, // x/vest.communityVester
+		"dydx16j3d86dww8p2rzdlqsv7wle98cxzjxw6gjjyzn": true, // x/marketmap
+		"dydx18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylxqje4r": true, // x/vault.megavault
 	}
 
 	require.Equal(t, expectedModuleAccAddresses, app.ModuleAccountAddrs())

@@ -1,9 +1,8 @@
 package types
 
 import (
-	"math/big"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/nemo-network/v4-chain/protocol/lib/margin"
 	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
@@ -61,9 +60,7 @@ type SubaccountsKeeper interface {
 		ctx sdk.Context,
 		update satypes.Update,
 	) (
-		bigNetCollateral *big.Int,
-		bigInitialMargin *big.Int,
-		bigMaintenanceMargin *big.Int,
+		risk margin.Risk,
 		err error,
 	)
 	GetSubaccount(

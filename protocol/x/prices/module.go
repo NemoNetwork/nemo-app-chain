@@ -101,9 +101,11 @@ func (AppModuleBasic) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncod
 type AppModule struct {
 	AppModuleBasic
 
-	keeper        keeper.Keeper
-	accountKeeper types.AccountKeeper
-	bankKeeper    types.BankKeeper
+	keeper          keeper.Keeper
+	accountKeeper   types.AccountKeeper
+	bankKeeper      types.BankKeeper
+	revShareKeeper  types.RevShareKeeper
+	marketMapKeeper types.MarketMapKeeper
 }
 
 func NewAppModule(
@@ -111,12 +113,16 @@ func NewAppModule(
 	keeper keeper.Keeper,
 	accountKeeper types.AccountKeeper,
 	bankKeeper types.BankKeeper,
+	revShareKeeper types.RevShareKeeper,
+	marketMapKeeper types.MarketMapKeeper,
 ) AppModule {
 	return AppModule{
-		AppModuleBasic: NewAppModuleBasic(cdc),
-		keeper:         keeper,
-		accountKeeper:  accountKeeper,
-		bankKeeper:     bankKeeper,
+		AppModuleBasic:  NewAppModuleBasic(cdc),
+		keeper:          keeper,
+		accountKeeper:   accountKeeper,
+		bankKeeper:      bankKeeper,
+		revShareKeeper:  revShareKeeper,
+		marketMapKeeper: marketMapKeeper,
 	}
 }
 

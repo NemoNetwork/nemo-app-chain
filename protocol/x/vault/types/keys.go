@@ -11,17 +11,23 @@ const (
 
 // State.
 const (
-	// TotalSharesKeyPrefix is the prefix to retrieve all TotalShares.
-	TotalSharesKeyPrefix = "TotalShares:"
+	// TotalSharesKey is the key to retrieve total shares.
+	TotalSharesKey = "TotalShares"
 
 	// OwnerSharesKeyPrefix is the prefix to retrieve all OwnerShares.
-	// OwnerShares store: vaultId VaultId -> owner string -> shares NumShares.
+	// OwnerShares store: owner string -> shares NumShares.
 	OwnerSharesKeyPrefix = "OwnerShares:"
 
-	// ParamsKey is the key to retrieve Params.
-	ParamsKey = "Params"
+	// OwnerShareUnlocksKeyPrefix is the prefix to retrieve all OwnerShareUnlocks.
+	// OwnerShareUnlocks store: owner string -> ownerShareUnlocks OwnerShareUnlocks.
+	OwnerShareUnlocksKeyPrefix = "OwnerShareUnlocks:"
+
+	// DefaultQuotingParams is the key to retrieve DefaultQuotingParams.
+	// A vault uses DefaultQuotingParams if it does not have its own QuotingParams.
+	DefaultQuotingParamsKey = "DefaultQuotingParams"
 
 	// VaultParamsKeyPrefix is the prefix to retrieve all VaultParams.
+	// VaultParams store: vaultId VaultId -> VaultParams.
 	VaultParamsKeyPrefix = "VaultParams:"
 
 	// VaultAddressKeyPrefix is the prefix to retrieve all vault addresses.
@@ -30,4 +36,10 @@ const (
 	// MostRecentClientIdsKeyPrefix is the prefix to retrieve all most recent client IDs.
 	// MostRecentClientIdsStore: vaultId VaultId -> clientIds []uint32
 	MostRecentClientIdsKeyPrefix = "MostRecentClientIds:"
+)
+
+// Module accounts
+const (
+	// MegavaultAccountName defines the root string for megavault module account.
+	MegavaultAccountName = "megavault"
 )

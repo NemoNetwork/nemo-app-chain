@@ -13,6 +13,7 @@ import {
   startConsumer,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
+  BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION,
 } from '@nemo-network-indexer/kafka';
 import { MessageForwarder } from '../../src/lib/message-forwarder';
 import WebSocket from 'ws';
@@ -27,14 +28,24 @@ import {
   WebsocketEvents,
 } from '../../src/types';
 import { Admin } from 'kafkajs';
-import { SubaccountMessage, TradeMessage } from '@nemo-network-indexer/v4-protos';
-import { dbHelpers, testMocks, perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import { BlockHeightMessage, SubaccountMessage, TradeMessage } from '@nemo-network-indexer/v4-protos';
+import {
+  dbHelpers,
+  testMocks,
+  perpetualMarketRefresher,
+  blockHeightRefresher,
+} from '@nemo-network-indexer/postgres';
 import {
   btcClobPairId,
   btcTicker,
+  defaultChildAccNumber,
+  defaultChildAccNumber2,
+  defaultChildSubaccountId,
+  defaultChildSubaccountId2,
   defaultSubaccountId,
   ethClobPairId,
   ethTicker,
+  defaultBlockHeightMessage,
 } from '../constants';
 import _ from 'lodash';
 import { axiosRequest } from '../../src/lib/axios';
@@ -62,6 +73,16 @@ describe('message-forwarder', () => {
     contents: '{}',
     subaccountId: defaultSubaccountId,
     version: SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
+  };
+
+  const childSubaccountMessage: SubaccountMessage = {
+    ...baseSubaccountMessage,
+    subaccountId: defaultChildSubaccountId,
+  };
+
+  const childSubaccount2Message: SubaccountMessage = {
+    ...baseSubaccountMessage,
+    subaccountId: defaultChildSubaccountId2,
   };
 
   const btcTradesMessages: TradeMessage[] = [
@@ -123,16 +144,52 @@ describe('message-forwarder', () => {
     },
   ];
 
+  const childSubaccountMessages: SubaccountMessage[] = [
+    {
+      ...childSubaccountMessage,
+      contents: JSON.stringify({ val: '1' }),
+    },
+    {
+      ...childSubaccountMessage,
+      contents: JSON.stringify({ val: '2' }),
+    },
+  ];
+
+  const childSubaccount2Messages: SubaccountMessage[] = [
+    {
+      ...childSubaccount2Message,
+      contents: JSON.stringify({ val: '3' }),
+    },
+    {
+      ...childSubaccount2Message,
+      contents: JSON.stringify({ val: '4' }),
+    },
+  ];
+
+  // Interleave messages of different child subaccounts
+  const allChildSubaccountMessages: SubaccountMessage[] = [
+    childSubaccountMessages[0],
+    childSubaccount2Messages[0],
+    childSubaccountMessages[1],
+    childSubaccount2Messages[1],
+  ];
+
   const mockAxiosResponse: Object = { a: 'b' };
   const subaccountInitialMessage: Object = {
     ...mockAxiosResponse,
     orders: mockAxiosResponse,
+    blockHeight: '2',
   };
 
   beforeAll(async () => {
+    config.BATCH_PROCESSING_ENABLED = false;
+    await dbHelpers.clearData();
     await dbHelpers.migrate();
     await testMocks.seedData();
-    await perpetualMarketRefresher.updatePerpetualMarkets();
+    await Promise.all([
+      perpetualMarketRefresher.updatePerpetualMarkets(),
+      blockHeightRefresher.updateBlockHeight(),
+    ]);
     admin = kafka.admin();
     await Promise.all([
       connectToKafka(),
@@ -160,14 +217,14 @@ describe('message-forwarder', () => {
     await dbHelpers.teardown();
   });
 
-  beforeEach(async () => {
+  beforeEach(() => {
     jest.clearAllMocks();
 
-    config.WS_PORT += 1;
+    // Increment port with a large number to ensure it's not used for any other service.
+    config.WS_PORT += 1679;
     WS_HOST = `ws://localhost:${config.WS_PORT}`;
 
     wss = new Wss();
-    await wss.start();
     subscriptions = new Subscriptions();
     index = new Index(wss, subscriptions);
     (axiosRequest as jest.Mock).mockImplementation(() => (JSON.stringify(mockAxiosResponse)));
@@ -330,6 +387,94 @@ describe('message-forwarder', () => {
     });
   });
 
+  it('Batch sends subaccount messages to parent subaccount channel', (done: jest.DoneCallback) => {
+    const channel: Channel = Channel.V4_PARENT_ACCOUNTS;
+    const id: string = `${defaultSubaccountId.owner}/${defaultSubaccountId.number}`;
+
+    const messageForwarder: MessageForwarder = new MessageForwarder(subscriptions, index);
+    subscriptions.start(messageForwarder.forwardToClient);
+    messageForwarder.start();
+
+    const ws = new WebSocket(WS_HOST);
+    let connectionId: string;
+
+    ws.on(WebsocketEvents.MESSAGE, async (message) => {
+      const msg: OutgoingMessage = JSON.parse(message.toString()) as OutgoingMessage;
+      if (msg.message_id === 0) {
+        connectionId = msg.connection_id;
+      }
+
+      if (msg.message_id === 1) {
+        // Check that the initial message is correct.
+        checkInitialMessage(
+          msg as SubscribedMessage,
+          connectionId,
+          channel,
+          id,
+          subaccountInitialMessage,
+        );
+
+        // await each message to ensure they are sent in order
+        for (const subaccountMessage of allChildSubaccountMessages) {
+          await producer.send({
+            topic: WebsocketTopics.TO_WEBSOCKETS_SUBACCOUNTS,
+            messages: [{
+              value: Buffer.from(
+                Uint8Array.from(
+                  SubaccountMessage.encode(subaccountMessage).finish(),
+                ),
+              ),
+              partition: 0,
+              timestamp: `${Date.now()}`,
+            }],
+          });
+        }
+      }
+
+      if (msg.message_id === 2) {
+        const batchMsg: ChannelBatchDataMessage = JSON.parse(
+          message.toString(),
+        ) as ChannelBatchDataMessage;
+
+        checkBatchMessage(
+          batchMsg,
+          connectionId,
+          channel,
+          id,
+          SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
+          childSubaccountMessages,
+          defaultChildAccNumber,
+        );
+      }
+
+      if (msg.message_id === 3) {
+        const batchMsg: ChannelBatchDataMessage = JSON.parse(
+          message.toString(),
+        ) as ChannelBatchDataMessage;
+
+        checkBatchMessage(
+          batchMsg,
+          connectionId,
+          channel,
+          id,
+          SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
+          childSubaccount2Messages,
+          defaultChildAccNumber2,
+        );
+        done();
+      }
+    });
+
+    ws.on('open', () => {
+      ws.send(JSON.stringify({
+        type: IncomingMessageType.SUBSCRIBE,
+        channel,
+        id,
+        batched: true,
+      }));
+    });
+  });
+
   it('forwards messages', (done: jest.DoneCallback) => {
     const channel: Channel = Channel.V4_TRADES;
     const id: string = ethTicker;
@@ -403,6 +548,97 @@ describe('message-forwarder', () => {
       }));
     });
   });
+
+  it('forwards block height messages', (done: jest.DoneCallback) => {
+    const channel: Channel = Channel.V4_BLOCK_HEIGHT;
+    const id: string = 'v4_block_height';
+
+    const blockHeightMessage2 = {
+      ...defaultBlockHeightMessage,
+      blockHeight: '1',
+    };
+
+    const messageForwarder: MessageForwarder = new MessageForwarder(subscriptions, index);
+    subscriptions.start(messageForwarder.forwardToClient);
+    messageForwarder.start();
+
+    const ws = new WebSocket(WS_HOST);
+    let connectionId: string;
+
+    ws.on(WebsocketEvents.MESSAGE, async (message) => {
+      const msg: OutgoingMessage = JSON.parse(message.toString()) as OutgoingMessage;
+      if (msg.message_id === 0) {
+        connectionId = msg.connection_id;
+      }
+      if (msg.message_id === 1) {
+        // Check that the initial message is a Subscribe Message
+        checkInitialMessage(
+          msg as SubscribedMessage,
+          connectionId,
+          channel,
+          id,
+          mockAxiosResponse,
+        );
+
+        // Send a couple of block height messages
+        for (const blockHeightMessage of _.concat(
+          defaultBlockHeightMessage,
+          blockHeightMessage2,
+        )) {
+          await producer.send({
+            topic: WebsocketTopics.TO_WEBSOCKETS_BLOCK_HEIGHT,
+            messages: [{
+              value: Buffer.from(
+                Uint8Array.from(BlockHeightMessage.encode(blockHeightMessage).finish()),
+              ),
+              partition: 0,
+              timestamp: `${Date.now()}`,
+            }],
+          });
+        }
+      }
+
+      const forwardedMsg: ChannelDataMessage = JSON.parse(
+        message.toString(),
+      ) as ChannelDataMessage;
+
+      if (msg.message_id >= 2) {
+        expect(forwardedMsg.connection_id).toBe(connectionId);
+        expect(forwardedMsg.type).toBe(OutgoingMessageType.CHANNEL_DATA);
+        expect(forwardedMsg.channel).toBe(channel);
+        expect(forwardedMsg.id).toBe(id);
+        expect(forwardedMsg.version).toEqual(BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION);
+      }
+
+      if (msg.message_id === 2) {
+        expect(forwardedMsg.contents)
+          .toEqual(
+            {
+              blockHeight: defaultBlockHeightMessage.blockHeight,
+              time: defaultBlockHeightMessage.time,
+            });
+      }
+
+      if (msg.message_id === 3) {
+        expect(forwardedMsg.contents)
+          .toEqual(
+            {
+              blockHeight: blockHeightMessage2.blockHeight,
+              time: blockHeightMessage2.time,
+            });
+        done();
+      }
+    });
+
+    ws.on('open', () => {
+      ws.send(JSON.stringify({
+        type: IncomingMessageType.SUBSCRIBE,
+        channel,
+        id,
+        batched: false,
+      }));
+    });
+  });
 });
 
 function checkInitialMessage(
@@ -426,6 +662,7 @@ function checkBatchMessage(
   id: string,
   version: string,
   expectedMessages: {contents: string}[],
+  subaccountNumber?: number,
 ): void {
   expect(batchMsg.connection_id).toBe(connectionId);
   expect(batchMsg.type).toBe(OutgoingMessageType.CHANNEL_BATCH_DATA);
@@ -433,6 +670,7 @@ function checkBatchMessage(
   expect(batchMsg.id).toBe(id);
   expect(batchMsg.contents.length).toBe(expectedMessages.length);
   expect(batchMsg.version).toBe(version);
+  expect(batchMsg.subaccountNumber).toBe(subaccountNumber);
   batchMsg.contents.forEach(
     (individualMessage: Object, idx: number) => {
       expect(individualMessage).toEqual(JSON.parse(expectedMessages[idx].contents));

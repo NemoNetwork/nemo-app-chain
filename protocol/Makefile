@@ -231,7 +231,7 @@ test-unit-and-integration:
 	@VERSION=$(VERSION) go test -mod=readonly -tags='integration_test test_ledger_mock $(build_tags)' ./...
 
 benchmark:
-	@VERSION=$(VERSION) go test -mod=readonly -tags='$(build_tags)' -bench=. ./...
+	@VERSION=$(VERSION) go test -mod=readonly -tags='$(build_tags)' -run=^# -bench=. -benchtime=5s -benchmem ./...
 
 test-container: # run ./app/upgrades/v5.2.0 first to avoid resource conflict
 	@SKIP_DISABLED=true VERSION=$(VERSION) go test -mod=readonly -tags='container_test $(build_tags)' ./app/upgrades/v5.2.0
@@ -289,7 +289,7 @@ proto-download-deps:
 	mkdir -p "$(THIRD_PARTY_DIR)/cosmos_tmp" && \
 	cd "$(THIRD_PARTY_DIR)/cosmos_tmp" && \
 	git init && \
-	git remote add origin "https://github.com/cosmos/cosmos-sdk.git" && \
+	git remote add origin "https://github.com/nemo-network/cosmos-sdk.git" && \
 	git config core.sparseCheckout true && \
 	printf "proto\nthird_party\n" > .git/info/sparse-checkout && \
 	git pull origin main && \
@@ -366,13 +366,13 @@ localnet-init:
 
 localnet-compose-up:
 	@echo "Launching localnet at commit ${GIT_COMMIT_HASH}"
-	@docker build . -t local:nemo-network -f testing/testnet-local/Dockerfile --no-cache
-	@docker-compose -f docker-compose.yml up --force-recreate $(ARGS)
+	@docker build . -t local:dydxprotocol -f testing/testnet-local/Dockerfile --no-cache
+	@docker compose -f docker-compose.yml up --force-recreate $(ARGS)
 
 localnet-compose-upd:
 	@echo "Launching localnet at commit ${GIT_COMMIT_HASH}"
-	@docker build . -t local:nemo-network -f testing/testnet-local/Dockerfile --no-cache
-	@docker-compose -f docker-compose.yml up --force-recreate -d $(ARGS)
+	@docker build . -t local:dydxprotocol -f testing/testnet-local/Dockerfile --no-cache
+	@docker compose -f docker-compose.yml up --force-recreate -d $(ARGS)
 
 build-e2etest-image:
 	@echo "Build e2e test image at commit ${GIT_COMMIT_HASH}"
@@ -385,10 +385,10 @@ e2etest-build-image: localnet-init build-e2etest-image
 
 # Continue the localnet with the same chain state.
 localnet-continue:
-	@docker-compose -f docker-compose.yml up $(ARGS)
+	@docker compose -f docker-compose.yml up $(ARGS)
 
 localnet-stop:
-	@docker-compose -f docker-compose.yml down
+	@docker compose -f docker-compose.yml down
 
 .PHONY: all build-linux install format lint \
 	go-mod-cache draw-deps clean build build-contract-tests-hooks \
@@ -423,6 +423,6 @@ update-sample-pregenesis:
 check-sample-pregenesis-up-to-date:
 	$(MAKE) localnet-build
 	@docker build . -t check-sample-pregenesis -f scripts/genesis/Dockerfile --no-cache
-	@docker run -v $(CURDIR):/workspace check-sample-pregenesis 
+	@docker run -v $(CURDIR):/workspace check-sample-pregenesis
 
 .PHONY: update-sample-pregenesis check-sample-pregenesis-up-to-date

@@ -3,13 +3,18 @@ package simulation
 // DONTCOVER
 
 import (
+	"fmt"
 	"math/rand"
 
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/marketmap"
 	"github.com/nemo-network/v4-chain/protocol/testutil/sim_helpers"
 	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	marketmaptypes "github.com/skip-mev/slinky/x/marketmap/types"
 )
 
 // genNumMarkets returns randomized num markets.
@@ -40,8 +45,12 @@ func genMarketExponent(r *rand.Rand, isReasonableGenesis bool) int {
 }
 
 // genMarketName return randomized market name.
-func genMarketName(r *rand.Rand) string {
-	return simtypes.RandStringOfLength(r, simtypes.RandIntBetween(r, 3, 6)) + "-USD"
+func genMarketName(r *rand.Rand, existingMarketNames map[string]bool) string {
+	marketName := simtypes.RandStringOfLength(r, simtypes.RandIntBetween(r, 3, 6)) + "-USD"
+	for existingMarketNames[marketName] {
+		marketName = simtypes.RandStringOfLength(r, simtypes.RandIntBetween(r, 3, 6)) + "-USD"
+	}
+	return marketName
 }
 
 // genMarketPrice returns randomized market price.
@@ -63,7 +72,12 @@ func RandomizedGenState(simState *module.SimulationState) {
 	marketParams := make([]types.MarketParam, numMarkets)
 	marketPrices := make([]types.MarketPrice, numMarkets)
 
+	marketNames := make(map[string]bool)
+
 	for i := 0; i < numMarkets; i++ {
+		marketName := genMarketName(r, marketNames)
+		marketNames[marketName] = true
+
 		var minExchanges = genMinExchanges(r, isReasonableGenesis)
 		if minExchanges < minExchangesPerMarket {
 			minExchanges = minExchangesPerMarket
@@ -71,14 +85,25 @@ func RandomizedGenState(simState *module.SimulationState) {
 
 		marketExponent := genMarketExponent(r, isReasonableGenesis)
 
+		exchangeJsonTemplate := `{"exchanges":[
+			{"exchangeName":"Binance","ticker":"\"%[1]s\""},
+			{"exchangeName":"Bitfinex","ticker":"%[1]s"},
+			{"exchangeName":"CoinbasePro","ticker":"%[1]s"},
+			{"exchangeName":"Gate","ticker":"%[1]s"},
+			{"exchangeName":"Huobi","ticker":"%[1]s"},
+			{"exchangeName":"Kraken","ticker":"%[1]s"},
+			{"exchangeName":"Okx","ticker":"%[1]s"}
+		]}`
+		exchangeJson := fmt.Sprintf(exchangeJsonTemplate, marketName)
+
 		marketParams[i] = types.MarketParam{
 			Id:                uint32(i),
-			Pair:              genMarketName(r),
+			Pair:              marketName,
 			Exponent:          int32(marketExponent),
 			MinExchanges:      uint32(minExchanges),
 			MinPriceChangePpm: uint32(simtypes.RandIntBetween(r, 1, int(lib.MaxPriceChangePpm))),
-			// The simulation tests don't run the daemon currently so we pass in empty exchange config.
-			ExchangeConfigJson: "{}",
+			// x/marketmap expects at least as many valid exchange names defined as the value of MinExchanges.
+			ExchangeConfigJson: exchangeJson,
 		}
 		marketPrices[i] = types.MarketPrice{
 			Id:       uint32(i),
@@ -87,10 +112,20 @@ func RandomizedGenState(simState *module.SimulationState) {
 		}
 	}
 
+	var GovAuthority = authtypes.NewModuleAddress(govtypes.ModuleName).String()
+	marketMap, _ := marketmap.ConstructMarketMapFromParams(marketParams)
+	marketmapGenesis := marketmaptypes.GenesisState{
+		MarketMap: marketMap,
+		Params: marketmaptypes.Params{
+			MarketAuthorities: []string{GovAuthority},
+			Admin:             GovAuthority,
+		},
+	}
 	pricesGenesis := types.GenesisState{
 		MarketParams: marketParams,
 		MarketPrices: marketPrices,
 	}
 
+	simState.GenState[marketmaptypes.ModuleName] = simState.Cdc.MustMarshalJSON(&marketmapGenesis)
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&pricesGenesis)
 }

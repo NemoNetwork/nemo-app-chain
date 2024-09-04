@@ -56,7 +56,11 @@ func (k Keeper) GetValidMarketPriceUpdates(
 	}
 
 	// 2. Get all index prices from in-memory cache.
-	allIndexPrices := k.indexPriceCache.GetValidMedianPrices(allMarketParams, k.timeProvider.Now())
+	allIndexPrices := k.indexPriceCache.GetValidMedianPrices(
+		k.Logger(ctx),
+		allMarketParams,
+		k.timeProvider.Now(),
+	)
 
 	// 3. Collect all "valid" price updates.
 	updates := make([]*types.MsgUpdateMarketPrices_MarketPrice, 0, len(allMarketParamPrices))
@@ -70,12 +74,7 @@ func (k Keeper) GetValidMarketPriceUpdates(
 		// Skip proposal logic in the event of invalid inputs, which is only likely to occur around network genesis.
 		if !indexPriceExists {
 			metrics.IncrCountMetricWithLabels(types.ModuleName, metrics.IndexPriceDoesNotExist, marketMetricsLabel)
-			// Conditionally log missing index prices at least 20s after genesis/restart/market creation. We expect that
-			// there will be a delay in populating index prices after network genesis or a network restart, or when a
-			// market is created, it takes the daemon some time to warm up.
-			if !k.IsRecentlyAvailable(ctx, marketId) {
-				nonExistentMarkets = append(nonExistentMarkets, marketId)
-			}
+			nonExistentMarkets = append(nonExistentMarkets, marketId)
 			continue
 		}
 		if len(nonExistentMarkets) > 0 {
@@ -128,6 +127,13 @@ func (k Keeper) GetValidMarketPriceUpdates(
 				},
 			)
 		}
+	}
+
+	if len(nonExistentMarkets) > 0 {
+		ctx.Logger().Warn(
+			"Index price for markets does not exist, marketIds: %v",
+			nonExistentMarkets,
+		)
 	}
 
 	// 4. Sort price updates by market id in ascending order.

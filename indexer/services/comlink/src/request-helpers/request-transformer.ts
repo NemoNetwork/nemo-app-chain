@@ -20,19 +20,20 @@ import {
   PositionSide,
   protocolTranslations,
   SubaccountFromDatabase,
+  SubaccountUsernamesFromDatabase,
   SubaccountTable,
   TimeInForce,
   TradingRewardAggregationFromDatabase,
   TradingRewardFromDatabase,
   TransferFromDatabase,
   TransferType,
-} from '@nemo-network-indexer/postgres';
-import { OrderbookLevels, PriceLevel } from '@nemo-network-indexer/redis';
-import { RedisOrder } from '@nemo-network-indexer/v4-protos';
+  parentSubaccountHelpers,
+} from '@nemo_network-indexer/postgres';
+import { OrderbookLevels, PriceLevel } from '@nemo_network-indexer/redis';
+import { RedisOrder } from '@nemo_network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 
-import { getParentSubaccountNum } from '../lib/helpers';
 import {
   AssetById,
   AssetPositionResponseObject,
@@ -58,6 +59,7 @@ import {
   SubaccountResponseObject,
   TradeResponseObject,
   TransferResponseObject,
+  TraderSearchResponse,
 } from '../types';
 
 /**
@@ -73,6 +75,7 @@ export function perpetualPositionToResponseObject(
   position: PerpetualPositionWithFunding,
   perpetualMarketsMap: PerpetualMarketsMap,
   marketsMap: MarketsMap,
+  subaccountNumber: number,
 ): PerpetualPositionResponseObject {
   // Realized pnl is calculated from the difference in price between the average entry/exit price
   // (order depending on side of the position) multiplied by amount of the position that was closed
@@ -96,7 +99,8 @@ export function perpetualPositionToResponseObject(
     exitPrice: position.exitPrice && Big(position.exitPrice).toFixed(),
     realizedPnl,
     unrealizedPnl: helpers.getUnrealizedPnl(
-      position, perpetualMarketsMap[position.perpetualId], marketsMap,
+      position, perpetualMarketsMap[position.perpetualId],
+      marketsMap[perpetualMarketsMap[position.perpetualId].marketId],
     ),
     createdAt: position.createdAt,
     createdAtHeight: position.createdAtHeight,
@@ -104,6 +108,7 @@ export function perpetualPositionToResponseObject(
     sumOpen: position.sumOpen,
     sumClose: position.sumClose,
     netFunding: netFunding.toFixed(),
+    subaccountNumber,
   };
 }
 
@@ -242,12 +247,15 @@ export function transferToParentSubaccountResponseObject(
 
   const senderParentSubaccountNum = transfer.senderWalletAddress
     ? undefined
-    : getParentSubaccountNum(subaccountMap[transfer.senderSubaccountId!].subaccountNumber,
+    : parentSubaccountHelpers.getParentSubaccountNum(
+      subaccountMap[transfer.senderSubaccountId!].subaccountNumber,
     );
 
   const recipientParentSubaccountNum = transfer.recipientWalletAddress
     ? undefined
-    : getParentSubaccountNum(subaccountMap[transfer.recipientSubaccountId!].subaccountNumber);
+    : parentSubaccountHelpers.getParentSubaccountNum(
+      subaccountMap[transfer.recipientSubaccountId!].subaccountNumber,
+    );
 
   // Determine transfer type based on parent subaccount number.
   let transferType: TransferType = TransferType.TRANSFER_IN;
@@ -301,16 +309,32 @@ export function pnlTicksToResponseObject(
   };
 }
 
+export function subaccountInfoToTraderSearchResponse(
+  subaccount: SubaccountFromDatabase,
+  subaccountUsername: SubaccountUsernamesFromDatabase,
+): TraderSearchResponse {
+  return {
+    result: {
+      address: subaccount.address,
+      subaccountNumber: subaccount.subaccountNumber,
+      subaccountId: subaccount.id,
+      username: subaccountUsername.username,
+    },
+  };
+}
+
 export function subaccountToResponseObject({
   subaccount,
   equity,
   freeCollateral,
+  latestBlockHeight,
   openPerpetualPositions = {},
   assetPositions = {},
 }: {
   subaccount: SubaccountFromDatabase,
   equity: string,
   freeCollateral: string,
+  latestBlockHeight: string,
   openPerpetualPositions: PerpetualPositionsMap,
   assetPositions: AssetPositionsMap,
 }): SubaccountResponseObject {
@@ -323,6 +347,8 @@ export function subaccountToResponseObject({
     assetPositions,
     // TODO(DEC-687): Track `marginEnabled` for subaccounts.
     marginEnabled: true,
+    updatedAtHeight: subaccount.updatedAtHeight,
+    latestProcessedBlockHeight: latestBlockHeight,
   };
 }
 
@@ -389,6 +415,7 @@ function OrderbookPriceLevelsToResponsePriceLevels(
 export function mergePostgresAndRedisOrdersToResponseObjects(
   postgresOrderMap: PostgresOrderMap,
   redisOrderMap: RedisOrderMap,
+  subaccountIdToNumber: Record<string, number>,
 ): OrderResponseObject[] {
   const orderIds: string[] = _.uniq(
     Object.keys(redisOrderMap).concat(Object.keys(postgresOrderMap)),
@@ -397,6 +424,7 @@ export function mergePostgresAndRedisOrdersToResponseObjects(
   return _.map(orderIds, (orderId: string) => {
     return postgresAndRedisOrderToResponseObject(
       postgresOrderMap[orderId],
+      subaccountIdToNumber,
       redisOrderMap[orderId],
     ) as OrderResponseObject;
   });
@@ -409,11 +437,13 @@ export function mergePostgresAndRedisOrdersToResponseObjects(
  * If both postgres and redis are defined, then generate the response object from postgresOrder
  * and override the size, price, and goodTilBlock fields with the redisOrder.
  * @param postgresOrder
+ * @param subaccountIdToNumber
  * @param redisOrder
  * @returns
  */
 export function postgresAndRedisOrderToResponseObject(
   postgresOrder: OrderFromDatabase | undefined,
+  subaccountIdToNumber: Record<string, number>,
   redisOrder?: RedisOrder | null,
 ): OrderResponseObject | undefined {
   if (postgresOrder === undefined) {
@@ -424,7 +454,10 @@ export function postgresAndRedisOrderToResponseObject(
     return redisOrderToResponseObject(redisOrder);
   }
 
-  const orderResponse: OrderResponseObject = postgresOrderToResponseObject(postgresOrder);
+  const orderResponse: OrderResponseObject = postgresOrderToResponseObject(
+    postgresOrder,
+    subaccountIdToNumber[postgresOrder.subaccountId],
+  );
   if (redisOrder === null || redisOrder === undefined) {
     return orderResponse;
   }
@@ -446,6 +479,7 @@ export function postgresAndRedisOrderToResponseObject(
 
 export function postgresOrderToResponseObject(
   order: OrderFromDatabase,
+  subaccountNumber: number,
 ): OrderResponseObject {
   return {
     ...order,
@@ -456,6 +490,7 @@ export function postgresOrderToResponseObject(
     createdAtHeight: order.createdAtHeight ?? undefined,
     ticker: perpetualMarketRefresher.getPerpetualMarketTicker(order.clobPairId)!,
     triggerPrice: order.triggerPrice ?? undefined,
+    subaccountNumber,
   };
 }
 
@@ -486,6 +521,7 @@ export function redisOrderToResponseObject(
     ticker: perpetualMarketRefresher.getPerpetualMarketTicker(clobPairId)!,
     orderFlags: redisOrder.order!.orderId!.orderFlags.toString(),
     clientMetadata: redisOrder.order!.clientMetadata.toString(),
+    subaccountNumber: redisOrder.order!.orderId!.subaccountId!.number,
   };
 }
 

@@ -13,11 +13,6 @@ type VaultKeeper interface {
 		ctx sdk.Context,
 		vaultId VaultId,
 	) (orders []*clobtypes.Order, err error)
-	GetVaultClobOrderClientId(
-		ctx sdk.Context,
-		side clobtypes.Order_Side,
-		layer uint8,
-	) uint32
 	RefreshAllVaultOrders(ctx sdk.Context)
 	RefreshVaultClobOrders(
 		ctx sdk.Context,
@@ -25,12 +20,12 @@ type VaultKeeper interface {
 	) (err error)
 
 	// Params.
-	GetParams(
+	GetDefaultQuotingParams(
 		ctx sdk.Context,
-	) Params
-	SetParams(
+	) QuotingParams
+	SetDefaultQuotingParams(
 		ctx sdk.Context,
-		params Params,
+		params QuotingParams,
 	) error
 
 	// Shares.

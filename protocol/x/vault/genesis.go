@@ -10,31 +10,35 @@ import (
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	k.InitializeForGenesis(ctx)
 
-	// Set params.
-	if err := k.SetParams(ctx, genState.Params); err != nil {
+	// Set default quoting params.
+	if err := k.SetDefaultQuotingParams(ctx, genState.DefaultQuotingParams); err != nil {
 		panic(err)
 	}
-	// For each vault:
-	// 1. Set total shares
-	// 2. Set owner shares
-	// 3. Set vault params
-	// 4. Add to address store
-	for _, vault := range genState.Vaults {
-		if err := k.SetTotalShares(ctx, *vault.VaultId, *vault.TotalShares); err != nil {
+	// Set total shares, owner shares, and locked shares.
+	if err := k.SetTotalShares(ctx, genState.TotalShares); err != nil {
+		panic(err)
+	}
+	for _, ownerShares := range genState.OwnerShares {
+		if err := k.SetOwnerShares(ctx, ownerShares.Owner, ownerShares.Shares); err != nil {
 			panic(err)
 		}
-		for _, ownerShares := range vault.OwnerShares {
-			if err := k.SetOwnerShares(ctx, *vault.VaultId, ownerShares.Owner, *ownerShares.Shares); err != nil {
-				panic(err)
-			}
+	}
+	for _, ownerShareUnlocks := range genState.AllOwnerShareUnlocks {
+		if err := k.SetOwnerShareUnlocks(ctx, ownerShareUnlocks.OwnerAddress, ownerShareUnlocks); err != nil {
+			panic(err)
 		}
-		if vault.VaultParams != nil {
-			if err := k.SetVaultParams(ctx, *vault.VaultId, *vault.VaultParams); err != nil {
-				panic(err)
-			}
+	}
+
+	// For each vault:
+	// 1. Set vault params
+	// 2. Set most recent client ids
+	// 3. Add to address store
+	for _, vault := range genState.Vaults {
+		if err := k.SetVaultParams(ctx, vault.VaultId, vault.VaultParams); err != nil {
+			panic(err)
 		}
-		k.SetMostRecentClientIds(ctx, *vault.VaultId, vault.MostRecentClientIds)
-		k.AddVaultToAddressStore(ctx, *vault.VaultId)
+		k.SetMostRecentClientIds(ctx, vault.VaultId, vault.MostRecentClientIds)
+		k.AddVaultToAddressStore(ctx, vault.VaultId)
 	}
 }
 
@@ -42,8 +46,16 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
+	// Export total shares, owner shares, and locked shares.
+	genesis.TotalShares = k.GetTotalShares(ctx)
+	genesis.OwnerShares = k.GetAllOwnerShares(ctx)
+	genesis.AllOwnerShareUnlocks = k.GetAllOwnerShareUnlocks(ctx)
+
 	// Export params.
-	genesis.Params = k.GetParams(ctx)
+	genesis.DefaultQuotingParams = k.GetDefaultQuotingParams(ctx)
+
+	// Export vaults.
+	genesis.Vaults = k.GetAllVaults(ctx)
 
 	// Export vaults.
 	genesis.Vaults = k.GetAllVaults(ctx)

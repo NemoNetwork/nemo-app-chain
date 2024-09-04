@@ -22,34 +22,22 @@ type ClobKeeper struct {
 	mock.Mock
 }
 
-// AddOrderToOrderbookSubaccountUpdatesCheck provides a mock function with given fields: ctx, clobPairId, subaccountOpenOrders
-func (_m *ClobKeeper) AddOrderToOrderbookSubaccountUpdatesCheck(ctx types.Context, clobPairId clobtypes.ClobPairId, subaccountOpenOrders map[subaccountstypes.SubaccountId][]clobtypes.PendingOpenOrder) (bool, map[subaccountstypes.SubaccountId]subaccountstypes.UpdateResult) {
-	ret := _m.Called(ctx, clobPairId, subaccountOpenOrders)
+// AddOrderToOrderbookSubaccountUpdatesCheck provides a mock function with given fields: ctx, subaccountId, order
+func (_m *ClobKeeper) AddOrderToOrderbookSubaccountUpdatesCheck(ctx types.Context, subaccountId subaccountstypes.SubaccountId, order clobtypes.PendingOpenOrder) subaccountstypes.UpdateResult {
+	ret := _m.Called(ctx, subaccountId, order)
 
 	if len(ret) == 0 {
 		panic("no return value specified for AddOrderToOrderbookSubaccountUpdatesCheck")
 	}
 
-	var r0 bool
-	var r1 map[subaccountstypes.SubaccountId]subaccountstypes.UpdateResult
-	if rf, ok := ret.Get(0).(func(types.Context, clobtypes.ClobPairId, map[subaccountstypes.SubaccountId][]clobtypes.PendingOpenOrder) (bool, map[subaccountstypes.SubaccountId]subaccountstypes.UpdateResult)); ok {
-		return rf(ctx, clobPairId, subaccountOpenOrders)
-	}
-	if rf, ok := ret.Get(0).(func(types.Context, clobtypes.ClobPairId, map[subaccountstypes.SubaccountId][]clobtypes.PendingOpenOrder) bool); ok {
-		r0 = rf(ctx, clobPairId, subaccountOpenOrders)
+	var r0 subaccountstypes.UpdateResult
+	if rf, ok := ret.Get(0).(func(types.Context, subaccountstypes.SubaccountId, clobtypes.PendingOpenOrder) subaccountstypes.UpdateResult); ok {
+		r0 = rf(ctx, subaccountId, order)
 	} else {
-		r0 = ret.Get(0).(bool)
+		r0 = ret.Get(0).(subaccountstypes.UpdateResult)
 	}
 
-	if rf, ok := ret.Get(1).(func(types.Context, clobtypes.ClobPairId, map[subaccountstypes.SubaccountId][]clobtypes.PendingOpenOrder) map[subaccountstypes.SubaccountId]subaccountstypes.UpdateResult); ok {
-		r1 = rf(ctx, clobPairId, subaccountOpenOrders)
-	} else {
-		if ret.Get(1) != nil {
-			r1 = ret.Get(1).(map[subaccountstypes.SubaccountId]subaccountstypes.UpdateResult)
-		}
-	}
-
-	return r0, r1
+	return r0
 }
 
 // BatchCancelShortTermOrder provides a mock function with given fields: ctx, msg
@@ -718,8 +706,8 @@ func (_m *ClobKeeper) InitializeEquityTierLimit(ctx types.Context, config clobty
 	return r0
 }
 
-// InitializeNewGrpcStreams provides a mock function with given fields: ctx
-func (_m *ClobKeeper) InitializeNewGrpcStreams(ctx types.Context) {
+// InitializeNewStreams provides a mock function with given fields: ctx
+func (_m *ClobKeeper) InitializeNewStreams(ctx types.Context) {
 	_m.Called(ctx)
 }
 
@@ -1012,7 +1000,7 @@ func (_m *ClobKeeper) ProcessProposerOperations(ctx types.Context, operations []
 }
 
 // ProcessSingleMatch provides a mock function with given fields: ctx, matchWithOrders
-func (_m *ClobKeeper) ProcessSingleMatch(ctx types.Context, matchWithOrders *clobtypes.MatchWithOrders) (bool, subaccountstypes.UpdateResult, subaccountstypes.UpdateResult, *clobtypes.OffchainUpdates, error) {
+func (_m *ClobKeeper) ProcessSingleMatch(ctx types.Context, matchWithOrders *clobtypes.MatchWithOrders) (bool, subaccountstypes.UpdateResult, subaccountstypes.UpdateResult, error) {
 	ret := _m.Called(ctx, matchWithOrders)
 
 	if len(ret) == 0 {
@@ -1022,9 +1010,8 @@ func (_m *ClobKeeper) ProcessSingleMatch(ctx types.Context, matchWithOrders *clo
 	var r0 bool
 	var r1 subaccountstypes.UpdateResult
 	var r2 subaccountstypes.UpdateResult
-	var r3 *clobtypes.OffchainUpdates
-	var r4 error
-	if rf, ok := ret.Get(0).(func(types.Context, *clobtypes.MatchWithOrders) (bool, subaccountstypes.UpdateResult, subaccountstypes.UpdateResult, *clobtypes.OffchainUpdates, error)); ok {
+	var r3 error
+	if rf, ok := ret.Get(0).(func(types.Context, *clobtypes.MatchWithOrders) (bool, subaccountstypes.UpdateResult, subaccountstypes.UpdateResult, error)); ok {
 		return rf(ctx, matchWithOrders)
 	}
 	if rf, ok := ret.Get(0).(func(types.Context, *clobtypes.MatchWithOrders) bool); ok {
@@ -1045,21 +1032,13 @@ func (_m *ClobKeeper) ProcessSingleMatch(ctx types.Context, matchWithOrders *clo
 		r2 = ret.Get(2).(subaccountstypes.UpdateResult)
 	}
 
-	if rf, ok := ret.Get(3).(func(types.Context, *clobtypes.MatchWithOrders) *clobtypes.OffchainUpdates); ok {
+	if rf, ok := ret.Get(3).(func(types.Context, *clobtypes.MatchWithOrders) error); ok {
 		r3 = rf(ctx, matchWithOrders)
 	} else {
-		if ret.Get(3) != nil {
-			r3 = ret.Get(3).(*clobtypes.OffchainUpdates)
-		}
+		r3 = ret.Error(3)
 	}
 
-	if rf, ok := ret.Get(4).(func(types.Context, *clobtypes.MatchWithOrders) error); ok {
-		r4 = rf(ctx, matchWithOrders)
-	} else {
-		r4 = ret.Error(4)
-	}
-
-	return r0, r1, r2, r3, r4
+	return r0, r1, r2, r3
 }
 
 // PruneStateFillAmountsForShortTermOrders provides a mock function with given fields: ctx

@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"testing"
+
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/gogoproto/proto"
-	"testing"
 
 	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
 	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
@@ -56,7 +57,16 @@ func AssetsKeepers(
 		transientStoreKey storetypes.StoreKey,
 	) []GenesisInitializer {
 		// Define necessary keepers here for unit tests
-		pricesKeeper, _, _, mockTimeProvider = createPricesKeeper(stateStore, db, cdc, transientStoreKey)
+		revShareKeeper, _, _ := createRevShareKeeper(stateStore, db, cdc)
+		marketMapKeeper, _ := createMarketMapKeeper(stateStore, db, cdc)
+		pricesKeeper, _, _, mockTimeProvider = createPricesKeeper(
+			stateStore,
+			db,
+			cdc,
+			transientStoreKey,
+			revShareKeeper,
+			marketMapKeeper,
+		)
 		accountKeeper, _ = createAccountKeeper(stateStore, db, cdc, registry)
 		bankKeeper, _ = createBankKeeper(stateStore, db, cdc, accountKeeper)
 		keeper, storeKey = createAssetsKeeper(stateStore, db, cdc, pricesKeeper, transientStoreKey, msgSenderEnabled)

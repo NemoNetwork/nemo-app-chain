@@ -1,0 +1,7 @@
+syntax = "proto3";
+package nemo-network.affiliates;
+
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/affiliates/types";
+
+// GenesisState defines generis state of `x/affiliates`
+message GenesisState {}

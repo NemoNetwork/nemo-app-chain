@@ -40,6 +40,10 @@ export async function complianceAndGeoCheck(
   }
 
   const { address }: AddressRequest = matchedData(req) as AddressRequest;
+  if (isWhitelistedAddress(address)) {
+    return next();
+  }
+
   if (address !== undefined) {
     const updatedStatus: ComplianceStatusFromDatabase[] = await ComplianceStatusTable.findAll(
       { address: [address] },
@@ -47,7 +51,9 @@ export async function complianceAndGeoCheck(
       { readReplica: true },
     );
     if (updatedStatus.length > 0) {
-      if (updatedStatus[0].status === ComplianceStatus.CLOSE_ONLY) {
+      if (updatedStatus[0].status === ComplianceStatus.CLOSE_ONLY ||
+        updatedStatus[0].status === ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY
+      ) {
         return next();
       } else if (updatedStatus[0].status === ComplianceStatus.BLOCKED) {
         return create4xxResponse(

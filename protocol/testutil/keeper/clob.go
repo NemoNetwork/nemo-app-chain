@@ -14,7 +14,7 @@ import (
 	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
 	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/nemo-network/v4-chain/protocol/mocks"
-	streaming "github.com/nemo-network/v4-chain/protocol/streaming/grpc"
+	streaming "github.com/nemo-network/v4-chain/protocol/streaming"
 	clobtest "github.com/nemo-network/v4-chain/protocol/testutil/clob"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	asskeeper "github.com/nemo-network/v4-chain/protocol/x/assets/keeper"
@@ -32,12 +32,14 @@ import (
 	subkeeper "github.com/nemo-network/v4-chain/protocol/x/subaccounts/keeper"
 	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	vaultkeeper "github.com/nemo-network/v4-chain/protocol/x/vault/keeper"
+	marketmapkeeper "github.com/skip-mev/slinky/x/marketmap/keeper"
 	"github.com/stretchr/testify/require"
 )
 
 type ClobKeepersTestContext struct {
 	Ctx               sdk.Context
 	ClobKeeper        *keeper.Keeper
+	MarketMapKeeper   *marketmapkeeper.Keeper
 	PricesKeeper      *priceskeeper.Keeper
 	AssetsKeeper      *asskeeper.Keeper
 	BlockTimeKeeper   *blocktimekeeper.Keeper
@@ -81,7 +83,16 @@ func NewClobKeepersTestContextWithUninitializedMemStore(
 		indexerEventsTransientStoreKey storetypes.StoreKey,
 	) []GenesisInitializer {
 		// Define necessary keepers here for unit tests
-		ks.PricesKeeper, _, _, mockTimeProvider = createPricesKeeper(stateStore, db, cdc, indexerEventsTransientStoreKey)
+		revShareKeeper, _, _ := createRevShareKeeper(stateStore, db, cdc)
+		ks.MarketMapKeeper, _ = createMarketMapKeeper(stateStore, db, cdc)
+		ks.PricesKeeper, _, _, mockTimeProvider = createPricesKeeper(
+			stateStore,
+			db,
+			cdc,
+			indexerEventsTransientStoreKey,
+			revShareKeeper,
+			ks.MarketMapKeeper,
+		)
 		// Mock time provider response for market creation.
 		mockTimeProvider.On("Now").Return(constants.TimeT)
 		epochsKeeper, _ := createEpochsKeeper(stateStore, db, cdc)
@@ -139,6 +150,7 @@ func NewClobKeepersTestContextWithUninitializedMemStore(
 			bankKeeper,
 			ks.PerpetualsKeeper,
 			ks.BlockTimeKeeper,
+			revShareKeeper,
 			indexerEventsTransientStoreKey,
 			true,
 		)
@@ -162,6 +174,7 @@ func NewClobKeepersTestContextWithUninitializedMemStore(
 		ks.Cdc = cdc
 
 		return []GenesisInitializer{
+			ks.MarketMapKeeper,
 			ks.PricesKeeper,
 			ks.PerpetualsKeeper,
 			ks.AssetsKeeper,
@@ -236,7 +249,7 @@ func createClobKeeper(
 }
 
 func CreateTestClobPairs(
-	t *testing.T,
+	t testing.TB,
 	ctx sdk.Context,
 	clobKeeper *keeper.Keeper,
 	clobPairs []types.ClobPair,
@@ -256,7 +269,7 @@ func CreateTestClobPairs(
 }
 
 func CreateNClobPair(
-	t *testing.T,
+	t testing.TB,
 	keeper *keeper.Keeper,
 	perpKeeper *perpkeeper.Keeper,
 	pricesKeeper *priceskeeper.Keeper,

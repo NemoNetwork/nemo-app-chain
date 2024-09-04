@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"sync/atomic"
 
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+
 	"cosmossdk.io/log"
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
@@ -14,7 +16,7 @@ import (
 	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
 	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
-	streamingtypes "github.com/nemo-network/v4-chain/protocol/streaming/grpc/types"
+	streamingtypes "github.com/nemo-network/v4-chain/protocol/streaming/types"
 	flags "github.com/nemo-network/v4-chain/protocol/x/clob/flags"
 	"github.com/nemo-network/v4-chain/protocol/x/clob/rate_limit"
 	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
@@ -28,9 +30,8 @@ type (
 		transientStoreKey storetypes.StoreKey
 		authorities       map[string]struct{}
 
-		MemClob                      types.MemClob
-		UntriggeredConditionalOrders map[types.ClobPairId]*UntriggeredConditionalOrders
-		PerpetualIdToClobPairId      map[uint32][]types.ClobPairId
+		MemClob                 types.MemClob
+		PerpetualIdToClobPairId map[uint32][]types.ClobPairId
 
 		subaccountsKeeper types.SubaccountsKeeper
 		assetsKeeper      types.AssetsKeeper
@@ -43,7 +44,7 @@ type (
 		rewardsKeeper     types.RewardsKeeper
 
 		indexerEventManager indexer_manager.IndexerEventManager
-		streamingManager    streamingtypes.GrpcStreamingManager
+		streamingManager    streamingtypes.FullNodeStreamingManager
 
 		initialized         *atomic.Bool
 		memStoreInitialized *atomic.Bool
@@ -85,35 +86,34 @@ func NewKeeper(
 	statsKeeper types.StatsKeeper,
 	rewardsKeeper types.RewardsKeeper,
 	indexerEventManager indexer_manager.IndexerEventManager,
-	grpcStreamingManager streamingtypes.GrpcStreamingManager,
+	streamingManager streamingtypes.FullNodeStreamingManager,
 	txDecoder sdk.TxDecoder,
 	clobFlags flags.ClobFlags,
 	placeCancelOrderRateLimiter rate_limit.RateLimiter[sdk.Msg],
 	daemonLiquidationInfo *liquidationtypes.DaemonLiquidationInfo,
 ) *Keeper {
 	keeper := &Keeper{
-		cdc:                          cdc,
-		storeKey:                     storeKey,
-		memKey:                       memKey,
-		transientStoreKey:            liquidationsStoreKey,
-		authorities:                  lib.UniqueSliceToSet(authorities),
-		MemClob:                      memClob,
-		UntriggeredConditionalOrders: make(map[types.ClobPairId]*UntriggeredConditionalOrders),
-		PerpetualIdToClobPairId:      make(map[uint32][]types.ClobPairId),
-		subaccountsKeeper:            subaccountsKeeper,
-		assetsKeeper:                 assetsKeeper,
-		blockTimeKeeper:              blockTimeKeeper,
-		bankKeeper:                   bankKeeper,
-		feeTiersKeeper:               feeTiersKeeper,
-		perpetualsKeeper:             perpetualsKeeper,
-		pricesKeeper:                 pricesKeeper,
-		statsKeeper:                  statsKeeper,
-		rewardsKeeper:                rewardsKeeper,
-		indexerEventManager:          indexerEventManager,
-		streamingManager:             grpcStreamingManager,
-		memStoreInitialized:          &atomic.Bool{}, // False by default.
-		initialized:                  &atomic.Bool{}, // False by default.
-		txDecoder:                    txDecoder,
+		cdc:                     cdc,
+		storeKey:                storeKey,
+		memKey:                  memKey,
+		transientStoreKey:       liquidationsStoreKey,
+		authorities:             lib.UniqueSliceToSet(authorities),
+		MemClob:                 memClob,
+		PerpetualIdToClobPairId: make(map[uint32][]types.ClobPairId),
+		subaccountsKeeper:       subaccountsKeeper,
+		assetsKeeper:            assetsKeeper,
+		blockTimeKeeper:         blockTimeKeeper,
+		bankKeeper:              bankKeeper,
+		feeTiersKeeper:          feeTiersKeeper,
+		perpetualsKeeper:        perpetualsKeeper,
+		pricesKeeper:            pricesKeeper,
+		statsKeeper:             statsKeeper,
+		rewardsKeeper:           rewardsKeeper,
+		indexerEventManager:     indexerEventManager,
+		streamingManager:        streamingManager,
+		memStoreInitialized:     &atomic.Bool{}, // False by default.
+		initialized:             &atomic.Bool{}, // False by default.
+		txDecoder:               txDecoder,
 		mevTelemetryConfig: MevTelemetryConfig{
 			Enabled:    clobFlags.MevTelemetryEnabled,
 			Hosts:      clobFlags.MevTelemetryHosts,
@@ -140,7 +140,7 @@ func (k Keeper) GetIndexerEventManager() indexer_manager.IndexerEventManager {
 	return k.indexerEventManager
 }
 
-func (k Keeper) GetGrpcStreamingManager() streamingtypes.GrpcStreamingManager {
+func (k Keeper) GetFullNodeStreamingManager() streamingtypes.FullNodeStreamingManager {
 	return k.streamingManager
 }
 
@@ -188,9 +188,6 @@ func (k Keeper) Initialize(ctx sdk.Context) {
 	// Initialize the untriggered conditional orders data structure with untriggered
 	// conditional orders in state.
 	k.HydrateClobPairAndPerpetualMapping(checkCtx)
-	// Initialize the untriggered conditional orders data structure with untriggered
-	// conditional orders in state.
-	k.HydrateUntriggeredConditionalOrders(checkCtx)
 }
 
 // InitMemStore initializes the memstore of the `clob` keeper.
@@ -255,24 +252,32 @@ func (k *Keeper) SetAnteHandler(anteHandler sdk.AnteHandler) {
 	k.antehandler = anteHandler
 }
 
-// InitializeNewGrpcStreams initializes new gRPC streams for all uninitialized clob pairs
+// InitializeNewStreams initializes new streams for all uninitialized clob pairs
 // by sending the corresponding orderbook snapshots.
-func (k Keeper) InitializeNewGrpcStreams(ctx sdk.Context) {
-	streamingManager := k.GetGrpcStreamingManager()
+func (k Keeper) InitializeNewStreams(ctx sdk.Context) {
+	streamingManager := k.GetFullNodeStreamingManager()
 
-	streamingManager.InitializeNewGrpcStreams(
+	streamingManager.InitializeNewStreams(
 		func(clobPairId types.ClobPairId) *types.OffchainUpdates {
 			return k.MemClob.GetOffchainUpdatesForOrderbookSnapshot(
 				ctx,
 				clobPairId,
 			)
 		},
+		func(subaccountId satypes.SubaccountId) *satypes.StreamSubaccountUpdate {
+			subaccountUpdate := k.subaccountsKeeper.GetStreamSubaccountUpdate(
+				ctx,
+				subaccountId,
+				true,
+			)
+			return &subaccountUpdate
+		},
 		lib.MustConvertIntegerToUint32(ctx.BlockHeight()),
 		ctx.ExecMode(),
 	)
 }
 
-// SendOrderbookUpdates sends the offchain updates to the gRPC streaming manager.
+// SendOrderbookUpdates sends the offchain updates to the Full Node streaming manager.
 func (k Keeper) SendOrderbookUpdates(
 	ctx sdk.Context,
 	offchainUpdates *types.OffchainUpdates,
@@ -281,14 +286,14 @@ func (k Keeper) SendOrderbookUpdates(
 		return
 	}
 
-	k.GetGrpcStreamingManager().SendOrderbookUpdates(
+	k.GetFullNodeStreamingManager().SendOrderbookUpdates(
 		offchainUpdates,
 		lib.MustConvertIntegerToUint32(ctx.BlockHeight()),
 		ctx.ExecMode(),
 	)
 }
 
-// SendOrderbookFillUpdates sends the orderbook fills to the gRPC streaming manager.
+// SendOrderbookFillUpdates sends the orderbook fills to the Full Node streaming manager.
 func (k Keeper) SendOrderbookFillUpdates(
 	ctx sdk.Context,
 	orderbookFills []types.StreamOrderbookFill,
@@ -296,9 +301,21 @@ func (k Keeper) SendOrderbookFillUpdates(
 	if len(orderbookFills) == 0 {
 		return
 	}
-	k.GetGrpcStreamingManager().SendOrderbookFillUpdates(
-		ctx,
+	k.GetFullNodeStreamingManager().SendOrderbookFillUpdates(
 		orderbookFills,
+		lib.MustConvertIntegerToUint32(ctx.BlockHeight()),
+		ctx.ExecMode(),
+		k.PerpetualIdToClobPairId,
+	)
+}
+
+// SendTakerOrderStatus sends the taker order with its status to the Full Node streaming manager.
+func (k Keeper) SendTakerOrderStatus(
+	ctx sdk.Context,
+	takerOrder types.StreamTakerOrder,
+) {
+	k.GetFullNodeStreamingManager().SendTakerOrderStatus(
+		takerOrder,
 		lib.MustConvertIntegerToUint32(ctx.BlockHeight()),
 		ctx.ExecMode(),
 	)

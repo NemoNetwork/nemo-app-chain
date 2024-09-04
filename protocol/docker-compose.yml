@@ -21,6 +21,8 @@ services:
       - "true"
       - --max-daemon-unhealthy-seconds
       - "4294967295" # Effectively disable the daemon monitor because bridge daemon is flaky in localnet.
+      - --grpc-streaming-enabled
+      - "true"
     environment:
       # See https://docs.datadoghq.com/profiler/enabling/go/ for DD_ specific environment variables
       - DD_ENV=localnet_${USER}
@@ -31,6 +33,7 @@ services:
     ports:
       - "26657:26657"
       - "9090:9090"
+      - "9092:9092" # full node streaming
       - "1317:1317"
 
   nemod1:
@@ -113,13 +116,24 @@ services:
     volumes:
       - ./localnet/nemo-network3:/nemo-network/chain/.dave/data
   slinky0:
-    image: ghcr.io/skip-mev/slinky-sidecar:v0.3.2
+    image: ghcr.io/skip-mev/slinky-sidecar:v1.0.10
     entrypoint: >
-      sh -c "slinky-config --chain dydx --node-http-url http://nemod0:1317 --oracle-config-path /etc/oracle.json &&
-             slinky --oracle-config-path /etc/oracle.json --update-market-config-path /etc/market.json"
+      sh -c "slinky --marketmap-provider dydx_migration_api --oracle-config /etc/slinky/oracle.json --log-std-out-level error"
+    environment:
+      - SLINKY_CONFIG_PROVIDERS_RAYDIUM_API_API_ENDPOINTS_0_URL=${RAYDIUM_URL}
+      - SLINKY_CONFIG_PROVIDERS_UNISWAPV3_API-BASE_API_ENDPOINTS_0_URL=${UNISWAPV3_BASE_URL}
+      - SLINKY_CONFIG_PROVIDERS_UNISWAPV3_API-ETHEREUM_API_ENDPOINTS_0_URL=${UNISWAPV3_ETHEREUM_URL}
+    volumes:
+      - ./contrib/slinky:/etc/slinky
     ports:
       - "8080:8080"
-
+      - "8002:8002" # metrics
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./contrib/prometheus:/etc/prometheus/
+    ports:
+      - "9091:9090"
   datadog-agent:
     image: public.ecr.aws/datadog/agent:7
     environment:

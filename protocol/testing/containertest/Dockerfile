@@ -1,12 +1,13 @@
 FROM nemo-network-base
 
-COPY ./testing/containertest/nemod_preupgrade* /bin/
+COPY ./testing/containertest/nemo-networkd_preupgrade* /bin/
 COPY ./testing/containertest/containertest.sh /nemo-network/containertest.sh
 COPY ./testing/containertest/preupgrade_entrypoint.sh /nemo-network/preupgrade_entrypoint.sh
 COPY ./testing/containertest/preupgrade_genesis.json /nemo-network/preupgrade_genesis.json
 COPY ./testing/genesis.sh /nemo-network/genesis.sh
 COPY ./daemons/pricefeed/client/constants/testdata /nemo-network/exchange_config
 COPY ./testing/delaymsg_config /nemo-network/delaymsg_config
+COPY ./testing/version/. /nemo-network/
 
 RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 

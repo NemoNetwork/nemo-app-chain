@@ -99,7 +99,27 @@ export async function onMessage(message: KafkaMessage): Promise<void> {
     const handler: Handler = new (getHandler(update))!(
       getTransactionHashFromHeaders(message.headers),
     );
-    await handler.handleUpdate(update, message.headers ?? {});
+
+    // If headers don't exist, create them.
+    const headers = message.headers ?? {};
+    // If the message received timestamp doesn't exist
+    // (i.e when a short term order is directly sent to vulcan via full node)
+    // set the message_received_timestamp to the message timestamp and the event type
+    // to be a short term order event type.
+    if (!headers.message_received_timestamp) {
+      headers.message_received_timestamp = message.timestamp;
+    }
+    if (!headers.event_type) {
+      if (update.orderPlace) {
+        headers.event_type = 'ShortTermOrderPlacement';
+      } else if (update.orderRemove) {
+        headers.event_type = 'ShortTermOrderRemoval';
+      } else if (update.orderUpdate) {
+        headers.event_type = 'ShortTermOrderUpdate';
+      }
+    }
+
+    await handler.handleUpdate(update, headers);
 
     const postProcessingTime: number = Date.now();
     if (originalMessageTimestamp !== undefined) {
@@ -109,7 +129,7 @@ export async function onMessage(message: KafkaMessage): Promise<void> {
         STATS_NO_SAMPLING,
         {
           topic: KafkaTopics.TO_VULCAN,
-          event_type: String(message.headers?.event_type),
+          event_type: String(headers?.event_type),
         },
       );
     }

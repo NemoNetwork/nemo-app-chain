@@ -13,14 +13,12 @@ import {
   WebsocketEvents,
 } from '../../src/types';
 import { InvalidMessageHandler } from '../../src/lib/invalid-message';
-import { PingHandler } from '../../src/lib/ping';
 import { COUNTRY_HEADER_KEY } from '@nemo-network-indexer/compliance';
 
 jest.mock('uuid');
 jest.mock('../../src/helpers/wss');
 jest.mock('../../src/lib/subscription');
 jest.mock('../../src/lib/invalid-message');
-jest.mock('../../src/lib/ping');
 
 describe('Index', () => {
   let index: Index;
@@ -31,7 +29,6 @@ describe('Index', () => {
   let wsOnSpy: jest.SpyInstance;
   let wsPingSpy: jest.SpyInstance;
   let invalidMsgHandlerSpy: jest.SpyInstance;
-  let pingHandlerSpy: jest.SpyInstance;
 
   const connectionId: string = 'conId';
   const countryCode: string = 'AR';
@@ -51,7 +48,7 @@ describe('Index', () => {
     (Subscriptions as unknown as jest.Mock).mockClear();
     (sendMessage as unknown as jest.Mock).mockClear();
     mockWss = new Wss();
-    websocket = new WebSocket(null);
+    websocket = new WebSocket(null as any as string, [], { autoPong: true } as any);
     wsOnSpy = jest.spyOn(websocket, 'on');
     wsPingSpy = jest.spyOn(websocket, 'ping').mockImplementation(jest.fn());
     mockWss.onConnection = jest.fn().mockImplementation(
@@ -61,7 +58,6 @@ describe('Index', () => {
     );
     mockSub = new Subscriptions();
     invalidMsgHandlerSpy = jest.spyOn(InvalidMessageHandler.prototype, 'handleInvalidMessage');
-    pingHandlerSpy = jest.spyOn(PingHandler.prototype, 'handlePing');
     index = new Index(mockWss, mockSub);
   });
 
@@ -127,25 +123,6 @@ describe('Index', () => {
         );
       });
 
-      it('handles ping message', () => {
-        const pingMessage: IncomingMessage = createIncomingMessage(
-          { type: IncomingMessageType.PING },
-        );
-        websocket.emit(WebsocketEvents.MESSAGE, JSON.stringify(pingMessage));
-
-        expect(pingHandlerSpy).toHaveBeenCalledTimes(1);
-        expect(pingHandlerSpy).toHaveBeenCalledWith(
-          expect.objectContaining({
-            type: IncomingMessageType.PING,
-          }),
-          expect.objectContaining({
-            ws: websocket,
-            messageId: index.connections[connectionId].messageId,
-          }),
-          connectionId,
-        );
-      });
-
       // Nested parameterized test of invalid subscribe and unsubscribe message handling.
       for (const type of [IncomingMessageType.SUBSCRIBE, IncomingMessageType.UNSUBSCRIBE]) {
         it.each([
@@ -197,7 +174,9 @@ describe('Index', () => {
         ALL_CHANNELS.map((channel: Channel) => { return [channel]; }),
       )('handles valid subscription message for channel: %s', (channel: Channel) => {
         // Test that markets work with a missing id.
-        const id: string | undefined = channel === Channel.V4_MARKETS ? undefined : subId;
+        const id: string | undefined = (
+          channel === Channel.V4_MARKETS || channel === Channel.V4_BLOCK_HEIGHT
+        ) ? undefined : subId;
         const isBatched: boolean = false;
         const subMessage: IncomingMessage = createIncomingMessage({
           type: IncomingMessageType.SUBSCRIBE,
@@ -223,7 +202,9 @@ describe('Index', () => {
         ALL_CHANNELS.map((channel: Channel) => { return [channel]; }),
       )('handles valid unsubscribe message for channel: %s', (channel: Channel) => {
         // Test that markets work with a missing id.
-        const id: string | undefined = channel === Channel.V4_MARKETS ? undefined : subId;
+        const id: string | undefined = (
+          channel === Channel.V4_MARKETS || channel === Channel.V4_BLOCK_HEIGHT
+        ) ? undefined : subId;
         const unSubMessage: IncomingMessage = createIncomingMessage({
           type: IncomingMessageType.UNSUBSCRIBE,
           channel,
@@ -254,12 +235,14 @@ describe('Index', () => {
 
     describe('close', () => {
       it('disconnects connection on close', () => {
+        jest.spyOn(websocket, 'removeAllListeners').mockImplementation(jest.fn());
         jest.spyOn(websocket, 'terminate').mockImplementation(jest.fn());
         websocket.emit(WebsocketEvents.CLOSE);
         // Run timers for heartbeat.
         jest.runAllTimers();
 
         expect(wsPingSpy).not.toHaveBeenCalled();
+        expect(websocket.removeAllListeners).toHaveBeenCalledTimes(1);
         expect(websocket.terminate).toHaveBeenCalledTimes(1);
         expect(mockSub.remove).toHaveBeenCalledWith(connectionId);
         expect(index.connections[connectionId]).toBeUndefined();

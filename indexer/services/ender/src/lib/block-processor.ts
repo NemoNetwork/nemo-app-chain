@@ -1,9 +1,11 @@
 /* eslint-disable max-len */
 import { logger, stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base';
+import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   storeHelpers,
 } from '@nemo-network-indexer/postgres';
 import {
+  BlockHeightMessage,
   IndexerTendermintBlock,
   IndexerTendermintEvent,
 } from '@nemo-network-indexer/v4-protos';
@@ -33,6 +35,7 @@ import { indexerTendermintEventToEventProtoWithType, indexerTendermintEventToTra
 import { KafkaPublisher } from './kafka-publisher';
 import { SyncHandlers, SYNCHRONOUS_SUBTYPES } from './sync-handlers';
 import {
+  ConsolidatedKafkaEvent,
   DydxIndexerSubtypes, EventMessage, EventProtoWithTypeAndVersion, GroupedEvents,
 } from './types';
 
@@ -49,7 +52,6 @@ const TXN_EVENT_SUBTYPE_VERSION_TO_VALIDATOR_MAPPING: Record<string, ValidatorIn
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.UPDATE_PERPETUAL.toString(), 1)]: UpdatePerpetualValidator,
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.UPDATE_CLOB_PAIR.toString(), 1)]: UpdateClobPairValidator,
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.DELEVERAGING.toString(), 1)]: DeleveragingValidator,
-  [serializeSubtypeAndVersion(DydxIndexerSubtypes.OPEN_INTEREST_UPDATE.toString(), 1)]: OpenInterestUpdateValidator,
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.LIQUIDITY_TIER.toString(), 2)]: LiquidityTierValidatorV2,
 };
 
@@ -57,6 +59,7 @@ const BLOCK_EVENT_SUBTYPE_VERSION_TO_VALIDATOR_MAPPING: Record<string, Validator
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.FUNDING.toString(), 1)]: FundingValidator,
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.TRADING_REWARD.toString(), 1)]: TradingRewardsValidator,
   [serializeSubtypeAndVersion(DydxIndexerSubtypes.STATEFUL_ORDER.toString(), 1)]: StatefulOrderValidator,
+  [serializeSubtypeAndVersion(DydxIndexerSubtypes.OPEN_INTEREST_UPDATE.toString(), 1)]: OpenInterestUpdateValidator,
 };
 
 function serializeSubtypeAndVersion(
@@ -67,12 +70,12 @@ function serializeSubtypeAndVersion(
 }
 
 type DecodedIndexerTendermintBlock = Omit<IndexerTendermintBlock, 'events'> & {
-  events: DecodedIndexerTendermintEvent[];
+  events: DecodedIndexerTendermintEvent[],
 };
 
 type DecodedIndexerTendermintEvent = Omit<IndexerTendermintEvent, 'dataBytes'> & {
   /** Decoded tendermint event. */
-  dataBytes: object;
+  dataBytes: object,
 };
 
 export class BlockProcessor {
@@ -225,6 +228,18 @@ export class BlockProcessor {
     });
   }
 
+  createBlockHeightMsg(): ConsolidatedKafkaEvent {
+    const message: BlockHeightMessage = {
+      blockHeight: String(this.block.height),
+      version: BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION,
+      time: this.block.time?.toISOString() ?? '',
+    };
+    return {
+      topic: KafkaTopics.TO_WEBSOCKETS_BLOCK_HEIGHT,
+      message,
+    };
+  }
+
   private async processEvents(): Promise<KafkaPublisher> {
     const kafkaPublisher: KafkaPublisher = new KafkaPublisher();
 
@@ -270,6 +285,9 @@ export class BlockProcessor {
         { success: success.toString() },
       );
     }
+
+    // Create a block message from the current block
+    kafkaPublisher.addEvent(this.createBlockHeightMsg());
 
     // in genesis, handle sync events first, then batched events.
     // in other blocks, handle batched events first, then sync events.

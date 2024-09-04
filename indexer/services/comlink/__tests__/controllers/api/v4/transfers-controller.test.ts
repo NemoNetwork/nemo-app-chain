@@ -1,22 +1,40 @@
 import {
   dbHelpers,
+  IsoString,
+  SubaccountTable,
   testConstants,
   testMocks,
   TransferCreateObject,
   TransferTable,
   TransferType,
   WalletTable,
+<<<<<<< HEAD
 } from '@nemo-network-indexer/postgres';
 import { ParentSubaccountTransferResponseObject, RequestMethod, TransferResponseObject } from '../../../../src/types';
+=======
+} from '@nemo-network-indexer/postgres';
+import {
+  ParentSubaccountTransferResponseObject,
+  RequestMethod,
+  TransferBetweenRequest,
+  TransferBetweenResponse,
+  TransferResponseObject,
+} from '../../../../src/types';
+>>>>>>> main
 import request from 'supertest';
-import { sendRequest } from '../../../helpers/helpers';
+import { getQueryString, sendRequest } from '../../../helpers/helpers';
 import {
   createdDateTime, createdHeight,
   defaultAsset,
   defaultTendermintEventId4,
   defaultWalletAddress,
   isolatedSubaccountId,
+<<<<<<< HEAD
 } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+=======
+} from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+import Big from 'big.js';
+>>>>>>> main
 
 describe('transfers-controller#V4', () => {
   beforeAll(async () => {
@@ -146,6 +164,148 @@ describe('transfers-controller#V4', () => {
           expect.objectContaining({
             ...expectedTransfer2Response,
           }),
+          expect.objectContaining({
+            ...expectedWithdrawalResponse,
+          }),
+          expect.objectContaining({
+            ...expectedDepositResponse,
+          }),
+        ]),
+      );
+    });
+
+    it('Get /transfers returns transfers/deposits/withdrawals with pagination', async () => {
+      await testMocks.seedData();
+      const transfer2: TransferCreateObject = {
+        senderSubaccountId: testConstants.defaultSubaccountId2,
+        recipientSubaccountId: testConstants.defaultSubaccountId,
+        assetId: testConstants.defaultAsset2.id,
+        size: '5',
+        eventId: testConstants.defaultTendermintEventId2,
+        transactionHash: '', // TODO: Add a real transaction Hash
+        createdAt: testConstants.createdDateTime.toISO(),
+        createdAtHeight: testConstants.createdHeight,
+      };
+      await WalletTable.create({
+        address: testConstants.defaultWalletAddress,
+        totalTradingRewards: '0',
+      });
+      await Promise.all([
+        TransferTable.create(testConstants.defaultTransfer),
+        TransferTable.create(transfer2),
+        TransferTable.create(testConstants.defaultWithdrawal),
+        TransferTable.create(testConstants.defaultDeposit),
+      ]);
+
+      const responsePage1: request.Response = await sendRequest({
+        type: RequestMethod.GET,
+        path: `/v4/transfers?address=${testConstants.defaultAddress}` +
+          `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}&page=1&limit=2`,
+      });
+      const responsePage2: request.Response = await sendRequest({
+        type: RequestMethod.GET,
+        path: `/v4/transfers?address=${testConstants.defaultAddress}` +
+          `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}&page=2&limit=2`,
+      });
+
+      const expectedTransferResponse: TransferResponseObject = {
+        id: testConstants.defaultTransferId,
+        sender: {
+          address: testConstants.defaultAddress,
+          subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        recipient: {
+          address: testConstants.defaultAddress,
+          subaccountNumber: testConstants.defaultSubaccount2.subaccountNumber,
+        },
+        size: testConstants.defaultTransfer.size,
+        createdAt: testConstants.defaultTransfer.createdAt,
+        createdAtHeight: testConstants.defaultTransfer.createdAtHeight,
+        symbol: testConstants.defaultAsset.symbol,
+        type: TransferType.TRANSFER_OUT,
+        transactionHash: testConstants.defaultTransfer.transactionHash,
+      };
+
+      const expectedTransfer2Response: TransferResponseObject = {
+        id: TransferTable.uuid(
+          transfer2.eventId,
+          transfer2.assetId,
+          transfer2.senderSubaccountId,
+          transfer2.recipientSubaccountId,
+          transfer2.senderWalletAddress,
+          transfer2.recipientWalletAddress,
+        ),
+        sender: {
+          address: testConstants.defaultAddress,
+          subaccountNumber: testConstants.defaultSubaccount2.subaccountNumber,
+        },
+        recipient: {
+          address: testConstants.defaultAddress,
+          subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        size: transfer2.size,
+        createdAt: transfer2.createdAt,
+        createdAtHeight: transfer2.createdAtHeight,
+        symbol: testConstants.defaultAsset2.symbol,
+        type: TransferType.TRANSFER_IN,
+        transactionHash: transfer2.transactionHash,
+      };
+
+      const expectedDepositResponse: TransferResponseObject = {
+        id: testConstants.defaultDepositId,
+        sender: {
+          address: testConstants.defaultWalletAddress,
+        },
+        recipient: {
+          address: testConstants.defaultAddress,
+          subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        size: testConstants.defaultDeposit.size,
+        createdAt: testConstants.defaultDeposit.createdAt,
+        createdAtHeight: testConstants.defaultDeposit.createdAtHeight,
+        symbol: testConstants.defaultAsset.symbol,
+        type: TransferType.DEPOSIT,
+        transactionHash: testConstants.defaultDeposit.transactionHash,
+      };
+
+      const expectedWithdrawalResponse: TransferResponseObject = {
+        id: testConstants.defaultWithdrawalId,
+        sender: {
+          address: testConstants.defaultAddress,
+          subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        recipient: {
+          address: testConstants.defaultWalletAddress,
+        },
+        size: testConstants.defaultWithdrawal.size,
+        createdAt: testConstants.defaultWithdrawal.createdAt,
+        createdAtHeight: testConstants.defaultWithdrawal.createdAtHeight,
+        symbol: testConstants.defaultAsset.symbol,
+        type: TransferType.WITHDRAWAL,
+        transactionHash: testConstants.defaultWithdrawal.transactionHash,
+      };
+
+      expect(responsePage1.body.pageSize).toStrictEqual(2);
+      expect(responsePage1.body.offset).toStrictEqual(0);
+      expect(responsePage1.body.totalResults).toStrictEqual(4);
+      expect(responsePage1.body.transfers).toHaveLength(2);
+      expect(responsePage1.body.transfers).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            ...expectedTransferResponse,
+          }),
+          expect.objectContaining({
+            ...expectedTransfer2Response,
+          }),
+        ]),
+      );
+
+      expect(responsePage2.body.pageSize).toStrictEqual(2);
+      expect(responsePage2.body.offset).toStrictEqual(2);
+      expect(responsePage2.body.totalResults).toStrictEqual(4);
+      expect(responsePage2.body.transfers).toHaveLength(2);
+      expect(responsePage2.body.transfers).toEqual(
+        expect.arrayContaining([
           expect.objectContaining({
             ...expectedWithdrawalResponse,
           }),
@@ -409,6 +569,149 @@ describe('transfers-controller#V4', () => {
           expect.objectContaining({
             ...expectedTransfer2Response,
           }),
+          expect.objectContaining({
+            ...expectedWithdrawalResponse,
+          }),
+          expect.objectContaining({
+            ...expectedDepositResponse,
+          }),
+        ]),
+      );
+    });
+
+    it('Get /transfers/parentSubaccountNumber returns transfers/deposits/withdrawals and paginated', async () => {
+      await testMocks.seedData();
+      const transfer2: TransferCreateObject = {
+        senderSubaccountId: testConstants.defaultSubaccountId2,
+        recipientSubaccountId: testConstants.defaultSubaccountId,
+        assetId: testConstants.defaultAsset2.id,
+        size: '5',
+        eventId: testConstants.defaultTendermintEventId2,
+        transactionHash: '', // TODO: Add a real transaction Hash
+        createdAt: testConstants.createdDateTime.toISO(),
+        createdAtHeight: testConstants.createdHeight,
+      };
+      await WalletTable.create({
+        address: testConstants.defaultWalletAddress,
+        totalTradingRewards: '0',
+      });
+      await Promise.all([
+        TransferTable.create(testConstants.defaultTransfer),
+        TransferTable.create(transfer2),
+        TransferTable.create(testConstants.defaultWithdrawal),
+        TransferTable.create(testConstants.defaultDeposit),
+      ]);
+
+      const responsePage1: request.Response = await sendRequest({
+        type: RequestMethod.GET,
+        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+            `&parentSubaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}&page=1&limit=2`,
+      });
+
+      const responsePage2: request.Response = await sendRequest({
+        type: RequestMethod.GET,
+        path: `/v4/transfers/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+            `&parentSubaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}&page=2&limit=2`,
+      });
+
+      const expectedTransferResponse: ParentSubaccountTransferResponseObject = {
+        id: testConstants.defaultTransferId,
+        sender: {
+          address: testConstants.defaultAddress,
+          parentSubaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        recipient: {
+          address: testConstants.defaultAddress,
+          parentSubaccountNumber: testConstants.defaultSubaccount2.subaccountNumber,
+        },
+        size: testConstants.defaultTransfer.size,
+        createdAt: testConstants.defaultTransfer.createdAt,
+        createdAtHeight: testConstants.defaultTransfer.createdAtHeight,
+        symbol: testConstants.defaultAsset.symbol,
+        type: TransferType.TRANSFER_OUT,
+        transactionHash: testConstants.defaultTransfer.transactionHash,
+      };
+
+      const expectedTransfer2Response: ParentSubaccountTransferResponseObject = {
+        id: TransferTable.uuid(
+          transfer2.eventId,
+          transfer2.assetId,
+          transfer2.senderSubaccountId,
+          transfer2.recipientSubaccountId,
+          transfer2.senderWalletAddress,
+          transfer2.recipientWalletAddress,
+        ),
+        sender: {
+          address: testConstants.defaultAddress,
+          parentSubaccountNumber: testConstants.defaultSubaccount2.subaccountNumber,
+        },
+        recipient: {
+          address: testConstants.defaultAddress,
+          parentSubaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        size: transfer2.size,
+        createdAt: transfer2.createdAt,
+        createdAtHeight: transfer2.createdAtHeight,
+        symbol: testConstants.defaultAsset2.symbol,
+        type: TransferType.TRANSFER_IN,
+        transactionHash: transfer2.transactionHash,
+      };
+
+      const expectedDepositResponse: ParentSubaccountTransferResponseObject = {
+        id: testConstants.defaultDepositId,
+        sender: {
+          address: testConstants.defaultWalletAddress,
+        },
+        recipient: {
+          address: testConstants.defaultAddress,
+          parentSubaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        size: testConstants.defaultDeposit.size,
+        createdAt: testConstants.defaultDeposit.createdAt,
+        createdAtHeight: testConstants.defaultDeposit.createdAtHeight,
+        symbol: testConstants.defaultAsset.symbol,
+        type: TransferType.DEPOSIT,
+        transactionHash: testConstants.defaultDeposit.transactionHash,
+      };
+
+      const expectedWithdrawalResponse: ParentSubaccountTransferResponseObject = {
+        id: testConstants.defaultWithdrawalId,
+        sender: {
+          address: testConstants.defaultAddress,
+          parentSubaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        },
+        recipient: {
+          address: testConstants.defaultWalletAddress,
+        },
+        size: testConstants.defaultWithdrawal.size,
+        createdAt: testConstants.defaultWithdrawal.createdAt,
+        createdAtHeight: testConstants.defaultWithdrawal.createdAtHeight,
+        symbol: testConstants.defaultAsset.symbol,
+        type: TransferType.WITHDRAWAL,
+        transactionHash: testConstants.defaultWithdrawal.transactionHash,
+      };
+
+      expect(responsePage1.body.pageSize).toStrictEqual(2);
+      expect(responsePage1.body.offset).toStrictEqual(0);
+      expect(responsePage1.body.totalResults).toStrictEqual(4);
+      expect(responsePage1.body.transfers).toHaveLength(2);
+      expect(responsePage1.body.transfers).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            ...expectedTransferResponse,
+          }),
+          expect.objectContaining({
+            ...expectedTransfer2Response,
+          }),
+        ]),
+      );
+
+      expect(responsePage2.body.pageSize).toStrictEqual(2);
+      expect(responsePage2.body.offset).toStrictEqual(2);
+      expect(responsePage2.body.totalResults).toStrictEqual(4);
+      expect(responsePage2.body.transfers).toHaveLength(2);
+      expect(responsePage2.body.transfers).toEqual(
+        expect.arrayContaining([
           expect.objectContaining({
             ...expectedWithdrawalResponse,
           }),
@@ -705,6 +1008,166 @@ describe('transfers-controller#V4', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('GET /transfers/between', () => {
+    beforeEach(async () => {
+      await testMocks.seedData();
+    });
+
+    afterEach(async () => {
+      await dbHelpers.clearData();
+    });
+
+    const firstTransfer: TransferCreateObject = testConstants.defaultTransfer;
+    const secondTransfer: TransferCreateObject = {
+      ...testConstants.defaultTransfer,
+      size: '5',
+      createdAt: testConstants.createdDateTime.plus({ minutes: 1 }).toISO(),
+      createdAtHeight: testConstants.createdHeight + 1,
+      eventId: testConstants.defaultTendermintEventId2,
+    };
+
+    const firstTransferResponse: TransferResponseObject = {
+      id: TransferTable.uuid(
+        firstTransfer.eventId,
+        firstTransfer.assetId,
+        firstTransfer.senderSubaccountId,
+        firstTransfer.recipientSubaccountId,
+      ),
+      sender: {
+        address: testConstants.defaultSubaccount.address,
+        subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+      },
+      recipient: {
+        address: testConstants.defaultSubaccount2.address,
+        subaccountNumber: testConstants.defaultSubaccount2.subaccountNumber,
+      },
+      size: firstTransfer.size,
+      createdAt: firstTransfer.createdAt,
+      createdAtHeight: firstTransfer.createdAtHeight,
+      symbol: 'USDC',
+      type: TransferType.TRANSFER_OUT,
+      transactionHash: firstTransfer.transactionHash,
+    };
+    const secondTransferResponse: TransferResponseObject = {
+      ...firstTransferResponse,
+      id: TransferTable.uuid(
+        secondTransfer.eventId,
+        secondTransfer.assetId,
+        secondTransfer.senderSubaccountId,
+        secondTransfer.recipientSubaccountId,
+      ),
+      size: secondTransfer.size,
+      createdAt: secondTransfer.createdAt,
+      createdAtHeight: secondTransfer.createdAtHeight,
+    };
+
+    async function getTransferBetweenResponse(
+      createdBeforeOrAtHeight?: number,
+      createdBeforeOrAt?: IsoString,
+    ): Promise<TransferBetweenResponse> {
+      const queryParams: TransferBetweenRequest = {
+        sourceAddress: testConstants.defaultSubaccount.address,
+        sourceSubaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        recipientAddress: testConstants.defaultSubaccount2.address,
+        recipientSubaccountNumber: testConstants.defaultSubaccount2.subaccountNumber,
+      };
+
+      if (createdBeforeOrAtHeight) {
+        queryParams.createdBeforeOrAtHeight = createdBeforeOrAtHeight;
+      }
+
+      if (createdBeforeOrAt) {
+        queryParams.createdBeforeOrAt = createdBeforeOrAt;
+      }
+
+      const response: request.Response = await sendRequest({
+        type: RequestMethod.GET,
+        path: `/v4/transfers/between?${getQueryString(queryParams as any)}`,
+      });
+
+      return response.body;
+    }
+
+    it('Returns successfully when there are no transfers between wallets', async () => {
+      await dbHelpers.clearData();
+
+      const transferBetweenResponse: TransferBetweenResponse = await getTransferBetweenResponse();
+      expect(transferBetweenResponse.transfersSubset).toHaveLength(0);
+      expect(transferBetweenResponse.totalNetTransfers).toEqual('0');
+    });
+
+    it('Returns successfully when source subaccount does not exist', async () => {
+      await SubaccountTable.deleteById(testConstants.defaultSubaccountId);
+
+      const transferBetweenResponse: TransferBetweenResponse = await getTransferBetweenResponse();
+      expect(transferBetweenResponse.transfersSubset).toHaveLength(0);
+      expect(transferBetweenResponse.totalNetTransfers).toEqual('0');
+    });
+
+    it('Returns successfully when recipient subaccount does not exist', async () => {
+      await SubaccountTable.deleteById(testConstants.defaultSubaccountId2);
+
+      const transferBetweenResponse: TransferBetweenResponse = await getTransferBetweenResponse();
+      expect(transferBetweenResponse.transfersSubset).toHaveLength(0);
+      expect(transferBetweenResponse.totalNetTransfers).toEqual('0');
+
+    });
+
+    it('Returns successfully with transfers and net transfers', async () => {
+      await Promise.all([
+        TransferTable.create(firstTransfer),
+        TransferTable.create(secondTransfer),
+      ]);
+
+      const transferBetweenResponse: TransferBetweenResponse = await getTransferBetweenResponse();
+      expect(transferBetweenResponse.transfersSubset).toHaveLength(2);
+      expect(transferBetweenResponse.transfersSubset).toEqual([
+        secondTransferResponse,
+        firstTransferResponse,
+      ]);
+      expect(transferBetweenResponse.totalNetTransfers).toEqual(
+        Big(firstTransfer.size).plus(secondTransfer.size).toFixed(),
+      );
+    });
+
+    it('Successfully filters by createdBeforeOrAtHeight', async () => {
+      await Promise.all([
+        TransferTable.create(firstTransfer),
+        TransferTable.create(secondTransfer),
+      ]);
+
+      const transferBetweenResponse: TransferBetweenResponse = await getTransferBetweenResponse(
+        +firstTransfer.createdAtHeight,
+      );
+      expect(transferBetweenResponse.transfersSubset).toHaveLength(1);
+      expect(transferBetweenResponse.transfersSubset).toEqual([
+        firstTransferResponse,
+      ]);
+      expect(transferBetweenResponse.totalNetTransfers).toEqual(
+        Big(firstTransfer.size).plus(secondTransfer.size).toFixed(),
+      );
+    });
+
+    it('Successfully filters by createdBeforeOrAt', async () => {
+      await Promise.all([
+        TransferTable.create(firstTransfer),
+        TransferTable.create(secondTransfer),
+      ]);
+
+      const transferBetweenResponse: TransferBetweenResponse = await getTransferBetweenResponse(
+        undefined,
+        firstTransfer.createdAt,
+      );
+      expect(transferBetweenResponse.transfersSubset).toHaveLength(1);
+      expect(transferBetweenResponse.transfersSubset).toEqual([
+        firstTransferResponse,
+      ]);
+      expect(transferBetweenResponse.totalNetTransfers).toEqual(
+        Big(firstTransfer.size).plus(secondTransfer.size).toFixed(),
+      );
     });
   });
 });

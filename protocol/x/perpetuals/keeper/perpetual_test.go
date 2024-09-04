@@ -424,11 +424,13 @@ func TestHasPerpetual(t *testing.T) {
 		*perptest.GeneratePerpetual(perptest.WithId(999)),
 	}
 
-	_, err := pc.PricesKeeper.CreateMarket(
+	_, err := keepertest.CreateTestMarket(
+		t,
 		pc.Ctx,
+		pc.PricesKeeper,
 		pricestypes.MarketParam{
 			Id:                 0,
-			Pair:               "marketName",
+			Pair:               "base-quote",
 			Exponent:           -10,
 			MinExchanges:       uint32(1),
 			MinPriceChangePpm:  uint32(50),
@@ -502,11 +504,13 @@ func TestGetAllPerpetuals_Sorted(t *testing.T) {
 		*perptest.GeneratePerpetual(perptest.WithId(1)),
 	}
 
-	_, err := pc.PricesKeeper.CreateMarket(
+	_, err := keepertest.CreateTestMarket(
+		t,
 		pc.Ctx,
+		pc.PricesKeeper,
 		pricestypes.MarketParam{
 			Id:                 0,
-			Pair:               "marketName",
+			Pair:               "base-quote",
 			Exponent:           -10,
 			MinExchanges:       uint32(1),
 			MinPriceChangePpm:  uint32(50),
@@ -751,19 +755,13 @@ func TestGetNetNotional_Success(t *testing.T) {
 		bigBaseQuantums                     *big.Int
 		bigExpectedNetNotionalQuoteQuantums *big.Int
 	}{
-		"Positive exponent, atomic resolution 6, long position": {
+		// TODO: Add back tests for positive and zero exponent once x/marketmap supports them
+		"Negative exponent, atomic resolution 6, long position": {
 			price:                               5_555,
-			exponent:                            2,
+			exponent:                            -2,
 			baseCurrencyAtomicResolution:        -6,
 			bigBaseQuantums:                     big.NewInt(7_000),
-			bigExpectedNetNotionalQuoteQuantums: big.NewInt(3_888_500_000),
-		},
-		"Positive exponent, atomic resolution 6, short position": {
-			price:                               5_555,
-			exponent:                            2,
-			baseCurrencyAtomicResolution:        -6,
-			bigBaseQuantums:                     big.NewInt(-7_000),
-			bigExpectedNetNotionalQuoteQuantums: big.NewInt(-3_888_500_000),
+			bigExpectedNetNotionalQuoteQuantums: big.NewInt(388_850),
 		},
 		"Negative exponent, atomic resolution 6, short position": {
 			price:                               5_555,
@@ -772,31 +770,24 @@ func TestGetNetNotional_Success(t *testing.T) {
 			bigBaseQuantums:                     big.NewInt(-7_000),
 			bigExpectedNetNotionalQuoteQuantums: big.NewInt(-388_850),
 		},
-		"Zero exponent, atomic resolution 6, short position": {
+		"Negative exponent, atomic resolution 4, long position": {
 			price:                               5_555,
-			exponent:                            0,
-			baseCurrencyAtomicResolution:        -6,
-			bigBaseQuantums:                     big.NewInt(-7_000),
-			bigExpectedNetNotionalQuoteQuantums: big.NewInt(-38_885_000),
-		},
-		"Positive exponent, atomic resolution 4, long position": {
-			price:                               5_555,
-			exponent:                            4,
+			exponent:                            -2,
 			baseCurrencyAtomicResolution:        -4,
 			bigBaseQuantums:                     big.NewInt(7_000),
-			bigExpectedNetNotionalQuoteQuantums: big.NewInt(38_885_000_000_000),
+			bigExpectedNetNotionalQuoteQuantums: big.NewInt(38_885_000),
 		},
-		"Positive exponent, atomic resolution 0, long position": {
+		"Negative exponent, atomic resolution 0, long position": {
 			price:                               5_555,
-			exponent:                            4,
+			exponent:                            -2,
 			baseCurrencyAtomicResolution:        -0,
 			bigBaseQuantums:                     big.NewInt(7_000),
-			bigExpectedNetNotionalQuoteQuantums: big.NewInt(388_850_000_000_000_000),
+			bigExpectedNetNotionalQuoteQuantums: big.NewInt(38_8850_000_000),
 		},
 		"Price and quantums are max uints": {
 			price:                        math.MaxUint64,
-			exponent:                     1,
-			baseCurrencyAtomicResolution: -6,
+			exponent:                     -1,
+			baseCurrencyAtomicResolution: -4,
 			bigBaseQuantums:              new(big.Int).SetUint64(math.MaxUint64),
 			bigExpectedNetNotionalQuoteQuantums: big_testutil.MustFirst(
 				new(big.Int).SetString("3402823669209384634264811192843491082250", 10),
@@ -813,11 +804,13 @@ func TestGetNetNotional_Success(t *testing.T) {
 			keepertest.CreateTestLiquidityTiers(t, pc.Ctx, pc.PerpetualsKeeper)
 			// Create a new market param and price.
 			marketId := uint32(0)
-			_, err := pc.PricesKeeper.CreateMarket(
+			_, err := keepertest.CreateTestMarket(
+				t,
 				pc.Ctx,
+				pc.PricesKeeper,
 				pricestypes.MarketParam{
 					Id:                 marketId,
-					Pair:               "marketName",
+					Pair:               "base-quote",
 					Exponent:           tc.exponent,
 					MinExchanges:       uint32(1),
 					MinPriceChangePpm:  uint32(50),
@@ -907,19 +900,13 @@ func TestGetNotionalInBaseQuantums_Success(t *testing.T) {
 		bigQuoteQuantums                   *big.Int
 		bigExpectedNetNotionalBaseQuantums *big.Int
 	}{
-		"Positive exponent, atomic resolution 6, long position": {
+		// TODO: Add back tests for positive and zero exponent once x/marketmap supports them
+		"Negative exponent, atomic resolution 6, long position": {
 			price:                              5_555,
-			exponent:                           2,
+			exponent:                           -2,
 			baseCurrencyAtomicResolution:       -6,
-			bigQuoteQuantums:                   big.NewInt(3_888_500_000),
+			bigQuoteQuantums:                   big.NewInt(388_850),
 			bigExpectedNetNotionalBaseQuantums: big.NewInt(7_000),
-		},
-		"Positive exponent, atomic resolution 6, short position": {
-			price:                              5_555,
-			exponent:                           2,
-			baseCurrencyAtomicResolution:       -6,
-			bigQuoteQuantums:                   big.NewInt(-3_888_500_000),
-			bigExpectedNetNotionalBaseQuantums: big.NewInt(-7_000),
 		},
 		"Negative exponent, atomic resolution 6, short position": {
 			price:                              5_555,
@@ -928,31 +915,24 @@ func TestGetNotionalInBaseQuantums_Success(t *testing.T) {
 			bigQuoteQuantums:                   big.NewInt(-388_850),
 			bigExpectedNetNotionalBaseQuantums: big.NewInt(-7_000),
 		},
-		"Zero exponent, atomic resolution 6, short position": {
+		"Negative exponent, atomic resolution 4, long position": {
 			price:                              5_555,
-			exponent:                           0,
-			baseCurrencyAtomicResolution:       -6,
-			bigQuoteQuantums:                   big.NewInt(-38_885_000),
-			bigExpectedNetNotionalBaseQuantums: big.NewInt(-7_000),
-		},
-		"Positive exponent, atomic resolution 4, long position": {
-			price:                              5_555,
-			exponent:                           4,
+			exponent:                           -2,
 			baseCurrencyAtomicResolution:       -4,
-			bigQuoteQuantums:                   big.NewInt(38_885_000_000_000),
+			bigQuoteQuantums:                   big.NewInt(38_885_000),
 			bigExpectedNetNotionalBaseQuantums: big.NewInt(7_000),
 		},
-		"Positive exponent, atomic resolution 0, long position": {
+		"Negative exponent, atomic resolution 0, long position": {
 			price:                              5_555,
-			exponent:                           4,
+			exponent:                           -2,
 			baseCurrencyAtomicResolution:       -0,
-			bigQuoteQuantums:                   big.NewInt(388_850_000_000_000_000),
+			bigQuoteQuantums:                   big.NewInt(388_850_000_000),
 			bigExpectedNetNotionalBaseQuantums: big.NewInt(7_000),
 		},
 		"Price and quantums are max uints": {
 			price:                        math.MaxUint64,
-			exponent:                     1,
-			baseCurrencyAtomicResolution: -6,
+			exponent:                     -1,
+			baseCurrencyAtomicResolution: -4,
 			bigQuoteQuantums: big_testutil.MustFirst(
 				new(big.Int).SetString("3402823669209384634264811192843491082250", 10),
 			),
@@ -968,11 +948,13 @@ func TestGetNotionalInBaseQuantums_Success(t *testing.T) {
 			// Create liquidity tiers.
 			keepertest.CreateTestLiquidityTiers(t, pc.Ctx, pc.PerpetualsKeeper) // Create a new market param and price.
 			marketId := keepertest.GetNumMarkets(t, pc.Ctx, pc.PricesKeeper)
-			_, err := pc.PricesKeeper.CreateMarket(
+			_, err := keepertest.CreateTestMarket(
+				t,
 				pc.Ctx,
+				pc.PricesKeeper,
 				pricestypes.MarketParam{
 					Id:                 marketId,
-					Pair:               "marketName",
+					Pair:               "base-quote",
 					Exponent:           tc.exponent,
 					MinExchanges:       uint32(1),
 					MinPriceChangePpm:  uint32(50),
@@ -1062,20 +1044,7 @@ func TestGetNetCollateral_Success(t *testing.T) {
 		bigBaseQuantums                       *big.Int
 		bigExpectedNetCollateralQuoteQuantums *big.Int
 	}{
-		"Positive exponent, atomic resolution 6, long position": {
-			price:                                 5_555,
-			exponent:                              2,
-			baseCurrencyAtomicResolution:          -6,
-			bigBaseQuantums:                       big.NewInt(7_000),
-			bigExpectedNetCollateralQuoteQuantums: big.NewInt(3_888_500_000),
-		},
-		"Positive exponent, atomic resolution 6, short position": {
-			price:                                 5_555,
-			exponent:                              2,
-			baseCurrencyAtomicResolution:          -6,
-			bigBaseQuantums:                       big.NewInt(-7_000),
-			bigExpectedNetCollateralQuoteQuantums: big.NewInt(-3_888_500_000),
-		},
+		// TODO: Add back tests for positive and zero exponent once x/marketmap supports them
 		"Negative exponent, atomic resolution 6, short position": {
 			price:                                 5_555,
 			exponent:                              -2,
@@ -1083,34 +1052,13 @@ func TestGetNetCollateral_Success(t *testing.T) {
 			bigBaseQuantums:                       big.NewInt(-7_000),
 			bigExpectedNetCollateralQuoteQuantums: big.NewInt(-388_850),
 		},
-		"Zero exponent, atomic resolution 6, short position": {
-			price:                                 5_555,
-			exponent:                              0,
-			baseCurrencyAtomicResolution:          -6,
-			bigBaseQuantums:                       big.NewInt(-7_000),
-			bigExpectedNetCollateralQuoteQuantums: big.NewInt(-38_885_000),
-		},
-		"Positive exponent, atomic resolution 4, long position": {
-			price:                                 5_555,
-			exponent:                              4,
-			baseCurrencyAtomicResolution:          -4,
-			bigBaseQuantums:                       big.NewInt(7_000),
-			bigExpectedNetCollateralQuoteQuantums: big.NewInt(38_885_000_000_000),
-		},
-		"Positive exponent, atomic resolution 0, long position": {
-			price:                                 5_555,
-			exponent:                              4,
-			baseCurrencyAtomicResolution:          -0,
-			bigBaseQuantums:                       big.NewInt(7_000),
-			bigExpectedNetCollateralQuoteQuantums: big.NewInt(388_850_000_000_000_000),
-		},
 		"Price and quantums are max uints": {
 			price:                        math.MaxUint64,
-			exponent:                     1,
+			exponent:                     -1,
 			baseCurrencyAtomicResolution: -6,
 			bigBaseQuantums:              new(big.Int).SetUint64(math.MaxUint64),
 			bigExpectedNetCollateralQuoteQuantums: big_testutil.MustFirst(
-				new(big.Int).SetString("3402823669209384634264811192843491082250", 10),
+				new(big.Int).SetString("34028236692093846342648111928434910822", 10),
 			),
 		},
 	}
@@ -1124,11 +1072,13 @@ func TestGetNetCollateral_Success(t *testing.T) {
 			keepertest.CreateTestLiquidityTiers(t, pc.Ctx, pc.PerpetualsKeeper) // Test setup.
 			// Create a new market.
 			marketId := keepertest.GetNumMarkets(t, pc.Ctx, pc.PricesKeeper)
-			_, err := pc.PricesKeeper.CreateMarket(
+			_, err := keepertest.CreateTestMarket(
+				t,
 				pc.Ctx,
+				pc.PricesKeeper,
 				pricestypes.MarketParam{
 					Id:                 marketId,
-					Pair:               "marketName",
+					Pair:               "base-quote",
 					Exponent:           tc.exponent,
 					MinExchanges:       uint32(1),
 					MinPriceChangePpm:  uint32(50),
@@ -1208,114 +1158,6 @@ func TestGetNetCollateral_MarketNotFound(t *testing.T) {
 	)
 	require.EqualError(t, err, errorsmod.Wrap(types.ErrMarketDoesNotExist, expectedErrorStr).Error())
 	require.ErrorIs(t, err, types.ErrMarketDoesNotExist)
-}
-
-func TestGetSettlementPpm_Success(t *testing.T) {
-	tests := map[string]struct {
-		quantums              *big.Int
-		perpetualFundingIndex *big.Int
-		prevIndex             *big.Int
-		expectedSettlementPpm *big.Int
-	}{
-		"is long, index went from negative to positive": {
-			quantums:              big.NewInt(30_000),
-			prevIndex:             big.NewInt(-100),
-			perpetualFundingIndex: big.NewInt(100),
-			expectedSettlementPpm: big.NewInt(-6_000_000),
-		},
-		"is long, index unchanged": {
-			quantums:              big.NewInt(1_000_000),
-			prevIndex:             big.NewInt(100),
-			perpetualFundingIndex: big.NewInt(100),
-			expectedSettlementPpm: big.NewInt(0),
-		},
-		"is long, index went from positive to zero": {
-			quantums:              big.NewInt(10_000_000),
-			prevIndex:             big.NewInt(100),
-			perpetualFundingIndex: big.NewInt(0),
-			expectedSettlementPpm: big.NewInt(1_000_000_000),
-		},
-		"is long, index went from positive to negative": {
-			quantums:              big.NewInt(10_000_000),
-			prevIndex:             big.NewInt(100),
-			perpetualFundingIndex: big.NewInt(-200),
-			expectedSettlementPpm: big.NewInt(3_000_000_000),
-		},
-		"is short, index went from negative to positive": {
-			quantums:              big.NewInt(-30_000),
-			prevIndex:             big.NewInt(-100),
-			perpetualFundingIndex: big.NewInt(100),
-			expectedSettlementPpm: big.NewInt(6_000_000),
-		},
-		"is short, index unchanged": {
-			quantums:              big.NewInt(-1_000),
-			prevIndex:             big.NewInt(100),
-			perpetualFundingIndex: big.NewInt(100),
-			expectedSettlementPpm: big.NewInt(0),
-		},
-		"is short, index went from positive to zero": {
-			quantums:              big.NewInt(-5_000_000),
-			prevIndex:             big.NewInt(100),
-			perpetualFundingIndex: big.NewInt(0),
-			expectedSettlementPpm: big.NewInt(-500_000_000),
-		},
-		"is short, index went from positive to negative": {
-			quantums:              big.NewInt(-5_000_000),
-			prevIndex:             big.NewInt(100),
-			perpetualFundingIndex: big.NewInt(-50),
-			expectedSettlementPpm: big.NewInt(-750_000_000),
-		},
-	}
-
-	// Run tests.
-	for name, tc := range tests {
-		t.Run(name, func(t *testing.T) {
-			// Test suite setup.
-			pc := keepertest.PerpetualsKeepers(t)
-			// Create liquidity tiers.
-			keepertest.CreateTestLiquidityTiers(t, pc.Ctx, pc.PerpetualsKeeper)
-			perps, err := keepertest.CreateNPerpetuals(t, pc.Ctx, pc.PerpetualsKeeper, pc.PricesKeeper, 1)
-			require.NoError(t, err)
-
-			perpetualId := perps[0].Params.Id
-
-			// Since FundingIndex starts at zero, tc.perpetualFundingIndex will be
-			// the current FundingIndex.
-			err = pc.PerpetualsKeeper.ModifyFundingIndex(pc.Ctx, perpetualId, tc.perpetualFundingIndex)
-			require.NoError(t, err)
-
-			bigNetSettlementPpm, newFundingIndex, err := pc.PerpetualsKeeper.GetSettlementPpm(
-				pc.Ctx,
-				perpetualId,
-				tc.quantums,
-				tc.prevIndex,
-			)
-			require.NoError(t, err)
-
-			require.Equal(t,
-				tc.perpetualFundingIndex,
-				newFundingIndex,
-			)
-
-			require.Equal(t,
-				0,
-				tc.expectedSettlementPpm.Cmp(bigNetSettlementPpm),
-			)
-		})
-	}
-}
-
-func TestGetSettlementPpm_PerpetualNotFound(t *testing.T) {
-	pc := keepertest.PerpetualsKeepers(t)
-	nonExistentPerpetualId := uint32(0)
-	_, _, err := pc.PerpetualsKeeper.GetSettlementPpm(
-		pc.Ctx,
-		nonExistentPerpetualId, // perpetualId
-		big.NewInt(-100),       // quantum
-		big.NewInt(0),          // index
-	)
-	require.EqualError(t, err, errorsmod.Wrap(types.ErrPerpetualDoesNotExist, fmt.Sprint(nonExistentPerpetualId)).Error())
-	require.ErrorIs(t, err, types.ErrPerpetualDoesNotExist)
 }
 
 func TestModifyFundingIndex_Success(t *testing.T) {
@@ -3227,4 +3069,36 @@ func TestIsIsolatedPerpetual(t *testing.T) {
 			},
 		)
 	}
+}
+
+func TestAcquireNextPerpetualID(t *testing.T) {
+	pc := keepertest.PerpetualsKeepers(t)
+	perps := keepertest.CreateLiquidityTiersAndNPerpetuals(t, pc.Ctx, pc.PerpetualsKeeper, pc.PricesKeeper, 10)
+
+	// Get the highest perpetual id from the existing markets
+	highestPerpetualId := uint32(0)
+	for _, perp := range perps {
+		if perp.Params.Id > highestPerpetualId {
+			highestPerpetualId = perp.Params.Id
+		}
+	}
+
+	// Acquire the next perpetual id
+	nextPerpetualId := pc.PerpetualsKeeper.AcquireNextPerpetualID(pc.Ctx)
+	require.Equal(t, highestPerpetualId+1, nextPerpetualId)
+
+	// Verify the next perpetual id is stored in the store
+	nextPerpetualIdFromStore := pc.PerpetualsKeeper.GetNextPerpetualID(pc.Ctx)
+	require.Equal(t, nextPerpetualId+1, nextPerpetualIdFromStore)
+
+	// Create a perpetual with the next perpetual ID outside of acquire flow
+	perp := perptest.GeneratePerpetual(
+		perptest.WithId(nextPerpetualIdFromStore),
+		perptest.WithMarketId(nextPerpetualIdFromStore),
+	)
+	pc.PerpetualsKeeper.SetPerpetualForTest(pc.Ctx, *perp)
+
+	// Verify the next perpetual id is incremented
+	nextPerpetualId = pc.PerpetualsKeeper.AcquireNextPerpetualID(pc.Ctx)
+	require.Equal(t, nextPerpetualIdFromStore+1, nextPerpetualId)
 }

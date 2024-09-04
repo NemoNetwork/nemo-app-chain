@@ -2,16 +2,18 @@ package client_test
 
 import (
 	"context"
-	"cosmossdk.io/log"
+	"math/big"
 	"testing"
+
+	"cosmossdk.io/log"
 
 	"github.com/nemo-network/v4-chain/protocol/daemons/flags"
 	"github.com/nemo-network/v4-chain/protocol/daemons/liquidation/api"
 	"github.com/nemo-network/v4-chain/protocol/daemons/liquidation/client"
-	"github.com/nemo-network/v4-chain/protocol/dtypes"
 	"github.com/nemo-network/v4-chain/protocol/mocks"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/nemo-network/v4-chain/protocol/testutil/grpc"
+	testutil "github.com/nemo-network/v4-chain/protocol/testutil/util"
 	blocktimetypes "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
 	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
@@ -86,8 +88,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Can get liquidatable subaccount with long position": {
@@ -146,8 +147,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Skip well collateralized subaccounts": {
@@ -207,8 +207,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Skip subaccounts with no open positions": {
@@ -257,8 +256,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 					NegativeTncSubaccountIds:   []satypes.SubaccountId{},
 					SubaccountOpenPositionInfo: []clobtypes.SubaccountOpenPositionInfo{},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Can get subaccount that become undercollateralized with funding payments (short)": {
@@ -283,17 +281,18 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						{
 							Id: &constants.Carl_Num0,
 							AssetPositions: []*satypes.AssetPosition{
-								{
-									AssetId:  0,
-									Quantums: dtypes.NewInt(55_000_000_000), // $55,000
-								},
+								testutil.CreateSingleAssetPosition(
+									0,
+									big.NewInt(55_000_000_000), // $55,000
+								),
 							},
 							PerpetualPositions: []*satypes.PerpetualPosition{
-								{
-									PerpetualId:  0,
-									Quantums:     dtypes.NewInt(-100_000_000), // -1 BTC
-									FundingIndex: dtypes.NewInt(10_000),
-								},
+								testutil.CreateSinglePerpetualPosition(
+									0,
+									big.NewInt(-100_000_000), // -1 BTC
+									big.NewInt(10_000),
+									big.NewInt(0),
+								),
 							},
 						},
 					},
@@ -337,8 +336,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Can get subaccount that become liquidatable with funding payments (long)": {
@@ -363,17 +361,18 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						{
 							Id: &constants.Dave_Num0,
 							AssetPositions: []*satypes.AssetPosition{
-								{
-									AssetId:  0,
-									Quantums: dtypes.NewInt(-45_000_000_000), // -$45,000
-								},
+								testutil.CreateSingleAssetPosition(
+									0,
+									big.NewInt(-45_000_000_000), // -$45,000
+								),
 							},
 							PerpetualPositions: []*satypes.PerpetualPosition{
-								{
-									PerpetualId:  0,
-									Quantums:     dtypes.NewInt(100_000_000), // 1 BTC
-									FundingIndex: dtypes.NewInt(-10_000),
-								},
+								testutil.CreateSinglePerpetualPosition(
+									0,
+									big.NewInt(100_000_000), // 1 BTC
+									big.NewInt(-10_000),
+									big.NewInt(0),
+								),
 							},
 						},
 					},
@@ -417,8 +416,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Skips subaccount that become well-collateralized with funding payments (short)": {
@@ -443,17 +441,18 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						{
 							Id: &constants.Carl_Num0,
 							AssetPositions: []*satypes.AssetPosition{
-								{
-									AssetId:  0,
-									Quantums: dtypes.NewInt(54_999_000_000), // $54,999
-								},
+								testutil.CreateSingleAssetPosition(
+									0,
+									big.NewInt(54_999_000_000), // $54,999
+								),
 							},
 							PerpetualPositions: []*satypes.PerpetualPosition{
-								{
-									PerpetualId:  0,
-									Quantums:     dtypes.NewInt(-100_000_000), // -1 BTC
-									FundingIndex: dtypes.NewInt(-10_000),
-								},
+								testutil.CreateSinglePerpetualPosition(
+									0,
+									big.NewInt(-100_000_000), // -1 BTC
+									big.NewInt(-10_000),
+									big.NewInt(0),
+								),
 							},
 						},
 					},
@@ -495,8 +494,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Skips subaccount that become well-collateralized with funding payments (long)": {
@@ -521,17 +519,18 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						{
 							Id: &constants.Dave_Num0,
 							AssetPositions: []*satypes.AssetPosition{
-								{
-									AssetId:  0,
-									Quantums: dtypes.NewInt(-44_999_000_000), // -$44,999
-								},
+								testutil.CreateSingleAssetPosition(
+									0,
+									big.NewInt(-44_999_000_000), // -$44,999
+								),
 							},
 							PerpetualPositions: []*satypes.PerpetualPosition{
-								{
-									PerpetualId:  0,
-									Quantums:     dtypes.NewInt(100_000_000), // 1 BTC
-									FundingIndex: dtypes.NewInt(10_000),
-								},
+								testutil.CreateSinglePerpetualPosition(
+									0,
+									big.NewInt(100_000_000), // 1 BTC
+									big.NewInt(10_000),
+									big.NewInt(0),
+								),
 							},
 						},
 					},
@@ -573,8 +572,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Can get negative tnc subaccount with short position": {
@@ -636,8 +634,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 		"Can get negative tnc subaccount with long position": {
@@ -699,8 +696,7 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 						},
 					},
 				}
-				response3 := &api.LiquidateSubaccountsResponse{}
-				mck.On("LiquidateSubaccounts", ctx, req).Return(response3, nil)
+				setupMockLiquidateSubaccountRequests(mck, ctx, req)
 			},
 		},
 	}
@@ -731,5 +727,60 @@ func TestRunLiquidationDaemonTaskLoop(t *testing.T) {
 				queryClientMock.AssertExpectations(t)
 			}
 		})
+	}
+}
+
+func setupMockLiquidateSubaccountRequests(
+	mck *mocks.QueryClient,
+	ctx context.Context,
+	request *api.LiquidateSubaccountsRequest,
+) {
+	req := &api.LiquidateSubaccountsRequest{
+		BlockHeight:               request.BlockHeight,
+		LiquidatableSubaccountIds: request.LiquidatableSubaccountIds,
+	}
+	response := &api.LiquidateSubaccountsResponse{}
+	mck.On("LiquidateSubaccounts", ctx, req).Return(response, nil)
+
+	req = &api.LiquidateSubaccountsRequest{
+		BlockHeight:              request.BlockHeight,
+		NegativeTncSubaccountIds: request.NegativeTncSubaccountIds,
+	}
+	mck.On("LiquidateSubaccounts", ctx, req).Return(response, nil)
+
+	if len(request.SubaccountOpenPositionInfo) == 0 {
+		req = &api.LiquidateSubaccountsRequest{
+			BlockHeight:                request.BlockHeight,
+			SubaccountOpenPositionInfo: []clobtypes.SubaccountOpenPositionInfo{},
+		}
+		mck.On("LiquidateSubaccounts", ctx, req).Return(response, nil)
+	} else {
+		for _, info := range request.SubaccountOpenPositionInfo {
+			if len(info.SubaccountsWithLongPosition) > 0 {
+				req = &api.LiquidateSubaccountsRequest{
+					BlockHeight: request.BlockHeight,
+					SubaccountOpenPositionInfo: []clobtypes.SubaccountOpenPositionInfo{
+						{
+							PerpetualId:                 info.PerpetualId,
+							SubaccountsWithLongPosition: info.SubaccountsWithLongPosition,
+						},
+					},
+				}
+				mck.On("LiquidateSubaccounts", ctx, req).Return(response, nil)
+			}
+
+			if len(info.SubaccountsWithShortPosition) > 0 {
+				req = &api.LiquidateSubaccountsRequest{
+					BlockHeight: request.BlockHeight,
+					SubaccountOpenPositionInfo: []clobtypes.SubaccountOpenPositionInfo{
+						{
+							PerpetualId:                  info.PerpetualId,
+							SubaccountsWithShortPosition: info.SubaccountsWithShortPosition,
+						},
+					},
+				}
+				mck.On("LiquidateSubaccounts", ctx, req).Return(response, nil)
+			}
+		}
 	}
 }

@@ -1,8 +1,9 @@
 package keeper_test
 
 import (
-	"github.com/nemo-network/v4-chain/protocol/lib"
 	"testing"
+
+	"github.com/nemo-network/v4-chain/protocol/lib"
 
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
@@ -143,10 +144,10 @@ func TestUpdateMarketParam(t *testing.T) {
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			ctx, pricesKeeper, _, _, mockTimeProvider := keepertest.PricesKeepers(t)
+			ctx, pricesKeeper, _, _, mockTimeProvider, _, _ := keepertest.PricesKeepers(t)
 			mockTimeProvider.On("Now").Return(constants.TimeT)
 			msgServer := keeper.NewMsgServerImpl(pricesKeeper)
-			initialMarketParam, err := pricesKeeper.CreateMarket(ctx, testMarketParam, testMarketPrice)
+			initialMarketParam, err := keepertest.CreateTestMarket(t, ctx, pricesKeeper, testMarketParam, testMarketPrice)
 			require.NoError(t, err)
 
 			_, err = msgServer.UpdateMarketParam(ctx, tc.msg)

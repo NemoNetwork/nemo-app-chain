@@ -10,6 +10,7 @@ var (
 		1,
 		"Shares are negative",
 	)
+	// Deprecated since v6.x
 	ErrClobPairNotFound = errorsmod.Register(
 		ModuleName,
 		2,
@@ -89,5 +90,35 @@ var (
 		ModuleName,
 		17,
 		"MarketPrice is zero",
+	)
+	ErrOrdersAndOrderIdsDiffLen = errorsmod.Register(
+		ModuleName,
+		18,
+		"Orders and OrderIds must have the same length",
+	)
+	ErrUnspecifiedVaultStatus = errorsmod.Register(
+		ModuleName,
+		19,
+		"VaultStatus is unspecified",
+	)
+	ErrVaultParamsNotFound = errorsmod.Register(
+		ModuleName,
+		20,
+		"VaultParams not found",
+	)
+	ErrEmptyOwnerAddress = errorsmod.Register(
+		ModuleName,
+		21,
+		"Empty owner address",
+	)
+	ErrOwnerNotFound = errorsmod.Register(
+		ModuleName,
+		22,
+		"Owner not found",
+	)
+	ErrLockedSharesExceedsOwnerShares = errorsmod.Register(
+		ModuleName,
+		23,
+		"Locked shares exceeds owner shares",
 	)
 )

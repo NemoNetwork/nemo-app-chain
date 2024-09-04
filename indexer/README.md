@@ -37,11 +37,22 @@ nvm alias default $(nvm version) # optional
 npm i -g pnpm@6
 ```
 
-Now, you can install dependencies for Indexer.
+### Installation
+
+Now, you can install dependencies for Indexer. This should also be run anytime packages are updated.
 
 ```
 pnpm install
 ```
+
+### Build
+
+To build all services and packages, run:
+
+```
+pnpm run build:all
+```
+This should be run whenever code is changed, and you need to deploy or run the updated code, including running unit tests, deploying locally, or deploying to AWS.
 
 ## Adding Packages
 
@@ -78,7 +89,7 @@ Protos can be found in `proto/` [here](https://github.com/nemo-network/v4-chain/
 
 ## Running unit tests
 
-First build all the services and packages by running:
+First, make sure all services and packages are built with the latest code by running:
 
 ```
 pnpm run build:all
@@ -96,6 +107,8 @@ pnpm run test:all
 
 If you change any logic, you'll have to re-build the services and packages before running unit tests.
 
+### To run a single test file:
+`cd services/{service_name} && pnpm build && pnpm test -- {test_name}`
 
 # Running Dockerfile locally
 TODO(DEC-671): Add e2e tests
@@ -217,4 +230,5 @@ Other example subscription events:
 { "type": "subscribe", "channel": "v4_markets" }
 { "type": "subscribe", "channel": "v4_orderbook", "id": "BTC-USD" }
 { "type": "subscribe", "channel": "v4_subaccounts", "id": "address/0" }
+{ "type": "subscribe", "channel": "v4_block_height" }
 ```

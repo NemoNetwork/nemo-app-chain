@@ -2,7 +2,7 @@ package keeper
 
 import (
 	"context"
-	"fmt"
+	"math/big"
 
 	"cosmossdk.io/store/prefix"
 	"google.golang.org/grpc/codes"
@@ -29,8 +29,8 @@ func (k Keeper) Vault(
 		Number: req.Number,
 	}
 
-	// Get total shares.
-	totalShares, exists := k.GetTotalShares(ctx, vaultId)
+	// Get vault params.
+	vaultParams, exists := k.GetVaultParams(ctx, vaultId)
 	if !exists {
 		return nil, status.Error(codes.NotFound, "vault not found")
 	}
@@ -42,19 +42,19 @@ func (k Keeper) Vault(
 	}
 
 	// Get vault inventory.
+	inventory := big.NewInt(0)
 	clobPair, exists := k.clobKeeper.GetClobPair(ctx, clobtypes.ClobPairId(vaultId.Number))
-	if !exists {
-		return nil, status.Error(codes.Internal, fmt.Sprintf("clob pair %d doesn't exist", vaultId.Number))
+	if exists {
+		perpId := clobPair.Metadata.(*clobtypes.ClobPair_PerpetualClobMetadata).PerpetualClobMetadata.PerpetualId
+		inventory = k.GetVaultInventoryInPerpetual(ctx, vaultId, perpId)
 	}
-	perpId := clobPair.Metadata.(*clobtypes.ClobPair_PerpetualClobMetadata).PerpetualClobMetadata.PerpetualId
-	inventory := k.GetVaultInventoryInPerpetual(ctx, vaultId, perpId)
 
 	return &types.QueryVaultResponse{
 		VaultId:      vaultId,
 		SubaccountId: *vaultId.ToSubaccountId(),
 		Equity:       dtypes.NewIntFromBigInt(equity),
 		Inventory:    dtypes.NewIntFromBigInt(inventory),
-		TotalShares:  totalShares,
+		VaultParams:  vaultParams,
 	}, nil
 }
 
@@ -69,9 +69,9 @@ func (k Keeper) AllVaults(
 
 	var vaults []*types.QueryVaultResponse
 
-	totalSharesStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.TotalSharesKeyPrefix))
+	vaultParamsStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.VaultParamsKeyPrefix))
 
-	pageRes, err := query.Paginate(totalSharesStore, req.Pagination, func(key []byte, value []byte) error {
+	pageRes, err := query.Paginate(vaultParamsStore, req.Pagination, func(key []byte, value []byte) error {
 		vaultId, err := types.GetVaultIdFromStateKey(key)
 		if err != nil {
 			return err

@@ -5,7 +5,10 @@
 
 Base URLs:
 
-* <a href="https://dydx-testnet.imperator.co/v4">https://dydx-testnet.imperator.co/v4</a>
+* For **the deployment by DYDX token holders**, use <a href="https://indexer.dydx.trade/v4">https://indexer.dydx.trade/v4</a>
+* For **Testnet**, use <a href="https://dydx-testnet.imperator.co/v4">https://dydx-testnet.imperator.co/v4</a>
+
+Note: Messages on Indexer WebSocket feeds are typically more recent than data fetched via Indexer's REST API, because the latter is backed by read replicas of the databases that feed the former. Ordinarily this difference is minimal (less than a second), but it might become prolonged under load. Please see [Indexer Architecture](https://dydx.exchange/blog/v4-deep-dive-indexer) for more information.
 
 # Authentication
 
@@ -23,7 +26,13 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/addresses/{address}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/affiliates/address', params={
+  'referralCode': 'string'
+}, headers = headers)
 
 print(r.json())
 
@@ -35,7 +44,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/addresses/{address}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/affiliates/address?referralCode=string`,
 {
   method: 'GET',
 
@@ -49,13 +62,13 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}',
 
 ```
 
-`GET /addresses/{address}`
+`GET /affiliates/address`
 
 ### Parameters
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|address|path|string|true|none|
+|referralCode|query|string|true|none|
 
 > Example responses
 
@@ -63,68 +76,7 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}',
 
 ```json
 {
-  "subaccounts": [
-    {
-      "address": "string",
-      "subaccountNumber": 0,
-      "equity": "string",
-      "freeCollateral": "string",
-      "openPerpetualPositions": {
-        "property1": {
-          "market": "string",
-          "status": "OPEN",
-          "side": "LONG",
-          "size": "string",
-          "maxSize": "string",
-          "entryPrice": "string",
-          "realizedPnl": "string",
-          "createdAt": "string",
-          "createdAtHeight": "string",
-          "sumOpen": "string",
-          "sumClose": "string",
-          "netFunding": "string",
-          "unrealizedPnl": "string",
-          "closedAt": null,
-          "exitPrice": "string"
-        },
-        "property2": {
-          "market": "string",
-          "status": "OPEN",
-          "side": "LONG",
-          "size": "string",
-          "maxSize": "string",
-          "entryPrice": "string",
-          "realizedPnl": "string",
-          "createdAt": "string",
-          "createdAtHeight": "string",
-          "sumOpen": "string",
-          "sumClose": "string",
-          "netFunding": "string",
-          "unrealizedPnl": "string",
-          "closedAt": null,
-          "exitPrice": "string"
-        }
-      },
-      "assetPositions": {
-        "property1": {
-          "symbol": "string",
-          "side": "LONG",
-          "size": "string",
-          "assetId": "string",
-          "subaccountNumber": 0
-        },
-        "property2": {
-          "symbol": "string",
-          "side": "LONG",
-          "size": "string",
-          "assetId": "string",
-          "subaccountNumber": 0
-        }
-      },
-      "marginEnabled": true
-    }
-  ],
-  "totalTradingRewards": "string"
+  "address": "string"
 }
 ```
 
@@ -132,7 +84,7 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}',
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[AddressResponse](#schemaaddressresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[AffiliateAddressResponse](#schemaaffiliateaddressresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -150,7 +102,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{subaccountNumber}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/addresses/{address}/subaccountNumber/{subaccountNumber}', headers = headers)
 
 print(r.json())
 
@@ -162,7 +118,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{subaccountNumber}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/addresses/{address}/subaccountNumber/{subaccountNumber}`,
 {
   method: 'GET',
 
@@ -211,7 +171,8 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{s
       "netFunding": "string",
       "unrealizedPnl": "string",
       "closedAt": "string",
-      "exitPrice": "string"
+      "exitPrice": "string",
+      "subaccountNumber": 0
     },
     "property2": {
       "market": "string",
@@ -228,7 +189,8 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{s
       "netFunding": "string",
       "unrealizedPnl": "string",
       "closedAt": "string",
-      "exitPrice": "string"
+      "exitPrice": "string",
+      "subaccountNumber": 0
     }
   },
   "assetPositions": {
@@ -247,7 +209,9 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/subaccountNumber/{s
       "subaccountNumber": 0
     }
   },
-  "marginEnabled": true
+  "marginEnabled": true,
+  "updatedAtHeight": "string",
+  "latestProcessedBlockHeight": "string"
 }
 ```
 
@@ -273,7 +237,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}', headers = headers)
 
 print(r.json())
 
@@ -285,7 +253,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}`,
 {
   method: 'GET',
 
@@ -340,7 +312,8 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNum
           "netFunding": "string",
           "unrealizedPnl": "string",
           "closedAt": null,
-          "exitPrice": "string"
+          "exitPrice": "string",
+          "subaccountNumber": 0
         },
         "property2": {
           "market": "string",
@@ -357,7 +330,8 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNum
           "netFunding": "string",
           "unrealizedPnl": "string",
           "closedAt": null,
-          "exitPrice": "string"
+          "exitPrice": "string",
+          "subaccountNumber": 0
         }
       },
       "assetPositions": {
@@ -376,7 +350,9 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNum
           "subaccountNumber": 0
         }
       },
-      "marginEnabled": true
+      "marginEnabled": true,
+      "updatedAtHeight": "string",
+      "latestProcessedBlockHeight": "string"
     }
   ]
 }
@@ -387,6 +363,246 @@ fetch('https://dydx-testnet.imperator.co/addresses/{address}/parentSubaccountNum
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[ParentSubaccountResponse](#schemaparentsubaccountresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetReferralCode
+
+<a id="opIdGetReferralCode"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/affiliates/referral_code', params={
+  'address': 'string'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/affiliates/referral_code?address=string`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /affiliates/referral_code`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|query|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "referralCode": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[AffiliateReferralCodeResponse](#schemaaffiliatereferralcoderesponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetSnapshot
+
+<a id="opIdGetSnapshot"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/affiliates/snapshot', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/affiliates/snapshot`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /affiliates/snapshot`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|offset|query|number(double)|false|none|
+|limit|query|number(double)|false|none|
+|sortByReferredFees|query|boolean|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "affiliateList": [
+    {
+      "affiliateAddress": "string",
+      "affiliateEarnings": 0.1,
+      "affiliateReferralCode": "string",
+      "affiliateReferredTrades": 0.1,
+      "affiliateTotalReferredFees": 0.1,
+      "affiliateReferredUsers": 0.1,
+      "affiliateReferredNetProtocolEarnings": 0.1
+    }
+  ],
+  "total": 0.1,
+  "currentOffset": 0.1
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[AffiliateSnapshotResponse](#schemaaffiliatesnapshotresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetTotalVolume
+
+<a id="opIdGetTotalVolume"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/affiliates/total_volume', params={
+  'address': 'string'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/affiliates/total_volume?address=string`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /affiliates/total_volume`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|query|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "totalVolume": 0.1
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[AffiliateTotalVolumeResponse](#schemaaffiliatetotalvolumeresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -404,8 +620,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/assetPositions', params={
-  'address': 'string',  'subaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/assetPositions', params={
+  'address': 'string',  'subaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -418,7 +638,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/assetPositions?address=string&subaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/assetPositions?address=string&subaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -481,8 +705,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/assetPositions/parentSubaccountNumber', params={
-  'address': 'string',  'parentSubaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/assetPositions/parentSubaccountNumber', params={
+  'address': 'string',  'parentSubaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -495,7 +723,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/assetPositions/parentSubaccountNumber?address=string&parentSubaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/assetPositions/parentSubaccountNumber?address=string&parentSubaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -558,7 +790,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/candles/perpetualMarkets/{ticker}', params={
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/candles/perpetualMarkets/{ticker}', params={
   'resolution': '1MIN'
 }, headers = headers)
 
@@ -572,7 +808,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/candles/perpetualMarkets/{ticker}?resolution=1MIN',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/candles/perpetualMarkets/{ticker}?resolution=1MIN`,
 {
   method: 'GET',
 
@@ -627,8 +867,10 @@ fetch('https://dydx-testnet.imperator.co/candles/perpetualMarkets/{ticker}?resol
       "close": "string",
       "baseTokenVolume": "string",
       "usdVolume": "string",
-      "trades": 0,
+      "trades": 0.1,
       "startingOpenInterest": "string",
+      "orderbookMidPriceOpen": "string",
+      "orderbookMidPriceClose": "string",
       "id": "string"
     }
   ]
@@ -657,7 +899,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/compliance/screen/{address}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/compliance/screen/{address}', headers = headers)
 
 print(r.json())
 
@@ -669,7 +915,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/compliance/screen/{address}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/compliance/screen/{address}`,
 {
   method: 'GET',
 
@@ -698,7 +948,8 @@ fetch('https://dydx-testnet.imperator.co/compliance/screen/{address}',
 ```json
 {
   "status": "COMPLIANT",
-  "reason": "MANUAL"
+  "reason": "MANUAL",
+  "updatedAt": "string"
 }
 ```
 
@@ -724,8 +975,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/fills', params={
-  'address': 'string',  'subaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/fills', params={
+  'address': 'string',  'subaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -738,7 +993,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/fills?address=string&subaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/fills?address=string&subaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -765,6 +1024,7 @@ fetch('https://dydx-testnet.imperator.co/fills?address=string&subaccountNumber=0
 |limit|query|number(double)|false|none|
 |createdBeforeOrAtHeight|query|number(double)|false|none|
 |createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|page|query|number(double)|false|none|
 
 #### Enumerated Values
 
@@ -779,6 +1039,9 @@ fetch('https://dydx-testnet.imperator.co/fills?address=string&subaccountNumber=0
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "fills": [
     {
       "id": "string",
@@ -822,8 +1085,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/fills/parentSubaccount', params={
-  'address': 'string',  'parentSubaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/fills/parentSubaccount', params={
+  'address': 'string',  'parentSubaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -836,7 +1103,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/fills/parentSubaccount?address=string&parentSubaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/fills/parentSubaccount?address=string&parentSubaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -863,6 +1134,7 @@ fetch('https://dydx-testnet.imperator.co/fills/parentSubaccount?address=string&p
 |limit|query|number(double)|false|none|
 |createdBeforeOrAtHeight|query|number(double)|false|none|
 |createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|page|query|number(double)|false|none|
 
 #### Enumerated Values
 
@@ -877,6 +1149,9 @@ fetch('https://dydx-testnet.imperator.co/fills/parentSubaccount?address=string&p
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "fills": [
     {
       "id": "string",
@@ -920,7 +1195,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/height', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/height', headers = headers)
 
 print(r.json())
 
@@ -932,7 +1211,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/height',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/height`,
 {
   method: 'GET',
 
@@ -981,7 +1264,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/historicalBlockTradingRewards/{address}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/historicalBlockTradingRewards/{address}', headers = headers)
 
 print(r.json())
 
@@ -993,7 +1280,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/historicalBlockTradingRewards/{address}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/historicalBlockTradingRewards/{address}`,
 {
   method: 'GET',
 
@@ -1056,7 +1347,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/historicalFunding/{ticker}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/historicalFunding/{ticker}', headers = headers)
 
 print(r.json())
 
@@ -1068,7 +1363,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/historicalFunding/{ticker}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/historicalFunding/{ticker}`,
 {
   method: 'GET',
 
@@ -1133,8 +1432,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/historical-pnl', params={
-  'address': 'string',  'subaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/historical-pnl', params={
+  'address': 'string',  'subaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -1147,7 +1450,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/historical-pnl?address=string&subaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/historical-pnl?address=string&subaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -1174,6 +1481,7 @@ fetch('https://dydx-testnet.imperator.co/historical-pnl?address=string&subaccoun
 |createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
 |createdOnOrAfterHeight|query|number(double)|false|none|
 |createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+|page|query|number(double)|false|none|
 
 > Example responses
 
@@ -1181,6 +1489,105 @@ fetch('https://dydx-testnet.imperator.co/historical-pnl?address=string&subaccoun
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
+  "historicalPnl": [
+    {
+      "id": "string",
+      "subaccountId": "string",
+      "equity": "string",
+      "totalPnl": "string",
+      "netTransfers": "string",
+      "createdAt": "string",
+      "blockHeight": "string",
+      "blockTime": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[HistoricalPnlResponse](#schemahistoricalpnlresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetHistoricalPnlForParentSubaccount
+
+<a id="opIdGetHistoricalPnlForParentSubaccount"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/historical-pnl/parentSubaccountNumber', params={
+  'address': 'string',  'parentSubaccountNumber': '0.1'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/historical-pnl/parentSubaccountNumber?address=string&parentSubaccountNumber=0.1`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /historical-pnl/parentSubaccountNumber`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|query|string|true|none|
+|parentSubaccountNumber|query|number(double)|true|none|
+|limit|query|number(double)|false|none|
+|createdBeforeOrAtHeight|query|number(double)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|createdOnOrAfterHeight|query|number(double)|false|none|
+|createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "historicalPnl": [
     {
       "id": "string",
@@ -1218,7 +1625,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/historicalTradingRewardAggregations/{address}', params={
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/historicalTradingRewardAggregations/{address}', params={
   'period': 'DAILY'
 }, headers = headers)
 
@@ -1232,7 +1643,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/historicalTradingRewardAggregations/{address}?period=DAILY',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/historicalTradingRewardAggregations/{address}?period=DAILY`,
 {
   method: 'GET',
 
@@ -1307,7 +1722,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/orderbooks/perpetualMarket/{ticker}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/orderbooks/perpetualMarket/{ticker}', headers = headers)
 
 print(r.json())
 
@@ -1319,7 +1738,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/orderbooks/perpetualMarket/{ticker}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/orderbooks/perpetualMarket/{ticker}`,
 {
   method: 'GET',
 
@@ -1384,8 +1807,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/orders', params={
-  'address': 'string',  'subaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/orders', params={
+  'address': 'string',  'subaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -1398,7 +1825,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/orders?address=string&subaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/orders?address=string&subaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -1442,9 +1873,6 @@ fetch('https://dydx-testnet.imperator.co/orders?address=string&subaccountNumber=
 |type|TRAILING_STOP|
 |type|TAKE_PROFIT|
 |type|TAKE_PROFIT_MARKET|
-|type|HARD_TRADE|
-|type|FAILED_HARD_TRADE|
-|type|TRANSFER_PLACEHOLDER|
 
 > Example responses
 
@@ -1474,7 +1902,8 @@ fetch('https://dydx-testnet.imperator.co/orders?address=string&subaccountNumber=
     "postOnly": true,
     "ticker": "string",
     "updatedAt": "string",
-    "updatedAtHeight": "string"
+    "updatedAtHeight": "string",
+    "subaccountNumber": 0
   }
 ]
 ```
@@ -1531,6 +1960,7 @@ Status Code **200**
 |» ticker|string|true|none|none|
 |» updatedAt|[IsoString](#schemaisostring)|false|none|none|
 |» updatedAtHeight|string|false|none|none|
+|» subaccountNumber|integer(int32)|true|none|none|
 
 #### Enumerated Values
 
@@ -1545,9 +1975,200 @@ Status Code **200**
 |type|TRAILING_STOP|
 |type|TAKE_PROFIT|
 |type|TAKE_PROFIT_MARKET|
-|type|HARD_TRADE|
-|type|FAILED_HARD_TRADE|
-|type|TRANSFER_PLACEHOLDER|
+|timeInForce|GTT|
+|timeInForce|FOK|
+|timeInForce|IOC|
+|*anonymous*|OPEN|
+|*anonymous*|FILLED|
+|*anonymous*|CANCELED|
+|*anonymous*|BEST_EFFORT_CANCELED|
+|*anonymous*|UNTRIGGERED|
+|*anonymous*|BEST_EFFORT_OPENED|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## ListOrdersForParentSubaccount
+
+<a id="opIdListOrdersForParentSubaccount"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/orders/parentSubaccountNumber', params={
+  'address': 'string',  'parentSubaccountNumber': '0.1'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/orders/parentSubaccountNumber?address=string&parentSubaccountNumber=0.1`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /orders/parentSubaccountNumber`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|query|string|true|none|
+|parentSubaccountNumber|query|number(double)|true|none|
+|limit|query|number(double)|false|none|
+|ticker|query|string|false|none|
+|side|query|[OrderSide](#schemaorderside)|false|none|
+|type|query|[OrderType](#schemaordertype)|false|none|
+|status|query|array[any]|false|none|
+|goodTilBlockBeforeOrAt|query|number(double)|false|none|
+|goodTilBlockTimeBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|returnLatestOrders|query|boolean|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|side|BUY|
+|side|SELL|
+|type|LIMIT|
+|type|MARKET|
+|type|STOP_LIMIT|
+|type|STOP_MARKET|
+|type|TRAILING_STOP|
+|type|TAKE_PROFIT|
+|type|TAKE_PROFIT_MARKET|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {
+    "id": "string",
+    "subaccountId": "string",
+    "clientId": "string",
+    "clobPairId": "string",
+    "side": "BUY",
+    "size": "string",
+    "totalFilled": "string",
+    "price": "string",
+    "type": "LIMIT",
+    "reduceOnly": true,
+    "orderFlags": "string",
+    "goodTilBlock": "string",
+    "goodTilBlockTime": "string",
+    "createdAtHeight": "string",
+    "clientMetadata": "string",
+    "triggerPrice": "string",
+    "timeInForce": "GTT",
+    "status": "OPEN",
+    "postOnly": true,
+    "ticker": "string",
+    "updatedAt": "string",
+    "updatedAtHeight": "string",
+    "subaccountNumber": 0
+  }
+]
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|Inline|
+
+### Response Schema
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[OrderResponseObject](#schemaorderresponseobject)]|false|none|none|
+|» id|string|true|none|none|
+|» subaccountId|string|true|none|none|
+|» clientId|string|true|none|none|
+|» clobPairId|string|true|none|none|
+|» side|[OrderSide](#schemaorderside)|true|none|none|
+|» size|string|true|none|none|
+|» totalFilled|string|true|none|none|
+|» price|string|true|none|none|
+|» type|[OrderType](#schemaordertype)|true|none|none|
+|» reduceOnly|boolean|true|none|none|
+|» orderFlags|string|true|none|none|
+|» goodTilBlock|string|false|none|none|
+|» goodTilBlockTime|string|false|none|none|
+|» createdAtHeight|string|false|none|none|
+|» clientMetadata|string|true|none|none|
+|» triggerPrice|string|false|none|none|
+|» timeInForce|[APITimeInForce](#schemaapitimeinforce)|true|none|none|
+|» status|any|true|none|none|
+
+*anyOf*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|[OrderStatus](#schemaorderstatus)|false|none|none|
+
+*or*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|»» *anonymous*|[BestEffortOpenedStatus](#schemabesteffortopenedstatus)|false|none|none|
+
+*continued*
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|» postOnly|boolean|true|none|none|
+|» ticker|string|true|none|none|
+|» updatedAt|[IsoString](#schemaisostring)|false|none|none|
+|» updatedAtHeight|string|false|none|none|
+|» subaccountNumber|integer(int32)|true|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|side|BUY|
+|side|SELL|
+|type|LIMIT|
+|type|MARKET|
+|type|STOP_LIMIT|
+|type|STOP_MARKET|
+|type|TRAILING_STOP|
+|type|TAKE_PROFIT|
+|type|TAKE_PROFIT_MARKET|
 |timeInForce|GTT|
 |timeInForce|FOK|
 |timeInForce|IOC|
@@ -1574,7 +2195,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/orders/{orderId}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/orders/{orderId}', headers = headers)
 
 print(r.json())
 
@@ -1586,7 +2211,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/orders/{orderId}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/orders/{orderId}`,
 {
   method: 'GET',
 
@@ -1635,7 +2264,8 @@ fetch('https://dydx-testnet.imperator.co/orders/{orderId}',
   "postOnly": true,
   "ticker": "string",
   "updatedAt": "string",
-  "updatedAtHeight": "string"
+  "updatedAtHeight": "string",
+  "subaccountNumber": 0
 }
 ```
 
@@ -1661,7 +2291,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/perpetualMarkets', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/perpetualMarkets', headers = headers)
 
 print(r.json())
 
@@ -1673,7 +2307,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/perpetualMarkets',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/perpetualMarkets`,
 {
   method: 'GET',
 
@@ -1775,8 +2413,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/perpetualPositions', params={
-  'address': 'string',  'subaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/perpetualPositions', params={
+  'address': 'string',  'subaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -1789,7 +2431,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/perpetualPositions?address=string&subaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/perpetualPositions?address=string&subaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -1846,7 +2492,8 @@ fetch('https://dydx-testnet.imperator.co/perpetualPositions?address=string&subac
       "netFunding": "string",
       "unrealizedPnl": "string",
       "closedAt": "string",
-      "exitPrice": "string"
+      "exitPrice": "string",
+      "subaccountNumber": 0
     }
   ]
 }
@@ -1857,6 +2504,195 @@ fetch('https://dydx-testnet.imperator.co/perpetualPositions?address=string&subac
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[PerpetualPositionResponse](#schemaperpetualpositionresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## ListPositionsForParentSubaccount
+
+<a id="opIdListPositionsForParentSubaccount"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/perpetualPositions/parentSubaccountNumber', params={
+  'address': 'string',  'parentSubaccountNumber': '0.1'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/perpetualPositions/parentSubaccountNumber?address=string&parentSubaccountNumber=0.1`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /perpetualPositions/parentSubaccountNumber`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|query|string|true|none|
+|parentSubaccountNumber|query|number(double)|true|none|
+|status|query|array[string]|false|none|
+|limit|query|number(double)|false|none|
+|createdBeforeOrAtHeight|query|number(double)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|status|OPEN|
+|status|CLOSED|
+|status|LIQUIDATED|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "positions": [
+    {
+      "market": "string",
+      "status": "OPEN",
+      "side": "LONG",
+      "size": "string",
+      "maxSize": "string",
+      "entryPrice": "string",
+      "realizedPnl": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "sumOpen": "string",
+      "sumClose": "string",
+      "netFunding": "string",
+      "unrealizedPnl": "string",
+      "closedAt": "string",
+      "exitPrice": "string",
+      "subaccountNumber": 0
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[PerpetualPositionResponse](#schemaperpetualpositionresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## SearchTrader
+
+<a id="opIdSearchTrader"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/trader/search', params={
+  'searchParam': 'string'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/trader/search?searchParam=string`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /trader/search`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|searchParam|query|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "result": {
+    "address": "string",
+    "subaccountNumber": 0.1,
+    "subaccountId": "string",
+    "username": "string"
+  }
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[TraderSearchResponse](#schematradersearchresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -1874,7 +2710,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/sparklines', params={
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/sparklines', params={
   'timePeriod': 'ONE_DAY'
 }, headers = headers)
 
@@ -1888,7 +2728,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/sparklines?timePeriod=ONE_DAY',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/sparklines?timePeriod=ONE_DAY`,
 {
   method: 'GET',
 
@@ -1954,7 +2798,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/time', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/time', headers = headers)
 
 print(r.json())
 
@@ -1966,7 +2814,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/time',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/time`,
 {
   method: 'GET',
 
@@ -1989,7 +2841,7 @@ fetch('https://dydx-testnet.imperator.co/time',
 ```json
 {
   "iso": "string",
-  "epoch": 0
+  "epoch": 0.1
 }
 ```
 
@@ -2015,7 +2867,11 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/trades/perpetualMarket/{ticker}', headers = headers)
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/trades/perpetualMarket/{ticker}', headers = headers)
 
 print(r.json())
 
@@ -2027,7 +2883,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/trades/perpetualMarket/{ticker}',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/trades/perpetualMarket/{ticker}`,
 {
   method: 'GET',
 
@@ -2051,6 +2911,7 @@ fetch('https://dydx-testnet.imperator.co/trades/perpetualMarket/{ticker}',
 |limit|query|number(double)|false|none|
 |createdBeforeOrAtHeight|query|number(double)|false|none|
 |createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|page|query|number(double)|false|none|
 
 > Example responses
 
@@ -2058,6 +2919,9 @@ fetch('https://dydx-testnet.imperator.co/trades/perpetualMarket/{ticker}',
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "trades": [
     {
       "id": "string",
@@ -2094,8 +2958,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/transfers', params={
-  'address': 'string',  'subaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/transfers', params={
+  'address': 'string',  'subaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -2108,7 +2976,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/transfers?address=string&subaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/transfers?address=string&subaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -2133,6 +3005,7 @@ fetch('https://dydx-testnet.imperator.co/transfers?address=string&subaccountNumb
 |limit|query|number(double)|false|none|
 |createdBeforeOrAtHeight|query|number(double)|false|none|
 |createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|page|query|number(double)|false|none|
 
 > Example responses
 
@@ -2140,6 +3013,9 @@ fetch('https://dydx-testnet.imperator.co/transfers?address=string&subaccountNumb
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "transfers": [
     {
       "id": "string",
@@ -2184,8 +3060,12 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber', params={
-  'address': 'string',  'parentSubaccountNumber': '0'
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/transfers/parentSubaccountNumber', params={
+  'address': 'string',  'parentSubaccountNumber': '0.1'
 }, headers = headers)
 
 print(r.json())
@@ -2198,7 +3078,11 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber?address=string&parentSubaccountNumber=0',
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/transfers/parentSubaccountNumber?address=string&parentSubaccountNumber=0.1`,
 {
   method: 'GET',
 
@@ -2223,6 +3107,7 @@ fetch('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber?addres
 |limit|query|number(double)|false|none|
 |createdBeforeOrAtHeight|query|number(double)|false|none|
 |createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|page|query|number(double)|false|none|
 
 > Example responses
 
@@ -2230,6 +3115,9 @@ fetch('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber?addres
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "transfers": [
     {
       "id": "string",
@@ -2257,6 +3145,370 @@ fetch('https://dydx-testnet.imperator.co/transfers/parentSubaccountNumber?addres
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[ParentSubaccountTransferResponse](#schemaparentsubaccounttransferresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetTransferBetween
+
+<a id="opIdGetTransferBetween"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/transfers/between', params={
+  'sourceAddress': 'string',  'sourceSubaccountNumber': '0.1',  'recipientAddress': 'string',  'recipientSubaccountNumber': '0.1'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/transfers/between?sourceAddress=string&sourceSubaccountNumber=0.1&recipientAddress=string&recipientSubaccountNumber=0.1`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /transfers/between`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|sourceAddress|query|string|true|none|
+|sourceSubaccountNumber|query|number(double)|true|none|
+|recipientAddress|query|string|true|none|
+|recipientSubaccountNumber|query|number(double)|true|none|
+|createdBeforeOrAtHeight|query|number(double)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
+  "transfersSubset": [
+    {
+      "id": "string",
+      "sender": {
+        "subaccountNumber": 0,
+        "address": "string"
+      },
+      "recipient": {
+        "subaccountNumber": 0,
+        "address": "string"
+      },
+      "size": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "symbol": "string",
+      "type": "TRANSFER_IN",
+      "transactionHash": "string"
+    }
+  ],
+  "totalNetTransfers": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[TransferBetweenResponse](#schematransferbetweenresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetMegavaultHistoricalPnl
+
+<a id="opIdGetMegavaultHistoricalPnl"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/megavault/historicalPnl', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/megavault/historicalPnl`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/megavault/historicalPnl`
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "megavaultPnl": [
+    {
+      "id": "string",
+      "subaccountId": "string",
+      "equity": "string",
+      "totalPnl": "string",
+      "netTransfers": "string",
+      "createdAt": "string",
+      "blockHeight": "string",
+      "blockTime": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[MegavaultHistoricalPnlResponse](#schemamegavaulthistoricalpnlresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetVaultsHistoricalPnl
+
+<a id="opIdGetVaultsHistoricalPnl"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/vaults/historicalPnl', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/vaults/historicalPnl`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/vaults/historicalPnl`
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "vaultsPnl": [
+    {
+      "ticker": "string",
+      "historicalPnl": [
+        {
+          "id": "string",
+          "subaccountId": "string",
+          "equity": "string",
+          "totalPnl": "string",
+          "netTransfers": "string",
+          "createdAt": "string",
+          "blockHeight": "string",
+          "blockTime": "string"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[VaultsHistoricalPnlResponse](#schemavaultshistoricalpnlresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetMegavaultPositions
+
+<a id="opIdGetMegavaultPositions"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/megavault/positions', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/megavault/positions`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/megavault/positions`
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "positions": [
+    {
+      "ticker": "string",
+      "assetPosition": {
+        "symbol": "string",
+        "side": "LONG",
+        "size": "string",
+        "assetId": "string",
+        "subaccountNumber": 0
+      },
+      "perpetualPosition": {
+        "market": "string",
+        "status": "OPEN",
+        "side": "LONG",
+        "size": "string",
+        "maxSize": "string",
+        "entryPrice": "string",
+        "realizedPnl": "string",
+        "createdAt": "string",
+        "createdAtHeight": "string",
+        "sumOpen": "string",
+        "sumClose": "string",
+        "netFunding": "string",
+        "unrealizedPnl": "string",
+        "closedAt": "string",
+        "exitPrice": "string",
+        "subaccountNumber": 0
+      },
+      "equity": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[MegavaultPositionResponse](#schemamegavaultpositionresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -2356,7 +3608,8 @@ This operation does not require authentication
   "netFunding": "string",
   "unrealizedPnl": "string",
   "closedAt": "string",
-  "exitPrice": "string"
+  "exitPrice": "string",
+  "subaccountNumber": 0
 }
 
 ```
@@ -2380,6 +3633,7 @@ This operation does not require authentication
 |unrealizedPnl|string|true|none|none|
 |closedAt|[IsoString](#schemaisostring)¦null|false|none|none|
 |exitPrice|string¦null|false|none|none|
+|subaccountNumber|integer(int32)|true|none|none|
 
 ## PerpetualPositionsMap
 
@@ -2405,7 +3659,8 @@ This operation does not require authentication
     "netFunding": "string",
     "unrealizedPnl": "string",
     "closedAt": "string",
-    "exitPrice": "string"
+    "exitPrice": "string",
+    "subaccountNumber": 0
   },
   "property2": {
     "market": "string",
@@ -2422,7 +3677,8 @@ This operation does not require authentication
     "netFunding": "string",
     "unrealizedPnl": "string",
     "closedAt": "string",
-    "exitPrice": "string"
+    "exitPrice": "string",
+    "subaccountNumber": 0
   }
 }
 
@@ -2460,7 +3716,7 @@ This operation does not require authentication
 |side|[PositionSide](#schemapositionside)|true|none|none|
 |size|string|true|none|none|
 |assetId|string|true|none|none|
-|subaccountNumber|number(double)|true|none|none|
+|subaccountNumber|integer(int32)|true|none|none|
 
 ## AssetPositionsMap
 
@@ -2524,7 +3780,8 @@ This operation does not require authentication
       "netFunding": "string",
       "unrealizedPnl": "string",
       "closedAt": "string",
-      "exitPrice": "string"
+      "exitPrice": "string",
+      "subaccountNumber": 0
     },
     "property2": {
       "market": "string",
@@ -2541,7 +3798,8 @@ This operation does not require authentication
       "netFunding": "string",
       "unrealizedPnl": "string",
       "closedAt": "string",
-      "exitPrice": "string"
+      "exitPrice": "string",
+      "subaccountNumber": 0
     }
   },
   "assetPositions": {
@@ -2560,7 +3818,9 @@ This operation does not require authentication
       "subaccountNumber": 0
     }
   },
-  "marginEnabled": true
+  "marginEnabled": true,
+  "updatedAtHeight": "string",
+  "latestProcessedBlockHeight": "string"
 }
 
 ```
@@ -2570,12 +3830,14 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |address|string|true|none|none|
-|subaccountNumber|number(double)|true|none|none|
+|subaccountNumber|integer(int32)|true|none|none|
 |equity|string|true|none|none|
 |freeCollateral|string|true|none|none|
 |openPerpetualPositions|[PerpetualPositionsMap](#schemaperpetualpositionsmap)|true|none|none|
 |assetPositions|[AssetPositionsMap](#schemaassetpositionsmap)|true|none|none|
 |marginEnabled|boolean|true|none|none|
+|updatedAtHeight|string|true|none|none|
+|latestProcessedBlockHeight|string|true|none|none|
 
 ## AddressResponse
 
@@ -2608,7 +3870,8 @@ This operation does not require authentication
           "netFunding": "string",
           "unrealizedPnl": "string",
           "closedAt": null,
-          "exitPrice": "string"
+          "exitPrice": "string",
+          "subaccountNumber": 0
         },
         "property2": {
           "market": "string",
@@ -2625,7 +3888,8 @@ This operation does not require authentication
           "netFunding": "string",
           "unrealizedPnl": "string",
           "closedAt": null,
-          "exitPrice": "string"
+          "exitPrice": "string",
+          "subaccountNumber": 0
         }
       },
       "assetPositions": {
@@ -2644,7 +3908,9 @@ This operation does not require authentication
           "subaccountNumber": 0
         }
       },
-      "marginEnabled": true
+      "marginEnabled": true,
+      "updatedAtHeight": "string",
+      "latestProcessedBlockHeight": "string"
     }
   ],
   "totalTradingRewards": "string"
@@ -2694,7 +3960,8 @@ This operation does not require authentication
           "netFunding": "string",
           "unrealizedPnl": "string",
           "closedAt": null,
-          "exitPrice": "string"
+          "exitPrice": "string",
+          "subaccountNumber": 0
         },
         "property2": {
           "market": "string",
@@ -2711,7 +3978,8 @@ This operation does not require authentication
           "netFunding": "string",
           "unrealizedPnl": "string",
           "closedAt": null,
-          "exitPrice": "string"
+          "exitPrice": "string",
+          "subaccountNumber": 0
         }
       },
       "assetPositions": {
@@ -2730,7 +3998,9 @@ This operation does not require authentication
           "subaccountNumber": 0
         }
       },
-      "marginEnabled": true
+      "marginEnabled": true,
+      "updatedAtHeight": "string",
+      "latestProcessedBlockHeight": "string"
     }
   ]
 }
@@ -2742,10 +4012,136 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |address|string|true|none|none|
-|parentSubaccountNumber|number(double)|true|none|none|
+|parentSubaccountNumber|integer(int32)|true|none|none|
 |equity|string|true|none|none|
 |freeCollateral|string|true|none|none|
 |childSubaccounts|[[SubaccountResponseObject](#schemasubaccountresponseobject)]|true|none|none|
+
+## AffiliateReferralCodeResponse
+
+<a id="schemaaffiliatereferralcoderesponse"></a>
+<a id="schema_AffiliateReferralCodeResponse"></a>
+<a id="tocSaffiliatereferralcoderesponse"></a>
+<a id="tocsaffiliatereferralcoderesponse"></a>
+
+```json
+{
+  "referralCode": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|referralCode|string¦null|true|none|none|
+
+## AffiliateAddressResponse
+
+<a id="schemaaffiliateaddressresponse"></a>
+<a id="schema_AffiliateAddressResponse"></a>
+<a id="tocSaffiliateaddressresponse"></a>
+<a id="tocsaffiliateaddressresponse"></a>
+
+```json
+{
+  "address": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string¦null|true|none|none|
+
+## AffiliateSnapshotResponseObject
+
+<a id="schemaaffiliatesnapshotresponseobject"></a>
+<a id="schema_AffiliateSnapshotResponseObject"></a>
+<a id="tocSaffiliatesnapshotresponseobject"></a>
+<a id="tocsaffiliatesnapshotresponseobject"></a>
+
+```json
+{
+  "affiliateAddress": "string",
+  "affiliateEarnings": 0.1,
+  "affiliateReferralCode": "string",
+  "affiliateReferredTrades": 0.1,
+  "affiliateTotalReferredFees": 0.1,
+  "affiliateReferredUsers": 0.1,
+  "affiliateReferredNetProtocolEarnings": 0.1
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|affiliateAddress|string|true|none|none|
+|affiliateEarnings|number(double)|true|none|none|
+|affiliateReferralCode|string|true|none|none|
+|affiliateReferredTrades|number(double)|true|none|none|
+|affiliateTotalReferredFees|number(double)|true|none|none|
+|affiliateReferredUsers|number(double)|true|none|none|
+|affiliateReferredNetProtocolEarnings|number(double)|true|none|none|
+
+## AffiliateSnapshotResponse
+
+<a id="schemaaffiliatesnapshotresponse"></a>
+<a id="schema_AffiliateSnapshotResponse"></a>
+<a id="tocSaffiliatesnapshotresponse"></a>
+<a id="tocsaffiliatesnapshotresponse"></a>
+
+```json
+{
+  "affiliateList": [
+    {
+      "affiliateAddress": "string",
+      "affiliateEarnings": 0.1,
+      "affiliateReferralCode": "string",
+      "affiliateReferredTrades": 0.1,
+      "affiliateTotalReferredFees": 0.1,
+      "affiliateReferredUsers": 0.1,
+      "affiliateReferredNetProtocolEarnings": 0.1
+    }
+  ],
+  "total": 0.1,
+  "currentOffset": 0.1
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|affiliateList|[[AffiliateSnapshotResponseObject](#schemaaffiliatesnapshotresponseobject)]|true|none|none|
+|total|number(double)|true|none|none|
+|currentOffset|number(double)|true|none|none|
+
+## AffiliateTotalVolumeResponse
+
+<a id="schemaaffiliatetotalvolumeresponse"></a>
+<a id="schema_AffiliateTotalVolumeResponse"></a>
+<a id="tocSaffiliatetotalvolumeresponse"></a>
+<a id="tocsaffiliatetotalvolumeresponse"></a>
+
+```json
+{
+  "totalVolume": 0.1
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|totalVolume|number(double)¦null|true|none|none|
 
 ## AssetPositionResponse
 
@@ -2823,8 +4219,10 @@ This operation does not require authentication
   "close": "string",
   "baseTokenVolume": "string",
   "usdVolume": "string",
-  "trades": 0,
+  "trades": 0.1,
   "startingOpenInterest": "string",
+  "orderbookMidPriceOpen": "string",
+  "orderbookMidPriceClose": "string",
   "id": "string"
 }
 
@@ -2845,6 +4243,8 @@ This operation does not require authentication
 |usdVolume|string|true|none|none|
 |trades|number(double)|true|none|none|
 |startingOpenInterest|string|true|none|none|
+|orderbookMidPriceOpen|string¦null|false|none|none|
+|orderbookMidPriceClose|string¦null|false|none|none|
 |id|string|true|none|none|
 
 ## CandleResponse
@@ -2867,8 +4267,10 @@ This operation does not require authentication
       "close": "string",
       "baseTokenVolume": "string",
       "usdVolume": "string",
-      "trades": 0,
+      "trades": 0.1,
       "startingOpenInterest": "string",
+      "orderbookMidPriceOpen": "string",
+      "orderbookMidPriceClose": "string",
       "id": "string"
     }
   ]
@@ -2927,6 +4329,7 @@ This operation does not require authentication
 |Property|Value|
 |---|---|
 |*anonymous*|COMPLIANT|
+|*anonymous*|FIRST_STRIKE_CLOSE_ONLY|
 |*anonymous*|FIRST_STRIKE|
 |*anonymous*|CLOSE_ONLY|
 |*anonymous*|BLOCKED|
@@ -2956,6 +4359,7 @@ This operation does not require authentication
 |*anonymous*|MANUAL|
 |*anonymous*|US_GEO|
 |*anonymous*|CA_GEO|
+|*anonymous*|GB_GEO|
 |*anonymous*|SANCTIONED_GEO|
 |*anonymous*|COMPLIANCE_PROVIDER|
 
@@ -2969,7 +4373,8 @@ This operation does not require authentication
 ```json
 {
   "status": "COMPLIANT",
-  "reason": "MANUAL"
+  "reason": "MANUAL",
+  "updatedAt": "string"
 }
 
 ```
@@ -2980,6 +4385,7 @@ This operation does not require authentication
 |---|---|---|---|---|
 |status|[ComplianceStatus](#schemacompliancestatus)|true|none|none|
 |reason|[ComplianceReason](#schemacompliancereason)|false|none|none|
+|updatedAt|string|false|none|none|
 
 ## OrderSide
 
@@ -3128,7 +4534,7 @@ This operation does not require authentication
 |createdAtHeight|string|true|none|none|
 |orderId|string|false|none|none|
 |clientMetadata|string|false|none|none|
-|subaccountNumber|number(double)|true|none|none|
+|subaccountNumber|integer(int32)|true|none|none|
 
 ## FillResponse
 
@@ -3139,6 +4545,9 @@ This operation does not require authentication
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "fills": [
     {
       "id": "string",
@@ -3165,6 +4574,9 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|pageSize|integer(int32)|false|none|none|
+|totalResults|integer(int32)|false|none|none|
+|offset|integer(int32)|false|none|none|
 |fills|[[FillResponseObject](#schemafillresponseobject)]|true|none|none|
 
 ## HeightResponse
@@ -3338,6 +4750,9 @@ This operation does not require authentication
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "historicalPnl": [
     {
       "id": "string",
@@ -3358,6 +4773,9 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|pageSize|integer(int32)|false|none|none|
+|totalResults|integer(int32)|false|none|none|
+|offset|integer(int32)|false|none|none|
 |historicalPnl|[[PnlTicksResponseObject](#schemapnlticksresponseobject)]|true|none|none|
 
 ## TradingRewardAggregationPeriod
@@ -3632,9 +5050,6 @@ or
 |*anonymous*|TRAILING_STOP|
 |*anonymous*|TAKE_PROFIT|
 |*anonymous*|TAKE_PROFIT_MARKET|
-|*anonymous*|HARD_TRADE|
-|*anonymous*|FAILED_HARD_TRADE|
-|*anonymous*|TRANSFER_PLACEHOLDER|
 
 ## OrderResponseObject
 
@@ -3666,7 +5081,8 @@ or
   "postOnly": true,
   "ticker": "string",
   "updatedAt": "string",
-  "updatedAtHeight": "string"
+  "updatedAtHeight": "string",
+  "subaccountNumber": 0
 }
 
 ```
@@ -3697,6 +5113,7 @@ or
 |ticker|string|true|none|none|
 |updatedAt|[IsoString](#schemaisostring)|false|none|none|
 |updatedAtHeight|string|false|none|none|
+|subaccountNumber|integer(int32)|true|none|none|
 
 ## PerpetualMarketStatus
 
@@ -3796,17 +5213,17 @@ or
 |oraclePrice|string|true|none|none|
 |priceChange24H|string|true|none|none|
 |volume24H|string|true|none|none|
-|trades24H|number(double)|true|none|none|
+|trades24H|integer(int32)|true|none|none|
 |nextFundingRate|string|true|none|none|
 |initialMarginFraction|string|true|none|none|
 |maintenanceMarginFraction|string|true|none|none|
 |openInterest|string|true|none|none|
-|atomicResolution|number(double)|true|none|none|
-|quantumConversionExponent|number(double)|true|none|none|
+|atomicResolution|integer(int32)|true|none|none|
+|quantumConversionExponent|integer(int32)|true|none|none|
 |tickSize|string|true|none|none|
 |stepSize|string|true|none|none|
-|stepBaseQuantums|number(double)|true|none|none|
-|subticksPerTick|number(double)|true|none|none|
+|stepBaseQuantums|integer(int32)|true|none|none|
+|subticksPerTick|integer(int32)|true|none|none|
 |marketType|[PerpetualMarketType](#schemaperpetualmarkettype)|true|none|none|
 |openInterestLowerCap|string|false|none|none|
 |openInterestUpperCap|string|false|none|none|
@@ -3905,7 +5322,8 @@ or
       "netFunding": "string",
       "unrealizedPnl": "string",
       "closedAt": "string",
-      "exitPrice": "string"
+      "exitPrice": "string",
+      "subaccountNumber": 0
     }
   ]
 }
@@ -3917,6 +5335,57 @@ or
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |positions|[[PerpetualPositionResponseObject](#schemaperpetualpositionresponseobject)]|true|none|none|
+
+## TraderSearchResponseObject
+
+<a id="schematradersearchresponseobject"></a>
+<a id="schema_TraderSearchResponseObject"></a>
+<a id="tocStradersearchresponseobject"></a>
+<a id="tocstradersearchresponseobject"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "subaccountId": "string",
+  "username": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|subaccountId|string|true|none|none|
+|username|string|true|none|none|
+
+## TraderSearchResponse
+
+<a id="schematradersearchresponse"></a>
+<a id="schema_TraderSearchResponse"></a>
+<a id="tocStradersearchresponse"></a>
+<a id="tocstradersearchresponse"></a>
+
+```json
+{
+  "result": {
+    "address": "string",
+    "subaccountNumber": 0.1,
+    "subaccountId": "string",
+    "username": "string"
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|result|[TraderSearchResponseObject](#schematradersearchresponseobject)|false|none|none|
 
 ## SparklineResponseObject
 
@@ -3978,7 +5447,7 @@ or
 ```json
 {
   "iso": "string",
-  "epoch": 0
+  "epoch": 0.1
 }
 
 ```
@@ -4057,6 +5526,9 @@ or
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "trades": [
     {
       "id": "string",
@@ -4076,6 +5548,9 @@ or
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|pageSize|integer(int32)|false|none|none|
+|totalResults|integer(int32)|false|none|none|
+|offset|integer(int32)|false|none|none|
 |trades|[[TradeResponseObject](#schematraderesponseobject)]|true|none|none|
 
 ## TransferType
@@ -4139,10 +5614,10 @@ or
 |---|---|---|---|---|
 |id|string|true|none|none|
 |sender|object|true|none|none|
-|» subaccountNumber|number(double)|false|none|none|
+|» subaccountNumber|integer(int32)|false|none|none|
 |» address|string|true|none|none|
 |recipient|object|true|none|none|
-|» subaccountNumber|number(double)|false|none|none|
+|» subaccountNumber|integer(int32)|false|none|none|
 |» address|string|true|none|none|
 |size|string|true|none|none|
 |createdAt|string|true|none|none|
@@ -4160,6 +5635,9 @@ or
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "transfers": [
     {
       "id": "string",
@@ -4187,6 +5665,9 @@ or
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|pageSize|integer(int32)|false|none|none|
+|totalResults|integer(int32)|false|none|none|
+|offset|integer(int32)|false|none|none|
 |transfers|[[TransferResponseObject](#schematransferresponseobject)]|true|none|none|
 
 ## ParentSubaccountTransferResponse
@@ -4198,6 +5679,9 @@ or
 
 ```json
 {
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
   "transfers": [
     {
       "id": "string",
@@ -4225,5 +5709,253 @@ or
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
+|pageSize|integer(int32)|false|none|none|
+|totalResults|integer(int32)|false|none|none|
+|offset|integer(int32)|false|none|none|
 |transfers|[[TransferResponseObject](#schematransferresponseobject)]|true|none|none|
+
+## TransferBetweenResponse
+
+<a id="schematransferbetweenresponse"></a>
+<a id="schema_TransferBetweenResponse"></a>
+<a id="tocStransferbetweenresponse"></a>
+<a id="tocstransferbetweenresponse"></a>
+
+```json
+{
+  "pageSize": 0,
+  "totalResults": 0,
+  "offset": 0,
+  "transfersSubset": [
+    {
+      "id": "string",
+      "sender": {
+        "subaccountNumber": 0,
+        "address": "string"
+      },
+      "recipient": {
+        "subaccountNumber": 0,
+        "address": "string"
+      },
+      "size": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "symbol": "string",
+      "type": "TRANSFER_IN",
+      "transactionHash": "string"
+    }
+  ],
+  "totalNetTransfers": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|pageSize|integer(int32)|false|none|none|
+|totalResults|integer(int32)|false|none|none|
+|offset|integer(int32)|false|none|none|
+|transfersSubset|[[TransferResponseObject](#schematransferresponseobject)]|true|none|none|
+|totalNetTransfers|string|true|none|none|
+
+## MegavaultHistoricalPnlResponse
+
+<a id="schemamegavaulthistoricalpnlresponse"></a>
+<a id="schema_MegavaultHistoricalPnlResponse"></a>
+<a id="tocSmegavaulthistoricalpnlresponse"></a>
+<a id="tocsmegavaulthistoricalpnlresponse"></a>
+
+```json
+{
+  "megavaultPnl": [
+    {
+      "id": "string",
+      "subaccountId": "string",
+      "equity": "string",
+      "totalPnl": "string",
+      "netTransfers": "string",
+      "createdAt": "string",
+      "blockHeight": "string",
+      "blockTime": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|megavaultPnl|[[PnlTicksResponseObject](#schemapnlticksresponseobject)]|true|none|none|
+
+## VaultHistoricalPnl
+
+<a id="schemavaulthistoricalpnl"></a>
+<a id="schema_VaultHistoricalPnl"></a>
+<a id="tocSvaulthistoricalpnl"></a>
+<a id="tocsvaulthistoricalpnl"></a>
+
+```json
+{
+  "ticker": "string",
+  "historicalPnl": [
+    {
+      "id": "string",
+      "subaccountId": "string",
+      "equity": "string",
+      "totalPnl": "string",
+      "netTransfers": "string",
+      "createdAt": "string",
+      "blockHeight": "string",
+      "blockTime": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|ticker|string|true|none|none|
+|historicalPnl|[[PnlTicksResponseObject](#schemapnlticksresponseobject)]|true|none|none|
+
+## VaultsHistoricalPnlResponse
+
+<a id="schemavaultshistoricalpnlresponse"></a>
+<a id="schema_VaultsHistoricalPnlResponse"></a>
+<a id="tocSvaultshistoricalpnlresponse"></a>
+<a id="tocsvaultshistoricalpnlresponse"></a>
+
+```json
+{
+  "vaultsPnl": [
+    {
+      "ticker": "string",
+      "historicalPnl": [
+        {
+          "id": "string",
+          "subaccountId": "string",
+          "equity": "string",
+          "totalPnl": "string",
+          "netTransfers": "string",
+          "createdAt": "string",
+          "blockHeight": "string",
+          "blockTime": "string"
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|vaultsPnl|[[VaultHistoricalPnl](#schemavaulthistoricalpnl)]|true|none|none|
+
+## VaultPosition
+
+<a id="schemavaultposition"></a>
+<a id="schema_VaultPosition"></a>
+<a id="tocSvaultposition"></a>
+<a id="tocsvaultposition"></a>
+
+```json
+{
+  "ticker": "string",
+  "assetPosition": {
+    "symbol": "string",
+    "side": "LONG",
+    "size": "string",
+    "assetId": "string",
+    "subaccountNumber": 0
+  },
+  "perpetualPosition": {
+    "market": "string",
+    "status": "OPEN",
+    "side": "LONG",
+    "size": "string",
+    "maxSize": "string",
+    "entryPrice": "string",
+    "realizedPnl": "string",
+    "createdAt": "string",
+    "createdAtHeight": "string",
+    "sumOpen": "string",
+    "sumClose": "string",
+    "netFunding": "string",
+    "unrealizedPnl": "string",
+    "closedAt": "string",
+    "exitPrice": "string",
+    "subaccountNumber": 0
+  },
+  "equity": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|ticker|string|true|none|none|
+|assetPosition|[AssetPositionResponseObject](#schemaassetpositionresponseobject)|true|none|none|
+|perpetualPosition|[PerpetualPositionResponseObject](#schemaperpetualpositionresponseobject)|false|none|none|
+|equity|string|true|none|none|
+
+## MegavaultPositionResponse
+
+<a id="schemamegavaultpositionresponse"></a>
+<a id="schema_MegavaultPositionResponse"></a>
+<a id="tocSmegavaultpositionresponse"></a>
+<a id="tocsmegavaultpositionresponse"></a>
+
+```json
+{
+  "positions": [
+    {
+      "ticker": "string",
+      "assetPosition": {
+        "symbol": "string",
+        "side": "LONG",
+        "size": "string",
+        "assetId": "string",
+        "subaccountNumber": 0
+      },
+      "perpetualPosition": {
+        "market": "string",
+        "status": "OPEN",
+        "side": "LONG",
+        "size": "string",
+        "maxSize": "string",
+        "entryPrice": "string",
+        "realizedPnl": "string",
+        "createdAt": "string",
+        "createdAtHeight": "string",
+        "sumOpen": "string",
+        "sumClose": "string",
+        "netFunding": "string",
+        "unrealizedPnl": "string",
+        "closedAt": "string",
+        "exitPrice": "string",
+        "subaccountNumber": 0
+      },
+      "equity": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|positions|[[VaultPosition](#schemavaultposition)]|true|none|none|
 

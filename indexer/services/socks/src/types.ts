@@ -21,30 +21,32 @@ export enum Channel {
   V4_TRADES = 'v4_trades',
   V4_MARKETS = 'v4_markets',
   V4_CANDLES = 'v4_candles',
+  V4_PARENT_ACCOUNTS = 'v4_parent_subaccounts',
+  V4_BLOCK_HEIGHT = 'v4_block_height',
 }
 
 export const ALL_CHANNELS = Object.values(Channel);
 
 export interface IncomingMessage extends IncomingMessageHttp {
-  type: IncomingMessageType;
+  type: IncomingMessageType,
 }
 
 export interface SubscribeMessage extends IncomingMessage {
-  channel: Channel;
-  id?: string;
-  batched?: boolean;
-  timestamp?: string;
-  includeOffsets?: boolean;
+  channel: Channel,
+  id?: string,
+  batched?: boolean,
+  timestamp?: string,
+  includeOffsets?: boolean,
 }
 
 export interface UnsubscribeMessage extends IncomingMessage {
-  channel: Channel;
-  id?: string;
-  timestamp?: string;
+  channel: Channel,
+  id?: string,
+  timestamp?: string,
 }
 
 export interface PingMessage extends IncomingMessage {
-  id?: number;
+  id?: number,
 }
 
 export enum OutgoingMessageType {
@@ -58,80 +60,83 @@ export enum OutgoingMessageType {
 }
 
 export interface OutgoingMessage {
-  type: OutgoingMessageType;
-  connection_id: string;
-  message_id: number;
+  type: OutgoingMessageType,
+  connection_id: string,
+  message_id: number,
 }
 
 export interface ErrorMessage extends OutgoingMessage {
-  message: string;
+  message: string,
 }
 
 export interface SubscribedMessage extends OutgoingMessage {
-  channel: Channel;
-  id?: string;
+  channel: Channel,
+  id?: string,
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  contents: any;
+  contents: any,
 }
 
 export interface UnsubscribedMessage extends OutgoingMessage {
-  channel: Channel;
-  id?: string;
+  channel: Channel,
+  id?: string,
 }
 
 export interface ChannelDataMessage extends OutgoingMessage {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  contents: any;
-  channel: Channel;
-  id?: string;
-  version: string;
+  contents: any,
+  channel: Channel,
+  id?: string,
+  version: string,
+  subaccountNumber?: number,
 }
 
 export interface ChannelBatchDataMessage extends OutgoingMessage {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  contents: any[];
-  channel: Channel;
-  id?: string;
-  version: string;
+  contents: any[],
+  channel: Channel,
+  id?: string,
+  version: string,
+  subaccountNumber?: number,
 }
 
 export interface ConnectedMessage extends OutgoingMessage {}
 
 export interface PongMessage extends OutgoingMessage {
-  id?: number;
+  id?: number,
 }
 
 export interface Subscription {
-  channel: Channel;
-  id: string;
-  batched?: boolean;
+  channel: Channel,
+  id: string,
+  batched?: boolean,
 }
 
 export interface SubscriptionInfo {
-  connectionId: string;
-  pending: boolean;
-  pendingMessages: MessageToForward[];
-  batched?: boolean;
+  connectionId: string,
+  pending: boolean,
+  pendingMessages: MessageToForward[],
+  batched?: boolean,
 }
 
 export interface Connection {
-  ws: WebSocket;
-  messageId: number;
-  heartbeat?: NodeJS.Timeout;
-  disconnect?: NodeJS.Timeout;
-  countryCode?: string;
+  ws: WebSocket,
+  messageId: number,
+  heartbeat?: NodeJS.Timeout,
+  disconnect?: NodeJS.Timeout,
+  countryCode?: string,
 }
 
 export interface MessageToForward {
-  channel: Channel;
-  id: string;
+  channel: Channel,
+  id: string,
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  contents: any;
-  version: string;
+  contents: any,
+  version: string,
+  subaccountNumber?: number,
 }
 
 export interface ResponseWithBody extends express.Response {
-  body: unknown
+  body: unknown,
 }
 
 export enum WebsocketTopics {
@@ -140,6 +145,7 @@ export enum WebsocketTopics {
   TO_WEBSOCKETS_TRADES = 'to-websockets-trades',
   TO_WEBSOCKETS_MARKETS = 'to-websockets-markets',
   TO_WEBSOCKETS_CANDLES = 'to-websockets-candles',
+  TO_WEBSOCKETS_BLOCK_HEIGHT = 'to-websockets-block-height',
 }
 
 export enum WebsocketEvents {
@@ -149,4 +155,5 @@ export enum WebsocketEvents {
   LISTENING = 'listening',
   MESSAGE = 'message',
   PONG = 'pong',
+  PING = 'ping',
 }

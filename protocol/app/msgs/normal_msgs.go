@@ -17,14 +17,17 @@ import (
 	ibcconn "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
 	ibccore "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
 	"github.com/nemo-network/v4-chain/protocol/lib"
+	affiliates "github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 	clob "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	listing "github.com/nemo-network/v4-chain/protocol/x/listing/types"
 	sending "github.com/nemo-network/v4-chain/protocol/x/sending/types"
 	vault "github.com/nemo-network/v4-chain/protocol/x/vault/types"
+	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 )
 
 var (
 	// NormalMsgs are messages that can be submitted by external users.
-	NormalMsgs = lib.MergeAllMapsMustHaveDistinctKeys(NormalMsgsDefault, NormalMsgsDydxCustom)
+	NormalMsgs = lib.MergeAllMapsMustHaveDistinctKeys(NormalMsgsDefault, NormalMsgsDydxCustom, NormalMsgsSlinky)
 
 	// Default modules
 	NormalMsgsDefault = map[string]sdk.Msg{
@@ -215,6 +218,9 @@ var (
 
 	// Custom modules
 	NormalMsgsDydxCustom = map[string]sdk.Msg{
+		// affiliates
+		"/nemo-network.affiliates.MsgRegisterAffiliate":         &affiliates.MsgRegisterAffiliate{},
+		"/nemo-network.affiliates.MsgRegisterAffiliateResponse": nil,
 		// clob
 		"/nemo_network.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
 		"/nemo_network.clob.MsgBatchCancelResponse": nil,
@@ -222,6 +228,10 @@ var (
 		"/nemo_network.clob.MsgCancelOrderResponse": nil,
 		"/nemo_network.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
 		"/nemo_network.clob.MsgPlaceOrderResponse":  nil,
+
+		// listing
+		"/nemo-network.listing.MsgCreateMarketPermissionless":         &listing.MsgCreateMarketPermissionless{},
+		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse": nil,
 
 		// perpetuals
 
@@ -236,7 +246,26 @@ var (
 		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse": nil,
 
 		// vault
+<<<<<<< HEAD
 		"/nemo_network.vault.MsgDepositToVault":         &vault.MsgDepositToVault{},
 		"/nemo_network.vault.MsgDepositToVaultResponse": nil,
+=======
+		"/nemo-network.vault.MsgDepositToMegavault":         &vault.MsgDepositToMegavault{},
+		"/nemo-network.vault.MsgDepositToMegavaultResponse": nil,
+	}
+
+	NormalMsgsSlinky = map[string]sdk.Msg{
+		// slinky marketmap messages
+		"/slinky.marketmap.v1.MsgCreateMarkets":                   &marketmapmoduletypes.MsgCreateMarkets{},
+		"/slinky.marketmap.v1.MsgCreateMarketsResponse":           nil,
+		"/slinky.marketmap.v1.MsgParams":                          &marketmapmoduletypes.MsgParams{},
+		"/slinky.marketmap.v1.MsgParamsResponse":                  nil,
+		"/slinky.marketmap.v1.MsgRemoveMarketAuthorities":         &marketmapmoduletypes.MsgRemoveMarketAuthorities{},
+		"/slinky.marketmap.v1.MsgRemoveMarketAuthoritiesResponse": nil,
+		"/slinky.marketmap.v1.MsgUpdateMarkets":                   &marketmapmoduletypes.MsgUpdateMarkets{},
+		"/slinky.marketmap.v1.MsgUpdateMarketsResponse":           nil,
+		"/slinky.marketmap.v1.MsgUpsertMarkets":                   &marketmapmoduletypes.MsgUpsertMarkets{},
+		"/slinky.marketmap.v1.MsgUpsertMarketsResponse":           nil,
+>>>>>>> main
 	}
 )

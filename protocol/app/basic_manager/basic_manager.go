@@ -20,8 +20,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/ibc-go/modules/capability"
 	delaymsgmodule "github.com/nemo-network/v4-chain/protocol/x/delaymsg"
+	listingmodule "github.com/nemo-network/v4-chain/protocol/x/listing"
 
 	custommodule "github.com/nemo-network/v4-chain/protocol/app/module"
+	accountplusmodule "github.com/nemo-network/v4-chain/protocol/x/accountplus"
+	affiliatesmodule "github.com/nemo-network/v4-chain/protocol/x/affiliates"
 	assetsmodule "github.com/nemo-network/v4-chain/protocol/x/assets"
 	blocktimemodule "github.com/nemo-network/v4-chain/protocol/x/blocktime"
 	bridgemodule "github.com/nemo-network/v4-chain/protocol/x/bridge"
@@ -32,12 +35,14 @@ import (
 	perpetualsmodule "github.com/nemo-network/v4-chain/protocol/x/perpetuals"
 	pricesmodule "github.com/nemo-network/v4-chain/protocol/x/prices"
 	ratelimitmodule "github.com/nemo-network/v4-chain/protocol/x/ratelimit"
+	revsharemodule "github.com/nemo-network/v4-chain/protocol/x/revshare"
 	rewardsmodule "github.com/nemo-network/v4-chain/protocol/x/rewards"
 	sendingmodule "github.com/nemo-network/v4-chain/protocol/x/sending"
 	statsmodule "github.com/nemo-network/v4-chain/protocol/x/stats"
 	subaccountsmodule "github.com/nemo-network/v4-chain/protocol/x/subaccounts"
 	vaultmodule "github.com/nemo-network/v4-chain/protocol/x/vault"
 	vestmodule "github.com/nemo-network/v4-chain/protocol/x/vest"
+	marketmapmodule "github.com/skip-mev/slinky/x/marketmap"
 
 	ica "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts"
 	"github.com/cosmos/ibc-go/v8/modules/apps/transfer"
@@ -93,5 +98,10 @@ var (
 		ratelimitmodule.AppModuleBasic{},
 		govplusmodule.AppModuleBasic{},
 		vaultmodule.AppModuleBasic{},
+		revsharemodule.AppModuleBasic{},
+		listingmodule.AppModuleBasic{},
+		marketmapmodule.AppModuleBasic{},
+		accountplusmodule.AppModuleBasic{},
+		affiliatesmodule.AppModuleBasic{},
 	)
 )

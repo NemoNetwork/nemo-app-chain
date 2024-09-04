@@ -32,29 +32,27 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// MsgDepositToVault deposits the specified asset from the subaccount to the
-// vault.
-type MsgDepositToVault struct {
-	// The vault to deposit into.
-	VaultId *VaultId `protobuf:"bytes,1,opt,name=vault_id,json=vaultId,proto3" json:"vault_id,omitempty"`
+// MsgDepositToMegavault deposits the specified asset from the subaccount to
+// megavault.
+type MsgDepositToMegavault struct {
 	// The subaccount to deposit from.
-	SubaccountId *types.SubaccountId `protobuf:"bytes,2,opt,name=subaccount_id,json=subaccountId,proto3" json:"subaccount_id,omitempty"`
+	SubaccountId *types.SubaccountId `protobuf:"bytes,1,opt,name=subaccount_id,json=subaccountId,proto3" json:"subaccount_id,omitempty"`
 	// Number of quote quantums to deposit.
-	QuoteQuantums github_com_nemo_network_v4_chain_protocol_dtypes.SerializableInt `protobuf:"bytes,3,opt,name=quote_quantums,json=quoteQuantums,proto3,customtype=github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt" json:"quote_quantums"`
+	QuoteQuantums github_com_nemo-network_v4_chain_protocol_dtypes.SerializableInt `protobuf:"bytes,2,opt,name=quote_quantums,json=quoteQuantums,proto3,customtype=github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt" json:"quote_quantums"`
 }
 
-func (m *MsgDepositToVault) Reset()         { *m = MsgDepositToVault{} }
-func (m *MsgDepositToVault) String() string { return proto.CompactTextString(m) }
-func (*MsgDepositToVault) ProtoMessage()    {}
-func (*MsgDepositToVault) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e6ff5cb123fc57c1, []int{0}
+func (m *MsgDepositToMegavault) Reset()         { *m = MsgDepositToMegavault{} }
+func (m *MsgDepositToMegavault) String() string { return proto.CompactTextString(m) }
+func (*MsgDepositToMegavault) ProtoMessage()    {}
+func (*MsgDepositToMegavault) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ced574c6017ce006, []int{0}
 }
-func (m *MsgDepositToVault) XXX_Unmarshal(b []byte) error {
+func (m *MsgDepositToMegavault) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgDepositToVault) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgDepositToMegavault) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgDepositToVault.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgDepositToMegavault.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -64,48 +62,43 @@ func (m *MsgDepositToVault) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (m *MsgDepositToVault) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgDepositToVault.Merge(m, src)
+func (m *MsgDepositToMegavault) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDepositToMegavault.Merge(m, src)
 }
-func (m *MsgDepositToVault) XXX_Size() int {
+func (m *MsgDepositToMegavault) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgDepositToVault) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgDepositToVault.DiscardUnknown(m)
+func (m *MsgDepositToMegavault) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDepositToMegavault.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgDepositToVault proto.InternalMessageInfo
+var xxx_messageInfo_MsgDepositToMegavault proto.InternalMessageInfo
 
-func (m *MsgDepositToVault) GetVaultId() *VaultId {
-	if m != nil {
-		return m.VaultId
-	}
-	return nil
-}
-
-func (m *MsgDepositToVault) GetSubaccountId() *types.SubaccountId {
+func (m *MsgDepositToMegavault) GetSubaccountId() *types.SubaccountId {
 	if m != nil {
 		return m.SubaccountId
 	}
 	return nil
 }
 
-// MsgDepositToVaultResponse is the Msg/DepositToVault response type.
-type MsgDepositToVaultResponse struct {
+// MsgDepositToMegavaultResponse is the Msg/DepositToMegavault response type.
+type MsgDepositToMegavaultResponse struct {
+	// The number of shares minted from the deposit.
+	MintedShares NumShares `protobuf:"bytes,1,opt,name=minted_shares,json=mintedShares,proto3" json:"minted_shares"`
 }
 
-func (m *MsgDepositToVaultResponse) Reset()         { *m = MsgDepositToVaultResponse{} }
-func (m *MsgDepositToVaultResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgDepositToVaultResponse) ProtoMessage()    {}
-func (*MsgDepositToVaultResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e6ff5cb123fc57c1, []int{1}
+func (m *MsgDepositToMegavaultResponse) Reset()         { *m = MsgDepositToMegavaultResponse{} }
+func (m *MsgDepositToMegavaultResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgDepositToMegavaultResponse) ProtoMessage()    {}
+func (*MsgDepositToMegavaultResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ced574c6017ce006, []int{1}
 }
-func (m *MsgDepositToVaultResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgDepositToMegavaultResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgDepositToVaultResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgDepositToMegavaultResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgDepositToVaultResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgDepositToMegavaultResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -115,37 +108,45 @@ func (m *MsgDepositToVaultResponse) XXX_Marshal(b []byte, deterministic bool) ([
 		return b[:n], nil
 	}
 }
-func (m *MsgDepositToVaultResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgDepositToVaultResponse.Merge(m, src)
+func (m *MsgDepositToMegavaultResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDepositToMegavaultResponse.Merge(m, src)
 }
-func (m *MsgDepositToVaultResponse) XXX_Size() int {
+func (m *MsgDepositToMegavaultResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgDepositToVaultResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgDepositToVaultResponse.DiscardUnknown(m)
+func (m *MsgDepositToMegavaultResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDepositToMegavaultResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgDepositToVaultResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgDepositToMegavaultResponse proto.InternalMessageInfo
 
-// MsgUpdateParams is the Msg/UpdateParams request type.
-type MsgUpdateParams struct {
+func (m *MsgDepositToMegavaultResponse) GetMintedShares() NumShares {
+	if m != nil {
+		return m.MintedShares
+	}
+	return NumShares{}
+}
+
+// MsgUpdateDefaultQuotingParams is the Msg/UpdateDefaultQuotingParams request
+// type.
+type MsgUpdateDefaultQuotingParams struct {
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
-	// The parameters to update. Each field must be set.
-	Params Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params"`
+	// The quoting parameters to update to. Every field must be set.
+	DefaultQuotingParams QuotingParams `protobuf:"bytes,2,opt,name=default_quoting_params,json=defaultQuotingParams,proto3" json:"default_quoting_params"`
 }
 
-func (m *MsgUpdateParams) Reset()         { *m = MsgUpdateParams{} }
-func (m *MsgUpdateParams) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateParams) ProtoMessage()    {}
-func (*MsgUpdateParams) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e6ff5cb123fc57c1, []int{2}
+func (m *MsgUpdateDefaultQuotingParams) Reset()         { *m = MsgUpdateDefaultQuotingParams{} }
+func (m *MsgUpdateDefaultQuotingParams) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateDefaultQuotingParams) ProtoMessage()    {}
+func (*MsgUpdateDefaultQuotingParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ced574c6017ce006, []int{2}
 }
-func (m *MsgUpdateParams) XXX_Unmarshal(b []byte) error {
+func (m *MsgUpdateDefaultQuotingParams) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgUpdateDefaultQuotingParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateParams.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgUpdateDefaultQuotingParams.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -155,48 +156,49 @@ func (m *MsgUpdateParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateParams) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateParams.Merge(m, src)
+func (m *MsgUpdateDefaultQuotingParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateDefaultQuotingParams.Merge(m, src)
 }
-func (m *MsgUpdateParams) XXX_Size() int {
+func (m *MsgUpdateDefaultQuotingParams) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateParams) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateParams.DiscardUnknown(m)
+func (m *MsgUpdateDefaultQuotingParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateDefaultQuotingParams.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateParams proto.InternalMessageInfo
+var xxx_messageInfo_MsgUpdateDefaultQuotingParams proto.InternalMessageInfo
 
-func (m *MsgUpdateParams) GetAuthority() string {
+func (m *MsgUpdateDefaultQuotingParams) GetAuthority() string {
 	if m != nil {
 		return m.Authority
 	}
 	return ""
 }
 
-func (m *MsgUpdateParams) GetParams() Params {
+func (m *MsgUpdateDefaultQuotingParams) GetDefaultQuotingParams() QuotingParams {
 	if m != nil {
-		return m.Params
+		return m.DefaultQuotingParams
 	}
-	return Params{}
+	return QuotingParams{}
 }
 
-// MsgUpdateParamsResponse is the Msg/UpdateParams response type.
-type MsgUpdateParamsResponse struct {
+// MsgUpdateDefaultQuotingParamsResponse is the Msg/UpdateDefaultQuotingParams
+// response type.
+type MsgUpdateDefaultQuotingParamsResponse struct {
 }
 
-func (m *MsgUpdateParamsResponse) Reset()         { *m = MsgUpdateParamsResponse{} }
-func (m *MsgUpdateParamsResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgUpdateParamsResponse) ProtoMessage()    {}
-func (*MsgUpdateParamsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e6ff5cb123fc57c1, []int{3}
+func (m *MsgUpdateDefaultQuotingParamsResponse) Reset()         { *m = MsgUpdateDefaultQuotingParamsResponse{} }
+func (m *MsgUpdateDefaultQuotingParamsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateDefaultQuotingParamsResponse) ProtoMessage()    {}
+func (*MsgUpdateDefaultQuotingParamsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ced574c6017ce006, []int{3}
 }
-func (m *MsgUpdateParamsResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgUpdateDefaultQuotingParamsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgUpdateParamsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgUpdateDefaultQuotingParamsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgUpdateParamsResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgUpdateDefaultQuotingParamsResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -206,61 +208,170 @@ func (m *MsgUpdateParamsResponse) XXX_Marshal(b []byte, deterministic bool) ([]b
 		return b[:n], nil
 	}
 }
-func (m *MsgUpdateParamsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgUpdateParamsResponse.Merge(m, src)
+func (m *MsgUpdateDefaultQuotingParamsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateDefaultQuotingParamsResponse.Merge(m, src)
 }
-func (m *MsgUpdateParamsResponse) XXX_Size() int {
+func (m *MsgUpdateDefaultQuotingParamsResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgUpdateParamsResponse.DiscardUnknown(m)
+func (m *MsgUpdateDefaultQuotingParamsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateDefaultQuotingParamsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgUpdateDefaultQuotingParamsResponse proto.InternalMessageInfo
+
+// MsgSetVaultParams is the Msg/SetVaultParams request type.
+type MsgSetVaultParams struct {
+	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
+	// The vault to set params of.
+	VaultId VaultId `protobuf:"bytes,2,opt,name=vault_id,json=vaultId,proto3" json:"vault_id"`
+	// The parameters to set.
+	VaultParams VaultParams `protobuf:"bytes,3,opt,name=vault_params,json=vaultParams,proto3" json:"vault_params"`
+}
+
+func (m *MsgSetVaultParams) Reset()         { *m = MsgSetVaultParams{} }
+func (m *MsgSetVaultParams) String() string { return proto.CompactTextString(m) }
+func (*MsgSetVaultParams) ProtoMessage()    {}
+func (*MsgSetVaultParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ced574c6017ce006, []int{4}
+}
+func (m *MsgSetVaultParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSetVaultParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSetVaultParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSetVaultParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetVaultParams.Merge(m, src)
+}
+func (m *MsgSetVaultParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSetVaultParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetVaultParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSetVaultParams proto.InternalMessageInfo
+
+func (m *MsgSetVaultParams) GetAuthority() string {
+	if m != nil {
+		return m.Authority
+	}
+	return ""
+}
+
+func (m *MsgSetVaultParams) GetVaultId() VaultId {
+	if m != nil {
+		return m.VaultId
+	}
+	return VaultId{}
+}
+
+func (m *MsgSetVaultParams) GetVaultParams() VaultParams {
+	if m != nil {
+		return m.VaultParams
+	}
+	return VaultParams{}
+}
+
+// MsgSetVaultParamsResponse is the Msg/SetVaultParams response type.
+type MsgSetVaultParamsResponse struct {
+}
+
+func (m *MsgSetVaultParamsResponse) Reset()         { *m = MsgSetVaultParamsResponse{} }
+func (m *MsgSetVaultParamsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgSetVaultParamsResponse) ProtoMessage()    {}
+func (*MsgSetVaultParamsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ced574c6017ce006, []int{5}
+}
+func (m *MsgSetVaultParamsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgSetVaultParamsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgSetVaultParamsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgSetVaultParamsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgSetVaultParamsResponse.Merge(m, src)
+}
+func (m *MsgSetVaultParamsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgSetVaultParamsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgSetVaultParamsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgSetVaultParamsResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgDepositToVault)(nil), "nemo_network.vault.MsgDepositToVault")
-	proto.RegisterType((*MsgDepositToVaultResponse)(nil), "nemo_network.vault.MsgDepositToVaultResponse")
-	proto.RegisterType((*MsgUpdateParams)(nil), "nemo_network.vault.MsgUpdateParams")
-	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nemo_network.vault.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgDepositToMegavault)(nil), "nemo-network.vault.MsgDepositToMegavault")
+	proto.RegisterType((*MsgDepositToMegavaultResponse)(nil), "nemo-network.vault.MsgDepositToMegavaultResponse")
+	proto.RegisterType((*MsgUpdateDefaultQuotingParams)(nil), "nemo-network.vault.MsgUpdateDefaultQuotingParams")
+	proto.RegisterType((*MsgUpdateDefaultQuotingParamsResponse)(nil), "nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse")
+	proto.RegisterType((*MsgSetVaultParams)(nil), "nemo-network.vault.MsgSetVaultParams")
+	proto.RegisterType((*MsgSetVaultParamsResponse)(nil), "nemo-network.vault.MsgSetVaultParamsResponse")
 }
 
 func init() { proto.RegisterFile("nemo_network/vault/tx.proto", fileDescriptor_e6ff5cb123fc57c1) }
 
-var fileDescriptor_e6ff5cb123fc57c1 = []byte{
-	// 511 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x8d, 0x5b, 0x54, 0xe8, 0x92, 0x06, 0xb1, 0xaa, 0xd4, 0xc4, 0x91, 0x9c, 0x2a, 0x08, 0x54,
-	0x40, 0xb1, 0x45, 0x41, 0x05, 0xf5, 0x04, 0x11, 0x07, 0x22, 0x14, 0x89, 0x3a, 0xc0, 0x81, 0x4b,
-	0xd8, 0xd8, 0x8b, 0x63, 0x11, 0x7b, 0x5c, 0xcf, 0x3a, 0xb4, 0x1c, 0xf9, 0x02, 0x24, 0xce, 0xfc,
-	0x03, 0x07, 0x3e, 0xa2, 0x37, 0x2a, 0x4e, 0x88, 0x43, 0x85, 0x92, 0x03, 0xbf, 0x81, 0xbc, 0xb6,
-	0x1b, 0xa7, 0x31, 0x52, 0x2e, 0xc9, 0xec, 0xce, 0x9b, 0x99, 0xf7, 0xde, 0x8e, 0x49, 0xdd, 0xe7,
-	0x1e, 0xf4, 0x7d, 0x2e, 0x3e, 0x40, 0xf8, 0xde, 0x18, 0xb3, 0x68, 0x24, 0x0c, 0x71, 0xa4, 0x07,
-	0x21, 0x08, 0xa0, 0x34, 0x9f, 0xd4, 0x65, 0x52, 0xad, 0x59, 0x80, 0x1e, 0x60, 0x5f, 0x22, 0x8c,
-	0xe4, 0x90, 0xc0, 0xd5, 0xad, 0xe4, 0x64, 0x78, 0xe8, 0x18, 0xe3, 0x7b, 0xf1, 0x5f, 0x9a, 0xb8,
-	0x3d, 0x37, 0x04, 0xa3, 0x01, 0xb3, 0x2c, 0x88, 0x7c, 0x81, 0xb9, 0x38, 0x85, 0x36, 0x0a, 0xf8,
-	0x04, 0x2c, 0x64, 0x5e, 0x36, 0x44, 0x2b, 0x00, 0xc8, 0xdf, 0x34, 0xbf, 0xe9, 0x80, 0x03, 0x09,
-	0xb9, 0x38, 0x4a, 0x6e, 0x9b, 0x5f, 0x57, 0xc8, 0xf5, 0x2e, 0x3a, 0x4f, 0x79, 0x00, 0xe8, 0x8a,
-	0x97, 0xf0, 0x3a, 0xae, 0xa0, 0x7b, 0xe4, 0x8a, 0x2c, 0xed, 0xbb, 0x76, 0x55, 0xd9, 0x56, 0x76,
-	0xae, 0xee, 0xd6, 0xf5, 0x45, 0xc9, 0xba, 0x04, 0x77, 0x6c, 0xf3, 0xf2, 0x38, 0x09, 0xe8, 0x73,
-	0xb2, 0x31, 0x23, 0x1e, 0x17, 0xaf, 0xc8, 0xe2, 0x5b, 0xf3, 0xc5, 0x39, 0x9d, 0x7a, 0xef, 0x3c,
-	0xee, 0xd8, 0x66, 0x19, 0x73, 0x27, 0x0a, 0xa4, 0x72, 0x18, 0x81, 0xe0, 0xfd, 0xc3, 0x88, 0xf9,
-	0x22, 0xf2, 0xb0, 0xba, 0xba, 0xad, 0xec, 0x94, 0xdb, 0xcf, 0x4e, 0xce, 0x1a, 0xa5, 0xdf, 0x67,
-	0x8d, 0xc7, 0x8e, 0x2b, 0x86, 0xd1, 0x40, 0xb7, 0xc0, 0x33, 0xe2, 0xfe, 0xad, 0x73, 0xed, 0x0f,
-	0x5a, 0xd6, 0x90, 0xb9, 0xbe, 0x21, 0x25, 0x5a, 0x30, 0x32, 0x6c, 0x71, 0x1c, 0x70, 0xd4, 0x7b,
-	0x3c, 0x74, 0xd9, 0xc8, 0xfd, 0xc8, 0x06, 0x23, 0xde, 0xf1, 0x85, 0xb9, 0x21, 0xfb, 0x1f, 0xa4,
-	0xed, 0xf7, 0xe9, 0xa7, 0xbf, 0xdf, 0xee, 0xcc, 0x0b, 0x68, 0xd6, 0x49, 0x6d, 0xc1, 0x1e, 0x93,
-	0x63, 0x00, 0x3e, 0xf2, 0xe6, 0x17, 0x85, 0x5c, 0xeb, 0xa2, 0xf3, 0x2a, 0xb0, 0x99, 0xe0, 0x2f,
-	0xe4, 0x63, 0xd0, 0x3d, 0xb2, 0xce, 0x22, 0x31, 0x84, 0xd0, 0x15, 0xc7, 0xd2, 0xbb, 0xf5, 0x76,
-	0xf5, 0xe7, 0xf7, 0xd6, 0x66, 0xba, 0x10, 0x4f, 0x6c, 0x3b, 0xe4, 0x88, 0x3d, 0x11, 0xba, 0xbe,
-	0x63, 0xce, 0xa0, 0xf4, 0x11, 0x59, 0x4b, 0x9e, 0x33, 0xf5, 0x4c, 0x2d, 0x32, 0x3c, 0x99, 0xd1,
-	0xbe, 0x14, 0x3b, 0x60, 0xa6, 0xf8, 0xfd, 0x4a, 0x4c, 0x7b, 0xd6, 0xa9, 0x59, 0x23, 0x5b, 0x17,
-	0x48, 0x65, 0x84, 0x77, 0x7f, 0x28, 0x64, 0xb5, 0x8b, 0x0e, 0x7d, 0x47, 0x2a, 0x17, 0x5e, 0xfc,
-	0x66, 0xd1, 0xb8, 0x05, 0xe5, 0x6a, 0x6b, 0x29, 0x58, 0x36, 0x8f, 0xbe, 0x25, 0xe5, 0x39, 0x73,
-	0x6e, 0xfc, 0xa7, 0x3c, 0x0f, 0x52, 0xef, 0x2e, 0x01, 0xca, 0x26, 0xb4, 0x0f, 0x4e, 0x26, 0x9a,
-	0x72, 0x3a, 0xd1, 0x94, 0x3f, 0x13, 0x4d, 0xf9, 0x3c, 0xd5, 0x4a, 0xa7, 0x53, 0xad, 0xf4, 0x6b,
-	0xaa, 0x95, 0xde, 0x3c, 0x5c, 0x7e, 0x3d, 0x8e, 0xb2, 0xef, 0x3b, 0xde, 0x92, 0xc1, 0x9a, 0xbc,
-	0xbf, 0xff, 0x2f, 0x00, 0x00, 0xff, 0xff, 0x22, 0x52, 0x4b, 0x26, 0x02, 0x04, 0x00, 0x00,
+var fileDescriptor_ced574c6017ce006 = []byte{
+	// 622 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xcf, 0x6f, 0x12, 0x41,
+	0x14, 0x66, 0x5b, 0xa3, 0x76, 0x4a, 0x9b, 0xb8, 0x41, 0xa5, 0x4b, 0xba, 0x54, 0x92, 0x6a, 0x6b,
+	0xc2, 0x6e, 0x8a, 0x46, 0x63, 0xe3, 0x41, 0x49, 0x0f, 0x10, 0x83, 0x11, 0x50, 0x0f, 0x26, 0x66,
+	0x33, 0xec, 0x4c, 0x97, 0x4d, 0xd8, 0x9d, 0x65, 0x67, 0x96, 0x80, 0x47, 0x8f, 0x9e, 0xfc, 0x53,
+	0x3c, 0xf8, 0x37, 0x98, 0x1e, 0x1b, 0x4f, 0xc6, 0x43, 0x63, 0xe0, 0x60, 0xbc, 0xf8, 0x37, 0x98,
+	0x9d, 0x59, 0x7e, 0xac, 0x2c, 0x04, 0xe3, 0x05, 0x66, 0xde, 0xfb, 0xde, 0xfb, 0xde, 0xf7, 0xf1,
+	0x18, 0x90, 0x43, 0x03, 0xd4, 0xf7, 0x7c, 0xc2, 0x88, 0x49, 0x3a, 0x7a, 0x0f, 0x06, 0x1d, 0xa6,
+	0xb3, 0xbe, 0xc6, 0x23, 0xb2, 0x3c, 0x9b, 0xd4, 0x78, 0x52, 0xd9, 0x31, 0x09, 0x75, 0x08, 0x35,
+	0x78, 0x58, 0x17, 0x17, 0x01, 0x57, 0x6e, 0x8a, 0x9b, 0xee, 0x50, 0x4b, 0xef, 0x1d, 0x85, 0x5f,
+	0x51, 0xe2, 0x30, 0x46, 0x42, 0x83, 0x16, 0x34, 0x4d, 0x12, 0xb8, 0x8c, 0xce, 0x9c, 0x23, 0x68,
+	0x3e, 0x61, 0x1e, 0x0f, 0xfa, 0xd0, 0x19, 0x93, 0xa8, 0x09, 0x00, 0xda, 0x86, 0x3e, 0x5e, 0x92,
+	0xe7, 0x9f, 0x51, 0x3e, 0x63, 0x11, 0x8b, 0x88, 0xe1, 0xc3, 0x93, 0x88, 0x16, 0x7e, 0x49, 0xe0,
+	0x7a, 0x8d, 0x5a, 0x27, 0xd8, 0x23, 0xd4, 0x66, 0x2f, 0x49, 0x0d, 0x5b, 0x90, 0x57, 0xc9, 0xcf,
+	0xc0, 0xd6, 0x74, 0x48, 0xc3, 0x46, 0x59, 0x69, 0x4f, 0x3a, 0xd8, 0x2c, 0xdd, 0xd6, 0x62, 0xde,
+	0xcc, 0x68, 0xd2, 0x9a, 0x93, 0x73, 0x15, 0x35, 0xd2, 0x74, 0xe6, 0x26, 0x13, 0xb0, 0xdd, 0x0d,
+	0x08, 0xc3, 0x46, 0x37, 0x80, 0x2e, 0x0b, 0x1c, 0x9a, 0x5d, 0xdb, 0x93, 0x0e, 0xd2, 0xe5, 0xca,
+	0xd9, 0x45, 0x3e, 0xf5, 0xfd, 0x22, 0xff, 0xc4, 0xb2, 0x59, 0x3b, 0x68, 0x69, 0x26, 0x71, 0xf4,
+	0xb8, 0x8e, 0xfb, 0x45, 0xb3, 0x0d, 0x6d, 0x57, 0x9f, 0x44, 0x10, 0x1b, 0x78, 0x98, 0x6a, 0x4d,
+	0xec, 0xdb, 0xb0, 0x63, 0xbf, 0x83, 0xad, 0x0e, 0xae, 0xba, 0xac, 0xb1, 0xc5, 0xfb, 0xd7, 0xa3,
+	0xf6, 0xc7, 0xf2, 0xfb, 0x9f, 0x9f, 0xee, 0xc6, 0x05, 0x14, 0x6c, 0xb0, 0x9b, 0x28, 0xb5, 0x81,
+	0xa9, 0x47, 0x5c, 0x8a, 0xe5, 0x0a, 0xd8, 0x72, 0x6c, 0x97, 0x61, 0x64, 0x70, 0x63, 0x69, 0x24,
+	0x79, 0x57, 0x9b, 0x5f, 0x07, 0xed, 0x79, 0xe0, 0x34, 0x39, 0xa8, 0x7c, 0x29, 0xd4, 0xd0, 0x48,
+	0x8b, 0x4a, 0x11, 0x2b, 0x7c, 0x91, 0x38, 0xd7, 0x2b, 0x0f, 0x41, 0x86, 0x4f, 0xf0, 0x69, 0x58,
+	0x52, 0x0f, 0x08, 0xb3, 0x5d, 0xeb, 0x05, 0xff, 0x51, 0xe5, 0x07, 0x60, 0x03, 0x06, 0xac, 0x4d,
+	0x7c, 0x9b, 0x0d, 0x38, 0xcf, 0x46, 0x39, 0xfb, 0xf5, 0x73, 0x31, 0x13, 0x2d, 0xd6, 0x53, 0x84,
+	0x7c, 0x4c, 0x69, 0x93, 0xf9, 0xb6, 0x6b, 0x35, 0xa6, 0x50, 0xf9, 0x2d, 0xb8, 0x81, 0x44, 0x3f,
+	0xa3, 0x2b, 0x1a, 0x1a, 0x62, 0x4d, 0xb8, 0xa3, 0x9b, 0xa5, 0x5b, 0x49, 0xc3, 0xc6, 0xa8, 0xa3,
+	0x81, 0x33, 0x28, 0x61, 0xac, 0xe3, 0xed, 0xd0, 0xb7, 0x29, 0x5d, 0xe1, 0x0e, 0xd8, 0x5f, 0xaa,
+	0x63, 0xec, 0x5d, 0x61, 0x24, 0x81, 0x6b, 0x35, 0x6a, 0x35, 0x31, 0x7b, 0x1d, 0x82, 0xfe, 0x53,
+	0xe5, 0x63, 0x70, 0x95, 0x4f, 0x1e, 0xee, 0x9d, 0xd0, 0x95, 0x4b, 0xd2, 0xc5, 0xa9, 0xaa, 0x28,
+	0x52, 0x74, 0xa5, 0x27, 0xae, 0x72, 0x05, 0xa4, 0x45, 0x75, 0xe4, 0xcc, 0x3a, 0xef, 0x90, 0x5f,
+	0xd8, 0x21, 0xe6, 0xcb, 0x66, 0x6f, 0x1a, 0x9a, 0xb3, 0x23, 0x07, 0x76, 0xe6, 0x44, 0x8e, 0x2d,
+	0x28, 0xfd, 0x5e, 0x03, 0xeb, 0x35, 0x6a, 0xc9, 0x3e, 0x90, 0x13, 0xfe, 0x4f, 0x87, 0x49, 0xf4,
+	0x89, 0xfb, 0xa8, 0x1c, 0xad, 0x0c, 0x9d, 0xac, 0xee, 0x07, 0x09, 0x28, 0x4b, 0xb6, 0x6d, 0x51,
+	0xc7, 0xc5, 0x25, 0xca, 0xa3, 0x7f, 0x2e, 0x99, 0x0c, 0x73, 0x0a, 0xb6, 0xff, 0xda, 0x83, 0xfd,
+	0x05, 0xcd, 0xe2, 0x30, 0xa5, 0xb8, 0x12, 0x6c, 0xcc, 0x53, 0xae, 0x9f, 0x0d, 0x55, 0xe9, 0x7c,
+	0xa8, 0x4a, 0x3f, 0x86, 0xaa, 0xf4, 0x71, 0xa4, 0xa6, 0xce, 0x47, 0x6a, 0xea, 0xdb, 0x48, 0x4d,
+	0xbd, 0x79, 0xb8, 0xfa, 0x7b, 0xd2, 0x1f, 0x3f, 0xfe, 0xe1, 0xb3, 0xd2, 0xba, 0xcc, 0xe3, 0xf7,
+	0xfe, 0x04, 0x00, 0x00, 0xff, 0xff, 0x68, 0xf8, 0xfa, 0x52, 0x1f, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -275,10 +386,12 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	// DepositToVault deposits funds into a vault.
-	DepositToVault(ctx context.Context, in *MsgDepositToVault, opts ...grpc.CallOption) (*MsgDepositToVaultResponse, error)
-	// UpdateParams updates the Params in state.
-	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	// DepositToMegavault deposits funds into megavault.
+	DepositToMegavault(ctx context.Context, in *MsgDepositToMegavault, opts ...grpc.CallOption) (*MsgDepositToMegavaultResponse, error)
+	// UpdateDefaultQuotingParams updates the default quoting params in state.
+	UpdateDefaultQuotingParams(ctx context.Context, in *MsgUpdateDefaultQuotingParams, opts ...grpc.CallOption) (*MsgUpdateDefaultQuotingParamsResponse, error)
+	// SetVaultParams sets the parameters of a specific vault.
+	SetVaultParams(ctx context.Context, in *MsgSetVaultParams, opts ...grpc.CallOption) (*MsgSetVaultParamsResponse, error)
 }
 
 type msgClient struct {
@@ -289,18 +402,27 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) DepositToVault(ctx context.Context, in *MsgDepositToVault, opts ...grpc.CallOption) (*MsgDepositToVaultResponse, error) {
-	out := new(MsgDepositToVaultResponse)
-	err := c.cc.Invoke(ctx, "/nemo_network.vault.Msg/DepositToVault", in, out, opts...)
+func (c *msgClient) DepositToMegavault(ctx context.Context, in *MsgDepositToMegavault, opts ...grpc.CallOption) (*MsgDepositToMegavaultResponse, error) {
+	out := new(MsgDepositToMegavaultResponse)
+	err := c.cc.Invoke(ctx, "/nemo-network.vault.Msg/DepositToMegavault", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
-	out := new(MsgUpdateParamsResponse)
-	err := c.cc.Invoke(ctx, "/nemo_network.vault.Msg/UpdateParams", in, out, opts...)
+func (c *msgClient) UpdateDefaultQuotingParams(ctx context.Context, in *MsgUpdateDefaultQuotingParams, opts ...grpc.CallOption) (*MsgUpdateDefaultQuotingParamsResponse, error) {
+	out := new(MsgUpdateDefaultQuotingParamsResponse)
+	err := c.cc.Invoke(ctx, "/nemo-network.vault.Msg/UpdateDefaultQuotingParams", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) SetVaultParams(ctx context.Context, in *MsgSetVaultParams, opts ...grpc.CallOption) (*MsgSetVaultParamsResponse, error) {
+	out := new(MsgSetVaultParamsResponse)
+	err := c.cc.Invoke(ctx, "/nemo-network.vault.Msg/SetVaultParams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -309,59 +431,82 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	// DepositToVault deposits funds into a vault.
-	DepositToVault(context.Context, *MsgDepositToVault) (*MsgDepositToVaultResponse, error)
-	// UpdateParams updates the Params in state.
-	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	// DepositToMegavault deposits funds into megavault.
+	DepositToMegavault(context.Context, *MsgDepositToMegavault) (*MsgDepositToMegavaultResponse, error)
+	// UpdateDefaultQuotingParams updates the default quoting params in state.
+	UpdateDefaultQuotingParams(context.Context, *MsgUpdateDefaultQuotingParams) (*MsgUpdateDefaultQuotingParamsResponse, error)
+	// SetVaultParams sets the parameters of a specific vault.
+	SetVaultParams(context.Context, *MsgSetVaultParams) (*MsgSetVaultParamsResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) DepositToVault(ctx context.Context, req *MsgDepositToVault) (*MsgDepositToVaultResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DepositToVault not implemented")
+func (*UnimplementedMsgServer) DepositToMegavault(ctx context.Context, req *MsgDepositToMegavault) (*MsgDepositToMegavaultResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DepositToMegavault not implemented")
 }
-func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+func (*UnimplementedMsgServer) UpdateDefaultQuotingParams(ctx context.Context, req *MsgUpdateDefaultQuotingParams) (*MsgUpdateDefaultQuotingParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDefaultQuotingParams not implemented")
+}
+func (*UnimplementedMsgServer) SetVaultParams(ctx context.Context, req *MsgSetVaultParams) (*MsgSetVaultParamsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetVaultParams not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_DepositToVault_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgDepositToVault)
+func _Msg_DepositToMegavault_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDepositToMegavault)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).DepositToVault(ctx, in)
+		return srv.(MsgServer).DepositToMegavault(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo_network.vault.Msg/DepositToVault",
+		FullMethod: "/nemo-network.vault.Msg/DepositToMegavault",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).DepositToVault(ctx, req.(*MsgDepositToVault))
+		return srv.(MsgServer).DepositToMegavault(ctx, req.(*MsgDepositToMegavault))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgUpdateParams)
+func _Msg_UpdateDefaultQuotingParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateDefaultQuotingParams)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).UpdateParams(ctx, in)
+		return srv.(MsgServer).UpdateDefaultQuotingParams(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nemo_network.vault.Msg/UpdateParams",
+		FullMethod: "/nemo-network.vault.Msg/UpdateDefaultQuotingParams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).UpdateParams(ctx, req.(*MsgUpdateParams))
+		return srv.(MsgServer).UpdateDefaultQuotingParams(ctx, req.(*MsgUpdateDefaultQuotingParams))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_SetVaultParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetVaultParams)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetVaultParams(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nemo-network.vault.Msg/SetVaultParams",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetVaultParams(ctx, req.(*MsgSetVaultParams))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -371,19 +516,23 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "DepositToVault",
-			Handler:    _Msg_DepositToVault_Handler,
+			MethodName: "DepositToMegavault",
+			Handler:    _Msg_DepositToMegavault_Handler,
 		},
 		{
-			MethodName: "UpdateParams",
-			Handler:    _Msg_UpdateParams_Handler,
+			MethodName: "UpdateDefaultQuotingParams",
+			Handler:    _Msg_UpdateDefaultQuotingParams_Handler,
+		},
+		{
+			MethodName: "SetVaultParams",
+			Handler:    _Msg_SetVaultParams_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "nemo_network/vault/tx.proto",
 }
 
-func (m *MsgDepositToVault) Marshal() (dAtA []byte, err error) {
+func (m *MsgDepositToMegavault) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -393,12 +542,12 @@ func (m *MsgDepositToVault) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgDepositToVault) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgDepositToMegavault) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgDepositToVault) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgDepositToMegavault) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -412,22 +561,10 @@ func (m *MsgDepositToVault) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintTx(dAtA, i, uint64(size))
 	}
 	i--
-	dAtA[i] = 0x1a
+	dAtA[i] = 0x12
 	if m.SubaccountId != nil {
 		{
 			size, err := m.SubaccountId.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintTx(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0x12
-	}
-	if m.VaultId != nil {
-		{
-			size, err := m.VaultId.MarshalToSizedBuffer(dAtA[:i])
 			if err != nil {
 				return 0, err
 			}
@@ -440,7 +577,7 @@ func (m *MsgDepositToVault) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgDepositToVaultResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgDepositToMegavaultResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -450,41 +587,51 @@ func (m *MsgDepositToVaultResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgDepositToVaultResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgDepositToMegavaultResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgDepositToVaultResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	return len(dAtA) - i, nil
-}
-
-func (m *MsgUpdateParams) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *MsgUpdateParams) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *MsgUpdateParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgDepositToMegavaultResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
 	{
-		size, err := m.Params.MarshalToSizedBuffer(dAtA[:i])
+		size, err := m.MintedShares.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateDefaultQuotingParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateDefaultQuotingParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateDefaultQuotingParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.DefaultQuotingParams.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -503,7 +650,7 @@ func (m *MsgUpdateParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgUpdateParamsResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgUpdateDefaultQuotingParamsResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -513,12 +660,85 @@ func (m *MsgUpdateParamsResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgUpdateParamsResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgUpdateDefaultQuotingParamsResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgUpdateDefaultQuotingParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSetVaultParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSetVaultParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSetVaultParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.VaultParams.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x1a
+	{
+		size, err := m.VaultId.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x12
+	if len(m.Authority) > 0 {
+		i -= len(m.Authority)
+		copy(dAtA[i:], m.Authority)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Authority)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgSetVaultParamsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgSetVaultParamsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgSetVaultParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -537,16 +757,12 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgDepositToVault) Size() (n int) {
+func (m *MsgDepositToMegavault) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.VaultId != nil {
-		l = m.VaultId.Size()
-		n += 1 + l + sovTx(uint64(l))
-	}
 	if m.SubaccountId != nil {
 		l = m.SubaccountId.Size()
 		n += 1 + l + sovTx(uint64(l))
@@ -556,16 +772,18 @@ func (m *MsgDepositToVault) Size() (n int) {
 	return n
 }
 
-func (m *MsgDepositToVaultResponse) Size() (n int) {
+func (m *MsgDepositToMegavaultResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
+	l = m.MintedShares.Size()
+	n += 1 + l + sovTx(uint64(l))
 	return n
 }
 
-func (m *MsgUpdateParams) Size() (n int) {
+func (m *MsgUpdateDefaultQuotingParams) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -575,12 +793,38 @@ func (m *MsgUpdateParams) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = m.Params.Size()
+	l = m.DefaultQuotingParams.Size()
 	n += 1 + l + sovTx(uint64(l))
 	return n
 }
 
-func (m *MsgUpdateParamsResponse) Size() (n int) {
+func (m *MsgUpdateDefaultQuotingParamsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgSetVaultParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Authority)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = m.VaultId.Size()
+	n += 1 + l + sovTx(uint64(l))
+	l = m.VaultParams.Size()
+	n += 1 + l + sovTx(uint64(l))
+	return n
+}
+
+func (m *MsgSetVaultParamsResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -595,7 +839,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgDepositToVault) Unmarshal(dAtA []byte) error {
+func (m *MsgDepositToMegavault) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -618,49 +862,13 @@ func (m *MsgDepositToVault) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgDepositToVault: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgDepositToMegavault: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgDepositToVault: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgDepositToMegavault: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field VaultId", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthTx
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthTx
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.VaultId == nil {
-				m.VaultId = &VaultId{}
-			}
-			if err := m.VaultId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SubaccountId", wireType)
 			}
@@ -696,7 +904,7 @@ func (m *MsgDepositToVault) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field QuoteQuantums", wireType)
 			}
@@ -750,7 +958,7 @@ func (m *MsgDepositToVault) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgDepositToVaultResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgDepositToMegavaultResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -773,12 +981,45 @@ func (m *MsgDepositToVaultResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgDepositToVaultResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgDepositToMegavaultResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgDepositToVaultResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgDepositToMegavaultResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MintedShares", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.MintedShares.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -800,7 +1041,7 @@ func (m *MsgDepositToVaultResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateParams) Unmarshal(dAtA []byte) error {
+func (m *MsgUpdateDefaultQuotingParams) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -823,10 +1064,10 @@ func (m *MsgUpdateParams) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateParams: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgUpdateDefaultQuotingParams: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateParams: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgUpdateDefaultQuotingParams: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -863,7 +1104,7 @@ func (m *MsgUpdateParams) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Params", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DefaultQuotingParams", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -890,7 +1131,7 @@ func (m *MsgUpdateParams) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.Params.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.DefaultQuotingParams.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -915,7 +1156,7 @@ func (m *MsgUpdateParams) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgUpdateDefaultQuotingParamsResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -938,10 +1179,208 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgUpdateParamsResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgUpdateDefaultQuotingParamsResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgUpdateDefaultQuotingParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSetVaultParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSetVaultParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSetVaultParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Authority", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Authority = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VaultId", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.VaultId.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VaultParams", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.VaultParams.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgSetVaultParamsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgSetVaultParamsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgSetVaultParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

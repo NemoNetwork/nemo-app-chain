@@ -18,12 +18,9 @@ type ClobKeeper interface {
 
 	AddOrderToOrderbookSubaccountUpdatesCheck(
 		ctx sdk.Context,
-		clobPairId ClobPairId,
-		subaccountOpenOrders map[satypes.SubaccountId][]PendingOpenOrder,
-	) (
-		success bool,
-		successPerUpdate map[satypes.SubaccountId]satypes.UpdateResult,
-	)
+		subaccountId satypes.SubaccountId,
+		order PendingOpenOrder,
+	) satypes.UpdateResult
 	BatchCancelShortTermOrder(
 		ctx sdk.Context,
 		msg *MsgBatchCancel,
@@ -88,7 +85,6 @@ type ClobKeeper interface {
 		success bool,
 		takerUpdateResult satypes.UpdateResult,
 		makerUpdateResult satypes.UpdateResult,
-		offchainUpdates *OffchainUpdates,
 		err error,
 	)
 	SetLongTermOrderPlacement(
@@ -140,8 +136,8 @@ type ClobKeeper interface {
 		clobPair ClobPair,
 	) error
 	UpdateLiquidationsConfig(ctx sdk.Context, config LiquidationsConfig) error
-	// Gprc streaming
-	InitializeNewGrpcStreams(ctx sdk.Context)
+	// full node streaming
+	InitializeNewStreams(ctx sdk.Context)
 	SendOrderbookUpdates(
 		ctx sdk.Context,
 		offchainUpdates *OffchainUpdates,

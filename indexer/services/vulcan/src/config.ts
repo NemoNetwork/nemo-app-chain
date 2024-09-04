@@ -21,6 +21,7 @@ export const configSchema = {
   ...redisConfigSchema,
 
   BATCH_PROCESSING_ENABLED: parseBoolean({ default: true }),
+  PROCESS_FROM_BEGINNING: parseBoolean({ default: false }),
   KAFKA_BATCH_PROCESSING_COMMIT_FREQUENCY_MS: parseNumber({
     default: 3_000,
   }),
@@ -35,6 +36,9 @@ export const configSchema = {
     default: true,
   }),
   SEND_SUBACCOUNT_WEBSOCKET_MESSAGE_FOR_STATEFUL_ORDERS: parseBoolean({
+    default: true,
+  }),
+  SEND_SUBACCOUNT_WEBSOCKET_MESSAGE_FOR_CANCELS_MISSING_ORDERS: parseBoolean({
     default: true,
   }),
 };

@@ -5,9 +5,9 @@ set -eo pipefail
 # This file should be run as part of `docker-compose.yml`.
 
 source "./genesis.sh"
+source "./version.sh"
 
 CHAIN_ID="localnemo-network"
-PREUPGRADE_VERSION="v5.1.0"
 
 # Define mnemonics for all validators.
 MNEMONICS=(
@@ -169,9 +169,9 @@ download_preupgrade_binary() {
 			exit 1
 			;;
 	esac
-	tar_url="https://github.com/nemo-network/v4-chain/releases/download/protocol%2F$PREUPGRADE_VERSION/nemod-$PREUPGRADE_VERSION-linux-$url_arch.tar.gz"
-	tar_path='/tmp/nemod/nemod.tar.gz'
-	mkdir -p /tmp/nemod
+	tar_url="https://github.com/nemo-network/v4-chain/releases/download/protocol%2F$PREUPGRADE_VERSION_FULL_NAME/nemo-networkd-$PREUPGRADE_VERSION_FULL_NAME-linux-$url_arch.tar.gz"
+	tar_path='/tmp/nemo-networkd/nemo-networkd.tar.gz'
+	mkdir -p /tmp/nemo-networkd
 	curl -vL $tar_url -o $tar_path
 	nemod_path=$(tar -xvf $tar_path --directory /tmp/nemod)
 	cp /tmp/nemod/$nemod_path /bin/nemod_preupgrade

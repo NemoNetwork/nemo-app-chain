@@ -2,8 +2,11 @@ package keeper
 
 import (
 	"fmt"
-	"github.com/cosmos/gogoproto/proto"
 	"testing"
+
+	revsharetypes "github.com/nemo-network/v4-chain/protocol/x/revshare/types"
+
+	"github.com/cosmos/gogoproto/proto"
 
 	storetypes "cosmossdk.io/store/types"
 	dbm "github.com/cosmos/cosmos-db"
@@ -15,23 +18,26 @@ import (
 	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
 	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
 	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/marketmap"
 	"github.com/nemo-network/v4-chain/protocol/mocks"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	delaymsgmoduletypes "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
 	"github.com/nemo-network/v4-chain/protocol/x/prices/keeper"
 	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	revsharekeeper "github.com/nemo-network/v4-chain/protocol/x/revshare/keeper"
+	marketmapkeeper "github.com/skip-mev/slinky/x/marketmap/keeper"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
 
-func PricesKeepers(
-	t testing.TB,
-) (
+func PricesKeepers(t testing.TB) (
 	ctx sdk.Context,
 	keeper *keeper.Keeper,
 	storeKey storetypes.StoreKey,
 	indexPriceCache *pricefeedserver_types.MarketToExchangePrices,
 	mockTimeProvider *mocks.TimeProvider,
+	revShareKeeper *revsharekeeper.Keeper,
+	marketMapKeeper *marketmapkeeper.Keeper,
 ) {
 	ctx = initKeepers(t, func(
 		db *dbm.MemDB,
@@ -40,14 +46,17 @@ func PricesKeepers(
 		stateStore storetypes.CommitMultiStore,
 		transientStoreKey storetypes.StoreKey,
 	) []GenesisInitializer {
+		// Necessary keeper for testing
+		revShareKeeper, _, _ = createRevShareKeeper(stateStore, db, cdc)
+		marketMapKeeper, _ = createMarketMapKeeper(stateStore, db, cdc)
 		// Define necessary keepers here for unit tests
 		keeper, storeKey, indexPriceCache, mockTimeProvider =
-			createPricesKeeper(stateStore, db, cdc, transientStoreKey)
+			createPricesKeeper(stateStore, db, cdc, transientStoreKey, revShareKeeper, marketMapKeeper)
 
 		return []GenesisInitializer{keeper}
 	})
 
-	return ctx, keeper, storeKey, indexPriceCache, mockTimeProvider
+	return ctx, keeper, storeKey, indexPriceCache, mockTimeProvider, revShareKeeper, marketMapKeeper
 }
 
 func createPricesKeeper(
@@ -55,6 +64,8 @@ func createPricesKeeper(
 	db *dbm.MemDB,
 	cdc *codec.ProtoCodec,
 	transientStoreKey storetypes.StoreKey,
+	revShareKeeper *revsharekeeper.Keeper,
+	marketMapKeeper *marketmapkeeper.Keeper,
 ) (
 	*keeper.Keeper,
 	storetypes.StoreKey,
@@ -86,18 +97,60 @@ func createPricesKeeper(
 			delaymsgmoduletypes.ModuleAddress.String(),
 			lib.GovModuleAddress.String(),
 		},
+		revShareKeeper,
+		marketMapKeeper,
 	)
 
 	return k, storeKey, indexPriceCache, mockTimeProvider
 }
 
+// Convert MarketParams into MarketMap markets and create them in the MarketMap keeper.
+func CreateMarketsInMarketMapFromParams(
+	t testing.TB,
+	ctx sdk.Context,
+	mmk *marketmapkeeper.Keeper,
+	allMarketParams []types.MarketParam,
+) {
+	marketMap, err := marketmap.ConstructMarketMapFromParams(allMarketParams)
+	require.NoError(t, err)
+	for _, market := range marketMap.Markets {
+		market.Ticker.Enabled = false
+		require.NoError(t, mmk.CreateMarket(ctx, market))
+	}
+}
+
+// CreateTestMarket creates a market with the given MarketParam and MarketPrice. It creates this market
+// in the market map first.
+func CreateTestMarket(
+	t testing.TB,
+	ctx sdk.Context,
+	k *keeper.Keeper,
+	marketParam types.MarketParam,
+	marketPrice types.MarketPrice,
+) (types.MarketParam, error) {
+	CreateMarketsInMarketMapFromParams(
+		t,
+		ctx,
+		k.MarketMapKeeper.(*marketmapkeeper.Keeper),
+		[]types.MarketParam{marketParam},
+	)
+
+	return k.CreateMarket(
+		ctx,
+		marketParam,
+		marketPrice,
+	)
+}
+
 // CreateTestMarkets creates a standard set of test markets for testing.
 // This function assumes no markets exist and will create markets as id `0`, `1`, and `2`, ... using markets
 // defined in constants.TestMarkets.
-func CreateTestMarkets(t *testing.T, ctx sdk.Context, k *keeper.Keeper) {
+func CreateTestMarkets(t testing.TB, ctx sdk.Context, k *keeper.Keeper) {
 	for i, marketParam := range constants.TestMarketParams {
-		_, err := k.CreateMarket(
+		_, err := CreateTestMarket(
+			t,
 			ctx,
+			k,
 			marketParam,
 			constants.TestMarketPrices[i],
 		)
@@ -109,30 +162,33 @@ func CreateTestMarkets(t *testing.T, ctx sdk.Context, k *keeper.Keeper) {
 			},
 		})
 		require.NoError(t, err)
+
+		// update all markets to not have revenue share
+		k.RevShareKeeper.SetMarketMapperRevShareDetails(
+			ctx,
+			uint32(i),
+			revsharetypes.MarketMapperRevShareDetails{ExpirationTs: 0},
+		)
 	}
 }
 
 // CreateNMarkets creates N MarketParam, MarketPrice pairs for testing.
-func CreateNMarkets(t *testing.T, ctx sdk.Context, keeper *keeper.Keeper, n int) []types.MarketParamPrice {
+func CreateNMarkets(t testing.TB, ctx sdk.Context, keeper *keeper.Keeper, n int) []types.MarketParamPrice {
 	items := make([]types.MarketParamPrice, n)
 	numExistingMarkets := GetNumMarkets(t, ctx, keeper)
 	for i := range items {
 		items[i].Param.Id = uint32(i) + numExistingMarkets
 		items[i].Param.Pair = fmt.Sprintf("%v-%v", i, i)
-		items[i].Param.Exponent = int32(i)
+		items[i].Param.Exponent = -int32(i%36 + 1) // must be between -1 and -36
 		items[i].Param.ExchangeConfigJson = ""
 		items[i].Param.MinExchanges = uint32(1)
 		items[i].Param.MinPriceChangePpm = uint32(i + 1)
 		items[i].Price.Id = uint32(i) + numExistingMarkets
-		items[i].Price.Exponent = int32(i)
+		items[i].Price.Exponent = -int32(i%36 + 1) // must be between -1 and -36
 		items[i].Price.Price = uint64(1_000 + i)
 		items[i].Param.ExchangeConfigJson = "{}" // Use empty, valid JSON for testing.
 
-		_, err := keeper.CreateMarket(
-			ctx,
-			items[i].Param,
-			items[i].Price,
-		)
+		_, err := CreateTestMarket(t, ctx, keeper, items[i].Param, items[i].Price)
 		require.NoError(t, err)
 		items[i].Price, err = keeper.GetMarketPrice(ctx, items[i].Param.Id)
 		require.NoError(t, err)
@@ -144,7 +200,7 @@ func CreateNMarkets(t *testing.T, ctx sdk.Context, keeper *keeper.Keeper, n int)
 // AssertPriceUpdateEventsInIndexerBlock verifies that the market update has a corresponding price update
 // event included in the Indexer block message.
 func AssertPriceUpdateEventsInIndexerBlock(
-	t *testing.T,
+	t testing.TB,
 	k *keeper.Keeper,
 	ctx sdk.Context,
 	updatedMarketPrices []types.MarketPrice,
@@ -158,7 +214,7 @@ func AssertPriceUpdateEventsInIndexerBlock(
 
 // AssertMarketEventsNotInIndexerBlock verifies that no market events were included in the Indexer block message.
 func AssertMarketEventsNotInIndexerBlock(
-	t *testing.T,
+	t testing.TB,
 	k *keeper.Keeper,
 	ctx sdk.Context,
 ) {
@@ -168,7 +224,7 @@ func AssertMarketEventsNotInIndexerBlock(
 
 // AssertNMarketEventsNotInIndexerBlock verifies that N market events were included in the Indexer block message.
 func AssertNMarketEventsNotInIndexerBlock(
-	t *testing.T,
+	t testing.TB,
 	k *keeper.Keeper,
 	ctx sdk.Context,
 	n int,
@@ -201,7 +257,7 @@ func getMarketEventsFromIndexerBlock(
 // AssertMarketModifyEventInIndexerBlock verifies that the market update has a corresponding market modify
 // event included in the Indexer block message.
 func AssertMarketModifyEventInIndexerBlock(
-	t *testing.T,
+	t testing.TB,
 	k *keeper.Keeper,
 	ctx sdk.Context,
 	updatedMarketParam types.MarketParam,
@@ -218,7 +274,7 @@ func AssertMarketModifyEventInIndexerBlock(
 // AssertMarketCreateEventInIndexerBlock verifies that the market create has a corresponding market create
 // event included in the Indexer block message.
 func AssertMarketCreateEventInIndexerBlock(
-	t *testing.T,
+	t testing.TB,
 	k *keeper.Keeper,
 	ctx sdk.Context,
 	createdMarketParam types.MarketParam,
@@ -234,7 +290,7 @@ func AssertMarketCreateEventInIndexerBlock(
 }
 
 func AssertMarketPriceUpdateEventInIndexerBlock(
-	t *testing.T,
+	t testing.TB,
 	k *keeper.Keeper,
 	ctx sdk.Context,
 	updatedMarketPrice types.MarketPrice,
@@ -250,7 +306,7 @@ func AssertMarketPriceUpdateEventInIndexerBlock(
 // CreateTestPriceMarkets is a test utility function that creates list of given
 // price markets in state.
 func CreateTestPriceMarkets(
-	t *testing.T,
+	t testing.TB,
 	ctx sdk.Context,
 	pricesKeeper *keeper.Keeper,
 	markets []types.MarketParamPrice,
@@ -258,8 +314,10 @@ func CreateTestPriceMarkets(
 	// Create a new market param and price.
 	marketId := uint32(0)
 	for _, m := range markets {
-		_, err := pricesKeeper.CreateMarket(
+		_, err := CreateTestMarket(
+			t,
 			ctx,
+			pricesKeeper,
 			m.Param,
 			m.Price,
 		)
@@ -268,7 +326,7 @@ func CreateTestPriceMarkets(
 	}
 }
 
-func GetNumMarkets(t *testing.T, ctx sdk.Context, keeper *keeper.Keeper) uint32 {
+func GetNumMarkets(t testing.TB, ctx sdk.Context, keeper *keeper.Keeper) uint32 {
 	allMarkets, err := keeper.GetAllMarketParamPrices(ctx)
 	require.NoError(t, err)
 	return lib.MustConvertIntegerToUint32(len(allMarkets))

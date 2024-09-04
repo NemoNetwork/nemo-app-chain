@@ -360,7 +360,7 @@ func AssertMemclobHasOrders(
 
 	// Get all orders and CLOB pair IDs from the memclob.
 	unseenOrdersOnMemclob := make(map[types.OrderId]types.Order)
-	for clobPairId, orderbook := range memclob.openOrders.orderbooksMap {
+	for clobPairId, orderbook := range memclob.orderbooks {
 		allClobPairIds[clobPairId] = true
 		for _, levelOrder := range orderbook.Bids {
 			curr := levelOrder.LevelOrders.Front
@@ -404,7 +404,7 @@ func AssertMemclobHasOrders(
 		)
 
 		// Verify memclob state matches the expected state.
-		orderbook, exists := memclob.openOrders.orderbooksMap[clobPairId]
+		orderbook, exists := memclob.orderbooks[clobPairId]
 		require.True(t, exists)
 
 		// Verify best ask and best bid.
@@ -467,12 +467,13 @@ func assertOrderbookStateExpectations(
 	expectSubaccountOpenClobOrdersForSideToExist bool,
 	expectSubaccountOpenClobOrdersToExist bool,
 ) {
+	orderbook := memclob.orderbooks[order.GetClobPairId()]
 	// Expect that the `blockExpirationsForOrders` map exists for the `GoodTilBlock` associated with the
 	// passed in order.
 	if expectBlockExpirationsForOrdersToExist {
-		require.NotEmpty(t, memclob.openOrders.blockExpirationsForOrders[order.GetGoodTilBlock()])
+		require.NotEmpty(t, orderbook.blockExpirationsForOrders[order.GetGoodTilBlock()])
 	} else {
-		require.Empty(t, memclob.openOrders.blockExpirationsForOrders[order.GetGoodTilBlock()])
+		require.Empty(t, orderbook.blockExpirationsForOrders[order.GetGoodTilBlock()])
 	}
 
 	// Expect that the relevant `SubaccountOpenClobOrders` map exists for the `SubaccountId` and `ClobPairId`
@@ -480,12 +481,12 @@ func assertOrderbookStateExpectations(
 	if expectSubaccountOpenClobOrdersToExist {
 		require.NotEmpty(
 			t,
-			memclob.openOrders.orderbooksMap[order.GetClobPairId()].SubaccountOpenClobOrders[order.OrderId.SubaccountId],
+			memclob.orderbooks[order.GetClobPairId()].SubaccountOpenClobOrders[order.OrderId.SubaccountId],
 		)
 	} else {
 		require.Empty(
 			t,
-			memclob.openOrders.orderbooksMap[order.GetClobPairId()].SubaccountOpenClobOrders[order.OrderId.SubaccountId],
+			memclob.orderbooks[order.GetClobPairId()].SubaccountOpenClobOrders[order.OrderId.SubaccountId],
 		)
 	}
 
@@ -494,19 +495,17 @@ func assertOrderbookStateExpectations(
 	if expectSubaccountOpenClobOrdersForSideToExist {
 		require.NotEmpty(
 			t,
-			memclob.openOrders.orderbooksMap[order.GetClobPairId()].
+			memclob.orderbooks[order.GetClobPairId()].
 				SubaccountOpenClobOrders[order.OrderId.SubaccountId][order.Side],
 		)
 	} else {
 		require.Empty(
 			t,
-			memclob.openOrders.orderbooksMap[order.GetClobPairId()].
+			memclob.orderbooks[order.GetClobPairId()].
 				SubaccountOpenClobOrders[order.OrderId.SubaccountId][order.Side],
 		)
 	}
 
-	// Verify orderbook state was updated properly.
-	orderbook := memclob.openOrders.orderbooksMap[order.GetClobPairId()]
 	// Verify the `BestBid` for this orderbook associated with the passed in order matches expectedBestBid.
 	require.Equal(t, expectedBestBid, orderbook.BestBid)
 	// Verify the `BestBid` for this orderbook associated with the passed in order matches expectedBestAsk.
@@ -542,7 +541,7 @@ func createOrderbooks(
 				},
 			},
 		}
-		memclob.CreateOrderbook(ctx, clobPair)
+		memclob.CreateOrderbook(clobPair)
 	}
 }
 
@@ -570,7 +569,7 @@ func createAllOrderbooksForMatchableOrders(
 					},
 				},
 			}
-			memclob.CreateOrderbook(ctx, clobPair)
+			memclob.CreateOrderbook(clobPair)
 			createdOrderbooks[order.GetClobPairId()] = true
 		}
 	}
@@ -598,7 +597,7 @@ func createAllOrderbooksForOrders(
 					},
 				},
 			}
-			memclob.CreateOrderbook(ctx, clobPair)
+			memclob.CreateOrderbook(clobPair)
 			createdOrderbooks[order.GetClobPairId()] = true
 		}
 	}
@@ -750,13 +749,17 @@ func requireOrderExistsInMemclob(
 	order types.Order,
 	memclob *MemClobPriceTimePriority,
 ) {
+	// Verify the order exists on the correct side of the orderbook.
+	orderbook, exists := memclob.orderbooks[order.GetClobPairId()]
+	require.True(t, exists)
+	require.True(t, doesOrderExistOnSide(t, order.OrderId, orderbook.GetSide(order.IsBuy())))
+
 	// Verify the order exists in `orderIdToLevelOrder`.
-	require.Contains(t, memclob.openOrders.orderIdToLevelOrder, order.OrderId)
-	require.Equal(t, order, memclob.openOrders.orderIdToLevelOrder[order.OrderId].Value.Order)
+	require.Contains(t, orderbook.orderIdToLevelOrder, order.OrderId)
+	require.Equal(t, order, orderbook.orderIdToLevelOrder[order.OrderId].Value.Order)
 
 	// Verify the order was added to the subaccounts open orders.
 	subaccountOpenOrders, err := memclob.GetSubaccountOrders(
-		ctx,
 		order.GetClobPairId(),
 		order.OrderId.SubaccountId,
 		order.Side,
@@ -767,15 +770,10 @@ func requireOrderExistsInMemclob(
 	// If the order is a Short-Term order, verify the order was added to the block expiration map.
 	// Else, verify it was not added to the block expiration map.
 	if order.OrderId.IsShortTermOrder() {
-		require.Contains(t, memclob.openOrders.blockExpirationsForOrders[order.GetGoodTilBlock()], order.OrderId)
+		require.Contains(t, orderbook.blockExpirationsForOrders[order.GetGoodTilBlock()], order.OrderId)
 	} else {
-		require.NotContains(t, memclob.openOrders.blockExpirationsForOrders[order.GetGoodTilBlock()], order.OrderId)
+		require.NotContains(t, orderbook.blockExpirationsForOrders[order.GetGoodTilBlock()], order.OrderId)
 	}
-
-	// Verify the order exists on the correct side of the orderbook.
-	orderbook, exists := memclob.openOrders.orderbooksMap[order.GetClobPairId()]
-	require.True(t, exists)
-	require.True(t, doesOrderExistOnSide(t, order.OrderId, orderbook.GetSide(order.IsBuy())))
 
 	// If this is a reduce-only order, verify the order exists in the open reduce-only orders for
 	// this subaccount. Else, verify it is not present.
@@ -805,13 +803,12 @@ func requireOrderDoesNotExistInMemclob(
 	memclob *MemClobPriceTimePriority,
 ) {
 	// Verify the order is not found.
-	_, found := memclob.GetOrder(ctx, order.OrderId)
+	_, found := memclob.GetOrder(order.OrderId)
 	require.False(t, found)
 
 	// Verify the order was not added to the subaccounts open orders.
 
 	subaccountOpenOrders, err := memclob.GetSubaccountOrders(
-		ctx,
 		order.GetClobPairId(),
 		order.OrderId.SubaccountId,
 		order.Side,
@@ -819,16 +816,16 @@ func requireOrderDoesNotExistInMemclob(
 	require.NoError(t, err)
 	require.NotContains(t, subaccountOpenOrders, order)
 
-	// Verify the order was not added to the block expiration map.
-	if order.OrderId.IsShortTermOrder() {
-		require.NotContains(t, memclob.openOrders.blockExpirationsForOrders[order.GetGoodTilBlock()], order.OrderId)
-	}
-
 	// Verify the order does not exist on either side of the orderbook.
-	orderbook, exists := memclob.openOrders.orderbooksMap[order.GetClobPairId()]
+	orderbook, exists := memclob.orderbooks[order.GetClobPairId()]
 	require.True(t, exists)
 	require.False(t, doesOrderExistOnSide(t, order.OrderId, orderbook.Bids))
 	require.False(t, doesOrderExistOnSide(t, order.OrderId, orderbook.Asks))
+
+	// Verify the order was not added to the block expiration map.
+	if order.OrderId.IsShortTermOrder() {
+		require.NotContains(t, orderbook.blockExpirationsForOrders[order.GetGoodTilBlock()], order.OrderId)
+	}
 
 	// Verify the order does not exist in the open reduce-only orders for this subaccount.
 	require.NotContains(
@@ -1105,7 +1102,7 @@ func placeOrderAndVerifyExpectations(
 		}
 	}
 
-	orderbook := memclob.openOrders.orderbooksMap[order.GetClobPairId()]
+	orderbook := memclob.orderbooks[order.GetClobPairId()]
 
 	// Verify the return values are correct.
 	require.ErrorIs(t, err, expectedErr)
@@ -1202,7 +1199,7 @@ func placeOrderAndVerifyExpectationsOperations(
 		}
 	}
 
-	orderbook := memclob.openOrders.orderbooksMap[order.GetClobPairId()]
+	orderbook := memclob.orderbooks[order.GetClobPairId()]
 
 	// Verify the return values are correct.
 	require.ErrorIs(t, err, expectedErr)
@@ -1295,6 +1292,7 @@ func assertPlaceOrderOffchainMessages(
 	expectedNewMatches []expectedMatch,
 	expectedCancelledReduceOnlyOrders []types.OrderId,
 	expectedToReplaceOrder bool,
+	expectedReplacementOrderPriceChanged bool,
 ) {
 	actualOffchainMessages := offchainUpdates.GetMessages()
 	expectedOffchainMessages := []msgsender.Message{}
@@ -1303,26 +1301,26 @@ func assertPlaceOrderOffchainMessages(
 	// If there are no errors expected, an order place message should be sent.
 	if expectedErr == nil || doesErrorProduceOffchainMessages(expectedErr) {
 		if expectedToReplaceOrder {
-			updateMessage := off_chain_updates.MustCreateOrderRemoveMessageWithReason(
-				ctx,
-				order.OrderId,
-				indexershared.OrderRemovalReason_ORDER_REMOVAL_REASON_REPLACED,
-				ocutypes.OrderRemoveV1_ORDER_REMOVAL_STATUS_BEST_EFFORT_CANCELED,
-			)
-			expectedOffchainMessages = append(
-				expectedOffchainMessages,
-				updateMessage,
-			)
-			require.Equal(t, expectedOffchainMessages, actualOffchainMessages[:len(expectedOffchainMessages)])
+			if expectedReplacementOrderPriceChanged {
+				removeMessage := off_chain_updates.MustCreateOrderRemoveMessageWithReason(
+					ctx,
+					order.OrderId,
+					indexershared.OrderRemovalReason_ORDER_REMOVAL_REASON_REPLACED,
+					ocutypes.OrderRemoveV1_ORDER_REMOVAL_STATUS_BEST_EFFORT_CANCELED,
+				)
+				expectedOffchainMessages = append(
+					expectedOffchainMessages,
+					removeMessage,
+				)
+			}
 		}
-
-		updateMessage := off_chain_updates.MustCreateOrderPlaceMessage(
+		placeMessage := off_chain_updates.MustCreateOrderPlaceMessage(
 			ctx,
 			order,
 		)
 		expectedOffchainMessages = append(
 			expectedOffchainMessages,
-			updateMessage,
+			placeMessage,
 		)
 		require.Equal(t, expectedOffchainMessages, actualOffchainMessages[:len(expectedOffchainMessages)])
 	}

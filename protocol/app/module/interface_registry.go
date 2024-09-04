@@ -92,7 +92,10 @@ func NewInterfaceRegistry(addrPrefix string, valAddrPrefix string) (types.Interf
 				"nemo_network.sending.MsgWithdrawFromSubaccount": getLegacyMsgSignerFn(
 					[]string{"sender", "owner"},
 				),
-				"nemo_network.vault.MsgDepositToVault": getLegacyMsgSignerFn(
+				"nemo-network.vault.MsgDepositToMegavault": getLegacyMsgSignerFn(
+					[]string{"subaccount_id", "owner"},
+				),
+				"nemo-network.listing.MsgCreateMarketPermissionless": getLegacyMsgSignerFn(
 					[]string{"subaccount_id", "owner"},
 				),
 

@@ -18,7 +18,8 @@ import {
   INDEXER_COMPLIANCE_BLOCKED_PAYLOAD,
   INDEXER_GEOBLOCKED_PAYLOAD,
   isRestrictedCountryHeaders,
-} from '@nemo-network-indexer/compliance';
+  isWhitelistedAddress,
+} from '@nemo_network-indexer/compliance';
 import config from '../../src/config';
 
 jest.mock('@nemo-network-indexer/compliance');
@@ -69,6 +70,7 @@ export const complianceCheckApp = Server(router);
 
 describe('compliance-check', () => {
   let isRestrictedCountrySpy: jest.SpyInstance;
+  let isWhitelistedAddressSpy: jest.SpyInstance;
 
   beforeAll(async () => {
     config.INDEXER_LEVEL_GEOBLOCKING_ENABLED = true;
@@ -77,6 +79,8 @@ describe('compliance-check', () => {
 
   beforeEach(async () => {
     isRestrictedCountrySpy = isRestrictedCountryHeaders as unknown as jest.Mock;
+    isWhitelistedAddressSpy = isWhitelistedAddress as jest.Mock;
+    isWhitelistedAddressSpy.mockReturnValue(false);
     await testMocks.seedData();
   });
 
@@ -86,6 +90,7 @@ describe('compliance-check', () => {
 
   afterEach(async () => {
     jest.restoreAllMocks();
+    config.WHITELISTED_ADDRESSES = '';
     await dbHelpers.clearData();
   });
 
@@ -190,8 +195,28 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+  ])('does not return 403 if address in request is in FIRST_STRIKE_CLOSE_ONLY and from restricted country (%s)', async (
+    _name: string,
+    path: string,
+  ) => {
+    isRestrictedCountrySpy.mockReturnValueOnce(true);
+    await ComplianceStatusTable.create({
+      ...testConstants.compliantStatusData,
+      status: ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
+    });
+    await sendRequestToApp({
+      type: RequestMethod.GET,
+      path,
+      expressApp: complianceCheckApp,
+      expectedStatus: 200,
+    });
+  });
+
+  it.each([
+    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does return 403 if request is from restricted country (%s)', async (
     _name: string,
     path: string,
@@ -214,8 +239,25 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/check-compliance-query?address=${testConstants.blockedAddress}`],
-    ['param', `/check-compliance-param/${testConstants.blockedAddress}`],
+    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+  ])('does not return 403 if address is whitelisted and request is from restricted country (%s)', async (
+    _name: string,
+    path: string,
+  ) => {
+    isWhitelistedAddressSpy.mockReturnValue(true);
+    isRestrictedCountrySpy.mockReturnValueOnce(true);
+    await sendRequestToApp({
+      type: RequestMethod.GET,
+      path,
+      expressApp: complianceCheckApp,
+      expectedStatus: 200,
+    });
+  });
+
+  it.each([
+    ['query', `/v4/check-compliance-query?address=${testConstants.blockedAddress}`],
+    ['param', `/v4/check-compliance-param/${testConstants.blockedAddress}`],
   ])('does return 403 if address in request is blocked (%s)', async (
     _name: string,
     path: string,

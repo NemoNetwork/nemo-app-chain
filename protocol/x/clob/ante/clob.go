@@ -18,6 +18,10 @@ var (
 	goodTilBlockLogKey  = "GoodTilBlock"
 )
 
+var (
+	timeoutHeightLogKey = "TimeoutHeight"
+)
+
 // ClobDecorator is an AnteDecorator which is responsible for:
 //   - adding short term order placements and cancelations to the in-memory orderbook (`CheckTx` only).
 //   - adding stateful order placements and cancelations to state (`CheckTx` and `RecheckTx` only).
@@ -120,10 +124,6 @@ func (cd ClobDecorator) AnteHandle(
 					"Rejected short-term place order with non-zero timeout height < goodTilBlock",
 					timeoutHeightLogKey,
 					timeoutHeight,
-					orderIdLogKey,
-					msg.Order.OrderId,
-					goodTilBlockLogKey,
-					msg.Order.GetGoodTilBlock(),
 				)
 				return ctx, errorsmod.Wrap(
 					sdkerrors.ErrInvalidRequest,

@@ -55,7 +55,7 @@ export async function getUnsettledFunding(
       }: {
         clobPairId: string,
         openSize: string,
-        fundingIndex: string
+        fundingIndex: string,
       } = item;
       const fundingIndexDiff: Big = Big(mappedLastFundingIndexMap[clobPairId]).minus(fundingIndex);
       const unsettledFunding: Big = Big(openSize).mul(fundingIndexDiff);
@@ -175,7 +175,7 @@ export async function validatePnl(
 export async function validatePnlForSubaccount(
   subaccountId: string,
 ): Promise<void> {
-  const pnlTicks: PnlTicksFromDatabase[] = await
+  const { results: pnlTicks } = await
   PnlTicksTable.findAll(
     { subaccountId: [subaccountId] },
     [],

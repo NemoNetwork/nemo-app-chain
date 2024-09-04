@@ -31,7 +31,7 @@ import express from 'express';
 /* ------- GENERAL/UNCATEGORIZED TYPES ------- */
 
 export interface ResponseWithBody extends express.Response {
-  body: unknown
+  body: unknown,
 }
 
 export enum RequestMethod {
@@ -39,6 +39,22 @@ export enum RequestMethod {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
+}
+
+/* ------- Pagination ------- */
+export interface PaginationResponse {
+  /**
+   * @isInt
+   */
+  pageSize?: number,
+  /**
+   * @isInt
+   */
+  totalResults?: number,
+  /**
+   * @isInt
+   */
+  offset?: number,
 }
 
 /* ------- SUBACCOUNT TYPES ------- */
@@ -50,20 +66,28 @@ export interface AddressResponse {
 
 export interface SubaccountResponseObject {
   address: string,
+  /**
+   * @isInt
+   */
   subaccountNumber: number,
   equity: string,
   freeCollateral: string,
   openPerpetualPositions: PerpetualPositionsMap,
   assetPositions: AssetPositionsMap,
   marginEnabled: boolean,
+  updatedAtHeight: string,
+  latestProcessedBlockHeight: string,
 }
 
 export interface ParentSubaccountResponse {
-  address: string;
-  parentSubaccountNumber: number;
-  equity: string; // aggregated over all child subaccounts
-  freeCollateral: string; // aggregated over all child subaccounts
-  childSubaccounts: SubaccountResponseObject[];
+  address: string,
+  /**
+   * @isInt
+   */
+  parentSubaccountNumber: number,
+  equity: string, // aggregated over all child subaccounts
+  freeCollateral: string, // aggregated over all child subaccounts
+  childSubaccounts: SubaccountResponseObject[],
 }
 
 export type SubaccountById = {[id: string]: SubaccountFromDatabase};
@@ -78,50 +102,57 @@ export interface TimeResponse {
 /* ------- POSITION TYPES ------- */
 
 export interface PerpetualPositionResponse {
-  positions: PerpetualPositionResponseObject[];
+  positions: PerpetualPositionResponseObject[],
 }
 
 export interface PerpetualPositionWithFunding extends PerpetualPositionFromDatabase {
-  unsettledFunding: string;
+  unsettledFunding: string,
 }
 
 export interface PerpetualPositionResponseObject {
-  market: string;
-  status: PerpetualPositionStatus;
-  side: PositionSide;
-  size: string;
-  maxSize: string;
-  entryPrice: string;
-  realizedPnl: string;
-  createdAt: IsoString;
-  createdAtHeight: string;
-  sumOpen: string;
-  sumClose: string;
-  netFunding: string;
-  unrealizedPnl: string;
-  closedAt?: IsoString | null;
-  exitPrice?: string | null;
+  market: string,
+  status: PerpetualPositionStatus,
+  side: PositionSide,
+  size: string,
+  maxSize: string,
+  entryPrice: string,
+  realizedPnl: string,
+  createdAt: IsoString,
+  createdAtHeight: string,
+  sumOpen: string,
+  sumClose: string,
+  netFunding: string,
+  unrealizedPnl: string,
+  closedAt?: IsoString | null,
+  exitPrice?: string | null,
+  /**
+   * @isInt
+   */
+  subaccountNumber: number,
 }
 
 export type PerpetualPositionsMap = { [market: string]: PerpetualPositionResponseObject };
 
 export interface AssetPositionResponse {
-  positions: AssetPositionResponseObject[];
+  positions: AssetPositionResponseObject[],
 }
 
 export interface AssetPositionResponseObject {
-  symbol: string;
-  side: PositionSide;
-  size: string;
-  assetId: string;
-  subaccountNumber: number;
+  symbol: string,
+  side: PositionSide,
+  size: string,
+  assetId: string,
+  /**
+   * @isInt
+   */
+  subaccountNumber: number,
 }
 
 export type AssetPositionsMap = { [symbol: string]: AssetPositionResponseObject };
 
 /* ------- FILL TYPES ------- */
 
-export interface FillResponse {
+export interface FillResponse extends PaginationResponse {
   fills: FillResponseObject[],
 }
 
@@ -139,12 +170,15 @@ export interface FillResponseObject {
   createdAtHeight: string,
   orderId?: string,
   clientMetadata?: string,
+  /**
+   * @isInt
+   */
   subaccountNumber: number,
 }
 
 /* ------- TRANSFER TYPES ------- */
 
-export interface TransferResponse {
+export interface TransferResponse extends PaginationResponse {
   transfers: TransferResponseObject[],
 }
 
@@ -152,10 +186,16 @@ export interface TransferResponseObject {
   id: string,
   sender: {
     address: string,
+    /**
+     * @isInt
+     */
     subaccountNumber?: number,
   },
   recipient: {
     address: string,
+    /**
+     * @isInt
+     */
     subaccountNumber?: number,
   },
   size: string,
@@ -166,7 +206,7 @@ export interface TransferResponseObject {
   transactionHash: string,
 }
 
-export interface ParentSubaccountTransferResponse {
+export interface ParentSubaccountTransferResponse extends PaginationResponse {
   transfers: TransferResponseObject[],
 }
 
@@ -174,10 +214,16 @@ export interface ParentSubaccountTransferResponseObject {
   id: string,
   sender: {
     address: string,
+    /**
+     * @isInt
+     */
     parentSubaccountNumber?: number,
   },
   recipient: {
     address: string,
+    /**
+     * @isInt
+     */
     parentSubaccountNumber?: number,
   },
   size: string,
@@ -188,9 +234,20 @@ export interface ParentSubaccountTransferResponseObject {
   transactionHash: string,
 }
 
+export interface TransferBetweenResponse extends PaginationResponse {
+  // Indexer will return data in descending order with the first transfer
+  // being the most recent transfer. Will always return up to 100 transfers.
+  // Transfers are categorized from the perspective of the source subaccount
+  transfersSubset: TransferResponseObject[],
+
+  // Given that source subaccount is the trader and the recipient subaccount
+  // is the vault, total net transfer should always be positive
+  totalNetTransfers: string,
+}
+
 /* ------- PNL TICKS TYPES ------- */
 
-export interface HistoricalPnlResponse {
+export interface HistoricalPnlResponse extends PaginationResponse {
   historicalPnl: PnlTicksResponseObject[],
 }
 
@@ -207,7 +264,7 @@ export interface PnlTicksResponseObject {
 
 /* ------- TRADE TYPES ------- */
 
-export interface TradeResponse {
+export interface TradeResponse extends PaginationResponse {
   trades: TradeResponseObject[],
 }
 
@@ -247,10 +304,11 @@ export enum MarketType {
 export interface PerpetualMarketResponse {
   markets: {
     [ticker: string]: PerpetualMarketResponseObject,
-  }
+  },
 }
 
 export interface PerpetualMarketResponseObject {
+<<<<<<< HEAD
   clobPairId: string;
   ticker: string;
   status: PerpetualMarketStatus;
@@ -272,6 +330,44 @@ export interface PerpetualMarketResponseObject {
   openInterestLowerCap?: string;
   openInterestUpperCap?: string;
   baseOpenInterest: string;
+=======
+  clobPairId: string,
+  ticker: string,
+  status: PerpetualMarketStatus,
+  oraclePrice: string,
+  priceChange24H: string,
+  volume24H: string,
+  /**
+   * @isInt
+   */
+  trades24H: number,
+  nextFundingRate: string,
+  initialMarginFraction: string,
+  maintenanceMarginFraction: string,
+  openInterest: string,
+  /**
+   * @isInt
+   */
+  atomicResolution: number,
+  /**
+   * @isInt
+   */
+  quantumConversionExponent: number,
+  tickSize: string,
+  stepSize: string,
+  /**
+   * @isInt
+   */
+  stepBaseQuantums: number,
+  /**
+   * @isInt
+   */
+  subticksPerTick: number,
+  marketType: PerpetualMarketType,
+  openInterestLowerCap?: string,
+  openInterestUpperCap?: string,
+  baseOpenInterest: string,
+>>>>>>> main
 }
 
 /* ------- ORDERBOOK TYPES ------- */
@@ -293,9 +389,13 @@ export interface OrderResponseObject extends Omit<OrderFromDatabase, 'timeInForc
   timeInForce: APITimeInForce,
   status: APIOrderStatus,
   postOnly: boolean,
-  ticker: string;
-  updatedAt?: IsoString;
-  updatedAtHeight?: string
+  ticker: string,
+  updatedAt?: IsoString,
+  updatedAtHeight?: string,
+  /**
+   * @isInt
+   */
+  subaccountNumber: number,
 }
 
 export type RedisOrderMap = { [orderId: string]: RedisOrder };
@@ -349,6 +449,10 @@ export interface ParentSubaccountRequest extends AddressRequest {
   parentSubaccountNumber: number,
 }
 
+export interface PaginationRequest {
+  page?: number,
+}
+
 export interface LimitRequest {
   limit: number,
 }
@@ -357,10 +461,12 @@ export interface TickerRequest {
   ticker?: string,
 }
 
-export interface LimitAndCreatedBeforeRequest extends LimitRequest {
+interface CreatedBeforeRequest {
   createdBeforeOrAtHeight?: number,
   createdBeforeOrAt?: IsoString,
 }
+
+export interface LimitAndCreatedBeforeRequest extends LimitRequest, CreatedBeforeRequest {}
 
 export interface LimitAndEffectiveBeforeRequest extends LimitRequest {
   effectiveBeforeOrAtHeight?: number,
@@ -376,35 +482,54 @@ export interface PerpetualPositionRequest extends SubaccountRequest, LimitAndCre
   status: PerpetualPositionStatus[],
 }
 
+export interface ParentSubaccountPerpetualPositionRequest extends ParentSubaccountRequest,
+  LimitAndCreatedBeforeRequest {
+  status: PerpetualPositionStatus[],
+}
+
 export interface AssetPositionRequest extends SubaccountRequest {}
 
 export interface ParentSubaccountAssetPositionRequest extends ParentSubaccountRequest {
 }
 
-export interface TransferRequest extends SubaccountRequest, LimitAndCreatedBeforeRequest {}
+export interface TransferRequest
+  extends SubaccountRequest, LimitAndCreatedBeforeRequest, PaginationRequest {}
 
 export interface ParentSubaccountTransferRequest
-  extends ParentSubaccountRequest, LimitAndCreatedBeforeRequest {
+  extends ParentSubaccountRequest, LimitAndCreatedBeforeRequest, PaginationRequest {
 }
 
-export interface FillRequest extends SubaccountRequest, LimitAndCreatedBeforeRequest {
+export interface TransferBetweenRequest extends CreatedBeforeRequest {
+  sourceAddress: string,
+  sourceSubaccountNumber: number,
+  recipientAddress: string,
+  recipientSubaccountNumber: number,
+}
+
+export interface FillRequest
+  extends SubaccountRequest, LimitAndCreatedBeforeRequest, PaginationRequest {
   market: string,
   marketType: MarketType,
 }
 
 export interface ParentSubaccountFillRequest
-  extends ParentSubaccountRequest, LimitAndCreatedBeforeRequest {
+  extends ParentSubaccountRequest, LimitAndCreatedBeforeRequest, PaginationRequest {
   market: string,
   marketType: MarketType,
 }
 
-export interface TradeRequest extends LimitAndCreatedBeforeRequest {
+export interface TradeRequest extends LimitAndCreatedBeforeRequest, PaginationRequest {
   ticker: string,
 }
 
 export interface PerpetualMarketRequest extends LimitRequest, TickerRequest {}
 
-export interface PnlTicksRequest extends SubaccountRequest, LimitAndCreatedBeforeAndAfterRequest {}
+export interface PnlTicksRequest
+  extends SubaccountRequest, LimitAndCreatedBeforeAndAfterRequest, PaginationRequest {}
+
+export interface ParentSubaccountPnlTicksRequest
+  extends ParentSubaccountRequest, LimitAndCreatedBeforeAndAfterRequest {
+}
 
 export interface OrderbookRequest {
   ticker: string,
@@ -415,6 +540,16 @@ export interface GetOrderRequest {
 }
 
 export interface ListOrderRequest extends SubaccountRequest, LimitRequest, TickerRequest {
+  side?: OrderSide,
+  type?: OrderType,
+  status?: OrderStatus[],
+  goodTilBlockBeforeOrAt?: number,
+  goodTilBlockTimeBeforeOrAt?: IsoString,
+  returnLatestOrders?: boolean,
+}
+
+export interface ParentSubaccountListOrderRequest
+  extends ParentSubaccountRequest, LimitRequest, TickerRequest {
   side?: OrderSide,
   type?: OrderType,
   status?: OrderStatus[],
@@ -441,22 +576,22 @@ export interface HistoricalFundingRequest extends LimitAndEffectiveBeforeRequest
 /* ------- COLLATERALIZATION TYPES ------- */
 
 export interface Risk {
-  initial: Big;
-  maintenance: Big;
+  initial: Big,
+  maintenance: Big,
 }
 
 /* ------- COMPLIANCE TYPES ------- */
 
 export interface ComplianceResponse {
-  restricted: boolean;
-  reason?: string;
+  restricted: boolean,
+  reason?: string,
 }
 
 export interface ComplianceRequest extends AddressRequest {}
 
 export interface SetComplianceStatusRequest extends AddressRequest {
-  status: ComplianceStatus;
-  reason?: ComplianceReason;
+  status: ComplianceStatus,
+  reason?: ComplianceReason,
 }
 
 export enum BlockedCode {
@@ -465,8 +600,9 @@ export enum BlockedCode {
 }
 
 export interface ComplianceV2Response {
-  status: ComplianceStatus;
-  reason?: ComplianceReason;
+  status: ComplianceStatus,
+  reason?: ComplianceReason,
+  updatedAt?: string,
 }
 
 /* ------- HISTORICAL TRADING REWARD TYPES ------- */
@@ -510,4 +646,94 @@ export interface HistoricalBlockTradingReward {
   tradingReward: string, // i.e. '100.1' for 100.1 token earned through trading rewards
   createdAt: IsoString,
   createdAtHeight: string,
+}
+
+/* ------- Social Trading Types ------- */
+
+export interface TraderSearchResponse {
+  result?: TraderSearchResponseObject,
+}
+
+export interface TraderSearchRequest {
+  searchParam: string,
+}
+
+export interface TraderSearchResponseObject {
+  address: string,
+  subaccountNumber: number,
+  subaccountId: string,
+  username: string,
+}
+
+/* ------- Vault Types ------- */
+
+export interface VaultHistoricalPnl {
+  ticker: string,
+  historicalPnl: PnlTicksResponseObject[],
+}
+
+export interface MegavaultHistoricalPnlResponse {
+  megavaultPnl: PnlTicksResponseObject[],
+}
+
+export interface VaultsHistoricalPnlResponse {
+  vaultsPnl: VaultHistoricalPnl[],
+}
+
+export interface VaultPosition {
+  ticker: string,
+  assetPosition: AssetPositionResponseObject,
+  perpetualPosition?: PerpetualPositionResponseObject,
+  equity: string,
+}
+
+export interface MegavaultPositionResponse {
+  positions: VaultPosition[],
+}
+
+/* ------- Affiliates Types ------- */
+export interface AffiliateReferralCodeRequest{
+  address: string,
+}
+
+export interface AffiliateAddressRequest{
+  referralCode: string,
+}
+
+export interface AffiliateSnapshotRequest{
+  limit?: number,
+  offset?: number,
+  sortByReferredFees?: boolean,
+}
+
+export interface AffiliateTotalVolumeRequest{
+  address: string,
+}
+
+export interface AffiliateReferralCodeResponse {
+  referralCode: string | null,
+}
+
+export interface AffiliateAddressResponse {
+  address: string | null,
+}
+
+export interface AffiliateSnapshotResponse {
+  affiliateList: AffiliateSnapshotResponseObject[],
+  total: number,
+  currentOffset: number,
+}
+
+export interface AffiliateSnapshotResponseObject {
+  affiliateAddress: string,
+  affiliateEarnings: number,
+  affiliateReferralCode: string,
+  affiliateReferredTrades: number,
+  affiliateTotalReferredFees: number,
+  affiliateReferredUsers: number,
+  affiliateReferredNetProtocolEarnings: number,
+}
+
+export interface AffiliateTotalVolumeResponse {
+  totalVolume: number | null,
 }

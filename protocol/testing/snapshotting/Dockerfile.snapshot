@@ -3,5 +3,6 @@ FROM nemo-network-base
 COPY ./testing/snapshotting/snapshot.sh /nemo-network/snapshot.sh
 
 RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
+RUN apk add --no-cache bash jq aws-cli
 
 ENTRYPOINT ["/nemo-network/snapshot.sh"]

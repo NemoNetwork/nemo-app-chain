@@ -40,22 +40,23 @@ func addAllVaultsToVaultAddressStore(
 ) {
 	allVaults := vaultKeeper.GetAllVaults(ctx)
 	for _, vault := range allVaults {
-		vaultKeeper.AddVaultToAddressStore(ctx, *vault.VaultId)
+		vaultKeeper.AddVaultToAddressStore(ctx, vault.VaultId)
 	}
 }
 
-// setVaultOrderExpirationSecondsToSixty sets vault module param `OrderExpirationSeconds` to 60.
+// Deprecated: setVaultOrderExpirationSecondsToSixty sets vault module param `OrderExpirationSeconds` to 60.
+// This function is deprecated because `Params` in `x/vault` is replaced with `DefaultQuotingParams` in v6.x.
 func setVaultOrderExpirationSecondsToSixty(
 	ctx sdk.Context,
 	vaultKeeper vaultkeeper.Keeper,
 ) {
-	params := vaultKeeper.GetParams(ctx)
-	params.OrderExpirationSeconds = 60
-	err := vaultKeeper.SetParams(
-		ctx,
-		params,
-	)
-	if err != nil {
-		panic(err)
-	}
+	// params := vaultKeeper.GetParams(ctx)
+	// params.OrderExpirationSeconds = 60
+	// err := vaultKeeper.SetParams(
+	// 	ctx,
+	// 	params,
+	// )
+	// if err != nil {
+	// 	panic(err)
+	// }
 }

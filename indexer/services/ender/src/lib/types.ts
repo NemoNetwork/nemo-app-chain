@@ -35,6 +35,7 @@ import {
   DeleveragingEventV1,
   TradingRewardsEventV1,
   OpenInterestUpdateEventV1,
+  BlockHeightMessage,
 } from '@nemo-network-indexer/v4-protos';
 import { IHeaders } from 'kafkajs';
 import Long from 'long';
@@ -195,6 +196,7 @@ export type OrderFillEventWithOrder = {
   totalFilledTaker: Long,
   makerFee: Long,
   takerFee: Long,
+  affiliateRevShare: Long,
 };
 
 export type OrderFillEventWithLiquidation = {
@@ -205,6 +207,7 @@ export type OrderFillEventWithLiquidation = {
   totalFilledTaker: Long,
   makerFee: Long,
   takerFee: Long,
+  affiliateRevShare: Long,
 };
 
 export type FundingEventMessage = {
@@ -258,6 +261,9 @@ export type ConsolidatedKafkaEvent = {
 } | {
   topic: KafkaTopics.TO_VULCAN,
   message: VulcanMessage,
+} | {
+  topic: KafkaTopics.TO_WEBSOCKETS_BLOCK_HEIGHT,
+  message: BlockHeightMessage,
 };
 
 export enum TransferEventType {

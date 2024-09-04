@@ -18,6 +18,7 @@ const KAFKA_TOPICS: KafkaTopics[] = [
   KafkaTopics.TO_WEBSOCKETS_TRADES,
   KafkaTopics.TO_WEBSOCKETS_MARKETS,
   KafkaTopics.TO_WEBSOCKETS_CANDLES,
+  KafkaTopics.TO_WEBSOCKETS_BLOCK_HEIGHT,
 ];
 
 const DEFAULT_NUM_REPLICAS: number = 3;
@@ -30,34 +31,35 @@ const KAFKA_TOPICS_TO_PARTITIONS: { [key in KafkaTopics]: number } = {
   [KafkaTopics.TO_WEBSOCKETS_TRADES]: 1,
   [KafkaTopics.TO_WEBSOCKETS_MARKETS]: 1,
   [KafkaTopics.TO_WEBSOCKETS_CANDLES]: 1,
+  [KafkaTopics.TO_WEBSOCKETS_BLOCK_HEIGHT]: 1,
 };
 
 export interface BazookaEventJson {
   // Run knex migrations
-  migrate: boolean;
+  migrate: boolean,
 
   // Clearing data inside the database, but not deleting the tables and schemas
-  clear_db: boolean;
+  clear_db: boolean,
 
   // Reset the database and all migrations
-  reset_db: boolean;
+  reset_db: boolean,
 
   // Create all kafka topics with replication and parition counts
-  create_kafka_topics: boolean;
+  create_kafka_topics: boolean,
 
   // Clearing data inside all topics, not removing the Kafka Topics
-  clear_kafka_topics: boolean;
+  clear_kafka_topics: boolean,
 
   // Clearing all data in redis
-  clear_redis: boolean;
+  clear_redis: boolean,
 
   // Force flag that is required to perform any breaking actions in testnet/mainnet
   // A breaking action is any action in bazooka other that db migration
-  force: boolean;
+  force: boolean,
 
   // Send stateful orders to Vulcan. This is done during Indexer fast sync to
   // uncross the orderbook.
-  send_stateful_orders_to_vulcan: boolean;
+  send_stateful_orders_to_vulcan: boolean,
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -74,8 +76,7 @@ export async function handler(
 
   if (config.PREVENT_BREAKING_CHANGES_WITHOUT_FORCE && event.force !== true) {
     if (event.clear_db === true || event.reset_db === true ||
-      event.create_kafka_topics === true || event.clear_kafka_topics === true ||
-      event.clear_redis === true) {
+       event.clear_kafka_topics === true || event.clear_redis === true) {
       logger.error({
         at: 'index#handler',
         message: 'Cannot run bazooka without force flag set to "true" because' +
@@ -196,7 +197,7 @@ async function createKafkaTopics(
   _.forEach(KAFKA_TOPICS, (kafkaTopic: KafkaTopics) => {
     if (_.includes(existingKafkaTopics, kafkaTopic)) {
       logger.info({
-        at: 'index#clearKafkaTopics',
+        at: 'index#createKafkaTopics',
         message: `Cannot create kafka topic that does exist: ${kafkaTopic}`,
       });
       return;

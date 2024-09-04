@@ -1,14 +1,21 @@
-import { ExtendedSecp256k1Signature, Secp256k1, sha256 } from '@cosmjs/crypto';
-import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base';
-import { CountryHeaders, isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance';
+import {
+  ExtendedSecp256k1Signature, Secp256k1, ripemd160, sha256,
+} from '@cosmjs/crypto';
+import { toBech32 } from '@cosmjs/encoding';
+import { logger, stats, TooManyRequestsError } from '@nemo_network-indexer/base';
+import { CountryHeaders, isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo_network-indexer/compliance';
 import {
   ComplianceReason,
   ComplianceStatus,
   ComplianceStatusFromDatabase,
   ComplianceStatusTable,
-} from '@nemo-network-indexer/postgres';
+  WalletFromDatabase,
+  WalletTable,
+} from '@nemo_network-indexer/postgres';
+import { verifyADR36Amino } from '@keplr-wallet/cosmos';
 import express from 'express';
 import { matchedData } from 'express-validator';
+import _ from 'lodash';
 import { DateTime } from 'luxon';
 import {
   Controller, Get, Path, Route,
@@ -25,19 +32,22 @@ import { getIpAddr } from '../../../lib/utils';
 import { CheckAddressSchema } from '../../../lib/validation/schemas';
 import { handleValidationErrors } from '../../../request-helpers/error-handler';
 import ExportResponseCodeStats from '../../../request-helpers/export-response-code-stats';
-import { ComplianceRequest, ComplianceV2Response, SetComplianceStatusRequest } from '../../../types';
+import {
+  ComplianceRequest, ComplianceV2Response, SetComplianceStatusRequest,
+} from '../../../types';
 import { ComplianceControllerHelper } from './compliance-controller';
 
 const router: express.Router = express.Router();
 const controllerName: string = 'compliance-v2-controller';
 
 export enum ComplianceAction {
-  ONBOARD = 'ONBOARD',
   CONNECT = 'CONNECT',
+  VALID_SURVEY = 'VALID_SURVEY',
+  INVALID_SURVEY = 'INVALID_SURVEY',
 }
 
 const COMPLIANCE_PROGRESSION: Partial<Record<ComplianceStatus, ComplianceStatus>> = {
-  [ComplianceStatus.COMPLIANT]: ComplianceStatus.FIRST_STRIKE,
+  [ComplianceStatus.COMPLIANT]: ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
   [ComplianceStatus.FIRST_STRIKE]: ComplianceStatus.CLOSE_ONLY,
 };
 
@@ -72,36 +82,51 @@ class ComplianceV2Controller extends Controller {
         };
       }
     } else {
+      const complianceStatus: ComplianceStatusFromDatabase[] = await
+      ComplianceStatusTable.findAll(
+        { address: [address] },
+        [],
+      );
       if (restricted) {
-        const complianceStatus: ComplianceStatusFromDatabase[] = await
-        ComplianceStatusTable.findAll(
-          { address: [address] },
-          [],
-        );
         let complianceStatusFromDatabase: ComplianceStatusFromDatabase | undefined;
+        const updatedAt: string = DateTime.utc().toISO();
         if (complianceStatus.length === 0) {
           complianceStatusFromDatabase = await ComplianceStatusTable.upsert({
             address,
             status: ComplianceStatus.BLOCKED,
             reason: ComplianceReason.COMPLIANCE_PROVIDER,
-            updatedAt: DateTime.utc().toISO(),
+            updatedAt,
           });
-        } else {
+        } else if (
+          complianceStatus[0].status !== ComplianceStatus.CLOSE_ONLY &&
+          complianceStatus[0].status !== ComplianceStatus.BLOCKED
+        ) {
           complianceStatusFromDatabase = await ComplianceStatusTable.update({
             address,
             status: ComplianceStatus.CLOSE_ONLY,
             reason: ComplianceReason.COMPLIANCE_PROVIDER,
-            updatedAt: DateTime.utc().toISO(),
+            updatedAt,
           });
+        } else {
+          complianceStatusFromDatabase = complianceStatus[0];
         }
         return {
           status: complianceStatusFromDatabase!.status,
           reason: complianceStatusFromDatabase!.reason,
+          updatedAt: complianceStatusFromDatabase!.updatedAt,
         };
       } else {
-        return {
-          status: ComplianceStatus.COMPLIANT,
-        };
+        if (complianceStatus.length === 0) {
+          return {
+            status: ComplianceStatus.COMPLIANT,
+          };
+        } else {
+          return {
+            status: complianceStatus[0].status,
+            reason: complianceStatus[0].reason,
+            updatedAt: complianceStatus[0].updatedAt,
+          };
+        }
       }
     }
   }
@@ -121,6 +146,11 @@ router.get(
     }: {
       address: string,
     } = matchedData(req) as ComplianceRequest;
+    if (isWhitelistedAddress(address)) {
+      return res.send({
+        status: ComplianceStatus.COMPLIANT,
+      });
+    }
 
     try {
       // Rate limiter middleware ensures the ip address can be found from the request
@@ -178,137 +208,21 @@ router.post(
       message: string,
       currentStatus?: string,
       action: ComplianceAction,
-      signedMessage: Uint8Array,
-      pubkey: Uint8Array,
+      signedMessage: string, // base64 encoded
+      pubkey: string, // base64 encoded
       timestamp: number,  // UNIX timestamp in seconds
     } = req.body;
 
     try {
-      if (!address.startsWith(DYDX_ADDRESS_PREFIX)) {
-        return create4xxResponse(
-          res,
-          `Address ${address} is not a valid dYdX V4 address`,
-        );
-      }
-
-      // Verify the timestamp is within GEOBLOCK_REQUEST_TTL_SECONDS seconds of the current time
-      const now = DateTime.now().toSeconds();
-      if (Math.abs(now - timestamp) > GEOBLOCK_REQUEST_TTL_SECONDS) {
-        return create4xxResponse(
-          res,
-          `Timestamp is not within the valid range of ${GEOBLOCK_REQUEST_TTL_SECONDS} seconds`,
-        );
-      }
-
-      // Prepare the message for verification
-      const messageToSign: string = `${message}${action}${currentStatus || ''}${timestamp}`;
-      const messageHash: Uint8Array = sha256(Buffer.from(messageToSign));
-      const signature: ExtendedSecp256k1Signature = ExtendedSecp256k1Signature
-        .fromFixedLength(signedMessage);
-
-      // Verify the signature
-      const isValidSignature: boolean = await
-      Secp256k1.verifySignature(signature, messageHash, pubkey);
-      if (!isValidSignature) {
-        return create4xxResponse(
-          res,
-          'Signature verification failed',
-        );
-      }
-
-      /**
-       * If the address doesn't exist in the compliance table:
-       * - if the request is from a restricted country:
-       *  - if the action is ONBOARD, set the status to BLOCKED
-       *  - if the action is CONNECT, set the status to FIRST_STRIKE
-       * - else if the request is from a non-restricted country:
-       *  - set the status to COMPLIANT
-       *
-       * if the address is COMPLIANT:
-       * - the ONLY action should be CONNECT. ONBOARD is a no-op.
-       * - if the request is from a restricted country:
-       *  - set the status to FIRST_STRIKE
-       *
-       * if the address is FIRST_STRIKE:
-       * - the ONLY action should be CONNECT. ONBOARD is a no-op.
-       * - if the request is from a restricted country:
-       *  - set the status to CLOSE_ONLY
-       */
-      const complianceStatus: ComplianceStatusFromDatabase[] = await
-      ComplianceStatusTable.findAll(
-        { address: [address] },
-        [],
+      const failedValidationResponse = await validateSignature(
+        res, action, address, timestamp, message, signedMessage, pubkey, currentStatus,
       );
-      let complianceStatusFromDatabase: ComplianceStatusFromDatabase | undefined;
-      if (complianceStatus.length === 0) {
-        if (isRestrictedCountryHeaders(req.headers as CountryHeaders)) {
-          if (action === ComplianceAction.ONBOARD) {
-            complianceStatusFromDatabase = await ComplianceStatusTable.upsert({
-              address,
-              status: ComplianceStatus.BLOCKED,
-              reason: getGeoComplianceReason(req.headers as CountryHeaders)!,
-              updatedAt: DateTime.utc().toISO(),
-            });
-          } else if (action === ComplianceAction.CONNECT) {
-            complianceStatusFromDatabase = await ComplianceStatusTable.upsert({
-              address,
-              status: ComplianceStatus.FIRST_STRIKE,
-              reason: getGeoComplianceReason(req.headers as CountryHeaders)!,
-              updatedAt: DateTime.utc().toISO(),
-            });
-          }
-        } else {
-          complianceStatusFromDatabase = await ComplianceStatusTable.upsert({
-            address,
-            status: ComplianceStatus.COMPLIANT,
-            updatedAt: DateTime.utc().toISO(),
-          });
-        }
-      } else {
-        complianceStatusFromDatabase = complianceStatus[0];
-        if (
-          complianceStatus[0].status === ComplianceStatus.FIRST_STRIKE ||
-          complianceStatus[0].status === ComplianceStatus.COMPLIANT
-        ) {
-          if (action === ComplianceAction.ONBOARD) {
-            logger.error({
-              at: 'ComplianceV2Controller POST /geoblock',
-              message: 'Invalid action for current compliance status',
-              address,
-              action,
-              complianceStatus: complianceStatus[0],
-            });
-          } else if (
-            isRestrictedCountryHeaders(req.headers as CountryHeaders) &&
-            action === ComplianceAction.CONNECT
-          ) {
-            complianceStatusFromDatabase = await ComplianceStatusTable.update({
-              address,
-              status: COMPLIANCE_PROGRESSION[complianceStatus[0].status],
-              reason: getGeoComplianceReason(req.headers as CountryHeaders)!,
-              updatedAt: DateTime.utc().toISO(),
-            });
-          }
-        }
+      if (failedValidationResponse) {
+        return failedValidationResponse;
       }
-      const response = {
-        status: complianceStatusFromDatabase!.status,
-        reason: complianceStatusFromDatabase!.reason,
-      };
-
-      return res.send(response);
+      return await checkCompliance(req, res, address, action, false);
     } catch (error) {
-      logger.error({
-        at: 'ComplianceV2Controller POST /geoblock',
-        message,
-        error,
-        params: JSON.stringify(req.params),
-        query: JSON.stringify(req.query),
-      });
-      return create4xxResponse(
-        res,
-        error.message,
-      );
+      return handleError(error, 'geoblock', message, req, res);
     } finally {
       stats.timing(
         `${config.SERVICE_NAME}.${controllerName}.geo_block.timing`,
@@ -317,6 +231,320 @@ router.post(
     }
   },
 );
+
+router.post(
+  '/geoblock-keplr',
+  handleValidationErrors,
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+
+    const {
+      address,
+      message,
+      action,
+      signedMessage,
+      pubkey,
+    }: {
+      address: string,
+      message: string,
+      action: ComplianceAction,
+      signedMessage: string, // base64 encoded
+      pubkey: string, // base64 encoded
+    } = req.body;
+
+    try {
+      const failedValidationResponse = validateSignatureKeplr(
+        res, address, message, signedMessage, pubkey,
+      );
+      if (failedValidationResponse) {
+        return failedValidationResponse;
+      }
+      return await checkCompliance(req, res, address, action, true);
+    } catch (error) {
+      return handleError(error, 'geoblock-keplr', message, req, res);
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.geo_block_keplr.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
+function generateAddress(pubkeyArray: Uint8Array): string {
+  return toBech32('dydx', ripemd160(sha256(pubkeyArray)));
+}
+
+/**
+ * Validates a signature by performing various checks including address format,
+ * public key correspondence, timestamp validity, and signature verification.
+ *
+ * @returns {Promise<express.Response | undefined>} Returns undefined if validation
+ * is successful. Returns an HTTP response with an error message if validation fails.
+ */
+async function validateSignature(
+  res: express.Response,
+  action: ComplianceAction,
+  address: string,
+  timestamp: number,
+  message: string,
+  signedMessage: string,
+  pubkey: string,
+  currentStatus?: string,
+): Promise<express.Response| undefined> {
+  if (!address.startsWith(DYDX_ADDRESS_PREFIX)) {
+    return create4xxResponse(
+      res,
+      `Address ${address} is not a valid dYdX V4 address`,
+    );
+  }
+
+  const pubkeyArray: Uint8Array = new Uint8Array(Buffer.from(pubkey, 'base64'));
+  if (address !== generateAddress(pubkeyArray)) {
+    return create4xxResponse(
+      res,
+      `Address ${address} does not correspond to the pubkey provided ${pubkey}`,
+    );
+  }
+
+  // Verify the timestamp is within GEOBLOCK_REQUEST_TTL_SECONDS seconds of the current time
+  const now = DateTime.now().toSeconds();
+  if (Math.abs(now - timestamp) > GEOBLOCK_REQUEST_TTL_SECONDS) {
+    return create4xxResponse(
+      res,
+      `Timestamp is not within the valid range of ${GEOBLOCK_REQUEST_TTL_SECONDS} seconds`,
+    );
+  }
+
+  // Prepare the message for verification
+  const messageToSign: string = `${message}:${action}"${currentStatus || ''}:${timestamp}`;
+  const messageHash: Uint8Array = sha256(Buffer.from(messageToSign));
+  const signedMessageArray: Uint8Array = new Uint8Array(Buffer.from(signedMessage, 'base64'));
+  const signature: ExtendedSecp256k1Signature = ExtendedSecp256k1Signature
+    .fromFixedLength(signedMessageArray);
+
+  // Verify the signature
+  const isValidSignature: boolean = await Secp256k1.verifySignature(
+    signature,
+    messageHash,
+    pubkeyArray,
+  );
+  if (!isValidSignature) {
+    return create4xxResponse(
+      res,
+      'Signature verification failed',
+    );
+  }
+
+  return undefined;
+}
+
+/**
+ * Validates a signature using verifyADR36Amino provided by keplr package.
+ *
+ * @returns {Promise<express.Response | undefined>} Returns undefined if validation
+ * is successful. Returns an HTTP response with an error message if validation fails.
+ */
+function validateSignatureKeplr(
+  res:express.Response,
+  address: string,
+  message: string,
+  signedMessage: string,
+  pubkey: string,
+): express.Response | undefined {
+  const messageToSign: string = message;
+
+  const pubKeyUint = new Uint8Array(Buffer.from(pubkey, 'base64'));
+  const signedMessageUint = new Uint8Array(Buffer.from(signedMessage, 'base64'));
+
+  const isVerified = verifyADR36Amino(
+    'dydx', address, messageToSign, pubKeyUint, signedMessageUint, 'secp256k1',
+  );
+
+  if (!isVerified) {
+    return create4xxResponse(
+      res,
+      'Keplr signature verification failed',
+    );
+  }
+
+  return undefined;
+}
+
+async function checkCompliance(
+  req: express.Request,
+  res: express.Response,
+  address: string,
+  action: ComplianceAction,
+  forKeplr: boolean,
+): Promise<express.Response> {
+  if (isWhitelistedAddress(address)) {
+    return res.send({
+      status: ComplianceStatus.COMPLIANT,
+      updatedAt: DateTime.utc().toISO(),
+    });
+  }
+
+  const [
+    complianceStatus,
+    wallet,
+  ]: [
+    ComplianceStatusFromDatabase[],
+    WalletFromDatabase | undefined,
+  ] = await Promise.all([
+    ComplianceStatusTable.findAll(
+      { address: [address] },
+      [],
+    ),
+    WalletTable.findById(address),
+  ]);
+
+  const updatedAt: string = DateTime.utc().toISO();
+  const complianceStatusFromDatabase:
+  ComplianceStatusFromDatabase | undefined = await upsertComplianceStatus(
+    req,
+    action,
+    address,
+    wallet,
+    complianceStatus,
+    updatedAt,
+  );
+  if (complianceStatus.length === 0 ||
+    complianceStatus[0] !== complianceStatusFromDatabase) {
+    if (complianceStatusFromDatabase !== undefined &&
+      complianceStatusFromDatabase.status !== ComplianceStatus.COMPLIANT
+    ) {
+      stats.increment(
+        `${config.SERVICE_NAME}.${controllerName}.geo_block${forKeplr ? '_keplr' : ''}.compliance_status_changed.count`,
+        {
+          newStatus: complianceStatusFromDatabase!.status,
+        },
+      );
+    }
+  }
+
+  const response = {
+    status: complianceStatusFromDatabase!.status,
+    reason: complianceStatusFromDatabase!.reason,
+    updatedAt: complianceStatusFromDatabase!.updatedAt,
+  };
+
+  return res.send(response);
+}
+
+function handleError(
+  error: Error, endpointName: string, message:string, req: express.Request, res: express.Response,
+): express.Response {
+  logger.error({
+    at: `ComplianceV2Controller POST /${endpointName}`,
+    message,
+    error,
+    params: JSON.stringify(req.params),
+    query: JSON.stringify(req.query),
+    body: JSON.stringify(req.body),
+  });
+  return create4xxResponse(
+    res,
+    error.message,
+  );
+}
+
+/**
+ * If the address doesn't exist in the compliance table:
+ * - if the request is from a restricted country:
+ *  - if the action is CONNECT and no wallet, set the status to BLOCKED
+ *  - if the action is CONNECT and wallet exists, set the status to FIRST_STRIKE_CLOSE_ONLY
+ * - else if the request is from a non-restricted country:
+ *  - set the status to COMPLIANT
+ *
+ * if the address is COMPLIANT:
+ * - the ONLY action should be CONNECT. VALID_SURVEY/INVALID_SURVEY are no-ops.
+ * - if the request is from a restricted country:
+ *  - set the status to FIRST_STRIKE_CLOSE_ONLY
+ *
+ * if the address is FIRST_STRIKE_CLOSE_ONLY:
+ * - the ONLY actions should be VALID_SURVEY/INVALID_SURVEY/CONNECT. CONNECT
+ * are no-ops.
+ * - if the action is VALID_SURVEY:
+ *   - set the status to FIRST_STRIKE
+ * - if the action is INVALID_SURVEY:
+ *   - set the status to CLOSE_ONLY
+ *
+ * if the address is FIRST_STRIKE:
+ * - the ONLY action should be CONNECT. VALID_SURVEY/INVALID_SURVEY are no-ops.
+ * - if the request is from a restricted country:
+ *  - set the status to CLOSE_ONLY
+ */
+// eslint-disable-next-line @typescript-eslint/require-await
+async function upsertComplianceStatus(
+  req: express.Request,
+  action: ComplianceAction,
+  address: string,
+  wallet: WalletFromDatabase | undefined,
+  complianceStatus: ComplianceStatusFromDatabase[],
+  updatedAt: string,
+): Promise<ComplianceStatusFromDatabase | undefined> {
+  if (complianceStatus.length === 0) {
+    if (!isRestrictedCountryHeaders(req.headers as CountryHeaders)) {
+      return ComplianceStatusTable.upsert({
+        address,
+        status: ComplianceStatus.COMPLIANT,
+        updatedAt,
+      });
+    }
+
+    // If address is restricted and is not onboarded then block
+    if (_.isUndefined(wallet)) {
+      return ComplianceStatusTable.upsert({
+        address,
+        status: ComplianceStatus.BLOCKED,
+        reason: getGeoComplianceReason(req.headers as CountryHeaders)!,
+        updatedAt,
+      });
+    }
+
+    return ComplianceStatusTable.upsert({
+      address,
+      status: ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
+      reason: getGeoComplianceReason(req.headers as CountryHeaders)!,
+      updatedAt,
+    });
+  }
+
+  if (
+    complianceStatus[0].status === ComplianceStatus.FIRST_STRIKE ||
+    complianceStatus[0].status === ComplianceStatus.COMPLIANT
+  ) {
+    if (
+      isRestrictedCountryHeaders(req.headers as CountryHeaders) &&
+      action === ComplianceAction.CONNECT
+    ) {
+      return ComplianceStatusTable.update({
+        address,
+        status: COMPLIANCE_PROGRESSION[complianceStatus[0].status],
+        reason: getGeoComplianceReason(req.headers as CountryHeaders)!,
+        updatedAt,
+      });
+    }
+  } else if (complianceStatus[0].status === ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY) {
+    if (action === ComplianceAction.VALID_SURVEY) {
+      return ComplianceStatusTable.update({
+        address,
+        status: ComplianceStatus.FIRST_STRIKE,
+        updatedAt,
+      });
+    } else if (action === ComplianceAction.INVALID_SURVEY) {
+      return ComplianceStatusTable.update({
+        address,
+        status: ComplianceStatus.CLOSE_ONLY,
+        updatedAt,
+      });
+    }
+  }
+
+  return complianceStatus[0];
+}
 
 if (config.EXPOSE_SET_COMPLIANCE_ENDPOINT) {
   router.post(

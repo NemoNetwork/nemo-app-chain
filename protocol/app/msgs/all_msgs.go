@@ -148,6 +148,12 @@ var (
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse":    {},
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":       {},
 
+		// affiliates
+		"/nemo-network.affiliates.MsgRegisterAffiliate":            {},
+		"/nemo-network.affiliates.MsgRegisterAffiliateResponse":    {},
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiers":         {},
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse": {},
+
 		// blocktime
 		"/nemo_network.blocktime.MsgUpdateDowntimeParams":         {},
 		"/nemo_network.blocktime.MsgUpdateDowntimeParamsResponse": {},
@@ -196,6 +202,14 @@ var (
 		"/nemo_network.govplus.MsgSlashValidator":         {},
 		"/nemo_network.govplus.MsgSlashValidatorResponse": {},
 
+		// listing
+		"/nemo-network.listing.MsgSetMarketsHardCap":                    {},
+		"/nemo-network.listing.MsgSetMarketsHardCapResponse":            {},
+		"/nemo-network.listing.MsgCreateMarketPermissionless":           {},
+		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse":   {},
+		"/nemo-network.listing.MsgSetListingVaultDepositParams":         {},
+		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse": {},
+
 		// perpetuals
 		"/nemo_network.perpetuals.MsgAddPremiumVotes":               {},
 		"/nemo_network.perpetuals.MsgAddPremiumVotesResponse":       {},
@@ -235,16 +249,24 @@ var (
 		"/nemo_network.stats.MsgUpdateParamsResponse": {},
 
 		// vault
-		"/nemo_network.vault.MsgDepositToVault":         {},
-		"/nemo_network.vault.MsgDepositToVaultResponse": {},
-		"/nemo_network.vault.MsgUpdateParams":           {},
-		"/nemo_network.vault.MsgUpdateParamsResponse":   {},
+		"/nemo-network.vault.MsgDepositToMegavault":                 {},
+		"/nemo-network.vault.MsgDepositToMegavaultResponse":         {},
+		"/nemo-network.vault.MsgSetVaultParams":                     {},
+		"/nemo-network.vault.MsgSetVaultParamsResponse":             {},
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParams":         {},
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse": {},
 
 		// vest
 		"/nemo_network.vest.MsgSetVestEntry":            {},
 		"/nemo_network.vest.MsgSetVestEntryResponse":    {},
 		"/nemo_network.vest.MsgDeleteVestEntry":         {},
 		"/nemo_network.vest.MsgDeleteVestEntryResponse": {},
+
+		// revshare
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare":                     {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse":             {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": {},
 
 		// rewards
 		"/nemo_network.rewards.MsgUpdateParams":         {},
@@ -342,6 +364,18 @@ var (
 		"/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse":              {},
 		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams":                            {},
 		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse":                    {},
+
+		// slinky marketmap messages
+		"/slinky.marketmap.v1.MsgCreateMarkets":                   {},
+		"/slinky.marketmap.v1.MsgCreateMarketsResponse":           {},
+		"/slinky.marketmap.v1.MsgParams":                          {},
+		"/slinky.marketmap.v1.MsgParamsResponse":                  {},
+		"/slinky.marketmap.v1.MsgRemoveMarketAuthorities":         {},
+		"/slinky.marketmap.v1.MsgRemoveMarketAuthoritiesResponse": {},
+		"/slinky.marketmap.v1.MsgUpdateMarkets":                   {},
+		"/slinky.marketmap.v1.MsgUpdateMarketsResponse":           {},
+		"/slinky.marketmap.v1.MsgUpsertMarkets":                   {},
+		"/slinky.marketmap.v1.MsgUpsertMarketsResponse":           {},
 	}
 
 	// DisallowMsgs are messages that cannot be externally submitted.

@@ -1,6 +1,8 @@
-import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base';
+import {
+  logger, setInstanceId, getInstanceId, startBugsnag, wrapBackgroundTask,
+} from '@nemo-network-indexer/base';
 import { startConsumer } from '@nemo-network-indexer/kafka';
-import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import { blockHeightRefresher, perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
 
 import config from './config';
 import {
@@ -39,8 +41,24 @@ async function start(): Promise<void> {
 
   startBugsnag();
 
-  // Initialize PerpetualMarkets cache
-  await perpetualMarketRefresher.updatePerpetualMarkets();
+  logger.info({
+    at: 'index#start',
+    message: 'Getting instance id...',
+  });
+
+  await setInstanceId();
+
+  logger.info({
+    at: 'index#start',
+    message: `Got instance id ${getInstanceId()}.`,
+  });
+
+  // Initialize PerpetualMarkets and BlockHeight cache
+  await Promise.all([
+    blockHeightRefresher.updateBlockHeight(),
+    perpetualMarketRefresher.updatePerpetualMarkets(),
+  ]);
+  wrapBackgroundTask(blockHeightRefresher.start(), true, 'startUpdateBlockHeight');
   wrapBackgroundTask(perpetualMarketRefresher.start(), true, 'startUpdatePerpetualMarkets');
 
   logger.info({
@@ -57,13 +75,13 @@ async function start(): Promise<void> {
   });
 
   await connectToKafka();
-  await startConsumer();
 
   const subscriptions: Subscriptions = new Subscriptions();
   index = new Index(wss, subscriptions);
   messageForwarder = new MessageForwarder(subscriptions, index);
   subscriptions.start(messageForwarder.forwardToClient);
   messageForwarder.start();
+  await startConsumer(config.BATCH_PROCESSING_ENABLED);
 
   logger.info({
     at: 'index#start',

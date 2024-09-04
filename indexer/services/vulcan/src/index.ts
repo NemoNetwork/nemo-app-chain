@@ -1,6 +1,6 @@
 import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base';
 import { stopConsumer, startConsumer } from '@nemo-network-indexer/kafka';
-import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import { blockHeightRefresher, perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
 
 import config from './config';
 import { connect as connectToKafka } from './helpers/kafka/kafka-controller';
@@ -19,7 +19,11 @@ async function startService(): Promise<void> {
   startBugsnag();
 
   // Initialize PerpetualMarkets cache
-  await perpetualMarketRefresher.updatePerpetualMarkets();
+  await Promise.all([
+    blockHeightRefresher.updateBlockHeight(),
+    perpetualMarketRefresher.updatePerpetualMarkets(),
+  ]);
+  wrapBackgroundTask(blockHeightRefresher.start(), true, 'startUpdateBlockHeight');
   wrapBackgroundTask(perpetualMarketRefresher.start(), true, 'startUpdatePerpetualMarkets');
 
   logger.info({

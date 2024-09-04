@@ -63,6 +63,10 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
 
+		// affiliates
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiers",
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse",
+
 		// blocktime
 		"/nemo_network.blocktime.MsgUpdateDowntimeParams",
 		"/nemo_network.blocktime.MsgUpdateDowntimeParamsResponse",
@@ -101,6 +105,12 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/nemo_network.govplus.MsgSlashValidator",
 		"/nemo_network.govplus.MsgSlashValidatorResponse",
 
+		// listing
+		"/nemo-network.listing.MsgSetListingVaultDepositParams",
+		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse",
+		"/nemo-network.listing.MsgSetMarketsHardCap",
+		"/nemo-network.listing.MsgSetMarketsHardCapResponse",
+
 		// perpeutals
 		"/nemo_network.perpetuals.MsgCreatePerpetual",
 		"/nemo_network.perpetuals.MsgCreatePerpetualResponse",
@@ -121,6 +131,12 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/nemo_network.ratelimit.MsgSetLimitParams",
 		"/nemo_network.ratelimit.MsgSetLimitParamsResponse",
 
+		// revshare
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket",
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse",
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare",
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse",
+
 		// rewards
 		"/nemo_network.rewards.MsgUpdateParams",
 		"/nemo_network.rewards.MsgUpdateParamsResponse",
@@ -134,8 +150,10 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/nemo_network.stats.MsgUpdateParamsResponse",
 
 		// vault
-		"/nemo_network.vault.MsgUpdateParams",
-		"/nemo_network.vault.MsgUpdateParamsResponse",
+		"/nemo-network.vault.MsgSetVaultParams",
+		"/nemo-network.vault.MsgSetVaultParamsResponse",
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParams",
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse",
 
 		// vest
 		"/nemo_network.vest.MsgDeleteVestEntry",

@@ -98,7 +98,7 @@ describe('Compliance status store', () => {
 
     const complianceStatus: ComplianceStatusFromDatabase[] = await ComplianceStatusTable.findAll(
       {
-        status: ComplianceStatus.COMPLIANT,
+        status: [ComplianceStatus.COMPLIANT],
       },
       [],
       { readReplica: true },
@@ -191,7 +191,7 @@ describe('Compliance status store', () => {
         compliantUpsertStatusData,
         {
           ...noncompliantStatusUpsertData,
-          status: ComplianceStatus.FIRST_STRIKE,
+          status: ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
         },
         {
           ...noncompliantStatusUpsertData,
@@ -217,7 +217,7 @@ describe('Compliance status store', () => {
       }),
       expect.objectContaining({
         ...noncompliantStatusUpsertData,
-        status: ComplianceStatus.FIRST_STRIKE,
+        status: ComplianceStatus.FIRST_STRIKE_CLOSE_ONLY,
       }),
       expect.objectContaining({
         ...noncompliantStatusUpsertData,

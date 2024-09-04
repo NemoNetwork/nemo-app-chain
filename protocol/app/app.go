@@ -89,8 +89,8 @@ import (
 	"github.com/cosmos/ibc-go/modules/capability"
 	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
 	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
-	antetypes "github.com/nemo-network/v4-chain/protocol/app/ante/types"
 	"github.com/gorilla/mux"
+	antetypes "github.com/nemo-network/v4-chain/protocol/app/ante/types"
 	"github.com/rakyll/statik/fs"
 	"github.com/spf13/cast"
 	"google.golang.org/grpc"
@@ -130,6 +130,12 @@ import (
 	daemontypes "github.com/nemo-network/v4-chain/protocol/daemons/types"
 
 	// Modules
+	accountplusmodule "github.com/nemo-network/v4-chain/protocol/x/accountplus"
+	accountplusmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/accountplus/keeper"
+	accountplusmoduletypes "github.com/nemo-network/v4-chain/protocol/x/accountplus/types"
+	affiliatesmodule "github.com/nemo-network/v4-chain/protocol/x/affiliates"
+	affiliatesmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/affiliates/keeper"
+	affiliatesmoduletypes "github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 	assetsmodule "github.com/nemo-network/v4-chain/protocol/x/assets"
 	assetsmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/assets/keeper"
 	assetsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
@@ -156,6 +162,9 @@ import (
 	govplusmodule "github.com/nemo-network/v4-chain/protocol/x/govplus"
 	govplusmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/govplus/keeper"
 	govplusmoduletypes "github.com/nemo-network/v4-chain/protocol/x/govplus/types"
+	listingmodule "github.com/nemo-network/v4-chain/protocol/x/listing"
+	listingmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/listing/keeper"
+	listingmoduletypes "github.com/nemo-network/v4-chain/protocol/x/listing/types"
 	perpetualsmodule "github.com/nemo-network/v4-chain/protocol/x/perpetuals"
 	perpetualsmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/perpetuals/keeper"
 	perpetualsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
@@ -165,6 +174,9 @@ import (
 	ratelimitmodule "github.com/nemo-network/v4-chain/protocol/x/ratelimit"
 	ratelimitmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/ratelimit/keeper"
 	ratelimitmoduletypes "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	revsharemodule "github.com/nemo-network/v4-chain/protocol/x/revshare"
+	revsharemodulekeeper "github.com/nemo-network/v4-chain/protocol/x/revshare/keeper"
+	revsharemoduletypes "github.com/nemo-network/v4-chain/protocol/x/revshare/types"
 	rewardsmodule "github.com/nemo-network/v4-chain/protocol/x/rewards"
 	rewardsmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/rewards/keeper"
 	rewardsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
@@ -183,6 +195,9 @@ import (
 	vestmodule "github.com/nemo-network/v4-chain/protocol/x/vest"
 	vestmodulekeeper "github.com/nemo-network/v4-chain/protocol/x/vest/keeper"
 	vestmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
+	marketmapmodule "github.com/skip-mev/slinky/x/marketmap"
+	marketmapmodulekeeper "github.com/skip-mev/slinky/x/marketmap/keeper"
+	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 
 	// IBC
 	ica "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts"
@@ -218,9 +233,10 @@ import (
 	servicemetrics "github.com/skip-mev/slinky/service/metrics"
 	promserver "github.com/skip-mev/slinky/service/servers/prometheus"
 
-	// Grpc Streaming
-	streaming "github.com/nemo-network/v4-chain/protocol/streaming/grpc"
-	streamingtypes "github.com/nemo-network/v4-chain/protocol/streaming/grpc/types"
+	// Full Node Streaming
+	streaming "github.com/nemo-network/v4-chain/protocol/streaming"
+	streamingtypes "github.com/nemo-network/v4-chain/protocol/streaming/types"
+	"github.com/nemo-network/v4-chain/protocol/streaming/ws"
 )
 
 var (
@@ -285,6 +301,10 @@ type App struct {
 	FeeGrantKeeper        feegrantkeeper.Keeper
 	ConsensusParamsKeeper consensusparamkeeper.Keeper
 	GovPlusKeeper         govplusmodulekeeper.Keeper
+	AccountPlusKeeper     accountplusmodulekeeper.Keeper
+	AffiliatesKeeper      affiliatesmodulekeeper.Keeper
+
+	MarketMapKeeper marketmapmodulekeeper.Keeper
 
 	PricesKeeper pricesmodulekeeper.Keeper
 
@@ -298,11 +318,15 @@ type App struct {
 
 	FeeTiersKeeper *feetiersmodulekeeper.Keeper
 
+	ListingKeeper listingmodulekeeper.Keeper
+
 	PerpetualsKeeper *perpetualsmodulekeeper.Keeper
 
 	VestKeeper vestmodulekeeper.Keeper
 
 	RewardsKeeper rewardsmodulekeeper.Keeper
+
+	RevShareKeeper revsharemodulekeeper.Keeper
 
 	StatsKeeper statsmodulekeeper.Keeper
 
@@ -323,9 +347,11 @@ type App struct {
 	// module configurator
 	configurator module.Configurator
 
-	IndexerEventManager  indexer_manager.IndexerEventManager
-	GrpcStreamingManager streamingtypes.GrpcStreamingManager
-	Server               *daemonserver.Server
+	IndexerEventManager      indexer_manager.IndexerEventManager
+	FullNodeStreamingManager streamingtypes.FullNodeStreamingManager
+	WebsocketStreamingServer *ws.WebsocketServer
+
+	Server *daemonserver.Server
 
 	// startDaemons encapsulates the logic that starts all daemons and daemon services. This function contains a
 	// closure of all relevant data structures that are shared with various keepers. Daemon services startup is
@@ -382,6 +408,12 @@ func New(
 	interfaceRegistry := encodingConfig.InterfaceRegistry
 	txConfig := encodingConfig.TxConfig
 
+	// Enable optimistic block execution.
+	if appFlags.OptimisticExecutionEnabled {
+		logger.Info("optimistic execution is enabled.")
+		baseAppOptions = append(baseAppOptions, baseapp.SetOptimisticExecution())
+	}
+
 	bApp := baseapp.NewBaseApp(appconstants.AppName, logger, db, txConfig.TxDecoder(), baseAppOptions...)
 	bApp.SetCommitMultiStoreTracer(traceStore)
 	bApp.SetVersion(version.Version)
@@ -413,6 +445,7 @@ func New(
 		blocktimemoduletypes.StoreKey,
 		bridgemoduletypes.StoreKey,
 		feetiersmoduletypes.StoreKey,
+		listingmoduletypes.StoreKey,
 		perpetualsmoduletypes.StoreKey,
 		satypes.StoreKey,
 		statsmoduletypes.StoreKey,
@@ -424,6 +457,10 @@ func New(
 		epochsmoduletypes.StoreKey,
 		govplusmoduletypes.StoreKey,
 		vaultmoduletypes.StoreKey,
+		revsharemoduletypes.StoreKey,
+		accountplusmoduletypes.StoreKey,
+		marketmapmoduletypes.StoreKey,
+		affiliatesmoduletypes.StoreKey,
 	)
 	keys[authtypes.StoreKey] = keys[authtypes.StoreKey].WithLocking()
 	tkeys := storetypes.NewTransientStoreKeys(
@@ -457,8 +494,11 @@ func New(
 			if app.SlinkyClient != nil {
 				app.SlinkyClient.Stop()
 			}
-			if app.GrpcStreamingManager != nil {
-				app.GrpcStreamingManager.Stop()
+			if app.FullNodeStreamingManager != nil {
+				app.FullNodeStreamingManager.Stop()
+			}
+			if app.WebsocketStreamingServer != nil {
+				app.WebsocketStreamingServer.Shutdown()
 			}
 			return nil
 		},
@@ -720,7 +760,11 @@ func New(
 		indexerFlags.SendOffchainData,
 	)
 
-	app.GrpcStreamingManager = getGrpcStreamingManagerFromOptions(appFlags, logger)
+	app.FullNodeStreamingManager, app.WebsocketStreamingServer = getFullNodeStreamingManagerFromOptions(
+		appFlags,
+		appCodec,
+		logger,
+	)
 
 	timeProvider := &timelib.TimeProviderImpl{}
 
@@ -877,6 +921,23 @@ func New(
 		}()
 	}
 
+	app.RevShareKeeper = *revsharemodulekeeper.NewKeeper(
+		appCodec,
+		keys[revsharemoduletypes.StoreKey],
+		[]string{
+			lib.GovModuleAddress.String(),
+		},
+	)
+	revShareModule := revsharemodule.NewAppModule(appCodec, app.RevShareKeeper)
+
+	app.MarketMapKeeper = *marketmapmodulekeeper.NewKeeper(
+		runtime.NewKVStoreService(keys[marketmapmoduletypes.StoreKey]),
+		appCodec,
+		authtypes.NewModuleAddress(govtypes.ModuleName),
+	)
+
+	marketmapModule := marketmapmodule.NewAppModule(appCodec, &app.MarketMapKeeper)
+
 	app.PricesKeeper = *pricesmodulekeeper.NewKeeper(
 		appCodec,
 		keys[pricesmoduletypes.StoreKey],
@@ -888,8 +949,17 @@ func New(
 			lib.GovModuleAddress.String(),
 			delaymsgmoduletypes.ModuleAddress.String(),
 		},
+		app.RevShareKeeper,
+		&app.MarketMapKeeper,
 	)
-	pricesModule := pricesmodule.NewAppModule(appCodec, app.PricesKeeper, app.AccountKeeper, app.BankKeeper)
+	pricesModule := pricesmodule.NewAppModule(
+		appCodec,
+		app.PricesKeeper,
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.RevShareKeeper,
+		&app.MarketMapKeeper,
+	)
 
 	app.AssetsKeeper = *assetsmodulekeeper.NewKeeper(
 		appCodec,
@@ -1001,7 +1071,9 @@ func New(
 		app.BankKeeper,
 		app.PerpetualsKeeper,
 		app.BlockTimeKeeper,
+		app.RevShareKeeper,
 		app.IndexerEventManager,
+		app.FullNodeStreamingManager,
 	)
 	subaccountsModule := subaccountsmodule.NewAppModule(
 		appCodec,
@@ -1012,7 +1084,7 @@ func New(
 	logger.Info("Parsed CLOB flags", "Flags", clobFlags)
 
 	memClob := clobmodulememclob.NewMemClobPriceTimePriority(app.IndexerEventManager.Enabled())
-	memClob.SetGenerateOrderbookUpdates(app.GrpcStreamingManager.Enabled())
+	memClob.SetGenerateOrderbookUpdates(app.FullNodeStreamingManager.Enabled())
 
 	app.ClobKeeper = clobmodulekeeper.NewKeeper(
 		appCodec,
@@ -1035,7 +1107,7 @@ func New(
 		app.StatsKeeper,
 		app.RewardsKeeper,
 		app.IndexerEventManager,
-		app.GrpcStreamingManager,
+		app.FullNodeStreamingManager,
 		txConfig.TxDecoder(),
 		clobFlags,
 		rate_limit.NewPanicRateLimiter[sdk.Msg](),
@@ -1097,6 +1169,41 @@ func New(
 	)
 	vaultModule := vaultmodule.NewAppModule(appCodec, app.VaultKeeper)
 	app.FeeTiersKeeper.SetVaultKeeper(app.VaultKeeper)
+
+	app.ListingKeeper = *listingmodulekeeper.NewKeeper(
+		appCodec,
+		keys[listingmoduletypes.StoreKey],
+		[]string{
+			lib.GovModuleAddress.String(),
+		},
+		app.PricesKeeper,
+		app.ClobKeeper,
+		&app.MarketMapKeeper,
+		app.PerpetualsKeeper,
+	)
+	listingModule := listingmodule.NewAppModule(
+		appCodec,
+		app.ListingKeeper,
+		app.PricesKeeper,
+		app.ClobKeeper,
+		&app.MarketMapKeeper,
+		app.PerpetualsKeeper,
+	)
+
+	app.AccountPlusKeeper = *accountplusmodulekeeper.NewKeeper(
+		appCodec,
+		keys[accountplusmoduletypes.StoreKey],
+	)
+	accountplusModule := accountplusmodule.NewAppModule(appCodec, app.AccountPlusKeeper)
+
+	app.AffiliatesKeeper = *affiliatesmodulekeeper.NewKeeper(
+		appCodec,
+		keys[affiliatesmoduletypes.StoreKey],
+		[]string{
+			lib.GovModuleAddress.String(),
+		},
+	)
+	affiliatesModule := affiliatesmodule.NewAppModule(appCodec, app.AffiliatesKeeper)
 
 	/****  Module Options ****/
 
@@ -1166,6 +1273,11 @@ func New(
 		epochsModule,
 		rateLimitModule,
 		vaultModule,
+		listingModule,
+		revShareModule,
+		accountplusModule,
+		marketmapModule,
+		affiliatesModule,
 	)
 
 	app.ModuleManager.SetOrderPreBlockers(
@@ -1213,6 +1325,11 @@ func New(
 		govplusmoduletypes.ModuleName,
 		delaymsgmoduletypes.ModuleName,
 		vaultmoduletypes.ModuleName,
+		listingmoduletypes.ModuleName,
+		revsharemoduletypes.ModuleName,
+		accountplusmoduletypes.ModuleName,
+		marketmapmoduletypes.ModuleName,
+		affiliatesmoduletypes.ModuleName,
 	)
 
 	app.ModuleManager.SetOrderPrepareCheckStaters(
@@ -1256,6 +1373,11 @@ func New(
 		// the block after the one where vault orders expire won't have
 		// any vault orders.
 		vaultmoduletypes.ModuleName,
+		listingmoduletypes.ModuleName,
+		revsharemoduletypes.ModuleName,
+		accountplusmoduletypes.ModuleName,
+		marketmapmoduletypes.ModuleName,
+		affiliatesmoduletypes.ModuleName,
 		authz.ModuleName,                // No-op.
 		blocktimemoduletypes.ModuleName, // Must be last
 	)
@@ -1285,6 +1407,7 @@ func New(
 		feegrant.ModuleName,
 		consensusparamtypes.ModuleName,
 		icatypes.ModuleName,
+		marketmapmoduletypes.ModuleName, // must be before prices
 		pricesmoduletypes.ModuleName,
 		assetsmoduletypes.ModuleName,
 		blocktimemoduletypes.ModuleName,
@@ -1300,6 +1423,10 @@ func New(
 		govplusmoduletypes.ModuleName,
 		delaymsgmoduletypes.ModuleName,
 		vaultmoduletypes.ModuleName,
+		listingmoduletypes.ModuleName,
+		revsharemoduletypes.ModuleName,
+		accountplusmoduletypes.ModuleName,
+		affiliatesmoduletypes.ModuleName,
 		authz.ModuleName,
 	)
 
@@ -1325,6 +1452,7 @@ func New(
 		feegrant.ModuleName,
 		consensusparamtypes.ModuleName,
 		icatypes.ModuleName,
+		marketmapmoduletypes.ModuleName,
 		pricesmoduletypes.ModuleName,
 		assetsmoduletypes.ModuleName,
 		blocktimemoduletypes.ModuleName,
@@ -1340,6 +1468,10 @@ func New(
 		govplusmoduletypes.ModuleName,
 		delaymsgmoduletypes.ModuleName,
 		vaultmoduletypes.ModuleName,
+		listingmoduletypes.ModuleName,
+		revsharemoduletypes.ModuleName,
+		accountplusmoduletypes.ModuleName,
+		affiliatesmoduletypes.ModuleName,
 		authz.ModuleName,
 
 		// Auth must be migrated after staking.
@@ -1615,6 +1747,8 @@ func (app *App) GetBaseApp() *baseapp.BaseApp { return app.BaseApp }
 
 // PreBlocker application updates before each begin block.
 func (app *App) PreBlocker(ctx sdk.Context, _ *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
+	app.scheduleForkUpgrade(ctx)
+
 	// Set gas meter to the free gas meter.
 	// This is because there is currently non-deterministic gas usage in the
 	// pre-blocker, e.g. due to hydration of in-memory data structures.
@@ -1633,7 +1767,6 @@ func (app *App) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
 	proposerAddr := sdk.ConsAddress(ctx.BlockHeader().ProposerAddress)
 	middleware.Logger = ctx.Logger().With("proposer_cons_addr", proposerAddr.String())
 
-	app.scheduleForkUpgrade(ctx)
 	return app.ModuleManager.BeginBlock(ctx)
 }
 
@@ -1654,8 +1787,6 @@ func (app *App) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
 	if err != nil {
 		return response, err
 	}
-	block := app.IndexerEventManager.ProduceBlock(ctx)
-	app.IndexerEventManager.SendOnchainData(block)
 	return response, err
 }
 
@@ -1664,6 +1795,8 @@ func (app *App) Precommitter(ctx sdk.Context) {
 	if err := app.ModuleManager.Precommit(ctx); err != nil {
 		panic(err)
 	}
+	block := app.IndexerEventManager.ProduceBlock(ctx)
+	app.IndexerEventManager.SendOnchainData(block)
 }
 
 // PrepareCheckStater application updates after commit and before any check state is invoked.
@@ -1804,9 +1937,13 @@ func (app *App) buildAnteHandler(txConfig client.TxConfig) sdk.AnteHandler {
 				FeegrantKeeper:  app.FeeGrantKeeper,
 				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
 			},
-			ClobKeeper:   app.ClobKeeper,
-			Codec:        app.appCodec,
-			AuthStoreKey: app.keys[authtypes.StoreKey],
+			AccountplusKeeper: &app.AccountPlusKeeper,
+			ClobKeeper:        app.ClobKeeper,
+			Codec:             app.appCodec,
+			AuthStoreKey:      app.keys[authtypes.StoreKey],
+			PerpetualsKeeper:  app.PerpetualsKeeper,
+			PricesKeeper:      app.PricesKeeper,
+			MarketMapKeeper:   &app.MarketMapKeeper,
 		},
 	)
 	if err != nil {
@@ -1909,20 +2046,41 @@ func getIndexerFromOptions(
 	return indexerMessageSender, indexerFlags
 }
 
-// getGrpcStreamingManagerFromOptions returns an instance of a streamingtypes.GrpcStreamingManager from the specified
-// options. This function will default to returning a no-op instance.
-func getGrpcStreamingManagerFromOptions(
+// getFullNodeStreamingManagerFromOptions returns an instance of a streamingtypes.FullNodeStreamingManager
+// from the specified options. This function will default to returning a no-op instance.
+func getFullNodeStreamingManagerFromOptions(
 	appFlags flags.Flags,
+	cdc codec.Codec,
 	logger log.Logger,
-) (manager streamingtypes.GrpcStreamingManager) {
+) (manager streamingtypes.FullNodeStreamingManager, wsServer *ws.WebsocketServer) {
+	logger = logger.With(log.ModuleKey, "full-node-streaming")
 	if appFlags.GrpcStreamingEnabled {
-		logger.Info("GRPC streaming is enabled")
-		return streaming.NewGrpcStreamingManager(
+		logger.Info("Full node streaming is enabled")
+		if appFlags.FullNodeStreamingSnapshotInterval > 0 {
+			logger.Info("Interval snapshots enabled")
+		}
+		manager := streaming.NewFullNodeStreamingManager(
 			logger,
 			appFlags.GrpcStreamingFlushIntervalMs,
 			appFlags.GrpcStreamingMaxBatchSize,
 			appFlags.GrpcStreamingMaxChannelBufferSize,
+			appFlags.FullNodeStreamingSnapshotInterval,
 		)
+
+		// Start websocket server.
+		if appFlags.WebsocketStreamingEnabled {
+			port := appFlags.WebsocketStreamingPort
+			logger.Info("Websocket full node streaming is enabled")
+			wsServer = ws.NewWebsocketServer(
+				manager,
+				cdc,
+				logger,
+				port,
+			)
+			wsServer.Start()
+		}
+
+		return manager, wsServer
 	}
-	return streaming.NewNoopGrpcStreamingManager()
+	return streaming.NewNoopGrpcStreamingManager(), wsServer
 }

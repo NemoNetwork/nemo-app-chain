@@ -1,8 +1,8 @@
 syntax = "proto3";
 package nemo_network.indexer.off_chain_updates;
 
-import "nemo_network/indexer/shared/removal_reason.proto";
-import "nemo_network/indexer/protocol/v1/clob.proto";
+import "nemo-network/indexer/shared/removal_reason.proto";
+import "nemo-network/indexer/protocol/v1/clob.proto";
 import "google/protobuf/timestamp.proto";
 import "gogoproto/gogo.proto";
 
@@ -90,10 +90,10 @@ message OrderUpdateV1 {
 
 // OrderReplace messages contain the old order ID and the replacement order.
 message OrderReplaceV1 {
-  nemo_network.indexer.protocol.v1.IndexerOrderId old_order_id =
+  nemo-network.indexer.protocol.v1.IndexerOrderId old_order_id =
       1; // vault replaces orders with a different order ID
-  nemo_network.indexer.protocol.v1.IndexerOrder order = 2;
-  nemo_network.indexer.off_chain_updates.OrderPlaceV1.OrderPlacementStatus
+  nemo-network.indexer.protocol.v1.IndexerOrder order = 2;
+  nemo-network.indexer.off_chain_updates.OrderPlaceV1.OrderPlacementStatus
       placement_status = 3;
 
   google.protobuf.Timestamp time_stamp = 4

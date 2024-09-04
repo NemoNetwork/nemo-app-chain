@@ -14,8 +14,7 @@ import {
 import { RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { getFixedRepresentation, sendRequest } from '../../../helpers/helpers';
-import { stats } from '@nemo-network-indexer/base';
-import { defaultAddress } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+import { stats } from '@nemo_network-indexer/base';
 
 describe('addresses-controller#V4', () => {
   const latestHeight: string = '3';
@@ -82,6 +81,8 @@ describe('addresses-controller#V4', () => {
           equity: getFixedRepresentation(159500),
           freeCollateral: getFixedRepresentation(152000),
           marginEnabled: true,
+          updatedAtHeight: testConstants.defaultSubaccount.updatedAtHeight,
+          latestProcessedBlockHeight: latestHeight,
           openPerpetualPositions: {
             [testConstants.defaultPerpetualMarket.ticker]: {
               market: testConstants.defaultPerpetualMarket.ticker,
@@ -106,6 +107,7 @@ describe('addresses-controller#V4', () => {
               createdAtHeight: testConstants.defaultPerpetualPosition.createdAtHeight,
               exitPrice: null,
               closedAt: null,
+              subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
             },
           },
           assetPositions: {
@@ -158,6 +160,8 @@ describe('addresses-controller#V4', () => {
           equity: getFixedRepresentation(10000),
           freeCollateral: getFixedRepresentation(10000),
           marginEnabled: true,
+          updatedAtHeight: testConstants.defaultSubaccount.updatedAtHeight,
+          latestProcessedBlockHeight: latestHeight,
           openPerpetualPositions: {},
           assetPositions: {
             [testConstants.defaultAsset.symbol]: {
@@ -242,6 +246,8 @@ describe('addresses-controller#V4', () => {
             equity: getFixedRepresentation(159500),
             freeCollateral: getFixedRepresentation(152000),
             marginEnabled: true,
+            updatedAtHeight: testConstants.defaultSubaccount.updatedAtHeight,
+            latestProcessedBlockHeight: latestHeight,
             openPerpetualPositions: {
               [testConstants.defaultPerpetualMarket.ticker]: {
                 market: testConstants.defaultPerpetualMarket.ticker,
@@ -266,6 +272,7 @@ describe('addresses-controller#V4', () => {
                 createdAtHeight: testConstants.defaultPerpetualPosition.createdAtHeight,
                 exitPrice: null,
                 closedAt: null,
+                subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
               },
             },
             assetPositions: {
@@ -291,6 +298,8 @@ describe('addresses-controller#V4', () => {
             equity: getFixedRepresentation(0),
             freeCollateral: getFixedRepresentation(0),
             marginEnabled: true,
+            updatedAtHeight: testConstants.defaultSubaccount2.updatedAtHeight,
+            latestProcessedBlockHeight: latestHeight,
             openPerpetualPositions: {},
             assetPositions: {},
           },
@@ -300,6 +309,8 @@ describe('addresses-controller#V4', () => {
             equity: getFixedRepresentation(0),
             freeCollateral: getFixedRepresentation(0),
             marginEnabled: true,
+            updatedAtHeight: testConstants.isolatedSubaccount.updatedAtHeight,
+            latestProcessedBlockHeight: latestHeight,
             openPerpetualPositions: {},
             assetPositions: {},
           },
@@ -309,6 +320,8 @@ describe('addresses-controller#V4', () => {
             equity: getFixedRepresentation(0),
             freeCollateral: getFixedRepresentation(0),
             marginEnabled: true,
+            updatedAtHeight: testConstants.isolatedSubaccount2.updatedAtHeight,
+            latestProcessedBlockHeight: latestHeight,
             openPerpetualPositions: {},
             assetPositions: {},
           },
@@ -346,6 +359,8 @@ describe('addresses-controller#V4', () => {
             equity: getFixedRepresentation(0),
             freeCollateral: getFixedRepresentation(0),
             marginEnabled: true,
+            updatedAtHeight: testConstants.defaultSubaccount.updatedAtHeight,
+            latestProcessedBlockHeight: latestHeight,
             assetPositions: {},
             openPerpetualPositions: {},
           },
@@ -429,6 +444,8 @@ describe('addresses-controller#V4', () => {
               equity: getFixedRepresentation(159500),
               freeCollateral: getFixedRepresentation(152000),
               marginEnabled: true,
+              updatedAtHeight: testConstants.defaultSubaccount.updatedAtHeight,
+              latestProcessedBlockHeight: latestHeight,
               openPerpetualPositions: {
                 [testConstants.defaultPerpetualMarket.ticker]: {
                   market: testConstants.defaultPerpetualMarket.ticker,
@@ -453,6 +470,7 @@ describe('addresses-controller#V4', () => {
                   createdAtHeight: testConstants.defaultPerpetualPosition.createdAtHeight,
                   exitPrice: null,
                   closedAt: null,
+                  subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
                 },
               },
               assetPositions: {
@@ -478,6 +496,8 @@ describe('addresses-controller#V4', () => {
               equity: getFixedRepresentation(5000),
               freeCollateral: getFixedRepresentation(5000),
               marginEnabled: true,
+              updatedAtHeight: testConstants.isolatedSubaccount.updatedAtHeight,
+              latestProcessedBlockHeight: latestHeight,
               openPerpetualPositions: {},
               assetPositions: {
                 [testConstants.defaultAsset.symbol]: {
@@ -495,6 +515,8 @@ describe('addresses-controller#V4', () => {
               equity: getFixedRepresentation(0),
               freeCollateral: getFixedRepresentation(0),
               marginEnabled: true,
+              updatedAtHeight: testConstants.isolatedSubaccount2.updatedAtHeight,
+              latestProcessedBlockHeight: latestHeight,
               openPerpetualPositions: {},
               assetPositions: {},
             },
@@ -536,7 +558,7 @@ describe('addresses-controller#V4', () => {
     const parentSubaccountNumber: number = 128;
     const response: request.Response = await sendRequest({
       type: RequestMethod.GET,
-      path: `/addresses/${defaultAddress}/parentSubaccountNumber/${parentSubaccountNumber}`,
+      path: `/v4/addresses/${testConstants.defaultAddress}/parentSubaccountNumber/${parentSubaccountNumber}`,
       expectedStatus: 400,
     });
 

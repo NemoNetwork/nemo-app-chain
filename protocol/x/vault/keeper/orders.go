@@ -20,23 +20,38 @@ import (
 // 2. Placing new orders.
 func (k Keeper) RefreshAllVaultOrders(ctx sdk.Context) {
 	// Iterate through all vaults.
-	params := k.GetParams(ctx)
 	numActiveVaults := 0
-	totalSharesIterator := k.getTotalSharesIterator(ctx)
-	defer totalSharesIterator.Close()
-	for ; totalSharesIterator.Valid(); totalSharesIterator.Next() {
-		vaultId, err := types.GetVaultIdFromStateKey(totalSharesIterator.Key())
+	vaultParamsIterator := k.getVaultParamsIterator(ctx)
+	defer vaultParamsIterator.Close()
+	for ; vaultParamsIterator.Valid(); vaultParamsIterator.Next() {
+		vaultId, err := types.GetVaultIdFromStateKey(vaultParamsIterator.Key())
 		if err != nil {
 			log.ErrorLogWithError(ctx, "Failed to get vault ID from state key", err)
 			continue
 		}
-		var totalShares types.NumShares
-		k.cdc.MustUnmarshal(totalSharesIterator.Value(), &totalShares)
+		var vaultParams types.VaultParams
+		k.cdc.MustUnmarshal(vaultParamsIterator.Value(), &vaultParams)
 
-		// Skip if TotalShares is non-positive.
-		if totalShares.NumShares.Sign() <= 0 {
+		if vaultParams.Status != types.VaultStatus_VAULT_STATUS_QUOTING {
+			// TODO (TRA-546): cancel any existing orders and don't place new orders.
 			continue
 		}
+		// TODO (TRA-547): implement close-only mode.
+
+		// Skip if vault has no perpetual positions and strictly less than `activation_threshold_quote_quantums` USDC.
+		if vaultParams.QuotingParams == nil {
+			defaultQuotingParams := k.GetDefaultQuotingParams(ctx)
+			vaultParams.QuotingParams = &defaultQuotingParams
+		}
+		vault := k.subaccountsKeeper.GetSubaccount(ctx, *vaultId.ToSubaccountId())
+		if vault.PerpetualPositions == nil || len(vault.PerpetualPositions) == 0 {
+			if vault.GetUsdcPosition().Cmp(vaultParams.QuotingParams.ActivationThresholdQuoteQuantums.BigInt()) == -1 {
+				continue
+			}
+		}
+
+		// Count current vault as active.
+		numActiveVaults++
 
 		// Skip if vault has no perpetual positions and strictly less than `activation_threshold_quote_quantums` USDC.
 		vault := k.subaccountsKeeper.GetSubaccount(ctx, *vaultId.ToSubaccountId())
@@ -151,11 +166,8 @@ func (k Keeper) GetVaultClobOrders(
 ) (orders []*clobtypes.Order, err error) {
 	// Get clob pair, perpetual, market parameter, and market price that correspond to this vault.
 	clobPair, exists := k.clobKeeper.GetClobPair(ctx, clobtypes.ClobPairId(vaultId.Number))
-	if !exists {
-		return orders, errorsmod.Wrap(
-			types.ErrClobPairNotFound,
-			fmt.Sprintf("VaultId: %v", vaultId),
-		)
+	if !exists || clobPair.Status == clobtypes.ClobPair_STATUS_FINAL_SETTLEMENT {
+		return []*clobtypes.Order{}, nil
 	}
 	perpId := clobPair.Metadata.(*clobtypes.ClobPair_PerpetualClobMetadata).PerpetualClobMetadata.PerpetualId
 	perpetual, err := k.perpetualsKeeper.GetPerpetual(ctx, perpId)
@@ -207,11 +219,17 @@ func (k Keeper) GetVaultClobOrders(
 	leveragePpm := new(big.Int).Mul(openNotional, lib.BigIntOneMillion())
 	leveragePpm.Quo(leveragePpm, equity)
 
-	// Get parameters.
-	params := k.GetParams(ctx)
+	// Get vault parameters.
+	quotingParams, exists := k.GetVaultQuotingParams(ctx, vaultId)
+	if !exists {
+		return orders, errorsmod.Wrap(
+			types.ErrVaultParamsNotFound,
+			fmt.Sprintf("VaultId: %v", vaultId),
+		)
+	}
 
 	// Calculate order size (in base quantums).
-	orderSizePctPpm := lib.BigU(params.OrderSizePctPpm)
+	orderSizePctPpm := lib.BigU(quotingParams.OrderSizePctPpm)
 	orderSize := lib.QuoteToBaseQuantums(
 		new(big.Int).Mul(equity, orderSizePctPpm),
 		perpetual.Params.AtomicResolution,
@@ -241,8 +259,8 @@ func (k Keeper) GetVaultClobOrders(
 
 	// Calculate spread.
 	spreadPpm := lib.BigU(lib.Max(
-		params.SpreadMinPpm,
-		params.SpreadBufferPpm+marketParam.MinPriceChangePpm,
+		quotingParams.SpreadMinPpm,
+		quotingParams.SpreadBufferPpm+marketParam.MinPriceChangePpm,
 	))
 	// Get oracle price in subticks.
 	oracleSubticks := clobtypes.PriceToSubticks(
@@ -253,9 +271,9 @@ func (k Keeper) GetVaultClobOrders(
 	)
 	// Get order expiration time.
 	goodTilBlockTime := &clobtypes.Order_GoodTilBlockTime{
-		GoodTilBlockTime: uint32(ctx.BlockTime().Unix()) + params.OrderExpirationSeconds,
+		GoodTilBlockTime: uint32(ctx.BlockTime().Unix()) + quotingParams.OrderExpirationSeconds,
 	}
-	skewFactorPpm := lib.BigU(params.SkewFactorPpm)
+	skewFactorPpm := lib.BigU(quotingParams.SkewFactorPpm)
 
 	// Construct one ask and one bid for each layer.
 	constructOrder := func(
@@ -349,12 +367,20 @@ func (k Keeper) GetVaultClobOrders(
 		}
 	}
 
-	orderIds, err := k.GetVaultClobOrderIds(ctx, vaultId)
-	if err != nil {
-		return orders, err
+	orderIds := k.GetVaultClobOrderIds(ctx, vaultId)
+	orders = make([]*clobtypes.Order, 2*quotingParams.Layers)
+	if len(orders) != len(orderIds) { // sanity check
+		return orders, errorsmod.Wrap(
+			types.ErrOrdersAndOrderIdsDiffLen,
+			fmt.Sprintf(
+				"VaultId: %v, len(Orders):%d, len(OrderIds):%d",
+				vaultId,
+				len(orders),
+				len(orderIds),
+			),
+		)
 	}
-	orders = make([]*clobtypes.Order, 2*params.Layers)
-	for i := uint32(0); i < params.Layers; i++ {
+	for i := uint32(0); i < quotingParams.Layers; i++ {
 		// Construct ask at this layer.
 		orders[2*i] = constructOrder(clobtypes.Order_SIDE_SELL, i, orderIds[2*i])
 
@@ -372,14 +398,7 @@ func (k Keeper) GetVaultClobOrders(
 func (k Keeper) GetVaultClobOrderIds(
 	ctx sdk.Context,
 	vaultId types.VaultId,
-) (orderIds []*clobtypes.OrderId, err error) {
-	clobPair, exists := k.clobKeeper.GetClobPair(ctx, clobtypes.ClobPairId(vaultId.Number))
-	if !exists {
-		return orderIds, errorsmod.Wrap(
-			types.ErrClobPairNotFound,
-			fmt.Sprintf("VaultId: %v", vaultId),
-		)
-	}
+) (orderIds []*clobtypes.OrderId) {
 	vault := vaultId.ToSubaccountId()
 	constructOrderId := func(
 		side clobtypes.Order_Side,
@@ -389,11 +408,15 @@ func (k Keeper) GetVaultClobOrderIds(
 			SubaccountId: *vault,
 			ClientId:     types.GetVaultClobOrderClientId(side, uint8(layer)),
 			OrderFlags:   clobtypes.OrderIdFlags_LongTerm,
-			ClobPairId:   clobPair.Id,
+			ClobPairId:   clobtypes.ClobPairId(vaultId.Number).ToUint32(),
 		}
 	}
 
-	layers := k.GetParams(ctx).Layers
+	quotingParams, exists := k.GetVaultQuotingParams(ctx, vaultId)
+	if !exists {
+		return []*clobtypes.OrderId{}
+	}
+	layers := quotingParams.Layers
 	orderIds = make([]*clobtypes.OrderId, 2*layers)
 	for i := uint32(0); i < layers; i++ {
 		// Construct ask order ID at this layer.
@@ -403,7 +426,7 @@ func (k Keeper) GetVaultClobOrderIds(
 		orderIds[2*i+1] = constructOrderId(clobtypes.Order_SIDE_BUY, i)
 	}
 
-	return orderIds, nil
+	return orderIds
 }
 
 // PlaceVaultClobOrder places a vault CLOB order internal to the protocol, skipping various
@@ -432,10 +455,17 @@ func (k Keeper) ReplaceVaultClobOrder(
 	oldOrderId *clobtypes.OrderId,
 	newOrder *clobtypes.Order,
 ) error {
+	quotingParams, exists := k.GetVaultQuotingParams(ctx, vaultId)
+	if !exists {
+		return errorsmod.Wrap(
+			types.ErrVaultParamsNotFound,
+			fmt.Sprintf("VaultId: %v", vaultId),
+		)
+	}
 	// Cancel old order.
 	err := k.clobKeeper.HandleMsgCancelOrder(ctx, clobtypes.NewMsgCancelOrderStateful(
 		*oldOrderId,
-		uint32(ctx.BlockTime().Unix())+k.GetParams(ctx).OrderExpirationSeconds,
+		uint32(ctx.BlockTime().Unix())+quotingParams.OrderExpirationSeconds,
 	))
 	vaultId.IncrCounterWithLabels(
 		metrics.VaultCancelOrder,

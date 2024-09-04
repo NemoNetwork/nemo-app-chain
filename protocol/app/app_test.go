@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	marketmapmodule "github.com/skip-mev/slinky/x/marketmap"
+
 	evidencemodule "cosmossdk.io/x/evidence"
 	feegrantmodule "cosmossdk.io/x/feegrant/module"
 	"cosmossdk.io/x/upgrade"
@@ -31,6 +33,8 @@ import (
 	custommodule "github.com/nemo-network/v4-chain/protocol/app/module"
 	"github.com/nemo-network/v4-chain/protocol/mocks"
 	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	accountplusmodule "github.com/nemo-network/v4-chain/protocol/x/accountplus"
+	"github.com/nemo-network/v4-chain/protocol/x/affiliates"
 	assetsmodule "github.com/nemo-network/v4-chain/protocol/x/assets"
 	blocktimemodule "github.com/nemo-network/v4-chain/protocol/x/blocktime"
 	bridgemodule "github.com/nemo-network/v4-chain/protocol/x/bridge"
@@ -39,9 +43,11 @@ import (
 	epochsmodule "github.com/nemo-network/v4-chain/protocol/x/epochs"
 	feetiersmodule "github.com/nemo-network/v4-chain/protocol/x/feetiers"
 	govplusmodule "github.com/nemo-network/v4-chain/protocol/x/govplus"
+	listingmodule "github.com/nemo-network/v4-chain/protocol/x/listing"
 	perpetualsmodule "github.com/nemo-network/v4-chain/protocol/x/perpetuals"
 	pricesmodule "github.com/nemo-network/v4-chain/protocol/x/prices"
 	ratelimitmodule "github.com/nemo-network/v4-chain/protocol/x/ratelimit"
+	revsharemodule "github.com/nemo-network/v4-chain/protocol/x/revshare"
 	rewardsmodule "github.com/nemo-network/v4-chain/protocol/x/rewards"
 	sendingmodule "github.com/nemo-network/v4-chain/protocol/x/sending"
 	statsmodule "github.com/nemo-network/v4-chain/protocol/x/stats"
@@ -106,6 +112,7 @@ func TestAppIsFullyInitialized(t *testing.T) {
 				"BridgeClient",
 				"SlinkyClient",
 				"oraclePrometheusServer",
+				"WebsocketStreamingServer",
 
 				// Any default constructed type can be considered initialized if the default is what is
 				// expected. getUninitializedStructFields relies on fields being the non-default and
@@ -214,6 +221,13 @@ func TestModuleBasics(t *testing.T) {
 		epochsmodule.AppModuleBasic{},
 		ratelimitmodule.AppModuleBasic{},
 		vaultmodule.AppModuleBasic{},
+		listingmodule.AppModuleBasic{},
+		revsharemodule.AppModuleBasic{},
+		accountplusmodule.AppModuleBasic{},
+		affiliates.AppModuleBasic{},
+
+		// slinky marketmap
+		marketmapmodule.AppModuleBasic{},
 	)
 
 	app := testapp.DefaultTestApp(nil)

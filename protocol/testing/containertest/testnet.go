@@ -9,6 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_function/testexchange"
 	pricefeed "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/testing/version"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	pricefeed_testutil "github.com/nemo-network/v4-chain/protocol/testutil/pricefeed"
 	"github.com/ory/dockertest/v3"
@@ -23,9 +24,6 @@ const persistentPeers = "17e5e45691f0d01449c84fd4ae87279578cdd7ec@testnet-local-
 
 // Resources will expire in 10 minutes
 const resourceLifetimeSecs = 600
-
-// The version of that we're upgrading to (aka the current commit)
-const UpgradeToVersion = "v5.2.0"
 
 func monikers() map[string]string {
 	return map[string]string{
@@ -118,7 +116,11 @@ func (t *Testnet) initialize() (err error) {
 		if err := t.pool.Retry(func() error {
 			return node.WaitUntilBlockHeight(2)
 		}); err != nil {
-			return fmt.Errorf("could not connect to node: %s", moniker)
+			return fmt.Errorf(
+				"could not connect to node: %s, %w",
+				moniker,
+				err,
+			)
 		}
 	}
 	return nil
@@ -152,9 +154,9 @@ func (t *Testnet) initializeNode(moniker string) (*Node, error) {
 				"https://eth-sepolia.g.alchemy.com/v2/demo",
 			},
 			Env: []string{
-				"DAEMON_NAME=nemod",
+				"DAEMON_NAME=nemo-networkd",
 				fmt.Sprintf("DAEMON_HOME=/nemo-network/chain/.%s", moniker),
-				fmt.Sprintf("UPGRADE_TO_VERSION=%s", UpgradeToVersion),
+				fmt.Sprintf("UPGRADE_TO_VERSION=%s", version.CurrentVersion),
 			},
 			ExtraHosts: []string{
 				fmt.Sprintf("%s:host-gateway", testexchange.TestExchangeHost),

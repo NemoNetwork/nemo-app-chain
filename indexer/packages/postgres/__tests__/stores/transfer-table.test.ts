@@ -23,6 +23,7 @@ import {
   defaultSubaccountId3,
   defaultTendermintEventId,
   defaultTendermintEventId2,
+  defaultTendermintEventId3,
   defaultTransfer,
   defaultTransfer2,
   defaultTransfer3,
@@ -31,6 +32,8 @@ import {
 } from '../helpers/constants';
 import Big from 'big.js';
 import { CheckViolationError } from 'objection';
+import { DateTime } from 'luxon';
+import { USDC_ASSET_ID } from '../../src';
 
 describe('Transfer store', () => {
   beforeEach(async () => {
@@ -115,7 +118,7 @@ describe('Transfer store', () => {
       TransferTable.create(transfer2),
     ]);
 
-    const transfers: TransferFromDatabase[] = await TransferTable.findAllToOrFromSubaccountId(
+    const { results: transfers } = await TransferTable.findAllToOrFromSubaccountId(
       { subaccountId: [defaultSubaccountId] },
       [], {
         orderBy: [[TransferColumns.id, Ordering.ASC]],
@@ -142,7 +145,7 @@ describe('Transfer store', () => {
       TransferTable.create(transfer2),
     ]);
 
-    const transfers: TransferFromDatabase[] = await TransferTable.findAllToOrFromSubaccountId(
+    const { results: transfers } = await TransferTable.findAllToOrFromSubaccountId(
       {
         subaccountId: [defaultSubaccountId],
         eventId: [defaultTendermintEventId],
@@ -153,6 +156,57 @@ describe('Transfer store', () => {
 
     expect(transfers.length).toEqual(1);
     expect(transfers[0]).toEqual(expect.objectContaining(defaultTransfer));
+  });
+
+  it('Successfully finds all transfers to and from subaccount using pagination', async () => {
+    const transfer2: TransferCreateObject = {
+      senderSubaccountId: defaultSubaccountId2,
+      recipientSubaccountId: defaultSubaccountId,
+      assetId: defaultAsset2.id,
+      size: '5',
+      eventId: defaultTendermintEventId2,
+      transactionHash: '', // TODO: Add a real transaction Hash
+      createdAt: createdDateTime.toISO(),
+      createdAtHeight: createdHeight,
+    };
+    await Promise.all([
+      TransferTable.create(defaultTransfer),
+      TransferTable.create(transfer2),
+    ]);
+
+    const responsePageOne = await TransferTable.findAllToOrFromSubaccountId(
+      { subaccountId: [defaultSubaccountId], page: 1, limit: 1 },
+      [], {
+        orderBy: [[TransferColumns.id, Ordering.ASC]],
+      });
+
+    expect(responsePageOne.results.length).toEqual(1);
+    expect(responsePageOne.results[0]).toEqual(expect.objectContaining(defaultTransfer));
+    expect(responsePageOne.offset).toEqual(0);
+    expect(responsePageOne.total).toEqual(2);
+
+    const responsePageTwo = await TransferTable.findAllToOrFromSubaccountId(
+      { subaccountId: [defaultSubaccountId], page: 2, limit: 1 },
+      [], {
+        orderBy: [[TransferColumns.id, Ordering.ASC]],
+      });
+
+    expect(responsePageTwo.results.length).toEqual(1);
+    expect(responsePageTwo.results[0]).toEqual(expect.objectContaining(transfer2));
+    expect(responsePageTwo.offset).toEqual(1);
+    expect(responsePageTwo.total).toEqual(2);
+
+    const responsePageAllPages = await TransferTable.findAllToOrFromSubaccountId(
+      { subaccountId: [defaultSubaccountId], page: 1, limit: 2 },
+      [], {
+        orderBy: [[TransferColumns.id, Ordering.ASC]],
+      });
+
+    expect(responsePageAllPages.results.length).toEqual(2);
+    expect(responsePageAllPages.results[0]).toEqual(expect.objectContaining(defaultTransfer));
+    expect(responsePageAllPages.results[1]).toEqual(expect.objectContaining(transfer2));
+    expect(responsePageAllPages.offset).toEqual(0);
+    expect(responsePageAllPages.total).toEqual(2);
   });
 
   it('Successfully finds Transfer with eventId', async () => {
@@ -234,7 +288,7 @@ describe('Transfer store', () => {
       TransferTable.create(transfer2),
     ]);
 
-    const transfers: TransferFromDatabase[] = await TransferTable.findAllToOrFromSubaccountId(
+    const { results: transfers } = await TransferTable.findAllToOrFromSubaccountId(
       {
         subaccountId: [defaultSubaccountId],
         createdBeforeOrAt: '2000-05-25T00:00:00.000Z',
@@ -513,6 +567,96 @@ describe('Transfer store', () => {
     expect(transferMap3).toEqual({
       [defaultAsset.id]: Big('-5.2'),
       [defaultAsset2.id]: Big('-5.3'),
+    });
+  });
+
+  it('Successfully gets the latest createdAt for subaccounts', async () => {
+    const now = DateTime.utc();
+
+    const transfer2 = {
+      senderSubaccountId: defaultSubaccountId2,
+      recipientSubaccountId: defaultSubaccountId,
+      assetId: defaultAsset2.id,
+      size: '5',
+      eventId: defaultTendermintEventId3,
+      transactionHash: '', // TODO: Add a real transaction Hash
+      createdAt: now.minus({ hours: 2 }).toISO(),
+      createdAtHeight: createdHeight,
+    };
+
+    const transfer3 = {
+      senderSubaccountId: defaultSubaccountId2,
+      recipientSubaccountId: defaultSubaccountId,
+      assetId: defaultAsset2.id,
+      size: '5',
+      eventId: defaultTendermintEventId2,
+      transactionHash: '', // TODO: Add a real transaction Hash
+      createdAt: now.minus({ hours: 1 }).toISO(),
+      createdAtHeight: createdHeight,
+    };
+
+    await Promise.all([
+      TransferTable.create(defaultTransfer),
+      TransferTable.create(transfer2),
+      TransferTable.create(transfer3),
+    ]);
+
+    const transferTimes: { [subaccountId: string]: string } = await
+    TransferTable.getLastTransferTimeForSubaccounts(
+      [defaultSubaccountId, defaultSubaccountId2],
+    );
+
+    expect(transferTimes[defaultSubaccountId]).toEqual(defaultTransfer.createdAt);
+    expect(transferTimes[defaultSubaccountId2]).toEqual(defaultTransfer.createdAt);
+  });
+
+  describe('getNetTransfersBetweenSubaccountIds', () => {
+    it('Successfully gets total net Transfers between two subaccounts', async () => {
+      await Promise.all([
+        TransferTable.create({
+          ...defaultTransfer,
+          size: '20',
+        }),
+        TransferTable.create({
+          ...defaultTransfer,
+          size: '30',
+          eventId: defaultTendermintEventId2,
+        }),
+        TransferTable.create({
+          ...defaultTransfer,
+          senderSubaccountId: defaultSubaccountId2,
+          recipientSubaccountId: defaultSubaccountId,
+          size: '10',
+          eventId: defaultTendermintEventId3,
+        }),
+      ]);
+
+      const netTransfers: string = await TransferTable.getNetTransfersBetweenSubaccountIds(
+        defaultSubaccountId,
+        defaultSubaccountId2,
+        USDC_ASSET_ID,
+      );
+
+      expect(netTransfers).toEqual('40'); // 20 + 30 - 10
+
+      // Test the other way around
+      const negativeNetTransfers: string = await TransferTable.getNetTransfersBetweenSubaccountIds(
+        defaultSubaccountId2,
+        defaultSubaccountId,
+        USDC_ASSET_ID,
+      );
+
+      expect(negativeNetTransfers).toEqual('-40'); // 10 - 20 - 30
+    });
+
+    it('Successfully gets total net Transfers between two subaccounts with no transfers', async () => {
+      const netTransfers: string = await TransferTable.getNetTransfersBetweenSubaccountIds(
+        defaultSubaccountId,
+        defaultSubaccountId2,
+        USDC_ASSET_ID,
+      );
+
+      expect(netTransfers).toEqual('0');
     });
   });
 });

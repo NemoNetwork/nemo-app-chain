@@ -15,15 +15,18 @@ import (
 	ibctransfer "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 	ibcclient "github.com/cosmos/ibc-go/v8/modules/core/02-client/types" //nolint:staticcheck
 	ibcconn "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
+	affiliates "github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 	blocktime "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
 	bridge "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	clob "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	delaymsg "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
 	feetiers "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
 	govplus "github.com/nemo-network/v4-chain/protocol/x/govplus/types"
+	listing "github.com/nemo-network/v4-chain/protocol/x/listing/types"
 	perpetuals "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	prices "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	ratelimit "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	revshare "github.com/nemo-network/v4-chain/protocol/x/revshare/types"
 	rewards "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
 	sending "github.com/nemo-network/v4-chain/protocol/x/sending/types"
 	stats "github.com/nemo-network/v4-chain/protocol/x/stats/types"
@@ -93,6 +96,10 @@ func IsInternalMsg(msg sdk.Msg) bool {
 		// govplus
 		*govplus.MsgSlashValidator,
 
+		// listing
+		*listing.MsgSetMarketsHardCap,
+		*listing.MsgSetListingVaultDepositParams,
+
 		// perpetuals
 		*perpetuals.MsgCreatePerpetual,
 		*perpetuals.MsgSetLiquidityTier,
@@ -107,6 +114,10 @@ func IsInternalMsg(msg sdk.Msg) bool {
 		*ratelimit.MsgSetLimitParams,
 		*ratelimit.MsgSetLimitParamsResponse,
 
+		// revshare
+		*revshare.MsgSetMarketMapperRevenueShare,
+		*revshare.MsgSetMarketMapperRevShareDetailsForMarket,
+
 		// rewards
 		*rewards.MsgUpdateParams,
 
@@ -117,7 +128,8 @@ func IsInternalMsg(msg sdk.Msg) bool {
 		*stats.MsgUpdateParams,
 
 		// vault
-		*vault.MsgUpdateParams,
+		*vault.MsgSetVaultParams,
+		*vault.MsgUpdateDefaultQuotingParams,
 
 		// vest
 		*vest.MsgDeleteVestEntry,
@@ -127,7 +139,10 @@ func IsInternalMsg(msg sdk.Msg) bool {
 		*icahosttypes.MsgUpdateParams,
 		*ibctransfer.MsgUpdateParams,
 		*ibcclient.MsgUpdateParams,
-		*ibcconn.MsgUpdateParams:
+		*ibcconn.MsgUpdateParams,
+
+		// affiliates
+		*affiliates.MsgUpdateAffiliateTiers:
 
 		return true
 

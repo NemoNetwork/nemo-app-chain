@@ -341,13 +341,14 @@ func TestPurgeInvalidMemclobState(t *testing.T) {
 	}
 }
 
-func TestPurgeInvalidMemclobState_PanicsWhenCalledWithDuplicateCanceledStatefulOrderIds(t *testing.T) {
+func TestPurgeInvalidMemclobState_DoesNotPanicWhenCalledWithDuplicateCanceledStatefulOrderIds(t *testing.T) {
 	// Setup memclob state.
 	ctx, _, _ := sdktest.NewSdkContextWithMultistore()
 	ctx = ctx.WithIsCheckTx(true)
 	memclob := NewMemClobPriceTimePriority(true)
 	mockMemClobKeeper := &mocks.MemClobKeeper{}
 	memclob.SetClobKeeper(mockMemClobKeeper)
+	memclob.CreateOrderbook(constants.ClobPair_Btc)
 	mockMemClobKeeper.On("SendOrderbookUpdates", mock.Anything, mock.Anything).Return().Maybe()
 
 	canceledStatefulOrderIds := []types.OrderId{
@@ -355,12 +356,8 @@ func TestPurgeInvalidMemclobState_PanicsWhenCalledWithDuplicateCanceledStatefulO
 		constants.LongTermOrder_Alice_Num0_Id0_Clob0_Buy5_Price10_GTBT15.OrderId,
 	}
 
-	require.PanicsWithValue(
+	require.NotPanics(
 		t,
-		fmt.Sprintf(
-			"PurgeInvalidMemclobState: called with canceledStatefulOrderIds slice %v which contains duplicate order IDs",
-			canceledStatefulOrderIds,
-		),
 		func() {
 			memclob.PurgeInvalidMemclobState(
 				ctx,
@@ -381,6 +378,7 @@ func TestPurgeInvalidMemclobState_PanicsWhenNonStatefulOrderIsCanceled(t *testin
 	memclob := NewMemClobPriceTimePriority(true)
 	mockMemClobKeeper := &mocks.MemClobKeeper{}
 	memclob.SetClobKeeper(mockMemClobKeeper)
+	memclob.CreateOrderbook(constants.ClobPair_Btc)
 	mockMemClobKeeper.On("SendOrderbookUpdates", mock.Anything, mock.Anything).Return().Maybe()
 
 	shortTermOrderId := constants.Order_Alice_Num0_Id0_Clob2_Buy5_Price10_GTB15.OrderId
@@ -404,7 +402,7 @@ func TestPurgeInvalidMemclobState_PanicsWhenNonStatefulOrderIsCanceled(t *testin
 	)
 }
 
-func TestPurgeInvalidMemclobState_PanicsWhenCalledWithDuplicateExpiredStatefulOrders(t *testing.T) {
+func TestPurgeInvalidMemclobState_DoesNotPanicWhenCalledWithDuplicateExpiredStatefulOrders(t *testing.T) {
 	// Setup memclob state.
 	ctx, _, _ := sdktest.NewSdkContextWithMultistore()
 	ctx = ctx.WithIsCheckTx(true)
@@ -412,6 +410,7 @@ func TestPurgeInvalidMemclobState_PanicsWhenCalledWithDuplicateExpiredStatefulOr
 	memclob := NewMemClobPriceTimePriority(true)
 	mockMemClobKeeper := &mocks.MemClobKeeper{}
 	memclob.SetClobKeeper(mockMemClobKeeper)
+	memclob.CreateOrderbook(constants.ClobPair_Btc)
 	mockMemClobKeeper.On("SendOrderbookUpdates", mock.Anything, mock.Anything).Return().Maybe()
 
 	expiredStatefulOrderIds := []types.OrderId{
@@ -419,12 +418,8 @@ func TestPurgeInvalidMemclobState_PanicsWhenCalledWithDuplicateExpiredStatefulOr
 		constants.LongTermOrder_Alice_Num0_Id0_Clob0_Buy5_Price10_GTBT15.OrderId,
 	}
 
-	require.PanicsWithValue(
+	require.NotPanics(
 		t,
-		fmt.Sprintf(
-			"PurgeInvalidMemclobState: called with expiredStatefulOrderIds slice %v which contains duplicate order IDs",
-			expiredStatefulOrderIds,
-		),
 		func() {
 			memclob.PurgeInvalidMemclobState(
 				ctx,

@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
-	testutil "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	testutil "github.com/nemo-network/v4-chain/protocol/testutil/util"
 	"github.com/nemo-network/v4-chain/protocol/x/sending/types"
 	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 
@@ -28,11 +28,11 @@ func TestGetSubaccountUpdates(t *testing.T) {
 			expected: []satypes.Update{
 				{
 					SubaccountId: constants.Carl_Num0,
-					AssetUpdates: testutil.CreateUsdcAssetUpdate(big.NewInt(-500_000_000)),
+					AssetUpdates: testutil.CreateUsdcAssetUpdates(big.NewInt(-500_000_000)),
 				},
 				{
 					SubaccountId: constants.Dave_Num0,
-					AssetUpdates: testutil.CreateUsdcAssetUpdate(big.NewInt(500_000_000)),
+					AssetUpdates: testutil.CreateUsdcAssetUpdates(big.NewInt(500_000_000)),
 				},
 			},
 		},

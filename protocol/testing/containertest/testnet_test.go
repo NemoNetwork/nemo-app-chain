@@ -17,6 +17,7 @@ import (
 	"github.com/cosmos/gogoproto/jsonpb"
 	"github.com/cosmos/gogoproto/proto"
 	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/testing/version"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
 	assets "github.com/nemo-network/v4-chain/protocol/x/assets/types"
@@ -282,10 +283,6 @@ func TestUpgrade(t *testing.T) {
 	defer testnet.MustCleanUp()
 	node := testnet.Nodes["alice"]
 
-	// Wait until block height 50 as upgrade occurs at block height 60.
-	err = node.WaitUntilBlockHeight(50)
-	require.NoError(t, err)
-
-	err = UpgradeTestnet(constants.AliceAccAddress.String(), t, node, UpgradeToVersion)
+	err = UpgradeTestnet(constants.AliceAccAddress.String(), t, node, version.CurrentVersion)
 	require.NoError(t, err)
 }

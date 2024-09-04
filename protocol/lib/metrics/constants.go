@@ -11,6 +11,7 @@ const (
 	Deterministic    = "deterministic"
 	Distribution     = "distribution"
 	Error            = "error"
+	ExecMode         = "exec_mode"
 	GitCommit        = "git_commit"
 	HttpGet5xx       = "http_get_5xx"
 	HttpGetHangup    = "http_get_hangup"
@@ -119,7 +120,6 @@ const (
 	CreateClobPair                                          = "create_clob_pair"
 	Expired                                                 = "expired"
 	FullyFilled                                             = "fully_filled"
-	GetFillQuoteQuantums                                    = "get_fill_quote_quantums"
 	Hydrate                                                 = "hydrate"
 	IsLong                                                  = "is_long"
 	IterateOverPendingMatches                               = "iterate_over_pending_matches"
@@ -303,6 +303,7 @@ const (
 	GetSubaccount                         = "get_subaccount"
 	UpdateSubaccounts                     = "update_subaccounts"
 	SubaccountOwner                       = "subaccount_owner"
+	MarketMapperRevenueDistribution       = "market_mapper_revenue_distribution"
 
 	// Liquidation Daemon.
 	CheckCollateralizationForSubaccounts     = "check_collateralization_for_subaccounts"
@@ -313,6 +314,7 @@ const (
 	GetSubaccountsFromKey                    = "get_subaccounts_from_key"
 	LiquidatableSubaccountIds                = "liquidatable_subaccount_ids"
 	LiquidationDaemon                        = "liquidation_daemon"
+	NumRequests                              = "num_requests"
 	NegativeTncSubaccountIds                 = "negative_tnc_subaccount_ids"
 	PageLimit                                = "page_limit"
 	SendLiquidatableSubaccountIds            = "send_liquidatable_subaccount_ids"
@@ -371,8 +373,6 @@ const (
 	PriceUpdaterZeroPrices                  = "price_updater_zero_prices"
 
 	// Pricefeed Server.
-	GetValidPrices                = "get_valid_prices"
-	ValidPrices                   = "valid_prices"
 	NoMarketPrice                 = "no_market_price"
 	NoValidMedianPrice            = "no_valid_median_price"
 	PricefeedServer               = "pricefeed_server"
@@ -408,6 +408,9 @@ const (
 	ValidatorNumFills              = "validator_num_fills"
 	ValidatorNumMatchedTakerOrders = "validator_num_matched_taker_orders"
 	ValidatorVolumeQuoteQuantums   = "validator_volume_quote_quantums"
+
+	// x/acocuntplus
+	TimestampNonce = "timestamp_nonce"
 
 	// x/ratelimit
 	Capacity           = "capacity"

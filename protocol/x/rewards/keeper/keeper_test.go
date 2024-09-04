@@ -12,6 +12,7 @@ import (
 	"github.com/nemo-network/v4-chain/protocol/dtypes"
 	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 	big_testutil "github.com/nemo-network/v4-chain/protocol/testutil/big"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
 	feetierstypes "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
 	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/nemo-network/v4-chain/protocol/x/rewards/types"
@@ -692,8 +693,10 @@ func TestProcessRewardsForBlock(t *testing.T) {
 			k := tApp.App.RewardsKeeper
 
 			// Set up PricesKeeper
-			_, err := tApp.App.PricesKeeper.CreateMarket(
+			_, err := keepertest.CreateTestMarket(
+				t,
 				ctx,
+				&tApp.App.PricesKeeper,
 				pricestypes.MarketParam{
 					Id:                 testRewardTokenMarketId,
 					Pair:               testRewardTokenMarket,

@@ -13,7 +13,9 @@ import (
 	perpetualsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	rewardsmoduletypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
 	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaultmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	vestmoduletypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
+	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 
 	"golang.org/x/exp/maps"
 )
@@ -49,6 +51,10 @@ var (
 		vestmoduletypes.CommunityTreasuryAccountName: nil,
 		// community vester account vests funds into the community treasury.
 		vestmoduletypes.CommunityVesterAccountName: nil,
+		// Slinky marketmap module permissions.
+		marketmapmoduletypes.ModuleName: nil,
+		// Megavault account holds funds for vaults.
+		vaultmoduletypes.MegavaultAccountName: nil,
 	}
 	// Blocked module accounts which cannot receive external funds.
 	// By default, all non-custom modules (except for gov) are blocked. This prevents

@@ -21,6 +21,7 @@ import {
   QueryableField,
   ToAndFromSubaccountTransferQueryConfig,
   SubaccountAssetNetTransferMap,
+  PaginationFromDatabase,
 } from '../types';
 
 export function uuid(
@@ -40,9 +41,9 @@ export function uuid(
 }
 
 interface SubaccountAssetNetTransfer {
-  subaccountId: string;
-  assetId: string;
-  totalSize: string;
+  subaccountId: string,
+  assetId: string,
+  totalSize: string,
 }
 
 export async function findAll(
@@ -194,10 +195,11 @@ export async function findAllToOrFromSubaccountId(
     createdBeforeOrAt,
     createdAfterHeight,
     createdAfter,
+    page,
   }: ToAndFromSubaccountTransferQueryConfig,
   requiredFields: QueryableField[],
   options: Options = DEFAULT_POSTGRES_OPTIONS,
-): Promise<TransferFromDatabase[]> {
+): Promise<PaginationFromDatabase<TransferFromDatabase>> {
   verifyAllRequiredFields(
     {
       limit,
@@ -291,11 +293,41 @@ export async function findAllToOrFromSubaccountId(
     }
   }
 
-  if (limit !== undefined) {
+  if (limit !== undefined && page === undefined) {
     baseQuery = baseQuery.limit(limit);
   }
 
-  return baseQuery.returning('*');
+  /**
+   * If a query is made using a page number, then the limit property is used as 'page limit'
+   * TODO: Improve pagination by adding a required eventId for orderBy clause
+   */
+  if (page !== undefined && limit !== undefined) {
+    /**
+     * We make sure that the page number is always >= 1
+     */
+    const currentPage: number = Math.max(1, page);
+    const offset: number = (currentPage - 1) * limit;
+
+    /**
+     * Ensure sorting is applied to maintain consistent pagination results.
+     * Also a casting of the ts type is required since the infer of the type
+     * obtained from the count is not performed.
+     */
+    const count: { count?: string } = await baseQuery.clone().clearOrder().count({ count: '*' }).first() as unknown as { count?: string };
+
+    baseQuery = baseQuery.offset(offset).limit(limit);
+
+    return {
+      results: await baseQuery.returning('*'),
+      limit,
+      offset,
+      total: parseInt(count.count ?? '0', 10),
+    };
+  }
+
+  return {
+    results: await baseQuery.returning('*'),
+  };
 }
 
 function convertToSubaccountAssetMap(
@@ -313,7 +345,7 @@ function convertToSubaccountAssetMap(
 }
 
 export interface AssetTransferMap {
-  [assetId: string]: Big;
+  [assetId: string]: Big,
 }
 
 export async function getNetTransfersBetweenBlockHeightsForSubaccount(
@@ -346,8 +378,8 @@ export async function getNetTransfersBetweenBlockHeightsForSubaccount(
 
   const result: {
     rows: {
-      assetId: string;
-      totalSize: string;
+      assetId: string,
+      totalSize: string,
     }[],
   } = await rawQuery(queryString, options);
   return _.mapValues(_.keyBy(result.rows, 'assetId'), (row: { assetId: string, totalSize: string }) => {
@@ -399,6 +431,44 @@ export async function getNetTransfersPerSubaccount(
   return convertToSubaccountAssetMap(assetsPerSubaccount);
 }
 
+export async function getNetTransfersBetweenSubaccountIds(
+  sourceSubaccountId: string,
+  recipientSubaccountId: string,
+  assetId: string,
+  options: Options = DEFAULT_POSTGRES_OPTIONS,
+): Promise<string> {
+  const queryString: string = `
+  SELECT 
+    COALESCE(SUM(sub."size"), '0') AS "totalSize"
+  FROM (
+    SELECT DISTINCT 
+      "size" AS "size",
+      "id"
+    FROM 
+      "transfers"
+    WHERE "transfers"."assetId" = '${assetId}'
+    AND "transfers"."senderSubaccountId" = '${sourceSubaccountId}'
+    AND "transfers"."recipientSubaccountId" = '${recipientSubaccountId}'
+    UNION 
+    SELECT DISTINCT 
+      -"size" AS "size",
+      "id"
+    FROM 
+      "transfers"
+    WHERE "transfers"."assetId" = '${assetId}'
+    AND "transfers"."senderSubaccountId" = '${recipientSubaccountId}'
+    AND "transfers"."recipientSubaccountId" = '${sourceSubaccountId}'
+  ) AS sub
+  `;
+
+  const result: {
+    rows: { totalSize: string }[],
+  } = await rawQuery(queryString, options);
+
+  // Should only ever return a single row
+  return result.rows[0].totalSize;
+}
+
 export async function create(
   transferToCreate: TransferCreateObject,
   options: Options = { txId: undefined },
@@ -429,4 +499,54 @@ export async function findById(
   return baseQuery
     .findById(id)
     .returning('*');
+}
+
+export async function getLastTransferTimeForSubaccounts(
+  subaccountIds: string[],
+  options: Options = DEFAULT_POSTGRES_OPTIONS,
+): Promise<{ [subaccountId: string]: string }> {
+  if (!subaccountIds.length) {
+    return {};
+  }
+
+  let baseQuery: QueryBuilder<TransferModel> = setupBaseQuery<TransferModel>(
+    TransferModel,
+    options,
+  );
+
+  baseQuery = baseQuery
+    .select('senderSubaccountId', 'recipientSubaccountId', 'createdAt')
+    .where((queryBuilder) => {
+      // eslint-disable-next-line no-void
+      void queryBuilder.whereIn('senderSubaccountId', subaccountIds)
+        .orWhereIn('recipientSubaccountId', subaccountIds);
+    })
+    .orderBy('createdAt', 'desc');
+
+  const result: TransferFromDatabase[] = await baseQuery;
+
+  const mapping: { [subaccountId: string]: string } = {};
+
+  result.forEach((row) => {
+    if (
+      row.senderSubaccountId !== undefined &&
+      subaccountIds.includes(row.senderSubaccountId)
+    ) {
+      if (!mapping[row.senderSubaccountId] || row.createdAt > mapping[row.senderSubaccountId]) {
+        mapping[row.senderSubaccountId] = row.createdAt;
+      }
+    }
+    if (
+      row.recipientSubaccountId !== undefined &&
+      subaccountIds.includes(row.recipientSubaccountId)
+    ) {
+      if (
+        !mapping[row.recipientSubaccountId] ||
+        row.createdAt > mapping[row.recipientSubaccountId]) {
+        mapping[row.recipientSubaccountId] = row.createdAt;
+      }
+    }
+  });
+
+  return mapping;
 }

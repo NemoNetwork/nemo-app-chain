@@ -4,6 +4,7 @@ import (
 	"math/big"
 
 	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/margin"
 	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
@@ -18,21 +19,49 @@ func GetSettlementPpmWithPerpetual(
 	bigNetSettlementPpm *big.Int,
 	newFundingIndex *big.Int,
 ) {
-	indexDelta := new(big.Int).Sub(perpetual.FundingIndex.BigInt(), index)
+	fundingIndex := perpetual.FundingIndex.BigInt()
 
-	// if indexDelta is zero, then net settlement is zero.
-	if indexDelta.Sign() == 0 {
-		return big.NewInt(0), perpetual.FundingIndex.BigInt()
+	// If no change in funding, return 0.
+	if fundingIndex.Cmp(index) == 0 {
+		return big.NewInt(0), fundingIndex
 	}
 
-	bigNetSettlementPpm = new(big.Int).Mul(indexDelta, quantums)
+	// The settlement is a signed value.
+	// If the index delta is positive and the quantums is positive (long), then settlement is negative.
+	// Thus, always negate the value of the multiplication of the index delta and the quantums.
+	result := new(big.Int).Sub(fundingIndex, index)
+	result = result.Mul(result, quantums)
+	result = result.Neg(result)
 
-	// `bigNetSettlementPpm` carries sign. `indexDelta` is the increase in `fundingIndex`, so if
-	// the position is long (positive), the net settlement should be short (negative), and vice versa.
-	// Thus, always negate `bigNetSettlementPpm` here.
-	bigNetSettlementPpm = bigNetSettlementPpm.Neg(bigNetSettlementPpm)
+	return result, fundingIndex
+}
 
-	return bigNetSettlementPpm, perpetual.FundingIndex.BigInt()
+// GetPositionNetNotionalValueAndMarginRequirements returns the net collateral, initial margin requirement,
+// and maintenance margin requirement in quote quantums, given the position size in base quantums.
+func GetPositionNetNotionalValueAndMarginRequirements(
+	perpetual types.Perpetual,
+	marketPrice pricestypes.MarketPrice,
+	liquidityTier types.LiquidityTier,
+	quantums *big.Int,
+) (
+	risk margin.Risk,
+) {
+	nc := GetNetNotionalInQuoteQuantums(
+		perpetual,
+		marketPrice,
+		quantums,
+	)
+	imr, mmr := GetMarginRequirementsInQuoteQuantums(
+		perpetual,
+		marketPrice,
+		liquidityTier,
+		quantums,
+	)
+	return margin.Risk{
+		NC:  nc,
+		IMR: imr,
+		MMR: mmr,
+	}
 }
 
 // GetNetCollateralAndMarginRequirements returns the net collateral, initial margin requirement,
@@ -42,23 +71,18 @@ func GetNetCollateralAndMarginRequirements(
 	marketPrice pricestypes.MarketPrice,
 	liquidityTier types.LiquidityTier,
 	quantums *big.Int,
+	quoteBalance *big.Int,
 ) (
-	nc *big.Int,
-	imr *big.Int,
-	mmr *big.Int,
+	risk margin.Risk,
 ) {
-	nc = GetNetNotionalInQuoteQuantums(
-		perpetual,
-		marketPrice,
-		quantums,
-	)
-	imr, mmr = GetMarginRequirementsInQuoteQuantums(
+	risk = GetPositionNetNotionalValueAndMarginRequirements(
 		perpetual,
 		marketPrice,
 		liquidityTier,
 		quantums,
 	)
-	return nc, imr, mmr
+	risk.NC.Add(risk.NC, quoteBalance)
+	return risk
 }
 
 // GetNetNotionalInQuoteQuantums returns the net notional in quote quantums, which can be

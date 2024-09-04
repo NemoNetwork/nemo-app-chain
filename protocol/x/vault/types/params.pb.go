@@ -7,7 +7,7 @@ import (
 	fmt "fmt"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
-	github_com_nemo_network_v4_chain_protocol_dtypes "github.com/nemo-network/v4-chain/protocol/dtypes"
+	github_com_nemo-network_v4_chain_protocol_dtypes "github.com/nemo-network/v4-chain/protocol/dtypes"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -24,7 +24,162 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// Params stores `x/vault` parameters.
+// QuotingParams stores vault quoting parameters.
+type QuotingParams struct {
+	// The number of layers of orders a vault places. For example if
+	// `layers=2`, a vault places 2 asks and 2 bids.
+	Layers uint32 `protobuf:"varint,1,opt,name=layers,proto3" json:"layers,omitempty"`
+	// The minimum base spread when a vault quotes around reservation price.
+	SpreadMinPpm uint32 `protobuf:"varint,2,opt,name=spread_min_ppm,json=spreadMinPpm,proto3" json:"spread_min_ppm,omitempty"`
+	// The buffer amount to add to min_price_change_ppm to arrive at `spread`
+	// according to formula:
+	// `spread = max(spread_min_ppm, min_price_change_ppm + spread_buffer_ppm)`.
+	SpreadBufferPpm uint32 `protobuf:"varint,3,opt,name=spread_buffer_ppm,json=spreadBufferPpm,proto3" json:"spread_buffer_ppm,omitempty"`
+	// The factor that determines how aggressive a vault skews its orders.
+	SkewFactorPpm uint32 `protobuf:"varint,4,opt,name=skew_factor_ppm,json=skewFactorPpm,proto3" json:"skew_factor_ppm,omitempty"`
+	// The percentage of vault equity that each order is sized at.
+	OrderSizePctPpm uint32 `protobuf:"varint,5,opt,name=order_size_pct_ppm,json=orderSizePctPpm,proto3" json:"order_size_pct_ppm,omitempty"`
+	// The duration that a vault's orders are valid for.
+	OrderExpirationSeconds uint32 `protobuf:"varint,6,opt,name=order_expiration_seconds,json=orderExpirationSeconds,proto3" json:"order_expiration_seconds,omitempty"`
+	// The number of quote quantums in quote asset that a vault with no perpetual
+	// positions must have to activate, i.e. if a vault has no perpetual positions
+	// and has strictly less than this amount of quote asset, it will not
+	// activate.
+	ActivationThresholdQuoteQuantums github_com_nemo-network_v4_chain_protocol_dtypes.SerializableInt `protobuf:"bytes,7,opt,name=activation_threshold_quote_quantums,json=activationThresholdQuoteQuantums,proto3,customtype=github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt" json:"activation_threshold_quote_quantums"`
+}
+
+func (m *QuotingParams) Reset()         { *m = QuotingParams{} }
+func (m *QuotingParams) String() string { return proto.CompactTextString(m) }
+func (*QuotingParams) ProtoMessage()    {}
+func (*QuotingParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6043e0b8bfdbca9f, []int{0}
+}
+func (m *QuotingParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QuotingParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QuotingParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QuotingParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuotingParams.Merge(m, src)
+}
+func (m *QuotingParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *QuotingParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuotingParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuotingParams proto.InternalMessageInfo
+
+func (m *QuotingParams) GetLayers() uint32 {
+	if m != nil {
+		return m.Layers
+	}
+	return 0
+}
+
+func (m *QuotingParams) GetSpreadMinPpm() uint32 {
+	if m != nil {
+		return m.SpreadMinPpm
+	}
+	return 0
+}
+
+func (m *QuotingParams) GetSpreadBufferPpm() uint32 {
+	if m != nil {
+		return m.SpreadBufferPpm
+	}
+	return 0
+}
+
+func (m *QuotingParams) GetSkewFactorPpm() uint32 {
+	if m != nil {
+		return m.SkewFactorPpm
+	}
+	return 0
+}
+
+func (m *QuotingParams) GetOrderSizePctPpm() uint32 {
+	if m != nil {
+		return m.OrderSizePctPpm
+	}
+	return 0
+}
+
+func (m *QuotingParams) GetOrderExpirationSeconds() uint32 {
+	if m != nil {
+		return m.OrderExpirationSeconds
+	}
+	return 0
+}
+
+// VaultParams stores vault parameters.
+type VaultParams struct {
+	// Status of the vault.
+	Status VaultStatus `protobuf:"varint,1,opt,name=status,proto3,enum=nemo-network.vault.VaultStatus" json:"status,omitempty"`
+	// Quoting parameters of the vault.
+	QuotingParams *QuotingParams `protobuf:"bytes,2,opt,name=quoting_params,json=quotingParams,proto3" json:"quoting_params,omitempty"`
+}
+
+func (m *VaultParams) Reset()         { *m = VaultParams{} }
+func (m *VaultParams) String() string { return proto.CompactTextString(m) }
+func (*VaultParams) ProtoMessage()    {}
+func (*VaultParams) Descriptor() ([]byte, []int) {
+	return fileDescriptor_6043e0b8bfdbca9f, []int{1}
+}
+func (m *VaultParams) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *VaultParams) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_VaultParams.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *VaultParams) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_VaultParams.Merge(m, src)
+}
+func (m *VaultParams) XXX_Size() int {
+	return m.Size()
+}
+func (m *VaultParams) XXX_DiscardUnknown() {
+	xxx_messageInfo_VaultParams.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_VaultParams proto.InternalMessageInfo
+
+func (m *VaultParams) GetStatus() VaultStatus {
+	if m != nil {
+		return m.Status
+	}
+	return VaultStatus_VAULT_STATUS_UNSPECIFIED
+}
+
+func (m *VaultParams) GetQuotingParams() *QuotingParams {
+	if m != nil {
+		return m.QuotingParams
+	}
+	return nil
+}
+
+// Deprecated: Params stores `x/vault` parameters.
+// Deprecated since v6.x as is replaced by QuotingParams.
 type Params struct {
 	// The number of layers of orders a vault places. For example if
 	// `layers=2`, a vault places 2 asks and 2 bids.
@@ -45,14 +200,14 @@ type Params struct {
 	// positions must have to activate, i.e. if a vault has no perpetual positions
 	// and has strictly less than this amount of quote asset, it will not
 	// activate.
-	ActivationThresholdQuoteQuantums github_com_nemo_network_v4_chain_protocol_dtypes.SerializableInt `protobuf:"bytes,7,opt,name=activation_threshold_quote_quantums,json=activationThresholdQuoteQuantums,proto3,customtype=github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt" json:"activation_threshold_quote_quantums"`
+	ActivationThresholdQuoteQuantums github_com_nemo-network_v4_chain_protocol_dtypes.SerializableInt `protobuf:"bytes,7,opt,name=activation_threshold_quote_quantums,json=activationThresholdQuoteQuantums,proto3,customtype=github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt" json:"activation_threshold_quote_quantums"`
 }
 
 func (m *Params) Reset()         { *m = Params{} }
 func (m *Params) String() string { return proto.CompactTextString(m) }
 func (*Params) ProtoMessage()    {}
 func (*Params) Descriptor() ([]byte, []int) {
-	return fileDescriptor_72bda47a65bc7e19, []int{0}
+	return fileDescriptor_6043e0b8bfdbca9f, []int{2}
 }
 func (m *Params) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -124,38 +279,148 @@ func (m *Params) GetOrderExpirationSeconds() uint32 {
 }
 
 func init() {
-	proto.RegisterType((*Params)(nil), "nemo_network.vault.Params")
+	proto.RegisterType((*QuotingParams)(nil), "nemo-network.vault.QuotingParams")
+	proto.RegisterType((*VaultParams)(nil), "nemo-network.vault.VaultParams")
+	proto.RegisterType((*Params)(nil), "nemo-network.vault.Params")
 }
 
 func init() { proto.RegisterFile("nemo_network/vault/params.proto", fileDescriptor_72bda47a65bc7e19) }
 
-var fileDescriptor_72bda47a65bc7e19 = []byte{
-	// 397 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0x41, 0x8b, 0xd3, 0x40,
-	0x14, 0xc7, 0x13, 0x57, 0x23, 0x0c, 0xbb, 0x2e, 0x06, 0x59, 0x82, 0x87, 0xb4, 0xa8, 0xc8, 0xa2,
-	0x6c, 0x72, 0x50, 0xd0, 0xa3, 0x14, 0x14, 0x3d, 0x08, 0xed, 0xd6, 0x93, 0x97, 0x61, 0x32, 0x79,
-	0x6d, 0x86, 0x4d, 0x66, 0x66, 0x67, 0x26, 0xbb, 0xdb, 0x7e, 0x0a, 0x6f, 0x1e, 0xfc, 0x42, 0x3d,
-	0xf6, 0x28, 0x1e, 0x8a, 0xb4, 0x5f, 0x44, 0xf2, 0x26, 0x56, 0x8f, 0x7b, 0x4b, 0xfe, 0xbf, 0xdf,
-	0xcb, 0x3f, 0xbc, 0x19, 0x32, 0x90, 0xd0, 0x28, 0x2a, 0xc1, 0x5d, 0x2b, 0x73, 0x91, 0x5f, 0xb1,
-	0xb6, 0x76, 0xb9, 0x66, 0x86, 0x35, 0x36, 0xd3, 0x46, 0x39, 0x15, 0xc7, 0xff, 0x0b, 0x19, 0x0a,
-	0x8f, 0x1f, 0xcd, 0xd5, 0x5c, 0x21, 0xce, 0xbb, 0x27, 0x6f, 0x3e, 0xf9, 0x71, 0x40, 0xa2, 0x31,
-	0x8e, 0xc6, 0x27, 0x24, 0xaa, 0xd9, 0x02, 0x8c, 0x4d, 0xc2, 0x61, 0x78, 0x7a, 0x74, 0xde, 0xbf,
-	0xc5, 0xcf, 0xc8, 0x03, 0xab, 0x0d, 0xb0, 0x92, 0x36, 0x42, 0x52, 0xad, 0x9b, 0xe4, 0x0e, 0xf2,
-	0x43, 0x9f, 0x7e, 0x16, 0x72, 0xac, 0x9b, 0xf8, 0x05, 0x79, 0xd8, 0x5b, 0x45, 0x3b, 0x9b, 0x81,
-	0x41, 0xf1, 0x00, 0xc5, 0x63, 0x0f, 0x46, 0x98, 0x77, 0xee, 0x73, 0x72, 0x6c, 0x2f, 0xe0, 0x9a,
-	0xce, 0x18, 0x77, 0xca, 0x9b, 0x77, 0xd1, 0x3c, 0xea, 0xe2, 0x0f, 0x98, 0x76, 0xde, 0x4b, 0x12,
-	0x2b, 0x53, 0x82, 0xa1, 0x56, 0x2c, 0x81, 0x6a, 0xee, 0x50, 0xbd, 0xe7, 0x3f, 0x8a, 0x64, 0x2a,
-	0x96, 0x30, 0xe6, 0xae, 0x93, 0xdf, 0x92, 0xc4, 0xcb, 0x70, 0xa3, 0x85, 0x61, 0x4e, 0x28, 0x49,
-	0x2d, 0x70, 0x25, 0x4b, 0x9b, 0x44, 0x38, 0x72, 0x82, 0xfc, 0xfd, 0x1e, 0x4f, 0x3d, 0x8d, 0xbf,
-	0x87, 0xe4, 0x29, 0xe3, 0x4e, 0x5c, 0xf9, 0x21, 0x57, 0x19, 0xb0, 0x95, 0xaa, 0x4b, 0x7a, 0xd9,
-	0x2a, 0x07, 0xf4, 0xb2, 0x65, 0xd2, 0xb5, 0x8d, 0x4d, 0xee, 0x0f, 0xc3, 0xd3, 0xc3, 0xd1, 0xc7,
-	0xd5, 0x66, 0x10, 0xfc, 0xda, 0x0c, 0xde, 0xcd, 0x85, 0xab, 0xda, 0x22, 0xe3, 0xaa, 0xc9, 0xbb,
-	0x75, 0x9f, 0xed, 0xcf, 0xe3, 0xf5, 0x19, 0xaf, 0x98, 0x90, 0x39, 0x6e, 0x98, 0xab, 0x3a, 0x2f,
-	0xdd, 0x42, 0x83, 0xcd, 0xa6, 0x60, 0x04, 0xab, 0xc5, 0x92, 0x15, 0x35, 0x7c, 0x92, 0xee, 0x7c,
-	0xf8, 0xaf, 0xf4, 0xcb, 0xdf, 0xce, 0x49, 0x57, 0x39, 0xe9, 0x1b, 0x47, 0x93, 0xd5, 0x36, 0x0d,
-	0xd7, 0xdb, 0x34, 0xfc, 0xbd, 0x4d, 0xc3, 0x6f, 0xbb, 0x34, 0x58, 0xef, 0xd2, 0xe0, 0xe7, 0x2e,
-	0x0d, 0xbe, 0xbe, 0xb9, 0x7d, 0xfb, 0x4d, 0x7f, 0x43, 0xf0, 0x27, 0x8a, 0x08, 0xf3, 0x57, 0x7f,
-	0x02, 0x00, 0x00, 0xff, 0xff, 0xda, 0x7c, 0x0f, 0x1c, 0x44, 0x02, 0x00, 0x00,
+var fileDescriptor_6043e0b8bfdbca9f = []byte{
+	// 475 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x94, 0x4f, 0x6b, 0x13, 0x41,
+	0x18, 0xc6, 0xb3, 0x46, 0x57, 0x98, 0x36, 0x29, 0x2e, 0x52, 0x96, 0x1e, 0x36, 0x31, 0x8a, 0x14,
+	0xc5, 0x5d, 0xa8, 0x42, 0x3d, 0x4a, 0x40, 0xa9, 0x07, 0x21, 0x7f, 0xc4, 0x83, 0x97, 0x61, 0xb2,
+	0x3b, 0x49, 0x06, 0x77, 0x77, 0x66, 0x67, 0xde, 0xad, 0x49, 0x3e, 0x45, 0x6f, 0x1e, 0xbc, 0xf9,
+	0x69, 0x7a, 0xec, 0x51, 0x3c, 0x14, 0x49, 0xbe, 0x88, 0xec, 0x3b, 0x6b, 0x6d, 0xb1, 0x07, 0x8f,
+	0x1e, 0x7a, 0x09, 0x33, 0xcf, 0xf3, 0x7b, 0xe7, 0x0d, 0x3c, 0x0f, 0x4b, 0x3a, 0xc9, 0x32, 0x59,
+	0x28, 0x2d, 0x41, 0xc6, 0x32, 0x8d, 0x8e, 0x59, 0x99, 0x42, 0xa4, 0x98, 0x66, 0x99, 0x09, 0x51,
+	0xf5, 0xbc, 0xcb, 0x40, 0x88, 0xc0, 0x5e, 0x70, 0xcd, 0x10, 0xfe, 0xda, 0x99, 0xbd, 0xfb, 0x33,
+	0x39, 0x93, 0x78, 0x8c, 0xaa, 0x93, 0x55, 0x7b, 0xdf, 0x9a, 0xa4, 0x35, 0x2c, 0x25, 0x88, 0x7c,
+	0x36, 0xc0, 0x0d, 0xde, 0x2e, 0x71, 0x53, 0xb6, 0xe4, 0xda, 0xf8, 0x4e, 0xd7, 0xd9, 0x6f, 0x8d,
+	0xea, 0x9b, 0xf7, 0x88, 0xb4, 0x8d, 0xd2, 0x9c, 0x25, 0x34, 0x13, 0x39, 0x55, 0x2a, 0xf3, 0x6f,
+	0xa1, 0xbf, 0x6d, 0xd5, 0x77, 0x22, 0x1f, 0xa8, 0xcc, 0x7b, 0x42, 0xee, 0xd5, 0xd4, 0xa4, 0x9c,
+	0x4e, 0xb9, 0x46, 0xb0, 0x89, 0xe0, 0x8e, 0x35, 0xfa, 0xa8, 0x57, 0xec, 0x63, 0xb2, 0x63, 0x3e,
+	0xf1, 0xcf, 0x74, 0xca, 0x62, 0x90, 0x96, 0xbc, 0x8d, 0x64, 0xab, 0x92, 0xdf, 0xa0, 0x5a, 0x71,
+	0x4f, 0x89, 0x27, 0x75, 0xc2, 0x35, 0x35, 0x62, 0xc5, 0xa9, 0x8a, 0x01, 0xd1, 0x3b, 0xf6, 0x51,
+	0x74, 0xc6, 0x62, 0xc5, 0x07, 0x31, 0x54, 0xf0, 0x4b, 0xe2, 0x5b, 0x98, 0x2f, 0x94, 0xd0, 0x0c,
+	0x84, 0xcc, 0xa9, 0xe1, 0xb1, 0xcc, 0x13, 0xe3, 0xbb, 0x38, 0xb2, 0x8b, 0xfe, 0xeb, 0x0b, 0x7b,
+	0x6c, 0x5d, 0xef, 0x8b, 0x43, 0x1e, 0xb2, 0x18, 0xc4, 0xb1, 0x1d, 0x82, 0xb9, 0xe6, 0x66, 0x2e,
+	0xd3, 0x84, 0x16, 0xa5, 0x04, 0x4e, 0x8b, 0x92, 0xe5, 0x50, 0x66, 0xc6, 0xbf, 0xdb, 0x75, 0xf6,
+	0xb7, 0xfb, 0x47, 0xa7, 0xe7, 0x9d, 0xc6, 0x8f, 0xf3, 0xce, 0xab, 0x99, 0x80, 0x79, 0x39, 0x09,
+	0x63, 0x99, 0x45, 0x57, 0x13, 0x78, 0xf1, 0x2c, 0x9e, 0x33, 0x91, 0x47, 0x17, 0x4a, 0x02, 0x4b,
+	0xc5, 0x4d, 0x38, 0xe6, 0x5a, 0xb0, 0x54, 0xac, 0xd8, 0x24, 0xe5, 0x6f, 0x73, 0x18, 0x75, 0xff,
+	0x2c, 0x7d, 0xff, 0x7b, 0x67, 0x15, 0x09, 0x1f, 0xd6, 0x1b, 0x7b, 0x27, 0x0e, 0xd9, 0xfa, 0x50,
+	0x45, 0x59, 0x47, 0x74, 0x48, 0x5c, 0x03, 0x0c, 0x4a, 0x1b, 0x51, 0xfb, 0xa0, 0x13, 0xfe, 0xdd,
+	0x87, 0x10, 0x07, 0xc6, 0x88, 0x8d, 0x6a, 0xdc, 0x3b, 0x22, 0xed, 0xc2, 0x86, 0x4d, 0x6d, 0x9f,
+	0x30, 0xc3, 0xad, 0x83, 0x07, 0xd7, 0x3d, 0x70, 0xa5, 0x16, 0xa3, 0x56, 0x71, 0xf9, 0xda, 0xfb,
+	0xda, 0x24, 0xee, 0x4d, 0x61, 0xfe, 0xd3, 0xc2, 0xf4, 0x87, 0xa7, 0xeb, 0xc0, 0x39, 0x5b, 0x07,
+	0xce, 0xcf, 0x75, 0xe0, 0x9c, 0x6c, 0x82, 0xc6, 0xd9, 0x26, 0x68, 0x7c, 0xdf, 0x04, 0x8d, 0x8f,
+	0x87, 0xff, 0xbe, 0x7d, 0x51, 0x7f, 0x44, 0xf0, 0x4f, 0x4c, 0x5c, 0xd4, 0x9f, 0xff, 0x0a, 0x00,
+	0x00, 0xff, 0xff, 0x9a, 0x4f, 0xa0, 0xd4, 0x9c, 0x04, 0x00, 0x00,
+}
+
+func (m *QuotingParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QuotingParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QuotingParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size := m.ActivationThresholdQuoteQuantums.Size()
+		i -= size
+		if _, err := m.ActivationThresholdQuoteQuantums.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintParams(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x3a
+	if m.OrderExpirationSeconds != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.OrderExpirationSeconds))
+		i--
+		dAtA[i] = 0x30
+	}
+	if m.OrderSizePctPpm != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.OrderSizePctPpm))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.SkewFactorPpm != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.SkewFactorPpm))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.SpreadBufferPpm != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.SpreadBufferPpm))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.SpreadMinPpm != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.SpreadMinPpm))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.Layers != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.Layers))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *VaultParams) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *VaultParams) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *VaultParams) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.QuotingParams != nil {
+		{
+			size, err := m.QuotingParams.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintParams(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.Status != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.Status))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *Params) Marshal() (dAtA []byte, err error) {
@@ -232,6 +497,51 @@ func encodeVarintParams(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *QuotingParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Layers != 0 {
+		n += 1 + sovParams(uint64(m.Layers))
+	}
+	if m.SpreadMinPpm != 0 {
+		n += 1 + sovParams(uint64(m.SpreadMinPpm))
+	}
+	if m.SpreadBufferPpm != 0 {
+		n += 1 + sovParams(uint64(m.SpreadBufferPpm))
+	}
+	if m.SkewFactorPpm != 0 {
+		n += 1 + sovParams(uint64(m.SkewFactorPpm))
+	}
+	if m.OrderSizePctPpm != 0 {
+		n += 1 + sovParams(uint64(m.OrderSizePctPpm))
+	}
+	if m.OrderExpirationSeconds != 0 {
+		n += 1 + sovParams(uint64(m.OrderExpirationSeconds))
+	}
+	l = m.ActivationThresholdQuoteQuantums.Size()
+	n += 1 + l + sovParams(uint64(l))
+	return n
+}
+
+func (m *VaultParams) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Status != 0 {
+		n += 1 + sovParams(uint64(m.Status))
+	}
+	if m.QuotingParams != nil {
+		l = m.QuotingParams.Size()
+		n += 1 + l + sovParams(uint64(l))
+	}
+	return n
+}
+
 func (m *Params) Size() (n int) {
 	if m == nil {
 		return 0
@@ -266,6 +576,308 @@ func sovParams(x uint64) (n int) {
 }
 func sozParams(x uint64) (n int) {
 	return sovParams(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *QuotingParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowParams
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QuotingParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QuotingParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Layers", wireType)
+			}
+			m.Layers = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Layers |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SpreadMinPpm", wireType)
+			}
+			m.SpreadMinPpm = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SpreadMinPpm |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SpreadBufferPpm", wireType)
+			}
+			m.SpreadBufferPpm = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SpreadBufferPpm |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SkewFactorPpm", wireType)
+			}
+			m.SkewFactorPpm = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SkewFactorPpm |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderSizePctPpm", wireType)
+			}
+			m.OrderSizePctPpm = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.OrderSizePctPpm |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OrderExpirationSeconds", wireType)
+			}
+			m.OrderExpirationSeconds = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.OrderExpirationSeconds |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ActivationThresholdQuoteQuantums", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.ActivationThresholdQuoteQuantums.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipParams(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthParams
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *VaultParams) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowParams
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: VaultParams: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: VaultParams: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			m.Status = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Status |= VaultStatus(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field QuotingParams", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.QuotingParams == nil {
+				m.QuotingParams = &QuotingParams{}
+			}
+			if err := m.QuotingParams.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipParams(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthParams
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *Params) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

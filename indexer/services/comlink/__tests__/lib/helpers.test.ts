@@ -28,7 +28,10 @@ import {
   LiquidityTiersFromDatabase,
   LiquidityTiersTable,
   liquidityTierRefresher,
-} from '@nemo-network-indexer/postgres';
+  PnlTicksFromDatabase,
+  PnlTicksTable,
+  AssetFromDatabase,
+} from '@nemo_network-indexer/postgres';
 import {
   adjustUSDCAssetPosition,
   calculateEquityAndFreeCollateral,
@@ -39,7 +42,10 @@ import {
   getSignedNotionalAndRisk,
   getTotalUnsettledFunding,
   getPerpetualPositionsWithUpdatedFunding,
-  initializePerpetualPositionsWithFunding, getChildSubaccountNums, getParentSubaccountNum,
+  initializePerpetualPositionsWithFunding,
+  getChildSubaccountNums,
+  aggregatePnlTicks,
+  getSubaccountResponse,
 } from '../../src/lib/helpers';
 import _ from 'lodash';
 import Big from 'big.js';
@@ -51,8 +57,13 @@ import {
   defaultTendermintEventId,
   defaultTendermintEventId2,
   defaultTendermintEventId3,
+<<<<<<< HEAD
 } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
 import { AssetPositionsMap, PerpetualPositionWithFunding } from '../../src/types';
+=======
+} from '@nemo_network-indexer/postgres/build/__tests__/helpers/constants';
+import { AssetPositionsMap, PerpetualPositionWithFunding, SubaccountResponseObject } from '../../src/types';
+>>>>>>> main
 import { ZERO, ZERO_USDC_POSITION } from '../../src/lib/constants';
 
 describe('helpers', () => {
@@ -203,7 +214,7 @@ describe('helpers', () => {
     });
 
     const filteredPerpetualPositions: PerpetualPositionFromDatabase[
-    ] = await filterPositionsByLatestEventIdPerPerpetual(
+    ] = filterPositionsByLatestEventIdPerPerpetual(
       initializePerpetualPositionsWithFunding([
         perpetualPosition,
         perpetualPosition2,
@@ -400,7 +411,7 @@ describe('helpers', () => {
         adjustedUSDCAssetPositionSize,
       }: {
         assetPositionsMap: AssetPositionsMap,
-        adjustedUSDCAssetPositionSize: string
+        adjustedUSDCAssetPositionSize: string,
       } = adjustUSDCAssetPosition(assetPositions, unsettledFunding);
 
       // Original asset positions object should be unchanged
@@ -468,7 +479,7 @@ describe('helpers', () => {
         adjustedUSDCAssetPositionSize,
       }: {
         assetPositionsMap: AssetPositionsMap,
-        adjustedUSDCAssetPositionSize: string
+        adjustedUSDCAssetPositionSize: string,
       } = adjustUSDCAssetPosition(assetPositions, Big(unsettledFunding));
 
       // Original asset positions object should be unchanged
@@ -526,7 +537,7 @@ describe('helpers', () => {
         adjustedUSDCAssetPositionSize,
       }: {
         assetPositionsMap: AssetPositionsMap,
-        adjustedUSDCAssetPositionSize: string
+        adjustedUSDCAssetPositionSize: string,
       } = adjustUSDCAssetPosition(assetPositions, Big(funding));
 
       // Original asset positions object should be unchanged
@@ -585,7 +596,7 @@ describe('helpers', () => {
         adjustedUSDCAssetPositionSize,
       }: {
         assetPositionsMap: AssetPositionsMap,
-        adjustedUSDCAssetPositionSize: string
+        adjustedUSDCAssetPositionSize: string,
       } = adjustUSDCAssetPosition(assetPositions, Big(unsettledFunding));
 
       // Original asset positions object should be unchanged
@@ -721,17 +732,176 @@ describe('helpers', () => {
     });
   });
 
-  describe('getParentSubaccountNum', () => {
-    it('Gets the parent subaccount number from a child subaccount number', () => {
-      expect(getParentSubaccountNum(0)).toEqual(0);
-      expect(getParentSubaccountNum(128)).toEqual(0);
-      expect(getParentSubaccountNum(128 * 999 - 1)).toEqual(127);
+  describe('getSubaccountResponse', () => {
+    it('gets subaccount response with adjusted perpetual positions', () => {
+      // Helper function does not care about ids.
+      const id: string = 'mock-id';
+      const perpetualPositions: PerpetualPositionFromDatabase[] = [{
+        ...testConstants.defaultPerpetualPosition,
+        id,
+        entryPrice: '20000',
+        sumOpen: '10',
+        sumClose: '0',
+      }];
+      const assetPositions: AssetPositionFromDatabase[] = [{
+        ...testConstants.defaultAssetPosition,
+        id,
+      }];
+      const lastUpdatedFundingIndexMap: FundingIndexMap = {
+        0: Big('10000'),
+        1: Big('0'),
+        2: Big('0'),
+        3: Big('0'),
+        4: Big('0'),
+      };
+      const latestUpdatedFundingIndexMap: FundingIndexMap = {
+        0: Big('10050'),
+        1: Big('0'),
+        2: Big('0'),
+        3: Big('0'),
+        4: Big('0'),
+      };
+      const assets: AssetFromDatabase[] = [{
+        ...testConstants.defaultAsset,
+        id: '0',
+      }];
+      const markets: MarketFromDatabase[] = [
+        testConstants.defaultMarket,
+      ];
+      const subaccount: SubaccountFromDatabase = {
+        ...testConstants.defaultSubaccount,
+        id,
+      };
+      const perpetualMarketsMap: PerpetualMarketsMap = {
+        0: {
+          ...testConstants.defaultPerpetualMarket,
+        },
+      };
+
+      const response: SubaccountResponseObject = getSubaccountResponse(
+        subaccount,
+        perpetualPositions,
+        assetPositions,
+        assets,
+        markets,
+        perpetualMarketsMap,
+        '3',
+        latestUpdatedFundingIndexMap,
+        lastUpdatedFundingIndexMap,
+      );
+
+      expect(response).toEqual({
+        address: testConstants.defaultAddress,
+        subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+        equity: getFixedRepresentation(159500),
+        freeCollateral: getFixedRepresentation(152000),
+        marginEnabled: true,
+        updatedAtHeight: testConstants.defaultSubaccount.updatedAtHeight,
+        latestProcessedBlockHeight: '3',
+        openPerpetualPositions: {
+          [testConstants.defaultPerpetualMarket.ticker]: {
+            market: testConstants.defaultPerpetualMarket.ticker,
+            size: testConstants.defaultPerpetualPosition.size,
+            side: testConstants.defaultPerpetualPosition.side,
+            entryPrice: getFixedRepresentation(
+              testConstants.defaultPerpetualPosition.entryPrice!,
+            ),
+            maxSize: testConstants.defaultPerpetualPosition.maxSize,
+            // 200000 + 10*(10000-10050)=199500
+            netFunding: getFixedRepresentation('199500'),
+            // sumClose=0, so realized Pnl is the same as the net funding of the position.
+            // Unsettled funding is funding payments that already "happened" but not reflected
+            // in the subaccount's balance yet, so it's considered a part of realizedPnl.
+            realizedPnl: getFixedRepresentation('199500'),
+            // size * (index-entry) = 10*(15000-20000) = -50000
+            unrealizedPnl: getFixedRepresentation(-50000),
+            status: testConstants.defaultPerpetualPosition.status,
+            sumOpen: testConstants.defaultPerpetualPosition.sumOpen,
+            sumClose: testConstants.defaultPerpetualPosition.sumClose,
+            createdAt: testConstants.defaultPerpetualPosition.createdAt,
+            createdAtHeight: testConstants.defaultPerpetualPosition.createdAtHeight,
+            exitPrice: undefined,
+            closedAt: undefined,
+            subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+          },
+        },
+        assetPositions: {
+          [testConstants.defaultAsset.symbol]: {
+            symbol: testConstants.defaultAsset.symbol,
+            size: '9500',
+            side: PositionSide.LONG,
+            assetId: testConstants.defaultAssetPosition.assetId,
+            subaccountNumber: testConstants.defaultSubaccount.subaccountNumber,
+          },
+        },
+      });
     });
   });
 
-  describe('getParentSubaccountNum', () => {
-    it('Throws an error if the child subaccount number is greater than the max child subaccount number', () => {
-      expect(() => getParentSubaccountNum(128001)).toThrowError('Child subaccount number must be less than 128000');
+  describe('aggregatePnlTicks', () => {
+    it('aggregates single pnl tick', () => {
+      const pnlTick: PnlTicksFromDatabase = {
+        ...testConstants.defaultPnlTick,
+        id: PnlTicksTable.uuid(
+          testConstants.defaultPnlTick.subaccountId,
+          testConstants.defaultPnlTick.createdAt,
+        ),
+      };
+
+      const aggregatedPnlTicks: Map<number, PnlTicksFromDatabase> = aggregatePnlTicks([pnlTick]);
+      expect(
+        aggregatedPnlTicks.get(parseInt(pnlTick.blockHeight, 10)),
+      ).toEqual(expect.objectContaining({ ...testConstants.defaultPnlTick }));
+    });
+
+    it('aggregates multiple pnl ticks same height', () => {
+      const pnlTick: PnlTicksFromDatabase = {
+        ...testConstants.defaultPnlTick,
+        id: PnlTicksTable.uuid(
+          testConstants.defaultPnlTick.subaccountId,
+          testConstants.defaultPnlTick.createdAt,
+        ),
+      };
+      const pnlTick2: PnlTicksFromDatabase = {
+        ...testConstants.defaultPnlTick,
+        id: PnlTicksTable.uuid(
+          testConstants.defaultSubaccountId2,
+          testConstants.defaultPnlTick.createdAt,
+        ),
+      };
+      const blockHeight2: string = '80';
+      const pnlTick3: PnlTicksFromDatabase = {
+        ...testConstants.defaultPnlTick,
+        id: PnlTicksTable.uuid(
+          testConstants.defaultPnlTick.subaccountId,
+          testConstants.defaultPnlTick.createdAt,
+        ),
+        blockHeight: blockHeight2,
+      };
+
+      const aggregatedPnlTicks: Map<number, PnlTicksFromDatabase> = aggregatePnlTicks(
+        [pnlTick, pnlTick2, pnlTick3],
+      );
+      // Combined pnl tick at initial block height.
+      expect(
+        aggregatedPnlTicks.get(parseInt(pnlTick.blockHeight, 10)),
+      ).toEqual(expect.objectContaining({
+        equity: (parseFloat(testConstants.defaultPnlTick.equity) +
+            parseFloat(pnlTick2.equity)).toString(),
+        totalPnl: (parseFloat(testConstants.defaultPnlTick.totalPnl) +
+            parseFloat(pnlTick2.totalPnl)).toString(),
+        netTransfers: (parseFloat(testConstants.defaultPnlTick.netTransfers) +
+            parseFloat(pnlTick2.netTransfers)).toString(),
+        createdAt: testConstants.defaultPnlTick.createdAt,
+        blockHeight: testConstants.defaultPnlTick.blockHeight,
+        blockTime: testConstants.defaultPnlTick.blockTime,
+      }));
+      // Single pnl tick at second block height.
+      expect(
+        aggregatedPnlTicks.get(parseInt(blockHeight2, 10)),
+      ).toEqual(expect.objectContaining({
+        ...pnlTick3,
+      }));
     });
   });
 });

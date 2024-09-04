@@ -16,15 +16,18 @@ import (
 	ibcclient "github.com/cosmos/ibc-go/v8/modules/core/02-client/types" //nolint:staticcheck
 	ibcconn "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
 	"github.com/nemo-network/v4-chain/protocol/lib"
+	affiliates "github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 	blocktime "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
 	bridge "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	clob "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	delaymsg "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
 	feetiers "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
 	govplus "github.com/nemo-network/v4-chain/protocol/x/govplus/types"
+	listing "github.com/nemo-network/v4-chain/protocol/x/listing/types"
 	perpetuals "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	prices "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	ratelimit "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	revshare "github.com/nemo-network/v4-chain/protocol/x/revshare/types"
 	rewards "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
 	sending "github.com/nemo-network/v4-chain/protocol/x/sending/types"
 	stats "github.com/nemo-network/v4-chain/protocol/x/stats/types"
@@ -103,6 +106,11 @@ var (
 
 	// Custom modules
 	InternalMsgSamplesDydxCustom = map[string]sdk.Msg{
+
+		// affiliates
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiers":         &affiliates.MsgUpdateAffiliateTiers{},
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse": nil,
+
 		// blocktime
 		"/nemo_network.blocktime.MsgUpdateDowntimeParams":         &blocktime.MsgUpdateDowntimeParams{},
 		"/nemo_network.blocktime.MsgUpdateDowntimeParamsResponse": nil,
@@ -141,6 +149,12 @@ var (
 		"/nemo_network.govplus.MsgSlashValidator":         &govplus.MsgSlashValidator{},
 		"/nemo_network.govplus.MsgSlashValidatorResponse": nil,
 
+		// listing
+		"/nemo-network.listing.MsgSetMarketsHardCap":                    &listing.MsgSetMarketsHardCap{},
+		"/nemo-network.listing.MsgSetMarketsHardCapResponse":            nil,
+		"/nemo-network.listing.MsgSetListingVaultDepositParams":         &listing.MsgSetListingVaultDepositParams{},
+		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse": nil,
+
 		// perpetuals
 		"/nemo_network.perpetuals.MsgCreatePerpetual":               &perpetuals.MsgCreatePerpetual{},
 		"/nemo_network.perpetuals.MsgCreatePerpetualResponse":       nil,
@@ -161,6 +175,12 @@ var (
 		"/nemo_network.ratelimit.MsgSetLimitParams":         &ratelimit.MsgSetLimitParams{},
 		"/nemo_network.ratelimit.MsgSetLimitParamsResponse": nil,
 
+		// revshare
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         &revshare.MsgSetMarketMapperRevShareDetailsForMarket{}, //nolint:lll
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": nil,
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare":                     &revshare.MsgSetMarketMapperRevenueShare{}, //nolint:lll
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse":             nil,
+
 		// rewards
 		"/nemo_network.rewards.MsgUpdateParams":         &rewards.MsgUpdateParams{},
 		"/nemo_network.rewards.MsgUpdateParamsResponse": nil,
@@ -174,8 +194,10 @@ var (
 		"/nemo_network.stats.MsgUpdateParamsResponse": nil,
 
 		// vault
-		"/nemo_network.vault.MsgUpdateParams":         &vault.MsgUpdateParams{},
-		"/nemo_network.vault.MsgUpdateParamsResponse": nil,
+		"/nemo-network.vault.MsgSetVaultParams":                     &vault.MsgSetVaultParams{},
+		"/nemo-network.vault.MsgSetVaultParamsResponse":             nil,
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParams":         &vault.MsgUpdateDefaultQuotingParams{},
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse": nil,
 
 		// vest
 		"/nemo_network.vest.MsgSetVestEntry":            &vest.MsgSetVestEntry{},

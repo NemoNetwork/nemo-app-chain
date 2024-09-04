@@ -1,9 +1,19 @@
 import {
   AxiosSafeServerError,
+  getInstanceId,
   logger,
   stats,
 } from '@nemo-network-indexer/base';
-import { CandleResolution, perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import {
+  APIOrderStatus,
+  BestEffortOpenedStatus,
+  blockHeightRefresher,
+  CHILD_SUBACCOUNT_MULTIPLIER,
+  CandleResolution,
+  MAX_PARENT_SUBACCOUNTS,
+  OrderStatus,
+  perpetualMarketRefresher,
+} from '@nemo-network-indexer/postgres';
 import WebSocket from 'ws';
 
 import config from '../config';
@@ -17,12 +27,19 @@ import {
   SubscriptionInfo,
 } from '../types';
 import { axiosRequest } from './axios';
-import { V4_MARKETS_ID, WS_CLOSE_CODE_POLICY_VIOLATION } from './constants';
+import { V4_BLOCK_HEIGHT_ID, V4_MARKETS_ID, WS_CLOSE_CODE_POLICY_VIOLATION } from './constants';
 import { BlockedError, InvalidChannelError } from './errors';
 import { RateLimiter } from './rate-limit';
 
 const COMLINK_URL: string = `http://${config.COMLINK_URL}`;
 const EMPTY_INITIAL_RESPONSE: string = '{}';
+const VALID_ORDER_STATUS_FOR_INITIAL_SUBACCOUNT_RESPONSE: APIOrderStatus[] = [
+  OrderStatus.OPEN,
+  OrderStatus.UNTRIGGERED,
+  BestEffortOpenedStatus.BEST_EFFORT_OPENED,
+  OrderStatus.BEST_EFFORT_CANCELED,
+];
+const VALID_ORDER_STATUS: string = VALID_ORDER_STATUS_FOR_INITIAL_SUBACCOUNT_RESPONSE.join(',');
 
 export class Subscriptions {
   // Maps channels and ids to a list of websocket connections subscribed to them
@@ -96,7 +113,7 @@ export class Subscriptions {
       return;
     }
 
-    const subscriptionId: string = this.normalizeSubscriptionId(id);
+    const subscriptionId: string = this.normalizeSubscriptionId(channel, id);
     const duration: number = this.subscribeRateLimiter.rateLimit({
       connectionId,
       key: channel + subscriptionId,
@@ -163,6 +180,7 @@ export class Subscriptions {
         1,
         undefined,
         {
+          instance: getInstanceId(),
           channel,
         },
       );
@@ -173,6 +191,7 @@ export class Subscriptions {
         Date.now() - startGetInitialResponse,
         undefined,
         {
+          instance: getInstanceId(),
           channel,
         },
       );
@@ -264,12 +283,16 @@ export class Subscriptions {
       `${config.SERVICE_NAME}.subscriptions.channel_size`,
       this.subscribedIdsPerChannel[channel].size,
       {
+        instance: getInstanceId(),
         channel,
       },
     );
     stats.timing(
       `${config.SERVICE_NAME}.subscribe_send_message`,
       Date.now() - startSend,
+      {
+        instance: getInstanceId(),
+      },
     );
   }
 
@@ -287,7 +310,7 @@ export class Subscriptions {
     channel: Channel,
     id?: string,
   ): void {
-    const subscriptionId: string = this.normalizeSubscriptionId(id);
+    const subscriptionId: string = this.normalizeSubscriptionId(channel, id);
     if (this.subscriptionLists[connectionId]) {
       this.subscriptionLists[connectionId] = this.subscriptionLists[connectionId].filter(
         (e: Subscription) => (e.channel !== channel || e.id !== subscriptionId),
@@ -325,6 +348,7 @@ export class Subscriptions {
         `${config.SERVICE_NAME}.subscriptions.channel_size`,
         this.subscribedIdsPerChannel[channel].size,
         {
+          instance: getInstanceId(),
           channel,
         },
       );
@@ -372,24 +396,19 @@ export class Subscriptions {
    * @returns
    */
   private validateSubscription(channel: Channel, id?: string): boolean {
-    // Only markets channel does not require an id to subscribe to.
-    if (channel !== Channel.V4_MARKETS && id === undefined) {
+    // Only markets & block height channels do not require an id to subscribe to.
+    if ((channel !== Channel.V4_MARKETS && channel !== Channel.V4_BLOCK_HEIGHT) &&
+      id === undefined) {
       return false;
     }
     switch (channel) {
       case (Channel.V4_ACCOUNTS): {
-        if (id === undefined) {
-          return false;
-        }
-        const parts: string[] = id.split('/');
-
-        // Id for subaccounts channel should be of the format {address}/{subaccountNumber}
-        if (parts.length !== 2) {
-          return false;
-        }
-
-        return true;
+        return this.validateSubaccountChannelId(
+          id,
+          MAX_PARENT_SUBACCOUNTS * CHILD_SUBACCOUNT_MULTIPLIER,
+        );
       }
+      case (Channel.V4_BLOCK_HEIGHT):
       case (Channel.V4_MARKETS): {
         return true;
       }
@@ -417,6 +436,9 @@ export class Subscriptions {
 
         return resolution !== undefined;
       }
+      case (Channel.V4_PARENT_ACCOUNTS): {
+        return this.validateSubaccountChannelId(id, MAX_PARENT_SUBACCOUNTS);
+      }
       default: {
         throw new InvalidChannelError(channel);
       }
@@ -425,13 +447,38 @@ export class Subscriptions {
 
   /**
    * Normalizes subscription ids. If the id is undefined, returns the default id for the markets
-   * channel, which is the only channel that does not have specific ids to subscribe to.
+   * channel or block height channel which are the only channels that don't
+   * have specific ids to subscribe to.
    * NOTE: Validation of the id and channel will happen in other functions.
    * @param id Subscription id to normalize.
    * @returns Normalized subscription id.
    */
-  private normalizeSubscriptionId(id?: string): string {
+  private normalizeSubscriptionId(channel: Channel, id?: string): string {
+    if (channel === Channel.V4_BLOCK_HEIGHT) {
+      return id ?? V4_BLOCK_HEIGHT_ID;
+    }
     return id ?? V4_MARKETS_ID;
+  }
+
+  private validateSubaccountChannelId(id?: string, maxSubaccountNumber?: number): boolean {
+    if (id === undefined) {
+      return false;
+    }
+    // Id for subaccounts channel should be of the format {address}/{subaccountNumber}
+    const parts: string[] = id.split('/');
+    if (parts.length !== 2) {
+      return false;
+    }
+
+    if (Number.isNaN(Number(parts[1]))) {
+      return false;
+    }
+
+    if (maxSubaccountNumber !== undefined && Number(Number(parts[1]) >= maxSubaccountNumber)) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -452,6 +499,9 @@ export class Subscriptions {
       }
       case (Channel.V4_MARKETS): {
         return `${COMLINK_URL}/perpetualMarkets`;
+      }
+      case (Channel.V4_BLOCK_HEIGHT): {
+        return `${COMLINK_URL}/v4/height`;
       }
       case (Channel.V4_ORDERBOOK): {
         if (id === undefined) {
@@ -502,7 +552,9 @@ export class Subscriptions {
       const [
         subaccountsResponse,
         ordersResponse,
+        blockHeight,
       ]: [
+        string,
         string,
         string,
       ] = await Promise.all([
@@ -518,18 +570,93 @@ export class Subscriptions {
         // TODO(DEC-1462): Use the /active-orders endpoint once it's added.
         axiosRequest({
           method: RequestMethod.GET,
+<<<<<<< HEAD
           url: `${COMLINK_URL}/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=OPEN,UNTRIGGERED,BEST_EFFORT_OPENED`,
+=======
+          url: `${COMLINK_URL}/v4/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
+>>>>>>> main
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,
           },
           transformResponse: (res) => res,
         }),
+        blockHeightRefresher.getLatestBlockHeight(),
       ]);
 
       return JSON.stringify({
         ...JSON.parse(subaccountsResponse),
         orders: JSON.parse(ordersResponse),
+        blockHeight,
+      });
+    } catch (error) {
+      // The subaccounts API endpoint returns a 404 for subaccounts that are not indexed, however
+      // such subaccounts can be subscribed to and events can be sent when the subaccounts are
+      // indexed to an existing subscription.
+      if (error instanceof AxiosSafeServerError && (error as AxiosSafeServerError).status === 404) {
+        return EMPTY_INITIAL_RESPONSE;
+      }
+      // 403 indicates a blocked address. Throw a specific error for blocked addresses with a
+      // specific error message detailing why the subscription failed due to a blocked address.
+      if (error instanceof AxiosSafeServerError && (error as AxiosSafeServerError).status === 403) {
+        throw new BlockedError();
+      }
+      throw error;
+    }
+  }
+
+  private async getInitialResponseForParentSubaccountSubscription(
+    id?: string,
+    country?: string,
+  ): Promise<string> {
+    if (id === undefined) {
+      throw new Error('Invalid undefined id');
+    }
+
+    try {
+      const {
+        address,
+        subaccountNumber,
+      } : {
+        address: string,
+        subaccountNumber: string,
+      } = this.parseSubaccountChannelId(id);
+
+      const [
+        subaccountsResponse,
+        ordersResponse,
+        blockHeight,
+      ]: [
+        string,
+        string,
+        string,
+      ] = await Promise.all([
+        axiosRequest({
+          method: RequestMethod.GET,
+          url: `${COMLINK_URL}/v4/addresses/${address}/parentSubaccountNumber/${subaccountNumber}`,
+          timeout: config.INITIAL_GET_TIMEOUT_MS,
+          headers: {
+            'cf-ipcountry': country,
+          },
+          transformResponse: (res) => res,
+        }),
+        // TODO(DEC-1462): Use the /active-orders endpoint once it's added.
+        axiosRequest({
+          method: RequestMethod.GET,
+          url: `${COMLINK_URL}/v4/orders/parentSubaccountNumber?address=${address}&parentSubaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
+          timeout: config.INITIAL_GET_TIMEOUT_MS,
+          headers: {
+            'cf-ipcountry': country,
+          },
+          transformResponse: (res) => res,
+        }),
+        blockHeightRefresher.getLatestBlockHeight(),
+      ]);
+
+      return JSON.stringify({
+        ...JSON.parse(subaccountsResponse),
+        orders: JSON.parse(ordersResponse),
+        blockHeight,
       });
     } catch (error) {
       // The subaccounts API endpoint returns a 404 for subaccounts that are not indexed, however
@@ -584,6 +711,9 @@ export class Subscriptions {
   ): Promise<string> {
     if (channel === Channel.V4_ACCOUNTS) {
       return this.getInitialResponseForSubaccountSubscription(id, country);
+    }
+    if (channel === Channel.V4_PARENT_ACCOUNTS) {
+      return this.getInitialResponseForParentSubaccountSubscription(id, country);
     }
     const endpoint: string | undefined = this.getInitialEndpointForSubscription(channel, id);
     // If no endpoint exists, return an empty initial response.

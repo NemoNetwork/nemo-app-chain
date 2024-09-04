@@ -1,30 +1,60 @@
 syntax = "proto3";
-package nemo_network.vault;
+package nemo-network.vault;
 
 import "gogoproto/gogo.proto";
-import "nemo_network/vault/params.proto";
-import "nemo_network/vault/vault.proto";
+import "nemo-network/vault/params.proto";
+import "nemo-network/vault/share.proto";
+import "nemo-network/vault/vault.proto";
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
 // GenesisState defines `x/vault`'s genesis state.
 message GenesisState {
-  // The parameters of the module.
-  Params params = 1 [ (gogoproto.nullable) = false ];
+  // The total number of shares, including any locked ones.
+  NumShares total_shares = 1 [ (gogoproto.nullable) = false ];
+  // The shares of each owner, including any locked ones.
+  repeated OwnerShare owner_shares = 2 [ (gogoproto.nullable) = false ];
   // The vaults.
-  repeated Vault vaults = 2;
+  repeated Vault vaults = 3 [ (gogoproto.nullable) = false ];
+  // The default quoting parameters for all vaults.
+  QuotingParams default_quoting_params = 4 [ (gogoproto.nullable) = false ];
+  // All owner share unlocks.
+  repeated OwnerShareUnlocks all_owner_share_unlocks = 5
+      [ (gogoproto.nullable) = false ];
 }
 
-// Vault defines the total shares and owner shares of a vault.
+// Vault defines the state of a vault.
 message Vault {
+  // The ID of the vault.
+  VaultId vault_id = 1 [ (gogoproto.nullable) = false ];
+  // The parameters of the vault.
+  VaultParams vault_params = 2 [ (gogoproto.nullable) = false ];
+  // The client IDs of the most recently placed orders of the vault.
+  repeated uint32 most_recent_client_ids = 3;
+}
+
+// GenesisStateV6 defines `x/vault`'s genesis state in v6.x.
+// Deprecated since v7.x in favor of GenesisState.
+message GenesisStateV6 {
+  // `params` field replaced since v6.x by default_quoting_params.
+  reserved 1;
+  // The vaults.
+  repeated Vault vaults = 2;
+  // The default quoting parameters for all vaults.
+  QuotingParams default_quoting_params = 3 [ (gogoproto.nullable) = false ];
+}
+
+// VaultV6 defines the state of a vault.
+// Deprecated since v7.x in favor of Vault.
+message VaultV6 {
   // The ID of the vault.
   VaultId vault_id = 1;
   // The total number of shares in the vault.
   NumShares total_shares = 2;
   // The shares of each owner in the vault.
   repeated OwnerShare owner_shares = 3;
-  // The individual parameters of the vault.
-  VaultParams vault_params = 4;
+  // The parameters of the vault.
+  VaultParams vault_params = 4 [ (gogoproto.nullable) = false ];
   // The client IDs of the most recently placed orders of the vault.
   repeated uint32 most_recent_client_ids = 5;
 }

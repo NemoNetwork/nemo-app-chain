@@ -8,6 +8,8 @@ import (
 	"sort"
 	"time"
 
+	gogotypes "github.com/cosmos/gogoproto/types"
+
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	storetypes "cosmossdk.io/store/types"
@@ -21,16 +23,17 @@ import (
 	"cosmossdk.io/store/prefix"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	gometrics "github.com/hashicorp/go-metrics"
 	"github.com/nemo-network/v4-chain/protocol/dtypes"
 	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
 	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/nemo-network/v4-chain/protocol/lib/log"
 	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
 	epochstypes "github.com/nemo-network/v4-chain/protocol/x/epochs/types"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/funding"
 	perplib "github.com/nemo-network/v4-chain/protocol/x/perpetuals/lib"
 	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
-	gometrics "github.com/hashicorp/go-metrics"
 )
 
 func (k Keeper) IsIsolatedPerpetual(ctx sdk.Context, perpetualId uint32) (bool, error) {
@@ -433,46 +436,6 @@ func (k Keeper) MaybeProcessNewFundingSampleEpoch(
 	k.processPremiumVotesIntoSamples(ctx, newFundingSampleEpoch)
 }
 
-// getFundingIndexDelta returns fundingIndexDelta which represents the change of FundingIndex since
-// the last time `funding-tick` was processed.
-// TODO(DEC-1536): Make the 8-hour funding rate period configurable.
-func (k Keeper) getFundingIndexDelta(
-	ctx sdk.Context,
-	perp types.Perpetual,
-	big8hrFundingRatePpm *big.Int,
-	timeSinceLastFunding uint32,
-) (
-	fundingIndexDelta *big.Int,
-	err error,
-) {
-	marketPrice, err := k.pricesKeeper.GetMarketPrice(ctx, perp.Params.MarketId)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get market price for perpetual %v, err = %w", perp.Params.Id, err)
-	}
-
-	// Get pro-rated funding rate adjusted by time delta.
-	proratedFundingRate := new(big.Rat).SetInt(big8hrFundingRatePpm)
-	proratedFundingRate.Mul(
-		proratedFundingRate,
-		new(big.Rat).SetUint64(uint64(timeSinceLastFunding)),
-	)
-
-	proratedFundingRate.Quo(
-		proratedFundingRate,
-		// TODO(DEC-1536): Make the 8-hour funding rate period configurable.
-		new(big.Rat).SetUint64(3600*8),
-	)
-
-	bigFundingIndexDelta := lib.FundingRateToIndex(
-		proratedFundingRate,
-		perp.Params.AtomicResolution,
-		marketPrice.Price,
-		marketPrice.Exponent,
-	)
-
-	return bigFundingIndexDelta, nil
-}
-
 // GetAddPremiumVotes returns the newest premiums for all perpetuals,
 // if the current block is the start of a new funding-sample epoch.
 // Otherwise, does nothing and returns an empty message.
@@ -771,20 +734,26 @@ func (k Keeper) MaybeProcessNewFundingTickEpoch(ctx sdk.Context) {
 			))
 		}
 
+		// Update the funding index if the funding rate is non-zero.
 		if bigFundingRatePpm.Sign() != 0 {
-			fundingIndexDelta, err := k.getFundingIndexDelta(
-				ctx,
+			// Get the price of the perpetual from state.
+			marketPrice, err := k.pricesKeeper.GetMarketPrice(ctx, perp.Params.MarketId)
+			if err != nil {
+				panic(err)
+			}
+
+			// Calculate the delta in the funding index.
+			fundingIndexDelta := funding.GetFundingIndexDelta(
 				perp,
+				marketPrice,
 				bigFundingRatePpm,
 				// use funding-tick duration as `timeSinceLastFunding`
 				// TODO(DEC-1483): Handle the case when duration value is updated
 				// during the epoch.
 				fundingTickEpochInfo.Duration,
 			)
-			if err != nil {
-				panic(err)
-			}
 
+			// Update the funding index in state.
 			if err := k.ModifyFundingIndex(ctx, perp.Params.Id, fundingIndexDelta); err != nil {
 				panic(err)
 			}
@@ -905,148 +874,6 @@ func (k Keeper) GetNetCollateral(
 ) {
 	// The net collateral is equal to the net open notional.
 	return k.GetNetNotional(ctx, id, bigQuantums)
-}
-
-// GetMarginRequirements returns initial and maintenance margin requirements in quote quantums, given the position
-// size in base quantums.
-//
-// Margin requirements are a function of the absolute value of the open notional of the position as well as
-// the parameters of the relevant `LiquidityTier` of the perpetual.
-// Initial margin requirement is determined by multiplying `InitialMarginPpm` and `notionalValue`.
-// `notionalValue` is determined by multiplying the size of the position by the oracle price of the position.
-// Maintenance margin requirement is then simply a fraction (`maintenanceFractionPpm`) of initial margin requirement.
-//
-// Returns an error if a perpetual with `id`, `perpetual.Params.MarketId`, or
-// `perpetual.Params.LiquidityTier` does not exist.
-//
-// Note that this function is getting called very frequently; metrics in this function
-// should be sampled to reduce CPU time.
-func (k Keeper) GetMarginRequirements(
-	ctx sdk.Context,
-	id uint32,
-	bigQuantums *big.Int,
-) (
-	bigInitialMarginQuoteQuantums *big.Int,
-	bigMaintenanceMarginQuoteQuantums *big.Int,
-	err error,
-) {
-	if rand.Float64() < metrics.LatencyMetricSampleRate {
-		defer metrics.ModuleMeasureSinceWithLabels(
-			types.ModuleName,
-			[]string{metrics.GetMarginRequirements, metrics.Latency},
-			time.Now(),
-			[]gometrics.Label{
-				metrics.GetLabelForStringValue(
-					metrics.SampleRate,
-					fmt.Sprintf("%f", metrics.LatencyMetricSampleRate),
-				),
-			},
-		)
-	}
-
-	// Get perpetual and market price.
-	perpetual, marketPrice, err := k.GetPerpetualAndMarketPrice(ctx, id)
-	if err != nil {
-		return nil, nil, err
-	}
-	// Get perpetual's liquidity tier.
-	liquidityTier, err := k.GetLiquidityTier(ctx, perpetual.Params.LiquidityTier)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	bigInitialMarginQuoteQuantums,
-		bigMaintenanceMarginQuoteQuantums = GetMarginRequirementsInQuoteQuantums(
-		perpetual,
-		marketPrice,
-		liquidityTier,
-		bigQuantums,
-	)
-	return bigInitialMarginQuoteQuantums, bigMaintenanceMarginQuoteQuantums, nil
-}
-
-// GetMarginRequirementsInQuoteQuantums returns initial and maintenance margin requirements
-// in quote quantums, given the position size in base quantums.
-//
-// Note that this is a stateless function.
-func GetMarginRequirementsInQuoteQuantums(
-	perpetual types.Perpetual,
-	marketPrice pricestypes.MarketPrice,
-	liquidityTier types.LiquidityTier,
-	bigQuantums *big.Int,
-) (
-	bigInitialMarginQuoteQuantums *big.Int,
-	bigMaintenanceMarginQuoteQuantums *big.Int,
-) {
-	// Always consider the magnitude of the position regardless of whether it is long/short.
-	bigAbsQuantums := new(big.Int).Set(bigQuantums).Abs(bigQuantums)
-
-	// Calculate the notional value of the position in quote quantums.
-	bigQuoteQuantums := lib.BaseToQuoteQuantums(
-		bigAbsQuantums,
-		perpetual.Params.AtomicResolution,
-		marketPrice.Price,
-		marketPrice.Exponent,
-	)
-	// Calculate the perpetual's open interest in quote quantums.
-	openInterestQuoteQuantums := lib.BaseToQuoteQuantums(
-		perpetual.OpenInterest.BigInt(), // OpenInterest is represented as base quantums.
-		perpetual.Params.AtomicResolution,
-		marketPrice.Price,
-		marketPrice.Exponent,
-	)
-
-	// Initial margin requirement quote quantums = size in quote quantums * initial margin PPM.
-	bigBaseInitialMarginQuoteQuantums := liquidityTier.GetInitialMarginQuoteQuantums(
-		bigQuoteQuantums,
-		big.NewInt(0), // pass in 0 as open interest to get base IMR.
-	)
-	// Maintenance margin requirement quote quantums = IM in quote quantums * maintenance fraction PPM.
-	bigMaintenanceMarginQuoteQuantums = lib.BigMulPpm(
-		bigBaseInitialMarginQuoteQuantums,
-		lib.BigU(liquidityTier.MaintenanceFractionPpm),
-		true,
-	)
-
-	bigInitialMarginQuoteQuantums = liquidityTier.GetInitialMarginQuoteQuantums(
-		bigQuoteQuantums,
-		openInterestQuoteQuantums, // pass in current OI to get scaled IMR.
-	)
-	return bigInitialMarginQuoteQuantums, bigMaintenanceMarginQuoteQuantums
-}
-
-// GetSettlementPpm returns the net settlement amount ppm (in quote quantums) given
-// the perpetual Id and position size (in base quantums).
-// When handling rounding, always round positive settlement amount to zero, and
-// negative amount to negative infinity. This ensures total amount of value does
-// not increase after settlement.
-// Example:
-// For a round of funding payments, accounts A, B are to receive 102.5 quote quantums;
-// account C is to pay 205 quote quantums.
-// After settlement, accounts A, B are credited 102 quote quantum each; account C
-// is debited 205 quote quantums.
-func (k Keeper) GetSettlementPpm(
-	ctx sdk.Context,
-	perpetualId uint32,
-	quantums *big.Int,
-	index *big.Int,
-) (
-	bigNetSettlementPpm *big.Int,
-	newFundingIndex *big.Int,
-	err error,
-) {
-	// Get the perpetual for newest FundingIndex.
-	perpetual, err := k.GetPerpetual(ctx, perpetualId)
-	if err != nil {
-		return big.NewInt(0), big.NewInt(0), err
-	}
-
-	bigNetSettlementPpm, newFundingIndex = perplib.GetSettlementPpmWithPerpetual(
-		perpetual,
-		quantums,
-		index,
-	)
-	return bigNetSettlementPpm, newFundingIndex, nil
 }
 
 // GetPremiumSamples reads premium samples from the current `funding-tick` epoch,
@@ -1688,4 +1515,43 @@ func (k Keeper) SendOIUpdatesToIndexer(ctx sdk.Context) {
 			},
 		),
 	)
+}
+
+// GetNextPerpetualID returns the next perpetual id to be used from the module store
+func (k Keeper) GetNextPerpetualID(ctx sdk.Context) uint32 {
+	store := ctx.KVStore(k.storeKey)
+	b := store.Get([]byte(types.NextPerpetualIDKey))
+	var result gogotypes.UInt32Value
+	k.cdc.MustUnmarshal(b, &result)
+	return result.Value
+}
+
+// SetNextPerpetualID sets the next perpetual id to be used
+func (k Keeper) SetNextPerpetualID(ctx sdk.Context, nextID uint32) {
+	store := ctx.KVStore(k.storeKey)
+	value := gogotypes.UInt32Value{Value: nextID}
+	store.Set([]byte(types.NextPerpetualIDKey), k.cdc.MustMarshal(&value))
+}
+
+// AcquireNextPerpetualID returns the next perpetual id to be used and increments the next perpetual id
+func (k Keeper) AcquireNextPerpetualID(ctx sdk.Context) uint32 {
+	nextID := k.GetNextPerpetualID(ctx)
+	// if perpetual id already exists, increment until we find one that doesn't
+	maxAttempts, attempts := 1000, 0
+	for {
+		_, err := k.GetPerpetual(ctx, nextID)
+		if err != nil && errorsmod.IsOf(err, types.ErrPerpetualDoesNotExist) {
+			break
+		}
+		nextID++
+
+		// panic if we've tried too many times and are stuck in a loop
+		attempts++
+		if attempts >= maxAttempts {
+			panic("Exceeded maximum attempts to find a unique perpetual id")
+		}
+	}
+
+	k.SetNextPerpetualID(ctx, nextID+1)
+	return nextID
 }
