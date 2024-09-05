@@ -44,7 +44,7 @@ import (
 	sdkproto "github.com/cosmos/gogoproto/proto"
 	"github.com/nemo-network/v4-chain/protocol/app"
 	appconstants "github.com/nemo-network/v4-chain/protocol/app/constants"
-	"github.com/nemo-network/v4-chain/protocol/cmd/nemo-networkd/cmd"
+	"github.com/nemo-network/v4-chain/protocol/cmd/nemod/cmd"
 	"github.com/nemo-network/v4-chain/protocol/indexer"
 	"github.com/nemo-network/v4-chain/protocol/testutil/appoptions"
 	"github.com/nemo-network/v4-chain/protocol/testutil/constants"

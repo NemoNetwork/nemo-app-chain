@@ -2,6 +2,8 @@ module github.com/nemo-network/v4-chain/protocol
 
 go 1.22.2
 
+toolchain go1.22.5
+
 require (
 	cosmossdk.io/api v0.7.5
 	cosmossdk.io/math v1.3.0
@@ -463,10 +465,10 @@ replace (
 	// Use dYdX fork of Cosmos SDK/store
 	cosmossdk.io/store => github.com/NemoNetwork/cosmos-sdk/store v1.0.3-0.20240326192503-dd116391188d
 	// Use dYdX fork of CometBFT
-	github.com/cometbft/cometbft => github.com/nemo-network/cometbft v0.38.6-0.20240426214049-c8beeeada40a
+	github.com/cometbft/cometbft => github.com/NemoNetwork/cometbft v0.38.6-0.20240426214049-c8beeeada40a
 	// Use dYdX fork of Cosmos SDK
-	github.com/cosmos/cosmos-sdk => github.com/nemo-network/cosmos-sdk v0.50.6-0.20240808180557-4b1c1dc17703
-	github.com/cosmos/iavl => github.com/nemo-network/iavl v1.1.1-0.20240509161911-1c8b8e787e85
+	github.com/cosmos/cosmos-sdk => github.com/NemoNetwork/cosmos-sdk v0.50.6-0.20240808180557-4b1c1dc17703
+	github.com/cosmos/iavl => github.com/NemoNetwork/iavl v1.1.1-0.20240509161911-1c8b8e787e85
 )
 
 replace (
