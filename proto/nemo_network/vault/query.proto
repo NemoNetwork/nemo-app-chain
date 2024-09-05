@@ -1,13 +1,13 @@
 syntax = "proto3";
-package nemo-network.vault;
+package nemo_network.vault;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "nemo-network/subaccounts/subaccount.proto";
-import "nemo-network/vault/params.proto";
-import "nemo-network/vault/share.proto";
-import "nemo-network/vault/vault.proto";
+import "nemo_network/subaccounts/subaccount.proto";
+import "nemo_network/vault/params.proto";
+import "nemo_network/vault/share.proto";
+import "nemo_network/vault/vault.proto";
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 
@@ -56,8 +56,7 @@ message QueryVaultRequest {
 // QueryVaultResponse is a response type for the Vault RPC method.
 message QueryVaultResponse {
   VaultId vault_id = 1 [ (gogoproto.nullable) = false ];
-  nemo-network.subaccounts.SubaccountId subaccount_id = 2
-      [ (gogoproto.nullable) = false ];
+  nemo_network.subaccounts.SubaccountId subaccount_id = 2 [ (gogoproto.nullable) = false ];
   bytes equity = 3 [
     (gogoproto.customtype) =
         "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",

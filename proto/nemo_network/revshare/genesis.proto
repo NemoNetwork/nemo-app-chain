@@ -1,8 +1,8 @@
 syntax = "proto3";
-package nemo-network.revshare;
+package nemo_network.revshare;
 
 import "gogoproto/gogo.proto";
-import "nemo-network/revshare/params.proto";
+import "nemo_network/revshare/params.proto";
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/revshare/types";
 

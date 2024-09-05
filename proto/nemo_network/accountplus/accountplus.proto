@@ -1,5 +1,5 @@
 syntax = "proto3";
-package nemo-network.accountplus;
+package nemo_network.accountplus;
 
 import "gogoproto/gogo.proto";
 

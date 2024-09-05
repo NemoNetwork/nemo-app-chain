@@ -1,10 +1,10 @@
 syntax = "proto3";
-package nemo-network.vault;
+package nemo_network.vault;
 
 import "gogoproto/gogo.proto";
-import "nemo-network/vault/params.proto";
-import "nemo-network/vault/share.proto";
-import "nemo-network/vault/vault.proto";
+import "nemo_network/vault/params.proto";
+import "nemo_network/vault/share.proto";
+import "nemo_network/vault/vault.proto";
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/vault/types";
 

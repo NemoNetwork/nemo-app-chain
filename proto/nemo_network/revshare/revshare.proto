@@ -1,5 +1,5 @@
 syntax = "proto3";
-package nemo-network.revshare;
+package nemo_network.revshare;
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/revshare/types";
 

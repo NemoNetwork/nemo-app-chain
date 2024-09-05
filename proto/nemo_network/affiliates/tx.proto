@@ -1,9 +1,9 @@
 syntax = "proto3";
-package nemo-network.affiliates;
+package nemo_network.affiliates;
 
 import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
-import "nemo-network/affiliates/affiliates.proto";
+import "nemo_network/affiliates/affiliates.proto";
 import "cosmos/msg/v1/msg.proto";
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/affiliates/types";

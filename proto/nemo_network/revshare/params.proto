@@ -1,5 +1,5 @@
 syntax = "proto3";
-package nemo-network.revshare;
+package nemo_network.revshare;
 
 import "cosmos_proto/cosmos.proto";
 

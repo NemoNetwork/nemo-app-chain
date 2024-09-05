@@ -1,11 +1,11 @@
 syntax = "proto3";
-package nemo-network.listing;
+package nemo_network.listing;
 
 import "cosmos_proto/cosmos.proto";
 import "cosmos/msg/v1/msg.proto";
 import "gogoproto/gogo.proto";
-import "nemo-network/subaccounts/subaccount.proto";
-import "nemo-network/listing/params.proto";
+import "nemo_network/subaccounts/subaccount.proto";
+import "nemo_network/listing/params.proto";
 
 option go_package = "github.com/nemo-network/v4-chain/protocol/x/listing/types";
 
@@ -48,7 +48,7 @@ message MsgCreateMarketPermissionless {
   string ticker = 1;
 
   // The subaccount to deposit from.
-  nemo-network.subaccounts.SubaccountId subaccount_id = 2;
+  nemo_network.subaccounts.SubaccountId subaccount_id = 2;
 }
 
 // MsgCreateMarketPermissionlessResponse defines the
