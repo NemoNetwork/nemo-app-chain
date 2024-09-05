@@ -44,19 +44,8 @@ func (k Keeper) RefreshAllVaultOrders(ctx sdk.Context) {
 			vaultParams.QuotingParams = &defaultQuotingParams
 		}
 		vault := k.subaccountsKeeper.GetSubaccount(ctx, *vaultId.ToSubaccountId())
-		if vault.PerpetualPositions == nil || len(vault.PerpetualPositions) == 0 {
+		if len(vault.PerpetualPositions) == 0 {
 			if vault.GetUsdcPosition().Cmp(vaultParams.QuotingParams.ActivationThresholdQuoteQuantums.BigInt()) == -1 {
-				continue
-			}
-		}
-
-		// Count current vault as active.
-		numActiveVaults++
-
-		// Skip if vault has no perpetual positions and strictly less than `activation_threshold_quote_quantums` USDC.
-		vault := k.subaccountsKeeper.GetSubaccount(ctx, *vaultId.ToSubaccountId())
-		if vault.PerpetualPositions == nil || len(vault.PerpetualPositions) == 0 {
-			if vault.GetUsdcPosition().Cmp(params.ActivationThresholdQuoteQuantums.BigInt()) == -1 {
 				continue
 			}
 		}

@@ -245,9 +245,6 @@ func TestAddVaultToAddressStore(t *testing.T) {
 			for _, vaultId := range tc.vaultIds {
 				require.True(t, k.IsVault(ctx, vaultId.ToModuleAccountAddress()))
 			}
-			_, exists = k.GetVaultParams(ctx, tc.vaultId)
-			require.False(t, exists)
-			require.False(t, k.IsVault(ctx, tc.vaultId.ToModuleAccountAddress()))
 		})
 	}
 }

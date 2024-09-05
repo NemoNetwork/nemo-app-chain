@@ -790,9 +790,6 @@ func (k Keeper) GetAllRelevantPerpetuals(
 		for _, perpUpdate := range update.PerpetualUpdates {
 			perpIds[perpUpdate.GetId()] = struct{}{}
 		}
-		bigNetCollateral.Add(bigNetCollateral, nc)
-		bigInitialMargin.Add(bigInitialMargin, imr)
-		bigMaintenanceMargin.Add(bigMaintenanceMargin, mmr)
 	}
 
 	// Get all perpetual information from state.
@@ -819,15 +816,6 @@ func (k Keeper) GetAllRelevantPerpetuals(
 			Price:         price,
 			LiquidityTier: liquidityTier,
 		}
-		nc, imr, mmr := perplib.GetNetCollateralAndMarginRequirements(
-			perpInfo.Perpetual,
-			perpInfo.Price,
-			perpInfo.LiquidityTier,
-			size.GetBigQuantums(),
-		)
-		bigNetCollateral.Add(bigNetCollateral, nc)
-		bigInitialMargin.Add(bigInitialMargin, imr)
-		bigMaintenanceMargin.Add(bigMaintenanceMargin, mmr)
 	}
 
 	return perpInfos, nil
@@ -850,54 +838,4 @@ func (k Keeper) SendSubaccountUpdates(
 		lib.MustConvertIntegerToUint32(ctx.BlockHeight()),
 		ctx.ExecMode(),
 	)
-}
-
-// GetAllRelevantPerpetuals returns all relevant perpetual information for a given set of updates.
-// This includes all perpetuals that exist on the accounts already and all perpetuals that are
-// being updated in the input updates.
-func (k Keeper) GetAllRelevantPerpetuals(
-	ctx sdk.Context,
-	updates []types.Update,
-) (
-	map[uint32]perptypes.PerpInfo,
-	error,
-) {
-	subaccountIds := make(map[types.SubaccountId]struct{})
-	perpIds := make(map[uint32]struct{})
-
-	// Add all relevant perpetuals in every update.
-	for _, update := range updates {
-		// If this subaccount has not been processed already, get all of its existing perpetuals.
-		if _, exists := subaccountIds[update.SubaccountId]; !exists {
-			sa := k.GetSubaccount(ctx, update.SubaccountId)
-			for _, postition := range sa.PerpetualPositions {
-				perpIds[postition.PerpetualId] = struct{}{}
-			}
-			subaccountIds[update.SubaccountId] = struct{}{}
-		}
-
-		// Add all perpetuals in the update.
-		for _, perpUpdate := range update.PerpetualUpdates {
-			perpIds[perpUpdate.GetId()] = struct{}{}
-		}
-	}
-
-	// Get all perpetual information from state.
-	perpetuals := make(map[uint32]perptypes.PerpInfo, len(perpIds))
-	for perpId := range perpIds {
-		perpetual,
-			price,
-			liquidityTier,
-			err := k.perpetualsKeeper.GetPerpetualAndMarketPriceAndLiquidityTier(ctx, perpId)
-		if err != nil {
-			return nil, err
-		}
-		perpetuals[perpId] = perptypes.PerpInfo{
-			Perpetual:     perpetual,
-			Price:         price,
-			LiquidityTier: liquidityTier,
-		}
-	}
-
-	return perpetuals, nil
 }

@@ -18,10 +18,6 @@ var (
 	goodTilBlockLogKey  = "GoodTilBlock"
 )
 
-var (
-	timeoutHeightLogKey = "TimeoutHeight"
-)
-
 // ClobDecorator is an AnteDecorator which is responsible for:
 //   - adding short term order placements and cancelations to the in-memory orderbook (`CheckTx` only).
 //   - adding stateful order placements and cancelations to state (`CheckTx` and `RecheckTx` only).
