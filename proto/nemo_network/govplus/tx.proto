@@ -44,7 +44,7 @@ message MsgSlashValidator {
   // this.
   bytes tokens_at_infraction_height = 4 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 

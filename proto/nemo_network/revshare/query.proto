@@ -16,14 +16,14 @@ service Query {
   rpc MarketMapperRevenueShareParams(QueryMarketMapperRevenueShareParams)
       returns (QueryMarketMapperRevenueShareParamsResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/revshare/market_mapper_rev_share_params";
+        "/nemo_network/revshare/market_mapper_rev_share_params";
   }
 
   // Queries market mapper revenue share details for a specific market
   rpc MarketMapperRevShareDetails(QueryMarketMapperRevShareDetails)
       returns (QueryMarketMapperRevShareDetailsResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/revshare/market_mapper_rev_share_details/{market_id}";
+        "/nemo_network/revshare/market_mapper_rev_share_details/{market_id}";
   }
 }
 

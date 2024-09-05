@@ -13,7 +13,7 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 message PerpetualLiquidationInfo {
   // The id of the subaccount that got liquidated/deleveraged or was deleveraged
   // onto.
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 1
+  nemo_network.subaccounts.SubaccountId subaccount_id = 1
       [ (gogoproto.nullable) = false ];
   // The id of the perpetual involved.
   uint32 perpetual_id = 2;
@@ -39,9 +39,9 @@ message SubaccountOpenPositionInfo {
   // The id of the perpetual.
   uint32 perpetual_id = 1;
   // The ids of the subaccounts with long positions.
-  repeated dydxprotocol.subaccounts.SubaccountId
+  repeated nemo_network.subaccounts.SubaccountId
       subaccounts_with_long_position = 2 [ (gogoproto.nullable) = false ];
   // The ids of the subaccounts with short positions.
-  repeated dydxprotocol.subaccounts.SubaccountId
+  repeated nemo_network.subaccounts.SubaccountId
       subaccounts_with_short_position = 3 [ (gogoproto.nullable) = false ];
 }

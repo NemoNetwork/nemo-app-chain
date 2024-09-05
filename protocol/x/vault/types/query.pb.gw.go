@@ -489,15 +489,15 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "vault", "params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo_network", "vault", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_Vault_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo-network", "vault", "type", "number"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Vault_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1, 1, 0, 4, 1, 5, 2, 1, 0, 4, 1, 5, 3}, []string{"nemo_network", "vault", "type", "number"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllVaults_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1}, []string{"nemo-network", "vault"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AllVaults_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 1}, []string{"nemo_network", "vault"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_MegavaultTotalShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "vault", "megavault", "total_shares"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_MegavaultTotalShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "vault", "megavault", "total_shares"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_MegavaultOwnerShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo-network", "vault", "megavault", "owner_shares"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_MegavaultOwnerShares_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "vault", "megavault", "owner_shares"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

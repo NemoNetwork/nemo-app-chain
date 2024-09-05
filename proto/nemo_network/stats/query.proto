@@ -12,23 +12,23 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/stats/types";
 service Query {
   // Queries the Params.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/params";
+    option (google.api.http).get = "/nemo_network/v4/stats/params";
   }
 
   // Queries StatsMetadata.
   rpc StatsMetadata(QueryStatsMetadataRequest)
       returns (QueryStatsMetadataResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/stats_metadata";
+    option (google.api.http).get = "/nemo_network/v4/stats/stats_metadata";
   }
 
   // Queries GlobalStats.
   rpc GlobalStats(QueryGlobalStatsRequest) returns (QueryGlobalStatsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/global_stats";
+    option (google.api.http).get = "/nemo_network/v4/stats/global_stats";
   }
 
   // Queries UserStats.
   rpc UserStats(QueryUserStatsRequest) returns (QueryUserStatsResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/stats/user_stats";
+    option (google.api.http).get = "/nemo_network/v4/stats/user_stats";
   }
 }
 

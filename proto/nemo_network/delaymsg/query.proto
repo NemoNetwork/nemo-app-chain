@@ -11,19 +11,19 @@ service Query {
   // Queries the next DelayedMessage's id.
   rpc NextDelayedMessageId(QueryNextDelayedMessageIdRequest)
       returns (QueryNextDelayedMessageIdResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/delaymsg/next_id";
+    option (google.api.http).get = "/nemo_network/v4/delaymsg/next_id";
   }
 
   // Queries the DelayedMessage by id.
   rpc Message(QueryMessageRequest) returns (QueryMessageResponse) {
-    option (google.api.http).get = "/dydxprotocol/v4/delaymsg/message/{id}";
+    option (google.api.http).get = "/nemo_network/v4/delaymsg/message/{id}";
   }
 
   // Queries the DelayedMessages at a given block height.
   rpc BlockMessageIds(QueryBlockMessageIdsRequest)
       returns (QueryBlockMessageIdsResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/v4/delaymsg/block/message_ids/{block_height}";
+        "/nemo_network/v4/delaymsg/block/message_ids/{block_height}";
   }
 }
 

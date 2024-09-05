@@ -12,11 +12,11 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/sending/types";
 // Transfer represents a single transfer between two subaccounts.
 message Transfer {
   // The sender subaccount ID.
-  dydxprotocol.subaccounts.SubaccountId sender = 1
+  nemo_network.subaccounts.SubaccountId sender = 1
       [ (gogoproto.nullable) = false ];
 
   // The recipient subaccount ID.
-  dydxprotocol.subaccounts.SubaccountId recipient = 2
+  nemo_network.subaccounts.SubaccountId recipient = 2
       [ (gogoproto.nullable) = false ];
 
   // Id of the asset to transfer.
@@ -35,7 +35,7 @@ message MsgDepositToSubaccount {
   string sender = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
 
   // The recipient subaccount ID.
-  dydxprotocol.subaccounts.SubaccountId recipient = 2
+  nemo_network.subaccounts.SubaccountId recipient = 2
       [ (gogoproto.nullable) = false ];
 
   // Id of the asset to transfer.
@@ -51,7 +51,7 @@ message MsgWithdrawFromSubaccount {
   option (cosmos.msg.v1.signer) = "sender";
 
   // The sender subaccount ID.
-  dydxprotocol.subaccounts.SubaccountId sender = 2
+  nemo_network.subaccounts.SubaccountId sender = 2
       [ (gogoproto.nullable) = false ];
 
   // The recipient wallet address.

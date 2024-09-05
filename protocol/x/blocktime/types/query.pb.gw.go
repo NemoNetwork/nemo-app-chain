@@ -206,9 +206,9 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_DowntimeParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "blocktime", "downtime_params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_DowntimeParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "blocktime", "downtime_params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllDowntimeInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "blocktime", "all_downtime_info"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_AllDowntimeInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "blocktime", "all_downtime_info"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

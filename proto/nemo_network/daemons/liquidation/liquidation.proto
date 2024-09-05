@@ -23,15 +23,15 @@ message LiquidateSubaccountsRequest {
   uint32 block_height = 1;
 
   // The list of liquidatable subaccount ids.
-  repeated dydxprotocol.subaccounts.SubaccountId liquidatable_subaccount_ids = 2
+  repeated nemo_network.subaccounts.SubaccountId liquidatable_subaccount_ids = 2
       [ (gogoproto.nullable) = false ];
 
   // The list of subaccount ids with negative total net collateral.
-  repeated dydxprotocol.subaccounts.SubaccountId negative_tnc_subaccount_ids = 3
+  repeated nemo_network.subaccounts.SubaccountId negative_tnc_subaccount_ids = 3
       [ (gogoproto.nullable) = false ];
 
   // A map of perpetual id to subaccount open position info.
-  repeated dydxprotocol.clob.SubaccountOpenPositionInfo
+  repeated nemo_network.clob.SubaccountOpenPositionInfo
       subaccount_open_position_info = 4 [ (gogoproto.nullable) = false ];
 }
 

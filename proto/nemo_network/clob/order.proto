@@ -14,7 +14,7 @@ message OrderId {
   // generated as a value instead of a pointer. This is because the `OrderId`
   // proto is used as a key within maps, and map comparisons will compare
   // pointers for equality (when the desired behavior is to compare the values).
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 1
+  nemo_network.subaccounts.SubaccountId subaccount_id = 1
       [ (gogoproto.nullable) = false ];
 
   // The client ID of this order, unique with respect to the specific

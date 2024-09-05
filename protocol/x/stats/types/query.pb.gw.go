@@ -346,13 +346,13 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "stats", "params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "stats", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_StatsMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "stats", "stats_metadata"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_StatsMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "stats", "stats_metadata"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_GlobalStats_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "stats", "global_stats"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_GlobalStats_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "stats", "global_stats"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_UserStats_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "stats", "user_stats"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_UserStats_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "stats", "user_stats"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

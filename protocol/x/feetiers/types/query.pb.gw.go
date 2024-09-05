@@ -224,9 +224,9 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_PerpetualFeeParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "feetiers", "perpetual_fee_params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_PerpetualFeeParams_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "feetiers", "perpetual_fee_params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_UserFeeTier_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"nemo-network", "feetiers", "user_fee_tier"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_UserFeeTier_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"nemo_network", "v4", "feetiers", "user_fee_tier"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

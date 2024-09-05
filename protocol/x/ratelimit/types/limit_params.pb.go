@@ -92,7 +92,7 @@ type Limiter struct {
 	Period time.Duration `protobuf:"bytes,1,opt,name=period,proto3,stdduration" json:"period"`
 	// baseline_minimum is the minimum maximum withdrawal coin amount within the
 	// time period.
-	// e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 unemo for 50k DV4TNT
+	// e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 adv4tnt for 50k DV4TNT
 	BaselineMinimum github_com_nemo_network_v4_chain_protocol_dtypes.SerializableInt `protobuf:"bytes,3,opt,name=baseline_minimum,json=baselineMinimum,proto3,customtype=github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt" json:"baseline_minimum"`
 	// baseline_tvl_ppm is the maximum ratio of TVL withdrawable in
 	// the time period, in part-per-million.

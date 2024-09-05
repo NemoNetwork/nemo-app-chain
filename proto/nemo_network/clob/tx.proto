@@ -106,7 +106,7 @@ message MsgCancelOrderResponse {}
 // if some cancels are invalid or fail.
 message MsgBatchCancel {
   // The subaccount this batch cancel will be applied for.
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 1
+  nemo_network.subaccounts.SubaccountId subaccount_id = 1
       [ (gogoproto.nullable) = false ];
 
   // The batch of short term orders that will be cancelled.

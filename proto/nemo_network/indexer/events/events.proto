@@ -25,7 +25,7 @@ message FundingUpdateV1 {
   // `TYPE_FUNDING_RATE_AND_INDEX`.
   bytes funding_index = 3 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }
@@ -116,7 +116,7 @@ message SourceOfFunds {
   // - a subaccount ID
   // - a wallet address
   oneof source {
-    dydxprotocol.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 1;
+    nemo_network.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 1;
     string address = 2 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
   }
 }
@@ -125,8 +125,8 @@ message SourceOfFunds {
 // When a subaccount is involved, a SubaccountUpdateEvent message will
 // be produced with the updated asset positions.
 message TransferEventV1 {
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId sender_subaccount_id = 1;
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId recipient_subaccount_id =
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId sender_subaccount_id = 1;
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId recipient_subaccount_id =
       2;
   // Id of the asset transfered.
   uint32 asset_id = 3;
@@ -146,11 +146,11 @@ message TransferEventV1 {
 // the dYdX chain. This includes the maker/taker orders that matched and the
 // amount filled.
 message OrderFillEventV1 {
-  dydxprotocol.indexer.protocol.v1.IndexerOrder maker_order = 1
+  nemo_network.indexer.protocol.v1.IndexerOrder maker_order = 1
       [ (gogoproto.nullable) = false ];
   // The type of order fill this event represents.
   oneof taker_order {
-    dydxprotocol.indexer.protocol.v1.IndexerOrder order = 2;
+    nemo_network.indexer.protocol.v1.IndexerOrder order = 2;
     LiquidationOrderV1 liquidation_order = 4;
   }
   // Fill amount in base quantums.
@@ -173,10 +173,10 @@ message OrderFillEventV1 {
 // the amount filled.
 message DeleveragingEventV1 {
   // ID of the subaccount that was liquidated.
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId liquidated = 1
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId liquidated = 1
       [ (gogoproto.nullable) = false ];
   // ID of the subaccount that was used to offset the position.
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId offsetting = 2
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId offsetting = 2
       [ (gogoproto.nullable) = false ];
   // The ID of the perpetual that was liquidated.
   uint32 perpetual_id = 3;
@@ -198,7 +198,7 @@ message DeleveragingEventV1 {
 // liquidation order fill event.
 message LiquidationOrderV1 {
   // ID of the subaccount that was liquidated.
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId liquidated = 1
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId liquidated = 1
       [ (gogoproto.nullable) = false ];
   // The ID of the clob pair involved in the liquidation.
   uint32 clob_pair_id = 2;
@@ -224,14 +224,14 @@ message LiquidationOrderV1 {
 // at the end of a block which is why multiple asset/perpetual position
 // updates may exist.
 message SubaccountUpdateEventV1 {
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 1;
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 1;
   // deprecated new_quote_balance field
   reserved 2;
   // updated_perpetual_positions will each be for unique perpetuals.
-  repeated dydxprotocol.indexer.protocol.v1.IndexerPerpetualPosition
+  repeated nemo_network.indexer.protocol.v1.IndexerPerpetualPosition
       updated_perpetual_positions = 3;
   // updated_asset_positions will each be for unique assets.
-  repeated dydxprotocol.indexer.protocol.v1.IndexerAssetPosition
+  repeated nemo_network.indexer.protocol.v1.IndexerAssetPosition
       updated_asset_positions = 4;
 }
 
@@ -257,38 +257,38 @@ message StatefulOrderEventV1 {
   // A stateful order placement contains an order.
   // Deprecated in favor of LongTermOrderPlacementV1.
   message StatefulOrderPlacementV1 {
-    dydxprotocol.indexer.protocol.v1.IndexerOrder order = 1;
+    nemo_network.indexer.protocol.v1.IndexerOrder order = 1;
   }
 
   // A stateful order removal contains the id of an order that was already
   // placed and is now removed and the reason for the removal.
   message StatefulOrderRemovalV1 {
-    dydxprotocol.indexer.protocol.v1.IndexerOrderId removed_order_id = 1;
-    dydxprotocol.indexer.shared.OrderRemovalReason reason = 2;
+    nemo_network.indexer.protocol.v1.IndexerOrderId removed_order_id = 1;
+    nemo_network.indexer.shared.OrderRemovalReason reason = 2;
   }
 
   // A conditional order placement contains an order. The order is newly-placed
   // and untriggered when this event is emitted.
   message ConditionalOrderPlacementV1 {
-    dydxprotocol.indexer.protocol.v1.IndexerOrder order = 1;
+    nemo_network.indexer.protocol.v1.IndexerOrder order = 1;
   }
 
   // A conditional order trigger event contains an order id and is emitted when
   // an order is triggered.
   message ConditionalOrderTriggeredV1 {
-    dydxprotocol.indexer.protocol.v1.IndexerOrderId triggered_order_id = 1;
+    nemo_network.indexer.protocol.v1.IndexerOrderId triggered_order_id = 1;
   }
 
   // A long term order placement contains an order.
   message LongTermOrderPlacementV1 {
-    dydxprotocol.indexer.protocol.v1.IndexerOrder order = 1;
+    nemo_network.indexer.protocol.v1.IndexerOrder order = 1;
   }
 
   // A long term order replacement contains an old order ID and the new order.
   message LongTermOrderReplacementV1 {
-    dydxprotocol.indexer.protocol.v1.IndexerOrderId old_order_id =
+    nemo_network.indexer.protocol.v1.IndexerOrderId old_order_id =
         1; // vault replaces orders with a different order ID
-    dydxprotocol.indexer.protocol.v1.IndexerOrder order = 2;
+    nemo_network.indexer.protocol.v1.IndexerOrder order = 2;
   }
 }
 
@@ -341,7 +341,7 @@ message PerpetualMarketCreateEventV1 {
   uint32 market_id = 4;
 
   // Status of the CLOB
-  dydxprotocol.indexer.protocol.v1.ClobPairStatus status = 5;
+  nemo_network.indexer.protocol.v1.ClobPairStatus status = 5;
 
   // `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
   // per Subtick.
@@ -391,7 +391,7 @@ message PerpetualMarketCreateEventV2 {
   uint32 market_id = 4;
 
   // Status of the CLOB
-  dydxprotocol.indexer.protocol.v1.ClobPairStatus status = 5;
+  nemo_network.indexer.protocol.v1.ClobPairStatus status = 5;
 
   // `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
   // per Subtick.
@@ -421,7 +421,7 @@ message PerpetualMarketCreateEventV2 {
   uint32 liquidity_tier = 10;
 
   // Market type of the perpetual.
-  dydxprotocol.indexer.protocol.v1.PerpetualMarketType market_type = 11;
+  nemo_network.indexer.protocol.v1.PerpetualMarketType market_type = 11;
 }
 
 // LiquidityTierUpsertEventV1 message contains all the information to
@@ -464,7 +464,7 @@ message UpdateClobPairEventV1 {
   uint32 clob_pair_id = 1;
 
   // Status of the CLOB
-  dydxprotocol.indexer.protocol.v1.ClobPairStatus status = 2;
+  nemo_network.indexer.protocol.v1.ClobPairStatus status = 2;
 
   // `10^Exponent` gives the number of QuoteQuantums traded per BaseQuantum
   // per Subtick.
@@ -527,7 +527,7 @@ message AddressTradingReward {
   // denoms is equivalent to a single coin.
   bytes denom_amount = 2 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }
@@ -546,7 +546,7 @@ message OpenInterestUpdate {
   // The new open interest value for the perpetual market.
   bytes open_interest = 2 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

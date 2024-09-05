@@ -23,7 +23,7 @@ message EquityTierLimit {
   // The total net collateral in USDC quote quantums of equity required.
   bytes usd_tnc_required = 1 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 

@@ -12,7 +12,7 @@ message RewardShare {
   string address = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
   bytes weight = 2 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

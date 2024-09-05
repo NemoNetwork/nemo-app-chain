@@ -366,12 +366,12 @@ localnet-init:
 
 localnet-compose-up:
 	@echo "Launching localnet at commit ${GIT_COMMIT_HASH}"
-	@docker build . -t local:dydxprotocol -f testing/testnet-local/Dockerfile --no-cache
+	@docker build . -t local:nemo_network -f testing/testnet-local/Dockerfile --no-cache
 	@docker compose -f docker-compose.yml up --force-recreate $(ARGS)
 
 localnet-compose-upd:
 	@echo "Launching localnet at commit ${GIT_COMMIT_HASH}"
-	@docker build . -t local:dydxprotocol -f testing/testnet-local/Dockerfile --no-cache
+	@docker build . -t local:nemo_network -f testing/testnet-local/Dockerfile --no-cache
 	@docker compose -f docker-compose.yml up --force-recreate -d $(ARGS)
 
 build-e2etest-image:

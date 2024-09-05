@@ -14,13 +14,13 @@ service Query {
   // Queries a Subaccount by id
   rpc Subaccount(QueryGetSubaccountRequest) returns (QuerySubaccountResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/subaccounts/subaccount/{owner}/{number}";
+        "/nemo_network/subaccounts/subaccount/{owner}/{number}";
   }
 
   // Queries a list of Subaccount items.
   rpc SubaccountAll(QueryAllSubaccountRequest)
       returns (QuerySubaccountAllResponse) {
-    option (google.api.http).get = "/dydxprotocol/subaccounts/subaccount";
+    option (google.api.http).get = "/nemo_network/subaccounts/subaccount";
   }
 
   // Queries information about whether withdrawal and transfers are blocked, and
@@ -29,7 +29,7 @@ service Query {
       QueryGetWithdrawalAndTransfersBlockedInfoRequest)
       returns (QueryGetWithdrawalAndTransfersBlockedInfoResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/subaccounts/withdrawals_and_transfers_blocked_info/"
+        "/nemo_network/subaccounts/withdrawals_and_transfers_blocked_info/"
         "{perpetual_id}";
   }
 
@@ -37,7 +37,7 @@ service Query {
   rpc CollateralPoolAddress(QueryCollateralPoolAddressRequest)
       returns (QueryCollateralPoolAddressResponse) {
     option (google.api.http).get =
-        "/dydxprotocol/subaccounts/collateral_pool_address/{perpetual_id}";
+        "/nemo_network/subaccounts/collateral_pool_address/{perpetual_id}";
   }
 }
 

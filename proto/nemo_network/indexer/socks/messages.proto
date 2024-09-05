@@ -30,7 +30,7 @@ message SubaccountMessage {
   string contents = 4;
 
   // Subaccount id that the content corresponds to.
-  dydxprotocol.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 5;
+  nemo_network.indexer.protocol.v1.IndexerSubaccountId subaccount_id = 5;
 
   // Version of the websocket message.
   string version = 6;

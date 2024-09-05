@@ -34,12 +34,12 @@ message MsgDepositToMegavault {
   option (cosmos.msg.v1.signer) = "subaccount_id";
 
   // The subaccount to deposit from.
-  dydxprotocol.subaccounts.SubaccountId subaccount_id = 1;
+  nemo_network.subaccounts.SubaccountId subaccount_id = 1;
 
   // Number of quote quantums to deposit.
   bytes quote_quantums = 2 [
     (gogoproto.customtype) =
-        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }
