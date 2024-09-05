@@ -21,19 +21,19 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 service Query {
   // Queries a ClobPair by id.
   rpc ClobPair(QueryGetClobPairRequest) returns (QueryClobPairResponse) {
-    option (google.api.http).get = "/nemo-network/clob/clob_pair/{id}";
+    option (google.api.http).get = "/dydxprotocol/clob/clob_pair/{id}";
   }
 
   // Queries a list of ClobPair items.
   rpc ClobPairAll(QueryAllClobPairRequest) returns (QueryClobPairAllResponse) {
-    option (google.api.http).get = "/nemo-network/clob/clob_pair";
+    option (google.api.http).get = "/dydxprotocol/clob/clob_pair";
   }
 
   // Runs the MEV node <> node calculation with the provided parameters.
   rpc MevNodeToNodeCalculation(MevNodeToNodeCalculationRequest)
       returns (MevNodeToNodeCalculationResponse) {
     option (google.api.http) = {
-      post : "/nemo-network/clob/mev_node_to_node_calculation"
+      post : "/dydxprotocol/clob/mev_node_to_node_calculation"
       body : "*"
     };
   }
@@ -41,19 +41,19 @@ service Query {
   // Queries EquityTierLimitConfiguration.
   rpc EquityTierLimitConfiguration(QueryEquityTierLimitConfigurationRequest)
       returns (QueryEquityTierLimitConfigurationResponse) {
-    option (google.api.http).get = "/nemo-network/clob/equity_tier";
+    option (google.api.http).get = "/dydxprotocol/clob/equity_tier";
   }
 
   // Queries BlockRateLimitConfiguration.
   rpc BlockRateLimitConfiguration(QueryBlockRateLimitConfigurationRequest)
       returns (QueryBlockRateLimitConfigurationResponse) {
-    option (google.api.http).get = "/nemo-network/clob/block_rate";
+    option (google.api.http).get = "/dydxprotocol/clob/block_rate";
   }
 
   // Queries LiquidationsConfiguration.
   rpc LiquidationsConfiguration(QueryLiquidationsConfigurationRequest)
       returns (QueryLiquidationsConfigurationResponse) {
-    option (google.api.http).get = "/nemo-network/clob/liquidations_config";
+    option (google.api.http).get = "/dydxprotocol/clob/liquidations_config";
   }
 
   // Queries the stateful order for a given order id.
@@ -94,9 +94,9 @@ message MevNodeToNodeCalculationRequest {
   // does not need to be the actual block proposer's matches for a block, since
   // the MEV calculation logic is run with this nodes matches as the "block
   // proposer" matches.
-  nemo_network.clob.ValidatorMevMatches block_proposer_matches = 1;
+  dydxprotocol.clob.ValidatorMevMatches block_proposer_matches = 1;
   // Represents the matches and mid-prices on the validator.
-  nemo_network.clob.MevNodeToNodeMetrics validator_mev_metrics = 2;
+  dydxprotocol.clob.MevNodeToNodeMetrics validator_mev_metrics = 2;
 }
 
 // MevNodeToNodeCalculationResponse is a response message that contains the
@@ -169,7 +169,7 @@ message StreamOrderbookUpdatesRequest {
   repeated uint32 clob_pair_id = 1;
 
   // Subaccount ids to stream subaccount updates for.
-  repeated nemo_network.subaccounts.SubaccountId subaccount_ids = 2;
+  repeated dydxprotocol.subaccounts.SubaccountId subaccount_ids = 2;
 }
 
 // StreamOrderbookUpdatesResponse is a response message for the
@@ -188,7 +188,7 @@ message StreamUpdate {
     StreamOrderbookUpdate orderbook_update = 1;
     StreamOrderbookFill order_fill = 2;
     StreamTakerOrder taker_order = 3;
-    nemo_network.subaccounts.StreamSubaccountUpdate subaccount_update = 4;
+    dydxprotocol.subaccounts.StreamSubaccountUpdate subaccount_update = 4;
   }
 
   // Block height of the update.
@@ -203,7 +203,7 @@ message StreamUpdate {
 message StreamOrderbookUpdate {
   // Orderbook updates for the clob pair. Can contain order place, removals,
   // or updates.
-  repeated nemo_network.indexer.off_chain_updates.OffChainUpdateV1 updates = 1
+  repeated dydxprotocol.indexer.off_chain_updates.OffChainUpdateV1 updates = 1
       [ (gogoproto.nullable) = false ];
 
   // Snapshot indicates if the response is from a snapshot of the orderbook.
@@ -250,7 +250,7 @@ message StreamTakerOrder {
 message StreamTakerOrderStatus {
   // The state of the taker order after attempting to match it against the
   // orderbook. Possible enum values can be found here:
-  // https://github.com/nemo-network/v4-chain/blob/main/protocol/x/clob/types/orderbook.go#L105
+  // https://github.com/dydxprotocol/v4-chain/blob/main/protocol/x/clob/types/orderbook.go#L105
   uint32 order_status = 1;
 
   // The amount of remaining (non-matched) base quantums of this taker order.

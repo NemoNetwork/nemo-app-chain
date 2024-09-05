@@ -13,21 +13,21 @@ message PerpetualPosition {
   // The size of the position in base quantums.
   bytes quantums = 2 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
   // The funding_index of the `Perpetual` the last time this position was
   // settled.
   bytes funding_index = 3 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 
   // The quote_balance of the `Perpetual`.
   bytes quote_balance = 4 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

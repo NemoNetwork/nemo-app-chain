@@ -14,14 +14,14 @@ message Perpetual {
   // history of the funding mechanism. Starts at zero.
   bytes funding_index = 2 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 
   // Total size of open long contracts, measured in base_quantums.
   bytes open_interest = 3 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

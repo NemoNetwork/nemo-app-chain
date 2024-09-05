@@ -11,7 +11,7 @@ message RedisOrder {
   string id = 1;
 
   // Order proto from the protocol.
-  nemo_network.indexer.protocol.v1.IndexerOrder order = 2;
+  dydxprotocol.indexer.protocol.v1.IndexerOrder order = 2;
 
   // Ticker for the exchange pair for the order.
   string ticker = 3;

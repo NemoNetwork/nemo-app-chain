@@ -13,7 +13,7 @@ message AssetPosition {
   // The absolute size of the position in base quantums.
   bytes quantums = 2 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
   // The `Index` (either `LongIndex` or `ShortIndex`) of the `Asset` the last

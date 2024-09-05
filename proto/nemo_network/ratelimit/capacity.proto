@@ -16,7 +16,7 @@ message DenomCapacity {
   // `LimitParams`.
   repeated bytes capacity_list = 2 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }
@@ -26,7 +26,7 @@ message LimiterCapacity {
   Limiter limiter = 1 [ (gogoproto.nullable) = false ];
   bytes capacity = 2 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

@@ -13,7 +13,7 @@ service Query {
   // Queries the DowntimeParams.
   rpc DowntimeParams(QueryDowntimeParamsRequest)
       returns (QueryDowntimeParamsResponse) {
-    option (google.api.http).get = "/nemo-network/blocktime/downtime_params";
+    option (google.api.http).get = "/dydxprotocol/v4/blocktime/downtime_params";
   }
 
   // Queries the information of the previous block
@@ -24,7 +24,7 @@ service Query {
   rpc AllDowntimeInfo(QueryAllDowntimeInfoRequest)
       returns (QueryAllDowntimeInfoResponse) {
     option (google.api.http).get =
-        "/nemo-network/blocktime/all_downtime_info";
+        "/dydxprotocol/v4/blocktime/all_downtime_info";
   }
 }
 

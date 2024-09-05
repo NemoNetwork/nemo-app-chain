@@ -33,13 +33,13 @@ message AffiliateInfoResponse {
   // The affiliate's all-time referred volume in quote quantums.
   bytes referred_volume = 3 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
   // The affiliate's currently staked native tokens (in whole coins).
   bytes staked_amount = 4 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
 }

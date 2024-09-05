@@ -24,10 +24,10 @@ message Limiter {
       [ (gogoproto.nullable) = false, (gogoproto.stdduration) = true ];
   // baseline_minimum is the minimum maximum withdrawal coin amount within the
   // time period.
-  // e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 unemo for 50k DV4TNT
+  // e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 adv4tnt for 50k DV4TNT
   bytes baseline_minimum = 3 [
     (gogoproto.customtype) =
-        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+        "github.com/dydxprotocol/v4-chain/protocol/dtypes.SerializableInt",
     (gogoproto.nullable) = false
   ];
   // baseline_tvl_ppm is the maximum ratio of TVL withdrawable in

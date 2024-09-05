@@ -15,7 +15,7 @@ service BridgeService {
 // AddBridgeEventsRequest is a request message that contains a list of new
 // bridge events. The events should be contiguous and sorted by (unique) id.
 message AddBridgeEventsRequest {
-  repeated nemo_network.bridge.BridgeEvent bridge_events = 1
+  repeated dydxprotocol.bridge.BridgeEvent bridge_events = 1
       [ (gogoproto.nullable) = false ];
 }
 

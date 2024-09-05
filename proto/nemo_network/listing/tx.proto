@@ -48,7 +48,7 @@ message MsgCreateMarketPermissionless {
   string ticker = 1;
 
   // The subaccount to deposit from.
-  nemo_network.subaccounts.SubaccountId subaccount_id = 2;
+  dydxprotocol.subaccounts.SubaccountId subaccount_id = 2;
 }
 
 // MsgCreateMarketPermissionlessResponse defines the

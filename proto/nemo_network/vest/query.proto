@@ -11,7 +11,7 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/vest/types";
 service Query {
   // Queries the VestEntry.
   rpc VestEntry(QueryVestEntryRequest) returns (QueryVestEntryResponse) {
-    option (google.api.http).get = "/nemo-network/vest/vest_entry";
+    option (google.api.http).get = "/dydxprotocol/v4/vest/vest_entry";
   }
 }
 

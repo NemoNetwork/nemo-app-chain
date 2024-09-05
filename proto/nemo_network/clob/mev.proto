@@ -9,10 +9,10 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/clob/types";
 
 // MEVMatch represents all necessary data to calculate MEV for a regular match.
 message MEVMatch {
-  nemo_network.subaccounts.SubaccountId taker_order_subaccount_id = 1;
+  dydxprotocol.subaccounts.SubaccountId taker_order_subaccount_id = 1;
   int32 taker_fee_ppm = 2;
 
-  nemo_network.subaccounts.SubaccountId maker_order_subaccount_id = 3;
+  dydxprotocol.subaccounts.SubaccountId maker_order_subaccount_id = 3;
   uint64 maker_order_subticks = 4;
   bool maker_order_is_buy = 5;
   int32 maker_fee_ppm = 6;
@@ -24,11 +24,11 @@ message MEVMatch {
 // MEVLiquidationMatch represents all necessary data to calculate MEV for a
 // liquidation.
 message MEVLiquidationMatch {
-  nemo_network.subaccounts.SubaccountId liquidated_subaccount_id = 1
+  dydxprotocol.subaccounts.SubaccountId liquidated_subaccount_id = 1
       [ (gogoproto.nullable) = false ];
   int64 insurance_fund_delta_quote_quantums = 2;
 
-  nemo_network.subaccounts.SubaccountId maker_order_subaccount_id = 3
+  dydxprotocol.subaccounts.SubaccountId maker_order_subaccount_id = 3
       [ (gogoproto.nullable) = false ];
   uint64 maker_order_subticks = 4;
   bool maker_order_is_buy = 5;
@@ -40,7 +40,7 @@ message MEVLiquidationMatch {
 
 // ClobMidPrice contains the mid price of a CLOB pair, represented by it's ID.
 message ClobMidPrice {
-  nemo_network.clob.ClobPair clob_pair = 1 [ (gogoproto.nullable) = false ];
+  dydxprotocol.clob.ClobPair clob_pair = 1 [ (gogoproto.nullable) = false ];
   uint64 subticks = 2;
 }
 

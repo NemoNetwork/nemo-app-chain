@@ -13,24 +13,24 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/prices/types";
 service Query {
   // Queries a MarketPrice by id.
   rpc MarketPrice(QueryMarketPriceRequest) returns (QueryMarketPriceResponse) {
-    option (google.api.http).get = "/nemo-network/prices/market/{id}";
+    option (google.api.http).get = "/dydxprotocol/prices/market/{id}";
   }
 
   // Queries a list of MarketPrice items.
   rpc AllMarketPrices(QueryAllMarketPricesRequest)
       returns (QueryAllMarketPricesResponse) {
-    option (google.api.http).get = "/nemo-network/prices/market";
+    option (google.api.http).get = "/dydxprotocol/prices/market";
   }
 
   // Queries a MarketParam by id.
   rpc MarketParam(QueryMarketParamRequest) returns (QueryMarketParamResponse) {
-    option (google.api.http).get = "/nemo-network/prices/params/market/{id}";
+    option (google.api.http).get = "/dydxprotocol/prices/params/market/{id}";
   }
 
   // Queries a list of MarketParam items.
   rpc AllMarketParams(QueryAllMarketParamsRequest)
       returns (QueryAllMarketParamsResponse) {
-    option (google.api.http).get = "/nemo-network/prices/params/market";
+    option (google.api.http).get = "/dydxprotocol/prices/params/market";
   }
 }
 

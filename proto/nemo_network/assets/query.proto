@@ -12,12 +12,12 @@ option go_package = "github.com/nemo-network/v4-chain/protocol/x/assets/types";
 service Query {
   // Queries a Asset by id.
   rpc Asset(QueryAssetRequest) returns (QueryAssetResponse) {
-    option (google.api.http).get = "/nemo-network/assets/asset/{id}";
+    option (google.api.http).get = "/dydxprotocol/assets/asset/{id}";
   }
 
   // Queries a list of Asset items.
   rpc AllAssets(QueryAllAssetsRequest) returns (QueryAllAssetsResponse) {
-    option (google.api.http).get = "/nemo-network/assets/asset";
+    option (google.api.http).get = "/dydxprotocol/assets/asset";
   }
 }
 
