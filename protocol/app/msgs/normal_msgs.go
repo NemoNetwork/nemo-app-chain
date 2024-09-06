@@ -246,10 +246,6 @@ var (
 		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse": nil,
 
 		// vault
-<<<<<<< HEAD
-		"/nemo_network.vault.MsgDepositToVault":         &vault.MsgDepositToVault{},
-		"/nemo_network.vault.MsgDepositToVaultResponse": nil,
-=======
 		"/nemo-network.vault.MsgDepositToMegavault":         &vault.MsgDepositToMegavault{},
 		"/nemo-network.vault.MsgDepositToMegavaultResponse": nil,
 	}
@@ -266,6 +262,5 @@ var (
 		"/slinky.marketmap.v1.MsgUpdateMarketsResponse":           nil,
 		"/slinky.marketmap.v1.MsgUpsertMarkets":                   &marketmapmoduletypes.MsgUpsertMarkets{},
 		"/slinky.marketmap.v1.MsgUpsertMarketsResponse":           nil,
->>>>>>> main
 	}
 )

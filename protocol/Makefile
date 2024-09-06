@@ -7,8 +7,41 @@ PROJECT_NAME := $(shell git remote get-url origin | xargs basename -s .git)
 CGO_ENABLED=1
 export GIT_COMMIT_HASH=$(shell git rev-parse --short HEAD)
 export COMMIT=$(shell git rev-parse HEAD)
-
 export GO111MODULE = on
+
+HOMEDIR ?= $(shell echo $$HOME)/.nemo
+GENESIS ?= $(HOMEDIR)/config/genesis.json
+GENESIS_TMP ?= $(HOMEDIR)/config/genesis_tmp.json
+APP_TOML ?= $(HOMEDIR)/config/app.toml
+CONFIG_TOML ?= $(HOMEDIR)/config/config.toml
+COVER_FILE ?= cover.out
+BENCHMARK_ITERS ?= 10
+USE_CORE_MARKETS ?= true
+USE_RAYDIUM_MARKETS ?= false
+USE_UNISWAPV3_BASE_MARKETS ?= false
+USE_COINGECKO_MARKETS ?= false
+USE_COINMARKETCAP_MARKETS ?= false
+USE_OSMOSIS_MARKETS ?= false
+USE_POLYMARKET_MARKETS ?= false
+SCRIPT_DIR := $(CURDIR)/scripts
+
+LEVANT_VAR_FILE:=$(shell mktemp -d)/levant.yaml
+NOMAD_FILE_CONNECT:=contrib/nomad/connect.nomad
+
+TAG := $(shell git describe --tags --always --dirty)
+
+export HOMEDIR := $(HOMEDIR)
+export APP_TOML := $(APP_TOML)
+export GENESIS := $(GENESIS)
+export GENESIS_TMP := $(GENESIS_TMP)
+export USE_CORE_MARKETS ?= $(USE_CORE_MARKETS)
+export USE_RAYDIUM_MARKETS ?= $(USE_RAYDIUM_MARKETS)
+export USE_UNISWAPV3_BASE_MARKETS ?= $(USE_UNISWAPV3_BASE_MARKETS)
+export USE_COINGECKO_MARKETS ?= $(USE_COINGECKO_MARKETS)
+export USE_COINMARKETCAP_MARKETS ?= $(USE_COINMARKETCAP_MARKETS)
+export USE_OSMOSIS_MARKETS ?= $(USE_OSMOSIS_MARKETS)
+export USE_POLYMARKET_MARKETS ?= $(USE_POLYMARKET_MARKETS)
+export SCRIPT_DIR := $(SCRIPT_DIR)
 
 # process build tags
 build_tags = netgo
@@ -426,3 +459,7 @@ check-sample-pregenesis-up-to-date:
 	@docker run -v $(CURDIR):/workspace check-sample-pregenesis
 
 .PHONY: update-sample-pregenesis check-sample-pregenesis-up-to-date
+
+build-market-map:
+	@echo "Building market map..."
+	@sh ./scripts/genesis.sh
