@@ -19,13 +19,13 @@ const (
 
 	// 10^BaseDenomExponent denotes how much full coin is represented by 1 base denom.
 	BaseDenomExponent = -18
-	DefaultBaseDenom  = "adv4tnt"
+	DefaultBaseDenom  = "unemo"
 )
 
 // PowerReduction defines the default power reduction value for staking.
-// Use 1e18, since default stake denom is assumed to be 1e-18 of a full coin.
+// Use 1e18, since default stake denom is assumed to be 1e-6 of a full coin.
 var PowerReduction = sdkmath.NewIntFromBigInt(
-	new(big.Int).SetUint64(1_000_000_000_000_000_000),
+	new(big.Int).SetUint64(1_000_000),
 )
 
 // BigNegMaxUint64 returns a `big.Int` that is set to -math.MaxUint64.

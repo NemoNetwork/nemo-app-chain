@@ -1,5 +1,5 @@
-import { perpetualMarketRefresher } from '@dydxprotocol-indexer/postgres';
-import { PerpetualMarketCreateEventV1, IndexerTendermintEvent, PerpetualMarketCreateEventV2 } from '@dydxprotocol-indexer/v4-protos';
+import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import { PerpetualMarketCreateEventV1, IndexerTendermintEvent, PerpetualMarketCreateEventV2 } from '@nemo-network-indexer/v4-protos';
 import Long from 'long';
 
 import { Handler } from '../handlers/handler';

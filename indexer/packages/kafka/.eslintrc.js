@@ -1,4 +1,4 @@
-const baseConfig = require('./node_modules/@dydxprotocol-indexer/dev/.eslintrc');
+const baseConfig = require('./node_modules/@nemo-network-indexer/dev/.eslintrc');
 
 module.exports = {
   ...baseConfig,

@@ -2,8 +2,8 @@ package util
 
 import (
 	"github.com/cosmos/gogoproto/proto"
-	ocutypes "github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	ocutypes "github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 // GetOffchainUpdatesV1 unmarshals messages in offchain updates to OffchainUpdateV1.

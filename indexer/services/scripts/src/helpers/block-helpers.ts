@@ -1,4 +1,4 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   AssetCreateEventV1,
   DeleveragingEventV1,
@@ -14,7 +14,7 @@ import {
   TransferEventV1,
   UpdateClobPairEventV1,
   UpdatePerpetualEventV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 
 import { AnnotatedIndexerTendermintEvent, DydxIndexerSubtypes } from './types';
 

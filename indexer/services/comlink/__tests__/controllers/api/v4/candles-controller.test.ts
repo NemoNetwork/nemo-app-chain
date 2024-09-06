@@ -1,6 +1,6 @@
 import {
   CandleResolution, CandleTable, dbHelpers, perpetualMarketRefresher, testConstants, testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 import request from 'supertest';
 
@@ -26,12 +26,12 @@ describe('candles-controller#V4', () => {
     await dbHelpers.teardown();
   });
 
-  describe('/v4/candles/perpetualMarkets/:ticker', () => {
+  describe('/candles/perpetualMarkets/:ticker', () => {
     it('successfully returns no candles if none exist', async () => {
       const resolution: CandleResolution = CandleResolution.ONE_DAY;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/candles/perpetualMarkets/${testConstants.defaultCandle.ticker}` +
+        path: `/candles/perpetualMarkets/${testConstants.defaultCandle.ticker}` +
           `?resolution=${resolution}`,
       });
 
@@ -53,7 +53,7 @@ describe('candles-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/candles/perpetualMarkets/${testConstants.defaultCandle.ticker}` +
+        path: `/candles/perpetualMarkets/${testConstants.defaultCandle.ticker}` +
           `?resolution=${resolution}`,
       });
 
@@ -77,7 +77,7 @@ describe('candles-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/candles/perpetualMarkets/${testConstants.defaultCandle.ticker}` +
+        path: `/candles/perpetualMarkets/${testConstants.defaultCandle.ticker}` +
           `?resolution=${CandleResolution.ONE_DAY}`,
       });
 

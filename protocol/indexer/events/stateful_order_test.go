@@ -3,10 +3,10 @@ package events_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/events"
-	v1 "github.com/dydxprotocol/v4-chain/protocol/indexer/protocol/v1"
-	sharedtypes "github.com/dydxprotocol/v4-chain/protocol/indexer/shared/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/indexer/events"
+	v1 "github.com/nemo-network/v4-chain/protocol/indexer/protocol/v1"
+	sharedtypes "github.com/nemo-network/v4-chain/protocol/indexer/shared/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/stretchr/testify/require"
 )
 

@@ -6,9 +6,9 @@ import (
 	sdkmath "cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -27,56 +27,56 @@ func TestCompleteBridge(t *testing.T) {
 		expectedModAccBalance sdk.Coin
 	}{
 		"Success": {
-			initialModAccBalance:  sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			initialModAccBalance:  sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 			bridgeEvent:           constants.BridgeEvent_Id0_Height0,           // bridges 888 tokens.
-			expectedModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(112)), // 1000 - 888.
+			expectedModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(112)), // 1000 - 888.
 		},
 		"Success: coin amount is 0": {
-			initialModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			initialModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 			bridgeEvent: types.BridgeEvent{
 				Id:             7,
 				Address:        constants.BobAccAddress.String(),
-				Coin:           sdk.NewCoin("adv4tnt", sdkmath.ZeroInt()),
+				Coin:           sdk.NewCoin("unemo", sdkmath.ZeroInt()),
 				EthBlockHeight: 3,
 			},
-			expectedModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			expectedModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 		},
 		"Success: coin amount is negative": {
-			initialModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			initialModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 			bridgeEvent: types.BridgeEvent{
 				Id:      7,
 				Address: constants.BobAccAddress.String(),
 				Coin: sdk.Coin{
-					Denom:  "adv4tnt",
+					Denom:  "unemo",
 					Amount: sdkmath.NewInt(-1),
 				},
 				EthBlockHeight: 3,
 			},
-			expectedModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			expectedModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 		},
 		"Failure: invalid address string": {
-			initialModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			initialModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 			bridgeEvent: types.BridgeEvent{
 				Id:             4,
 				Address:        "not an address string",
-				Coin:           sdk.NewCoin("adv4tnt", sdkmath.NewInt(1)),
+				Coin:           sdk.NewCoin("unemo", sdkmath.NewInt(1)),
 				EthBlockHeight: 2,
 			},
 			expectedError:         "decoding bech32 failed",
-			expectedModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			expectedModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 		},
 		"Failure: bridge module account has insufficient balance": {
-			initialModAccBalance:  sdk.NewCoin("adv4tnt", sdkmath.NewInt(500)),
+			initialModAccBalance:  sdk.NewCoin("unemo", sdkmath.NewInt(500)),
 			bridgeEvent:           constants.BridgeEvent_Id0_Height0, // bridges 888 tokens.
 			expectedError:         "insufficient funds",
-			expectedModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(500)),
+			expectedModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(500)),
 		},
 		"Failure: bridging is disabled": {
-			initialModAccBalance:  sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+			initialModAccBalance:  sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 			bridgeEvent:           constants.BridgeEvent_Id0_Height0, // bridges 888 tokens.
 			bridgingDisabled:      true,
 			expectedError:         types.ErrBridgingDisabled.Error(),
-			expectedModAccBalance: sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)), // same as initial.
+			expectedModAccBalance: sdk.NewCoin("unemo", sdkmath.NewInt(1_000)), // same as initial.
 		},
 	}
 

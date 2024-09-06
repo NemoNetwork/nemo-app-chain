@@ -14,17 +14,17 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates"
-	ocutypes "github.com/dydxprotocol/v4-chain/protocol/indexer/off_chain_updates/types"
-	indexershared "github.com/dydxprotocol/v4-chain/protocol/indexer/shared"
-	indexersharedtypes "github.com/dydxprotocol/v4-chain/protocol/indexer/shared/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
 	gometrics "github.com/hashicorp/go-metrics"
+	"github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates"
+	ocutypes "github.com/nemo-network/v4-chain/protocol/indexer/off_chain_updates/types"
+	indexershared "github.com/nemo-network/v4-chain/protocol/indexer/shared"
+	indexersharedtypes "github.com/nemo-network/v4-chain/protocol/indexer/shared/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // Ensure that `memClobPriceTimePriority` struct properly implements
@@ -826,6 +826,12 @@ func (m *MemClobPriceTimePriority) matchOrder(
 	// Set the matching error so that the order is canceled.
 	if !order.IsLiquidation() && takerOrderStatus.OrderStatus == types.PostOnlyWouldCrossMakerOrder {
 		matchingErr = types.ErrPostOnlyWouldCrossMakerOrder
+	}
+
+	// If the order filling leads to the subaccount having an invalid state due to failing checks for
+	// isolated subaccount constraints, return an error so that the order is canceled.
+	if !order.IsLiquidation() && takerOrderStatus.OrderStatus == types.ViolatesIsolatedSubaccountConstraints {
+		matchingErr = types.ErrWouldViolateIsolatedSubaccountConstraints
 	}
 
 	// If the order filling leads to the subaccount having an invalid state due to failing checks for

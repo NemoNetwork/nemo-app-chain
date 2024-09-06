@@ -7,8 +7,8 @@ import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	testApp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	testApp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 	"github.com/stretchr/testify/require"
 )
 

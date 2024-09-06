@@ -2,8 +2,8 @@ package sending
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/sending/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
+	"github.com/nemo-network/v4-chain/protocol/x/sending/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/sending/types"
 )
 
 // InitGenesis initializes the sending module's state from a provided genesis

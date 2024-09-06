@@ -3,13 +3,13 @@ package containertest
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/stretchr/testify/require"
 
 	upgrade "cosmossdk.io/x/upgrade/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	gov "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 )
 
 const GovModuleAddress = "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky"
@@ -28,7 +28,7 @@ func UpgradeTestnet(nodeAddress string, t *testing.T, node *Node, upgradeToVersi
 				Authority: GovModuleAddress,
 				Plan: upgrade.Plan{
 					Name:   upgradeToVersion,
-					Height: 10,
+					Height: 60,
 				},
 			},
 		},
@@ -61,6 +61,6 @@ func UpgradeTestnet(nodeAddress string, t *testing.T, node *Node, upgradeToVersi
 		))
 	}
 
-	err = node.WaitUntilBlockHeight(12)
+	err = node.WaitUntilBlockHeight(64)
 	return err
 }

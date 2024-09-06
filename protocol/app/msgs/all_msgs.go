@@ -1,7 +1,7 @@
 package msgs
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 )
 
 var (
@@ -149,128 +149,128 @@ var (
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":       {},
 
 		// affiliates
-		"/dydxprotocol.affiliates.MsgRegisterAffiliate":            {},
-		"/dydxprotocol.affiliates.MsgRegisterAffiliateResponse":    {},
-		"/dydxprotocol.affiliates.MsgUpdateAffiliateTiers":         {},
-		"/dydxprotocol.affiliates.MsgUpdateAffiliateTiersResponse": {},
+		"/nemo-network.affiliates.MsgRegisterAffiliate":            {},
+		"/nemo-network.affiliates.MsgRegisterAffiliateResponse":    {},
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiers":         {},
+		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse": {},
 
 		// blocktime
-		"/dydxprotocol.blocktime.MsgUpdateDowntimeParams":         {},
-		"/dydxprotocol.blocktime.MsgUpdateDowntimeParamsResponse": {},
+		"/nemo_network.blocktime.MsgUpdateDowntimeParams":         {},
+		"/nemo_network.blocktime.MsgUpdateDowntimeParamsResponse": {},
 
 		// bridge
-		"/dydxprotocol.bridge.MsgAcknowledgeBridges":          {},
-		"/dydxprotocol.bridge.MsgAcknowledgeBridgesResponse":  {},
-		"/dydxprotocol.bridge.MsgCompleteBridge":              {},
-		"/dydxprotocol.bridge.MsgCompleteBridgeResponse":      {},
-		"/dydxprotocol.bridge.MsgUpdateEventParams":           {},
-		"/dydxprotocol.bridge.MsgUpdateEventParamsResponse":   {},
-		"/dydxprotocol.bridge.MsgUpdateProposeParams":         {},
-		"/dydxprotocol.bridge.MsgUpdateProposeParamsResponse": {},
-		"/dydxprotocol.bridge.MsgUpdateSafetyParams":          {},
-		"/dydxprotocol.bridge.MsgUpdateSafetyParamsResponse":  {},
+		"/nemo_network.bridge.MsgAcknowledgeBridges":          {},
+		"/nemo_network.bridge.MsgAcknowledgeBridgesResponse":  {},
+		"/nemo_network.bridge.MsgCompleteBridge":              {},
+		"/nemo_network.bridge.MsgCompleteBridgeResponse":      {},
+		"/nemo_network.bridge.MsgUpdateEventParams":           {},
+		"/nemo_network.bridge.MsgUpdateEventParamsResponse":   {},
+		"/nemo_network.bridge.MsgUpdateProposeParams":         {},
+		"/nemo_network.bridge.MsgUpdateProposeParamsResponse": {},
+		"/nemo_network.bridge.MsgUpdateSafetyParams":          {},
+		"/nemo_network.bridge.MsgUpdateSafetyParamsResponse":  {},
 
 		// clob
-		"/dydxprotocol.clob.MsgBatchCancel":                                {},
-		"/dydxprotocol.clob.MsgBatchCancelResponse":                        {},
-		"/dydxprotocol.clob.MsgCancelOrder":                                {},
-		"/dydxprotocol.clob.MsgCancelOrderResponse":                        {},
-		"/dydxprotocol.clob.MsgCreateClobPair":                             {},
-		"/dydxprotocol.clob.MsgCreateClobPairResponse":                     {},
-		"/dydxprotocol.clob.MsgPlaceOrder":                                 {},
-		"/dydxprotocol.clob.MsgPlaceOrderResponse":                         {},
-		"/dydxprotocol.clob.MsgProposedOperations":                         {},
-		"/dydxprotocol.clob.MsgProposedOperationsResponse":                 {},
-		"/dydxprotocol.clob.MsgUpdateBlockRateLimitConfiguration":          {},
-		"/dydxprotocol.clob.MsgUpdateBlockRateLimitConfigurationResponse":  {},
-		"/dydxprotocol.clob.MsgUpdateClobPair":                             {},
-		"/dydxprotocol.clob.MsgUpdateClobPairResponse":                     {},
-		"/dydxprotocol.clob.MsgUpdateEquityTierLimitConfiguration":         {},
-		"/dydxprotocol.clob.MsgUpdateEquityTierLimitConfigurationResponse": {},
-		"/dydxprotocol.clob.MsgUpdateLiquidationsConfig":                   {},
-		"/dydxprotocol.clob.MsgUpdateLiquidationsConfigResponse":           {},
+		"/nemo_network.clob.MsgBatchCancel":                                {},
+		"/nemo_network.clob.MsgBatchCancelResponse":                        {},
+		"/nemo_network.clob.MsgCancelOrder":                                {},
+		"/nemo_network.clob.MsgCancelOrderResponse":                        {},
+		"/nemo_network.clob.MsgCreateClobPair":                             {},
+		"/nemo_network.clob.MsgCreateClobPairResponse":                     {},
+		"/nemo_network.clob.MsgPlaceOrder":                                 {},
+		"/nemo_network.clob.MsgPlaceOrderResponse":                         {},
+		"/nemo_network.clob.MsgProposedOperations":                         {},
+		"/nemo_network.clob.MsgProposedOperationsResponse":                 {},
+		"/nemo_network.clob.MsgUpdateBlockRateLimitConfiguration":          {},
+		"/nemo_network.clob.MsgUpdateBlockRateLimitConfigurationResponse":  {},
+		"/nemo_network.clob.MsgUpdateClobPair":                             {},
+		"/nemo_network.clob.MsgUpdateClobPairResponse":                     {},
+		"/nemo_network.clob.MsgUpdateEquityTierLimitConfiguration":         {},
+		"/nemo_network.clob.MsgUpdateEquityTierLimitConfigurationResponse": {},
+		"/nemo_network.clob.MsgUpdateLiquidationsConfig":                   {},
+		"/nemo_network.clob.MsgUpdateLiquidationsConfigResponse":           {},
 
 		// delaymsg
-		"/dydxprotocol.delaymsg.MsgDelayMessage":         {},
-		"/dydxprotocol.delaymsg.MsgDelayMessageResponse": {},
+		"/nemo_network.delaymsg.MsgDelayMessage":         {},
+		"/nemo_network.delaymsg.MsgDelayMessageResponse": {},
 
 		// feetiers
-		"/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams":         {},
-		"/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParamsResponse": {},
+		"/nemo_network.feetiers.MsgUpdatePerpetualFeeParams":         {},
+		"/nemo_network.feetiers.MsgUpdatePerpetualFeeParamsResponse": {},
 
 		// govplus
-		"/dydxprotocol.govplus.MsgSlashValidator":         {},
-		"/dydxprotocol.govplus.MsgSlashValidatorResponse": {},
+		"/nemo_network.govplus.MsgSlashValidator":         {},
+		"/nemo_network.govplus.MsgSlashValidatorResponse": {},
 
 		// listing
-		"/dydxprotocol.listing.MsgSetMarketsHardCap":                    {},
-		"/dydxprotocol.listing.MsgSetMarketsHardCapResponse":            {},
-		"/dydxprotocol.listing.MsgCreateMarketPermissionless":           {},
-		"/dydxprotocol.listing.MsgCreateMarketPermissionlessResponse":   {},
-		"/dydxprotocol.listing.MsgSetListingVaultDepositParams":         {},
-		"/dydxprotocol.listing.MsgSetListingVaultDepositParamsResponse": {},
+		"/nemo-network.listing.MsgSetMarketsHardCap":                    {},
+		"/nemo-network.listing.MsgSetMarketsHardCapResponse":            {},
+		"/nemo-network.listing.MsgCreateMarketPermissionless":           {},
+		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse":   {},
+		"/nemo-network.listing.MsgSetListingVaultDepositParams":         {},
+		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse": {},
 
 		// perpetuals
-		"/dydxprotocol.perpetuals.MsgAddPremiumVotes":               {},
-		"/dydxprotocol.perpetuals.MsgAddPremiumVotesResponse":       {},
-		"/dydxprotocol.perpetuals.MsgCreatePerpetual":               {},
-		"/dydxprotocol.perpetuals.MsgCreatePerpetualResponse":       {},
-		"/dydxprotocol.perpetuals.MsgSetLiquidityTier":              {},
-		"/dydxprotocol.perpetuals.MsgSetLiquidityTierResponse":      {},
-		"/dydxprotocol.perpetuals.MsgUpdateParams":                  {},
-		"/dydxprotocol.perpetuals.MsgUpdateParamsResponse":          {},
-		"/dydxprotocol.perpetuals.MsgUpdatePerpetualParams":         {},
-		"/dydxprotocol.perpetuals.MsgUpdatePerpetualParamsResponse": {},
+		"/nemo_network.perpetuals.MsgAddPremiumVotes":               {},
+		"/nemo_network.perpetuals.MsgAddPremiumVotesResponse":       {},
+		"/nemo_network.perpetuals.MsgCreatePerpetual":               {},
+		"/nemo_network.perpetuals.MsgCreatePerpetualResponse":       {},
+		"/nemo_network.perpetuals.MsgSetLiquidityTier":              {},
+		"/nemo_network.perpetuals.MsgSetLiquidityTierResponse":      {},
+		"/nemo_network.perpetuals.MsgUpdateParams":                  {},
+		"/nemo_network.perpetuals.MsgUpdateParamsResponse":          {},
+		"/nemo_network.perpetuals.MsgUpdatePerpetualParams":         {},
+		"/nemo_network.perpetuals.MsgUpdatePerpetualParamsResponse": {},
 
 		// prices
-		"/dydxprotocol.prices.MsgCreateOracleMarket":         {},
-		"/dydxprotocol.prices.MsgCreateOracleMarketResponse": {},
-		"/dydxprotocol.prices.MsgUpdateMarketPrices":         {},
-		"/dydxprotocol.prices.MsgUpdateMarketPricesResponse": {},
-		"/dydxprotocol.prices.MsgUpdateMarketParam":          {},
-		"/dydxprotocol.prices.MsgUpdateMarketParamResponse":  {},
+		"/nemo_network.prices.MsgCreateOracleMarket":         {},
+		"/nemo_network.prices.MsgCreateOracleMarketResponse": {},
+		"/nemo_network.prices.MsgUpdateMarketPrices":         {},
+		"/nemo_network.prices.MsgUpdateMarketPricesResponse": {},
+		"/nemo_network.prices.MsgUpdateMarketParam":          {},
+		"/nemo_network.prices.MsgUpdateMarketParamResponse":  {},
 
 		// ratelimit
-		"/dydxprotocol.ratelimit.MsgSetLimitParams":         {},
-		"/dydxprotocol.ratelimit.MsgSetLimitParamsResponse": {},
+		"/nemo_network.ratelimit.MsgSetLimitParams":         {},
+		"/nemo_network.ratelimit.MsgSetLimitParamsResponse": {},
 
 		// sending
-		"/dydxprotocol.sending.MsgCreateTransfer":                  {},
-		"/dydxprotocol.sending.MsgCreateTransferResponse":          {},
-		"/dydxprotocol.sending.MsgDepositToSubaccount":             {},
-		"/dydxprotocol.sending.MsgDepositToSubaccountResponse":     {},
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccount":          {},
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccountResponse":  {},
-		"/dydxprotocol.sending.MsgSendFromModuleToAccount":         {},
-		"/dydxprotocol.sending.MsgSendFromModuleToAccountResponse": {},
+		"/nemo_network.sending.MsgCreateTransfer":                  {},
+		"/nemo_network.sending.MsgCreateTransferResponse":          {},
+		"/nemo_network.sending.MsgDepositToSubaccount":             {},
+		"/nemo_network.sending.MsgDepositToSubaccountResponse":     {},
+		"/nemo_network.sending.MsgWithdrawFromSubaccount":          {},
+		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse":  {},
+		"/nemo_network.sending.MsgSendFromModuleToAccount":         {},
+		"/nemo_network.sending.MsgSendFromModuleToAccountResponse": {},
 
 		// stats
-		"/dydxprotocol.stats.MsgUpdateParams":         {},
-		"/dydxprotocol.stats.MsgUpdateParamsResponse": {},
+		"/nemo_network.stats.MsgUpdateParams":         {},
+		"/nemo_network.stats.MsgUpdateParamsResponse": {},
 
 		// vault
-		"/dydxprotocol.vault.MsgDepositToMegavault":                 {},
-		"/dydxprotocol.vault.MsgDepositToMegavaultResponse":         {},
-		"/dydxprotocol.vault.MsgSetVaultParams":                     {},
-		"/dydxprotocol.vault.MsgSetVaultParamsResponse":             {},
-		"/dydxprotocol.vault.MsgUpdateDefaultQuotingParams":         {},
-		"/dydxprotocol.vault.MsgUpdateDefaultQuotingParamsResponse": {},
+		"/nemo-network.vault.MsgDepositToMegavault":                 {},
+		"/nemo-network.vault.MsgDepositToMegavaultResponse":         {},
+		"/nemo-network.vault.MsgSetVaultParams":                     {},
+		"/nemo-network.vault.MsgSetVaultParamsResponse":             {},
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParams":         {},
+		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse": {},
 
 		// vest
-		"/dydxprotocol.vest.MsgSetVestEntry":            {},
-		"/dydxprotocol.vest.MsgSetVestEntryResponse":    {},
-		"/dydxprotocol.vest.MsgDeleteVestEntry":         {},
-		"/dydxprotocol.vest.MsgDeleteVestEntryResponse": {},
+		"/nemo_network.vest.MsgSetVestEntry":            {},
+		"/nemo_network.vest.MsgSetVestEntryResponse":    {},
+		"/nemo_network.vest.MsgDeleteVestEntry":         {},
+		"/nemo_network.vest.MsgDeleteVestEntryResponse": {},
 
 		// revshare
-		"/dydxprotocol.revshare.MsgSetMarketMapperRevenueShare":                     {},
-		"/dydxprotocol.revshare.MsgSetMarketMapperRevenueShareResponse":             {},
-		"/dydxprotocol.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         {},
-		"/dydxprotocol.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare":                     {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse":             {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         {},
+		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": {},
 
 		// rewards
-		"/dydxprotocol.rewards.MsgUpdateParams":         {},
-		"/dydxprotocol.rewards.MsgUpdateParamsResponse": {},
+		"/nemo_network.rewards.MsgUpdateParams":         {},
+		"/nemo_network.rewards.MsgUpdateParamsResponse": {},
 
 		// ibc.applications
 		"/ibc.applications.transfer.v1.MsgTransfer":             {},

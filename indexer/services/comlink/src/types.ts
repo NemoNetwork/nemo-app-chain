@@ -23,8 +23,8 @@ import {
   TradeType,
   TradingRewardAggregationPeriod,
   TransferType,
-} from '@dydxprotocol-indexer/postgres';
-import { RedisOrder } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import express from 'express';
 
@@ -308,6 +308,29 @@ export interface PerpetualMarketResponse {
 }
 
 export interface PerpetualMarketResponseObject {
+<<<<<<< HEAD
+  clobPairId: string;
+  ticker: string;
+  status: PerpetualMarketStatus;
+  oraclePrice: string;
+  priceChange24H: string;
+  volume24H: string;
+  trades24H: number;
+  nextFundingRate: string;
+  initialMarginFraction: string;
+  maintenanceMarginFraction: string;
+  openInterest: string;
+  atomicResolution: number;
+  quantumConversionExponent: number;
+  tickSize: string;
+  stepSize: string;
+  stepBaseQuantums: number;
+  subticksPerTick: number;
+  marketType: PerpetualMarketType;
+  openInterestLowerCap?: string;
+  openInterestUpperCap?: string;
+  baseOpenInterest: string;
+=======
   clobPairId: string,
   ticker: string,
   status: PerpetualMarketStatus,
@@ -344,6 +367,7 @@ export interface PerpetualMarketResponseObject {
   openInterestLowerCap?: string,
   openInterestUpperCap?: string,
   baseOpenInterest: string,
+>>>>>>> main
 }
 
 /* ------- ORDERBOOK TYPES ------- */

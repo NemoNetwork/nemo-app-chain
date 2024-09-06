@@ -10,13 +10,13 @@ import (
 
 // Parse the denom from the Send Packet that will be used by the rate limit module
 // The denom that the rate limiter will use for a SEND packet depends on whether
-// it was a NATIVE token (e.g. adv4tnt, etc.) or NON-NATIVE token (e.g. ibc/...)...
+// it was a NATIVE token (e.g. unemo, etc.) or NON-NATIVE token (e.g. ibc/...)...
 //
 // We can identify if the token is native or not by parsing the trace denom from the packet
-// If the token is NATIVE, it will not have a prefix (e.g. adv4tnt),
+// If the token is NATIVE, it will not have a prefix (e.g. unemo),
 // and if it is NON-NATIVE, it will have a prefix (e.g. transfer/channel-2/uosmo)
 //
-// For NATIVE denoms, return as is (e.g. adv4tnt)
+// For NATIVE denoms, return as is (e.g. unemo)
 // For NON-NATIVE denoms, take the ibc hash (e.g. hash "transfer/channel-2/usoms" into "ibc/...")
 func ParseDenomFromSendPacket(packet ibctransfertypes.FungibleTokenPacketData) (denom string) {
 	// Determine the denom by looking at the denom trace path
@@ -49,10 +49,10 @@ func ParseDenomFromSendPacket(packet ibctransfertypes.FungibleTokenPacketData) (
 //	        -> Hash:       ibc/...
 //
 //	If the chain is acting as a SOURCE: First, remove the prefix. Then if there is still a denom trace, hash it
-//	  Ex1: adv4tnt sent back to dYdX chain from Osmosis
-//	       Packet Denom:      transfer/channel-X/adv4tnt
-//	        -> Remove Prefix: adv4tnt
-//	        -> Leave as is:   adv4tnt
+//	  Ex1: unemo sent back to dYdX chain from Osmosis
+//	       Packet Denom:      transfer/channel-X/unemo
+//	        -> Remove Prefix: unemo
+//	        -> Leave as is:   unemo
 //
 //	  Ex2: juno was sent to dYdX Chain, then to Osmosis, then back to dYdX Chain
 //	       Packet Denom:      transfer/channel-X/transfer/channel-Z/ujuno

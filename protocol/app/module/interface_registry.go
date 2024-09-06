@@ -77,33 +77,33 @@ func NewInterfaceRegistry(addrPrefix string, valAddrPrefix string) (types.Interf
 			// https://github.com/cosmos/cosmos-sdk/issues/18722 is fixed, replace this with the cosmos.msg.v1.signing
 			// annotation on the protos.
 			CustomGetSigners: map[protoreflect.FullName]signing.GetSignersFunc{
-				"dydxprotocol.clob.MsgBatchCancel": getLegacyMsgSignerFn(
+				"nemo_network.clob.MsgBatchCancel": getLegacyMsgSignerFn(
 					[]string{"subaccount_id", "owner"},
 				),
-				"dydxprotocol.clob.MsgCancelOrder": getLegacyMsgSignerFn(
+				"nemo_network.clob.MsgCancelOrder": getLegacyMsgSignerFn(
 					[]string{"order_id", "subaccount_id", "owner"},
 				),
-				"dydxprotocol.clob.MsgPlaceOrder": getLegacyMsgSignerFn(
+				"nemo_network.clob.MsgPlaceOrder": getLegacyMsgSignerFn(
 					[]string{"order", "order_id", "subaccount_id", "owner"},
 				),
-				"dydxprotocol.sending.MsgCreateTransfer": getLegacyMsgSignerFn(
+				"nemo_network.sending.MsgCreateTransfer": getLegacyMsgSignerFn(
 					[]string{"transfer", "sender", "owner"},
 				),
-				"dydxprotocol.sending.MsgWithdrawFromSubaccount": getLegacyMsgSignerFn(
+				"nemo_network.sending.MsgWithdrawFromSubaccount": getLegacyMsgSignerFn(
 					[]string{"sender", "owner"},
 				),
-				"dydxprotocol.vault.MsgDepositToMegavault": getLegacyMsgSignerFn(
+				"nemo-network.vault.MsgDepositToMegavault": getLegacyMsgSignerFn(
 					[]string{"subaccount_id", "owner"},
 				),
-				"dydxprotocol.listing.MsgCreateMarketPermissionless": getLegacyMsgSignerFn(
+				"nemo-network.listing.MsgCreateMarketPermissionless": getLegacyMsgSignerFn(
 					[]string{"subaccount_id", "owner"},
 				),
 
 				// App injected messages have no signers.
-				"dydxprotocol.bridge.MsgAcknowledgeBridges":  noSigners,
-				"dydxprotocol.clob.MsgProposedOperations":    noSigners,
-				"dydxprotocol.perpetuals.MsgAddPremiumVotes": noSigners,
-				"dydxprotocol.prices.MsgUpdateMarketPrices":  noSigners,
+				"nemo_network.bridge.MsgAcknowledgeBridges":  noSigners,
+				"nemo_network.clob.MsgProposedOperations":    noSigners,
+				"nemo_network.perpetuals.MsgAddPremiumVotes": noSigners,
+				"nemo_network.prices.MsgUpdateMarketPrices":  noSigners,
 			},
 		},
 	})

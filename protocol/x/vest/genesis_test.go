@@ -3,10 +3,10 @@ package vest_test
 import (
 	"testing"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 
-	"github.com/dydxprotocol/v4-chain/protocol/x/vest"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vest"
+	"github.com/nemo-network/v4-chain/protocol/x/vest/types"
 	"github.com/stretchr/testify/require"
 )
 

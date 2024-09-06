@@ -12,17 +12,17 @@ import {
   dbHelpers,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import request from 'supertest';
 import {
   INDEXER_COMPLIANCE_BLOCKED_PAYLOAD,
   INDEXER_GEOBLOCKED_PAYLOAD,
   isRestrictedCountryHeaders,
   isWhitelistedAddress,
-} from '@dydxprotocol-indexer/compliance';
+} from '@nemo_network-indexer/compliance';
 import config from '../../src/config';
 
-jest.mock('@dydxprotocol-indexer/compliance');
+jest.mock('@nemo-network-indexer/compliance');
 
 // Create a router to test the middleware with
 const router: express.Router = express.Router();
@@ -98,15 +98,15 @@ describe('compliance-check', () => {
     isRestrictedCountrySpy.mockReturnValueOnce(false);
     await sendRequestToApp({
       type: RequestMethod.GET,
-      path: '/v4/check-compliance-query',
+      path: '/check-compliance-query',
       expressApp: complianceCheckApp,
       expectedStatus: 200,
     });
   });
 
   it.each([
-    ['query', '/v4/check-compliance-query?address=random'],
-    ['param', '/v4/check-compliance-param/random'],
+    ['query', '/check-compliance-query?address=random'],
+    ['param', '/check-compliance-param/random'],
   ])('does not return 403 if address in request is not in database (%s)', async (
     _name: string,
     path: string,
@@ -121,8 +121,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', '/v4/check-compliance-query?address=random'],
-    ['param', '/v4/check-compliance-param/random'],
+    ['query', '/check-compliance-query?address=random'],
+    ['param', '/check-compliance-param/random'],
   ])('does not return 403 if address in request is not in database (%s) and non-restricted country', async (
     _name: string,
     path: string,
@@ -138,8 +138,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does not return 403 if address in request is not blocked (%s)', async (
     _name: string,
     path: string,
@@ -155,8 +155,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does not return 403 if address in request is in CLOSE_ONLY (%s)', async (
     _name: string,
     path: string,
@@ -175,8 +175,8 @@ describe('compliance-check', () => {
   });
 
   it.each([
-    ['query', `/v4/check-compliance-query?address=${testConstants.defaultAddress}`],
-    ['param', `/v4/check-compliance-param/${testConstants.defaultAddress}`],
+    ['query', `/check-compliance-query?address=${testConstants.defaultAddress}`],
+    ['param', `/check-compliance-param/${testConstants.defaultAddress}`],
   ])('does not return 403 if address in request is in CLOSE_ONLY and from restricted country (%s)', async (
     _name: string,
     path: string,

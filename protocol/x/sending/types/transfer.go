@@ -3,7 +3,7 @@ package types
 import (
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // GetSenderSubaccountUpdate returns the sender subaccount update

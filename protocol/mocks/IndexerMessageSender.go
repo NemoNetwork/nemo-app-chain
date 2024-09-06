@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	msgsender "github.com/dydxprotocol/v4-chain/protocol/indexer/msgsender"
+	msgsender "github.com/nemo-network/v4-chain/protocol/indexer/msgsender"
 	mock "github.com/stretchr/testify/mock"
 )
 

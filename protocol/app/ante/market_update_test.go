@@ -6,11 +6,11 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	assets "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	perpetualtypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	prices_types "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	assets "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	perpetualtypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	prices_types "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/skip-mev/slinky/pkg/types"
 	mmtypes "github.com/skip-mev/slinky/x/marketmap/types"
 
@@ -22,10 +22,10 @@ import (
 	xauthsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 	"github.com/stretchr/testify/require"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/ante"
-	slinkylib "github.com/dydxprotocol/v4-chain/protocol/lib/slinky"
-	testante "github.com/dydxprotocol/v4-chain/protocol/testutil/ante"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/app/ante"
+	slinkylib "github.com/nemo-network/v4-chain/protocol/lib/slinky"
+	testante "github.com/nemo-network/v4-chain/protocol/testutil/ante"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 )
 
 func TestIsMarketUpdateTx(t *testing.T) {

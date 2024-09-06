@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	oracletypes "github.com/skip-mev/slinky/pkg/types"
 
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // PricesKeeper is the expected interface for the x/price keeper used by the vote extension handlers

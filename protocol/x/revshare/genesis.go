@@ -2,8 +2,8 @@ package revshare
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/revshare/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/revshare/types"
+	"github.com/nemo-network/v4-chain/protocol/x/revshare/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/revshare/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

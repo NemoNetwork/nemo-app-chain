@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/dydxprotocol/v4-chain/protocol/x/affiliates/types"
+	"github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 )
 
 type msgServer struct {

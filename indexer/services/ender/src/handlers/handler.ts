@@ -3,21 +3,21 @@ import {
   ParseMessageError,
   runFuncWithTimingStat,
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   MARKETS_WEBSOCKET_MESSAGE_VERSION,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
   KafkaTopics,
-} from '@dydxprotocol-indexer/kafka';
-import { SubaccountMessageContents } from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/kafka';
+import { SubaccountMessageContents } from '@nemo-network-indexer/postgres';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   MarketMessage,
   OffChainUpdateV1,
   SubaccountId,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { IHeaders } from 'kafkajs';
 import { DateTime } from 'luxon';
 import * as pg from 'pg';

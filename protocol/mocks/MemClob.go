@@ -5,12 +5,12 @@ package mocks
 import (
 	big "math/big"
 
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	mock "github.com/stretchr/testify/mock"
 
-	perpetualstypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
+	perpetualstypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 
-	subaccountstypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	subaccountstypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 
 	types "github.com/cosmos/cosmos-sdk/types"
 )
@@ -445,6 +445,11 @@ func (_m *MemClob) InsertZeroFillDeleveragingIntoOperationsQueue(subaccountId su
 // MaybeCreateOrderbook provides a mock function with given fields: clobPair
 func (_m *MemClob) MaybeCreateOrderbook(clobPair clobtypes.ClobPair) {
 	_m.Called(clobPair)
+}
+
+// MaybeCreateOrderbook provides a mock function with given fields: ctx, clobPair
+func (_m *MemClob) MaybeCreateOrderbook(ctx types.Context, clobPair clobtypes.ClobPair) {
+	_m.Called(ctx, clobPair)
 }
 
 // PlaceOrder provides a mock function with given fields: ctx, order

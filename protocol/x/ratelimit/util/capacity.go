@@ -4,9 +4,9 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
 )
 
 // CalculateNewCapacityList calculates the new capacity list for the given current `tvl` and `limitParams“.

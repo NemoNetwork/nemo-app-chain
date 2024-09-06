@@ -1,0 +1,7 @@
+syntax = "proto3";
+package nemo_network.govplus;
+
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/govplus/types";
+
+// Query defines the gRPC querier service.
+service Query {}

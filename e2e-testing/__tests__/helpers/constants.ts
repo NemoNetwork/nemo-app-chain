@@ -1,6 +1,6 @@
 import {
   IPlaceOrder, Order_Side, Order_TimeInForce, OrderFlags,
-} from '@dydxprotocol/v4-client-js';
+} from '@nemo-network/v4-client-js';
 import Long from 'long';
 
 import { OrderDetails } from './types';

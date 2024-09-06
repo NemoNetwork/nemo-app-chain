@@ -6,11 +6,11 @@ import (
 
 	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/telemetry"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/api"
-	pricefeedmetrics "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/api"
+	pricefeedmetrics "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/metrics"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	gometrics "github.com/hashicorp/go-metrics"
 )
 

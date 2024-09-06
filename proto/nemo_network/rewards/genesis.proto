@@ -1,0 +1,13 @@
+syntax = "proto3";
+package nemo_network.rewards;
+
+import "gogoproto/gogo.proto";
+import "nemo_network/rewards/params.proto";
+
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/rewards/types";
+
+// GenesisState defines the rewards module's genesis state.
+message GenesisState {
+  // The parameters of the module.
+  Params params = 1 [ (gogoproto.nullable) = false ];
+}

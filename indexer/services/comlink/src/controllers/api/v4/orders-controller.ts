@@ -1,4 +1,4 @@
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   APIOrderStatus,
   APIOrderStatusEnum,
@@ -16,9 +16,9 @@ import {
   perpetualMarketRefresher,
   protocolTranslations,
   SubaccountTable,
-} from '@dydxprotocol-indexer/postgres';
-import { OrdersCache, SubaccountOrderIdsCache } from '@dydxprotocol-indexer/redis';
-import { RedisOrder } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { OrdersCache, SubaccountOrderIdsCache } from '@nemo-network-indexer/redis';
+import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import express from 'express';
 import { checkSchema, matchedData, query } from 'express-validator';

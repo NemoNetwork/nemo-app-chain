@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/dydxprotocol/v4-chain/protocol/x/revshare/types"
+	"github.com/nemo-network/v4-chain/protocol/x/revshare/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module.

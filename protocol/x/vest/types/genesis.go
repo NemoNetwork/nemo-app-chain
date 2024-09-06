@@ -3,8 +3,8 @@ package types
 import (
 	time "time"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	rewardstypes "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	rewardstypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
 )
 
 var (

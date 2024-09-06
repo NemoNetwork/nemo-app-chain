@@ -1,11 +1,11 @@
-import { PnlTicksCreateObject } from '@dydxprotocol-indexer/postgres';
+import { PnlTicksCreateObject } from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 import { RedisClient } from 'redis';
 
 import { hGetAllAsync, hSetAsync } from '../helpers/redis';
 import { PnlTickForSubaccounts } from '../types';
 
-const KEY: string = 'v4/latest-accounts-pnl-tick';
+const KEY: string = 'latest-accounts-pnl-tick';
 
 export async function getAll(client: RedisClient): Promise<PnlTickForSubaccounts> {
   const stringMap: { [subaccountId: string]: string } = await hGetAllAsync(KEY, client);

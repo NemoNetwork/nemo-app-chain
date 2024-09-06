@@ -4,7 +4,7 @@ import (
 	"fmt"
 	cmtabci "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/prepare/prices"
+	"github.com/nemo-network/v4-chain/protocol/app/prepare/prices"
 	"github.com/skip-mev/slinky/abci/strategies/aggregator"
 	aggregatormock "github.com/skip-mev/slinky/abci/strategies/aggregator/mocks"
 	codecmock "github.com/skip-mev/slinky/abci/strategies/codec/mocks"

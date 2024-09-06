@@ -2,7 +2,7 @@
 set -eo pipefail
 
 # This file is the startup script for the full-nodes. Copies the correct binaries into
-# the full-node home directories, and starts the node using `cosmovisor` to run `dydxprotocold`.
+# the full-node home directories, and starts the node using `cosmovisor` to run `nemo-networkd`.
 # Any arguments passed into this script is forwarded to `cosmovisor`.
 # Example usage: ./start.sh run start --home chain/.full-node-1
 

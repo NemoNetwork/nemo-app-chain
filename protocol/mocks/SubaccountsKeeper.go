@@ -5,12 +5,12 @@ package mocks
 import (
 	big "math/big"
 
-	margin "github.com/dydxprotocol/v4-chain/protocol/lib/margin"
+	margin "github.com/nemo-network/v4-chain/protocol/lib/margin"
 	mock "github.com/stretchr/testify/mock"
 
 	rand "math/rand"
 
-	subaccountstypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	subaccountstypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 
 	types "github.com/cosmos/cosmos-sdk/types"
 )

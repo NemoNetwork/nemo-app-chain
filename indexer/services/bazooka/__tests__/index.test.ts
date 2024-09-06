@@ -1,4 +1,4 @@
-import { admin, KafkaTopics } from '@dydxprotocol-indexer/kafka';
+import { admin, KafkaTopics } from '@nemo-network-indexer/kafka';
 import { BazookaEventJson, clearKafkaTopic, handler } from '../src';
 import { APIGatewayEvent, Context } from 'aws-lambda';
 import config from '../src/config';

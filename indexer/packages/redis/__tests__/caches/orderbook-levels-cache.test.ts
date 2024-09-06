@@ -14,10 +14,10 @@ import {
   deleteStalePriceLevel,
   getOrderBookMidPrice,
 } from '../../src/caches/orderbook-levels-cache';
-import { OrderSide } from '@dydxprotocol-indexer/postgres';
+import { OrderSide } from '@nemo-network-indexer/postgres';
 import { OrderbookLevels, PriceLevel } from '../../src/types';
 import { InvalidOptionsError } from '../../src/errors';
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 
 describe('orderbookLevelsCache', () => {
   const ticker: string = 'BTC-USD';

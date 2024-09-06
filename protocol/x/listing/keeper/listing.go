@@ -3,15 +3,15 @@ package keeper
 import (
 	"math"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib/slinky"
+	"github.com/nemo-network/v4-chain/protocol/lib/slinky"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	gogotypes "github.com/cosmos/gogoproto/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/listing/types"
-	perpetualtypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/x/listing/types"
+	perpetualtypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/skip-mev/slinky/x/marketmap/types/tickermetadata"
 )
 

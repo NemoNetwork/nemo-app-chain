@@ -1,5 +1,5 @@
-import { stats } from '@dydxprotocol-indexer/base';
-import { CANDLES_WEBSOCKET_MESSAGE_VERSION } from '@dydxprotocol-indexer/kafka';
+import { stats } from '@nemo-network-indexer/base';
+import { CANDLES_WEBSOCKET_MESSAGE_VERSION } from '@nemo-network-indexer/kafka';
 import {
   CandlesMap, CandlesResolutionMap,
   CandleColumns,
@@ -19,8 +19,8 @@ import {
   Transaction,
   helpers,
   OrderSide,
-} from '@dydxprotocol-indexer/postgres';
-import { CandleMessage, CandleMessage_Resolution } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { CandleMessage, CandleMessage_Resolution } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 import {
@@ -34,7 +34,7 @@ import { defaultTradeContent, defaultTradeKafkaEvent } from '../helpers/constant
 import { contentToSingleTradeMessage, createConsolidatedKafkaEventFromTrade } from '../helpers/kafka-publisher-helpers';
 import { updatePriceLevel } from '../helpers/redis-helpers';
 import { redisClient } from '../../src/helpers/redis/redis-controller';
-import { redis } from '@dydxprotocol-indexer/redis';
+import { redis } from '@nemo-network-indexer/redis';
 
 describe('candleHelper', () => {
   beforeAll(async () => {

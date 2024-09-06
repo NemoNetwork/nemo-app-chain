@@ -1,8 +1,8 @@
 {
-  "app_name": "dydxprotocold",
+  "app_name": "nemo-networkd",
   "app_version": "6.0.0-dev999",
   "genesis_time": "2023-01-01T00:00:00Z",
-  "chain_id": "localdydxprotocol",
+  "chain_id": "localnemo-network",
   "initial_height": 1,
   "app_hash": null,
   "app_state": {
@@ -78,8 +78,8 @@
           "address": "dydx1zlefkpe3g0vvm9a4h0jf9000lmqutlh9jwjnsv",
           "coins": [
             {
-              "denom": "adv4tnt",
-              "amount": "799000000000000000000000000"
+              "denom": "unemo",
+              "amount": "795000000000000000000000000"
             }
           ]
         },
@@ -87,7 +87,7 @@
           "address": "dydx199tqg4wdlnu4qjlxchpd7seg454937hjrknju4",
           "coins": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "amount": "1000000000000000000000000"
             },
             {
@@ -100,7 +100,7 @@
           "address": "dydx1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9wvmh70",
           "coins": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "amount": "1000000000000000000000000"
             },
             {
@@ -122,7 +122,7 @@
           "address": "dydx1wau5mja7j7zdavtfq9lu7ejef05hm6ffenlcsn",
           "coins": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "amount": "1000000000000000000000000"
             },
             {
@@ -135,7 +135,7 @@
           "address": "dydx10fx7sy6ywd5senxae9dwytf8jxek3t2gcen2vs",
           "coins": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "amount": "1000000000000000000000000"
             },
             {
@@ -148,7 +148,7 @@
           "address": "dydx1nzuttarf5k2j0nug5yzhr6p74t9avehn9hlh8m",
           "coins": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "amount": "1000000000000000000000000"
             },
             {
@@ -161,7 +161,7 @@
           "address": "dydx1ltyc6y4skclzafvpznpt2qjwmfwgsndp458rmp",
           "coins": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "amount": "200000000000000000000000000"
             }
           ]
@@ -173,7 +173,7 @@
           "description": "The native token of the network",
           "denom_units": [
             {
-              "denom": "adv4tnt",
+              "denom": "unemo",
               "exponent": 0,
               "aliases": []
             },
@@ -183,7 +183,7 @@
               "aliases": []
             }
           ],
-          "base": "adv4tnt",
+          "base": "unemo",
           "display": "dv4tnt",
           "name": "dYdX V4 Testnet Token",
           "symbol": "dv4tnt",
@@ -203,7 +203,7 @@
     },
     "bridge": {
       "event_params": {
-        "denom": "adv4tnt",
+        "denom": "unemo",
         "eth_chain_id": 11155111,
         "eth_address": "0xf75012c350e4ad55be2048bd67ce6e03b20de82d"
       },
@@ -662,7 +662,7 @@
     "consensus": null,
     "crisis": {
       "constant_fee": {
-        "denom": "adv4tnt",
+        "denom": "unemo",
         "amount": "1000"
       }
     },
@@ -671,7 +671,7 @@
         {
           "id": 0,
           "msg": {
-            "@type": "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams",
+            "@type": "/nemo_network.feetiers.MsgUpdatePerpetualFeeParams",
             "authority": "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr",
             "params": {
               "tiers": [
@@ -919,7 +919,7 @@
                   "key": "YiARx8259Z+fGFUxQLrz/5FU2RYRT6f5yzvt7D7CrQM="
                 },
                 "value": {
-                  "denom": "adv4tnt",
+                  "denom": "unemo",
                   "amount": "500000000000000000000000"
                 }
               }
@@ -981,7 +981,7 @@
                   "key": "ytLfs1W6E2I41iteKC/YwjyZ/51+CAYCHYxmRHiBeY4="
                 },
                 "value": {
-                  "denom": "adv4tnt",
+                  "denom": "unemo",
                   "amount": "500000000000000000000000"
                 }
               }
@@ -1043,7 +1043,7 @@
                   "key": "yG29kRfZ/hgAE1I7uWjbKQJJL4/gX/05XBnfB+m196A="
                 },
                 "value": {
-                  "denom": "adv4tnt",
+                  "denom": "unemo",
                   "amount": "500000000000000000000000"
                 }
               }
@@ -1105,7 +1105,7 @@
                   "key": "+P8YiogqqQY+iD96yEa9OJx6EgieU95u9eR3pzxfDp0="
                 },
                 "value": {
-                  "denom": "adv4tnt",
+                  "denom": "unemo",
                   "amount": "500000000000000000000000"
                 }
               }
@@ -1155,7 +1155,7 @@
       "params": {
         "min_deposit": [
           {
-            "denom": "adv4tnt",
+            "denom": "unemo",
             "amount": "10000000"
           }
         ],
@@ -1171,7 +1171,7 @@
         "expedited_threshold": "0.75000",
         "expedited_min_deposit": [
           {
-            "denom": "adv4tnt",
+            "denom": "unemo",
             "amount": "50000000"
           }
         ],
@@ -4275,7 +4275,7 @@
     "rewards": {
       "params": {
         "treasury_account": "rewards_treasury",
-        "denom": "adv4tnt",
+        "denom": "unemo",
         "denom_exponent": -18,
         "market_id": 11,
         "fee_multiplier_ppm": 990000
@@ -4299,7 +4299,7 @@
         "max_validators": 100,
         "max_entries": 7,
         "historical_entries": 10000,
-        "bond_denom": "adv4tnt",
+        "bond_denom": "unemo",
         "min_commission_rate": "0.000000000000000000"
       },
       "last_total_power": "0",
@@ -4423,14 +4423,14 @@
         {
           "vester_account": "community_vester",
           "treasury_account": "community_treasury",
-          "denom": "adv4tnt",
+          "denom": "unemo",
           "start_time": "2023-01-01T00:00:00Z",
           "end_time": "2025-01-01T00:00:00Z"
         },
         {
           "vester_account": "rewards_vester",
           "treasury_account": "rewards_treasury",
-          "denom": "adv4tnt",
+          "denom": "unemo",
           "start_time": "2023-01-01T00:00:00Z",
           "end_time": "2025-01-01T00:00:00Z"
         }

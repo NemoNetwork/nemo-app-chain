@@ -10,7 +10,7 @@ import {
   LiquidityTiersFromDatabase,
   LiquidityTiersTable,
   liquidityTierRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { getQueryString, sendRequest } from '../../../helpers/helpers';
@@ -42,7 +42,7 @@ describe('perpetual-markets-controller#V4', () => {
     it('Get / gets all tickers', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/perpetualMarkets/',
+        path: '/perpetualMarkets/',
       });
 
       // Only two markets
@@ -65,7 +65,7 @@ describe('perpetual-markets-controller#V4', () => {
     it('Get / gets all markets with limit', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualMarkets?${getQueryString({ limit: 1 })}`,
+        path: `/perpetualMarkets?${getQueryString({ limit: 1 })}`,
       });
 
       // Only one market
@@ -92,7 +92,7 @@ describe('perpetual-markets-controller#V4', () => {
     it('Get / with a ticker in the query gets a market with a matching ticker', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualMarkets?${getQueryString({ ticker: testConstants.defaultPerpetualMarket2.ticker })}`,
+        path: `/perpetualMarkets?${getQueryString({ ticker: testConstants.defaultPerpetualMarket2.ticker })}`,
       });
 
       // Only one market
@@ -119,7 +119,7 @@ describe('perpetual-markets-controller#V4', () => {
     it('Returns 404 with unknown ticker', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/trades/perpetualMarket/${invalidTicker}`,
+        path: `/trades/perpetualMarket/${invalidTicker}`,
         expectedStatus: 400,
       });
 

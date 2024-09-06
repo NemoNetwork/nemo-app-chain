@@ -15,8 +15,8 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/dydxprotocol/v4-chain/protocol/x/accountplus/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/accountplus/types"
+	"github.com/nemo-network/v4-chain/protocol/x/accountplus/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/accountplus/types"
 )
 
 var (

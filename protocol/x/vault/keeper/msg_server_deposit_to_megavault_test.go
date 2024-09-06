@@ -9,12 +9,12 @@ import (
 	abcitypes "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/types"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	testutil "github.com/dydxprotocol/v4-chain/protocol/testutil/util"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vaulttypes "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	testutil "github.com/nemo-network/v4-chain/protocol/testutil/util"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -240,6 +240,7 @@ func TestMsgDepositToMegavault(t *testing.T) {
 				big.NewInt(0),
 			},
 			equityHistory: []*big.Int{
+				big.NewInt(0),
 				big.NewInt(0),
 				big.NewInt(0),
 				big.NewInt(0),

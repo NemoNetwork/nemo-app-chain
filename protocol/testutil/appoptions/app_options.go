@@ -3,17 +3,17 @@ package appoptions
 import (
 	"fmt"
 	"github.com/cosmos/cosmos-sdk/server/config"
-	appflags "github.com/dydxprotocol/v4-chain/protocol/app/flags"
+	appflags "github.com/nemo-network/v4-chain/protocol/app/flags"
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
-	daemonflags "github.com/dydxprotocol/v4-chain/protocol/daemons/flags"
+	daemonflags "github.com/nemo-network/v4-chain/protocol/daemons/flags"
 )
 
 // FakeAppOptions is a helper struct used for creating `servertypes.AppOptions` for simulator and end-to-end testing.
 // This struct allows for customizing the `servertypes.AppOptions` value that is normally supplied from CLI arguments
-// to `dydxprotocold`. The real concrete implementation for this interface is in the "viper" package which is used
+// to `nemod`. The real concrete implementation for this interface is in the "viper" package which is used
 // under the hood by "cobra", which is the CLI framework used by Cosmos SDK.
 type FakeAppOptions struct {
 	options map[string]interface{}

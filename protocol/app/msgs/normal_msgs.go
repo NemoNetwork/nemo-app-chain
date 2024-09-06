@@ -16,12 +16,12 @@ import (
 	ibcclient "github.com/cosmos/ibc-go/v8/modules/core/02-client/types" //nolint:staticcheck
 	ibcconn "github.com/cosmos/ibc-go/v8/modules/core/03-connection/types"
 	ibccore "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	affiliates "github.com/dydxprotocol/v4-chain/protocol/x/affiliates/types"
-	clob "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	listing "github.com/dydxprotocol/v4-chain/protocol/x/listing/types"
-	sending "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	vault "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	affiliates "github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
+	clob "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	listing "github.com/nemo-network/v4-chain/protocol/x/listing/types"
+	sending "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	vault "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 )
 
@@ -219,35 +219,35 @@ var (
 	// Custom modules
 	NormalMsgsDydxCustom = map[string]sdk.Msg{
 		// affiliates
-		"/dydxprotocol.affiliates.MsgRegisterAffiliate":         &affiliates.MsgRegisterAffiliate{},
-		"/dydxprotocol.affiliates.MsgRegisterAffiliateResponse": nil,
+		"/nemo-network.affiliates.MsgRegisterAffiliate":         &affiliates.MsgRegisterAffiliate{},
+		"/nemo-network.affiliates.MsgRegisterAffiliateResponse": nil,
 		// clob
-		"/dydxprotocol.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
-		"/dydxprotocol.clob.MsgBatchCancelResponse": nil,
-		"/dydxprotocol.clob.MsgCancelOrder":         &clob.MsgCancelOrder{},
-		"/dydxprotocol.clob.MsgCancelOrderResponse": nil,
-		"/dydxprotocol.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
-		"/dydxprotocol.clob.MsgPlaceOrderResponse":  nil,
+		"/nemo_network.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
+		"/nemo_network.clob.MsgBatchCancelResponse": nil,
+		"/nemo_network.clob.MsgCancelOrder":         &clob.MsgCancelOrder{},
+		"/nemo_network.clob.MsgCancelOrderResponse": nil,
+		"/nemo_network.clob.MsgPlaceOrder":          &clob.MsgPlaceOrder{},
+		"/nemo_network.clob.MsgPlaceOrderResponse":  nil,
 
 		// listing
-		"/dydxprotocol.listing.MsgCreateMarketPermissionless":         &listing.MsgCreateMarketPermissionless{},
-		"/dydxprotocol.listing.MsgCreateMarketPermissionlessResponse": nil,
+		"/nemo-network.listing.MsgCreateMarketPermissionless":         &listing.MsgCreateMarketPermissionless{},
+		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse": nil,
 
 		// perpetuals
 
 		// prices
 
 		// sending
-		"/dydxprotocol.sending.MsgCreateTransfer":                 &sending.MsgCreateTransfer{},
-		"/dydxprotocol.sending.MsgCreateTransferResponse":         nil,
-		"/dydxprotocol.sending.MsgDepositToSubaccount":            &sending.MsgDepositToSubaccount{},
-		"/dydxprotocol.sending.MsgDepositToSubaccountResponse":    nil,
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccount":         &sending.MsgWithdrawFromSubaccount{},
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccountResponse": nil,
+		"/nemo_network.sending.MsgCreateTransfer":                 &sending.MsgCreateTransfer{},
+		"/nemo_network.sending.MsgCreateTransferResponse":         nil,
+		"/nemo_network.sending.MsgDepositToSubaccount":            &sending.MsgDepositToSubaccount{},
+		"/nemo_network.sending.MsgDepositToSubaccountResponse":    nil,
+		"/nemo_network.sending.MsgWithdrawFromSubaccount":         &sending.MsgWithdrawFromSubaccount{},
+		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse": nil,
 
 		// vault
-		"/dydxprotocol.vault.MsgDepositToMegavault":         &vault.MsgDepositToMegavault{},
-		"/dydxprotocol.vault.MsgDepositToMegavaultResponse": nil,
+		"/nemo-network.vault.MsgDepositToMegavault":         &vault.MsgDepositToMegavault{},
+		"/nemo-network.vault.MsgDepositToMegavaultResponse": nil,
 	}
 
 	NormalMsgsSlinky = map[string]sdk.Msg{

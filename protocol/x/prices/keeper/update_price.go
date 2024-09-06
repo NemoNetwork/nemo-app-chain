@@ -5,16 +5,16 @@ import (
 	"sort"
 	"time"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/constants"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants"
 
 	gometrics "github.com/hashicorp/go-metrics"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	pricefeedmetrics "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	pricefeedmetrics "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/metrics"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // GetValidMarketPriceUpdates returns a msg containing a list of "valid" price updates that should
@@ -76,6 +76,14 @@ func (k Keeper) GetValidMarketPriceUpdates(
 			metrics.IncrCountMetricWithLabels(types.ModuleName, metrics.IndexPriceDoesNotExist, marketMetricsLabel)
 			nonExistentMarkets = append(nonExistentMarkets, marketId)
 			continue
+		}
+		if len(nonExistentMarkets) > 0 {
+			log.ErrorLog(
+				ctx,
+				"Index price for markets does not exist",
+				constants.MarketIdsLogKey,
+				nonExistentMarkets,
+			)
 		}
 
 		// Index prices of 0 are unexpected. In this scenario, we skip the proposal logic for the market and report an

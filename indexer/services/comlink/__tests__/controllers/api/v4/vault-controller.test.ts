@@ -12,7 +12,7 @@ import {
   PerpetualPositionTable,
   AssetPositionTable,
   FundingIndexUpdatesTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { PnlTicksResponseObject, RequestMethod, VaultHistoricalPnl } from '../../../../src/types';
 import request from 'supertest';
 import { getFixedRepresentation, sendRequest } from '../../../helpers/helpers';

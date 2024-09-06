@@ -1,4 +1,4 @@
-import { stats, getInstanceId, logger } from '@dydxprotocol-indexer/base';
+import { stats, getInstanceId, logger } from '@nemo-network-indexer/base';
 import WebSocket from 'ws';
 
 import config from '../config';

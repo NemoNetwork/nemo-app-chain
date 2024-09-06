@@ -1,4 +1,4 @@
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 import {
   IsoString,
   FillTable,
@@ -8,7 +8,7 @@ import {
   perpetualMarketRefresher,
   FillColumns,
   Ordering,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo_network-indexer/postgres';
 import express from 'express';
 import {
   checkSchema,

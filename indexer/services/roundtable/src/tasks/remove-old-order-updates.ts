@@ -1,12 +1,12 @@
 import {
   logger,
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   StatefulOrderUpdateInfo,
   StatefulOrderUpdatesCache,
-} from '@dydxprotocol-indexer/redis';
-import { OrderUpdateV1 } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/redis';
+import { OrderUpdateV1 } from '@nemo-network-indexer/v4-protos';
 
 import config from '../config';
 import { redisClient } from '../helpers/redis';

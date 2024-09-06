@@ -6,7 +6,7 @@ import {
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
   KafkaTopics,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import {
   FillFromDatabase,
   FillTable,
@@ -36,8 +36,8 @@ import {
   MarketsMap,
   MarketColumns,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@dydxprotocol-indexer/postgres';
-import { getOrderIdHash, ORDER_FLAG_CONDITIONAL } from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/postgres';
+import { getOrderIdHash, ORDER_FLAG_CONDITIONAL } from '@nemo-network-indexer/v4-proto-parser';
 import {
   LiquidationOrderV1,
   MarketMessage,
@@ -59,7 +59,7 @@ import {
   DeleveragingEventV1,
   protoTimestampToDate,
   PerpetualMarketType,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { IHeaders, Message, ProducerRecord } from 'kafkajs';
 import _ from 'lodash';
 

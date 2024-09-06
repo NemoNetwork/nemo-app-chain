@@ -1,4 +1,4 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   AssetPositionFromDatabase,
   BlockFromDatabase,
@@ -21,10 +21,7 @@ import {
   SubaccountFromDatabase,
   SubaccountTable,
   USDC_SYMBOL,
-  AssetFromDatabase,
-  AssetColumns,
-  MarketColumns,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import Big from 'big.js';
 import express from 'express';
 import _ from 'lodash';

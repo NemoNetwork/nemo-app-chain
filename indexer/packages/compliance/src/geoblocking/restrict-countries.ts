@@ -1,4 +1,4 @@
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 
 import config from '../config';
 import { isRestrictedCountry } from './util';

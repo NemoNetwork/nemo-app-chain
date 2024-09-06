@@ -15,10 +15,10 @@ import {
   PerpetualPositionModel,
   SubaccountTable,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@dydxprotocol-indexer/postgres';
-import { StateFilledQuantumsCache } from '@dydxprotocol-indexer/redis';
-import { isStatefulOrder } from '@dydxprotocol-indexer/v4-proto-parser';
-import { IndexerOrderId, LiquidationOrderV1 } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { StateFilledQuantumsCache } from '@nemo-network-indexer/redis';
+import { isStatefulOrder } from '@nemo-network-indexer/v4-proto-parser';
+import { IndexerOrderId, LiquidationOrderV1 } from '@nemo-network-indexer/v4-protos';
 import Long from 'long';
 import * as pg from 'pg';
 

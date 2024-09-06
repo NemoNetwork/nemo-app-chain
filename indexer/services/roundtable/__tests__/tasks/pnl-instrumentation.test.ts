@@ -1,4 +1,4 @@
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   BlockTable,
   SubaccountTable,
@@ -6,12 +6,12 @@ import {
   testMocks,
   dbHelpers,
   testConstants,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import runTask from '../../src/tasks/pnl-instrumentation';
 import { getMostRecentPnlTicksForEachAccount } from '../../src/helpers/pnl-ticks-helper';
 import { DateTime } from 'luxon';
 import config from '../../src/config';
-import { asMock } from '@dydxprotocol-indexer/dev';
+import { asMock } from '@nemo-network-indexer/dev';
 
 jest.mock('../../src/helpers/pnl-ticks-helper');
 

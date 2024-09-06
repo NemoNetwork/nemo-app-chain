@@ -2,7 +2,7 @@ package prices
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // PreBlocker executes all ABCI PreBlock logic respective to the prices module.

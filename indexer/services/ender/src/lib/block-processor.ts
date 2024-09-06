@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
-import { logger, stats, STATS_NO_SAMPLING } from '@dydxprotocol-indexer/base';
-import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@dydxprotocol-indexer/kafka';
+import { logger, stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base';
+import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   storeHelpers,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   BlockHeightMessage,
   IndexerTendermintBlock,
   IndexerTendermintEvent,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 import * as pg from 'pg';
 import { DatabaseError } from 'pg';

@@ -4,9 +4,9 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	perpstypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	perpstypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 )
 
 // PrepareClobKeeper defines the expected CLOB keeper used for `PrepareProposal`.

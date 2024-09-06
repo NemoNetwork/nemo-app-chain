@@ -7,10 +7,10 @@ import {
   testConstants,
   testMocks,
   PaginationFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import cancelStaleOrdersTask from '../../src/tasks/cancel-stale-orders';
-import { defaultOrderGoodTilBlockTime } from '@dydxprotocol-indexer/postgres/build/__tests__/helpers/constants';
-import { stats } from '@dydxprotocol-indexer/base';
+import { defaultOrderGoodTilBlockTime } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+import { stats } from '@nemo-network-indexer/base';
 import _ from 'lodash';
 import config from '../../src/config';
 

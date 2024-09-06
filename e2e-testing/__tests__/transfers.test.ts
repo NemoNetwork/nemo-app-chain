@@ -8,14 +8,14 @@ import {
   SocketClient,
   SubaccountInfo,
   ValidatorClient,
-} from '@dydxprotocol/v4-client-js';
+} from '@nemo-network/v4-client-js';
 import {
   Ordering,
   SubaccountTable,
   TransferColumns,
   TransferFromDatabase,
   TransferTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import * as utils from './helpers/utils';
 import Big from 'big.js';
 import { DYDX_LOCAL_ADDRESS, DYDX_LOCAL_MNEMONIC } from './helpers/constants';
@@ -72,7 +72,7 @@ describe('transfers', () => {
       }),
     );
 
-    // Check API /v4/transfers endpoint
+    // Check API /transfers endpoint
     const response = await indexerClient.account.getSubaccountTransfers(DYDX_LOCAL_ADDRESS, 0);
     expect(response).not.toBeNull();
     const transfersFromApi = response.transfers;
@@ -93,7 +93,7 @@ describe('transfers', () => {
       }),
     );
 
-    // Check API /v4/assetPositions endpoint
+    // Check API /assetPositions endpoint
     assetPosResp = await indexerClient.account.getSubaccountAssetPositions(DYDX_LOCAL_ADDRESS, 0);
     expect(assetPosResp).not.toBeNull();
     const usdcPositionSizeAfter = assetPosResp.positions[0].size;

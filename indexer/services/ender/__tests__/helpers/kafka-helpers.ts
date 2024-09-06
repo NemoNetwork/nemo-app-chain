@@ -1,11 +1,11 @@
-import { createKafkaMessage } from '@dydxprotocol-indexer/kafka';
+import { createKafkaMessage } from '@nemo-network-indexer/kafka';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   Timestamp,
   MarketEventV1,
   StatefulOrderEventV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { KafkaMessage } from 'kafkajs';
 
 import { DydxIndexerSubtypes } from '../../src/lib/types';

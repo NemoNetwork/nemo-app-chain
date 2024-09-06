@@ -7,11 +7,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/price_function/testexchange"
-	pricefeed "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testing/version"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	pricefeed_testutil "github.com/dydxprotocol/v4-chain/protocol/testutil/pricefeed"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_function/testexchange"
+	pricefeed "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/testing/version"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	pricefeed_testutil "github.com/nemo-network/v4-chain/protocol/testutil/pricefeed"
 	"github.com/ory/dockertest/v3"
 )
 
@@ -129,15 +129,15 @@ func (t *Testnet) initialize() (err error) {
 func (t *Testnet) initializeNode(moniker string) (*Node, error) {
 	var entrypointCommand string
 	if t.isPreupgradeGenesis {
-		entrypointCommand = "/dydxprotocol/preupgrade_entrypoint.sh"
+		entrypointCommand = "/nemo-network/preupgrade_entrypoint.sh"
 	} else {
-		entrypointCommand = "dydxprotocold"
+		entrypointCommand = "nemod"
 	}
 
 	resource, err := t.pool.RunWithOptions(
 		&dockertest.RunOptions{
 			Name:       fmt.Sprintf("testnet-local-%s", moniker),
-			Repository: "dydxprotocol-container-test",
+			Repository: "nemo_network.-container-test",
 			Tag:        "",
 			NetworkID:  t.network.Network.ID,
 			ExposedPorts: []string{
@@ -147,15 +147,15 @@ func (t *Testnet) initializeNode(moniker string) (*Node, error) {
 				entrypointCommand,
 				"start",
 				"--home",
-				fmt.Sprintf("/dydxprotocol/chain/.%s", moniker),
+				fmt.Sprintf("/nemo-network/chain/.%s", moniker),
 				"--p2p.persistent_peers",
 				persistentPeers,
 				"--bridge-daemon-eth-rpc-endpoint",
 				"https://eth-sepolia.g.alchemy.com/v2/demo",
 			},
 			Env: []string{
-				"DAEMON_NAME=dydxprotocold",
-				fmt.Sprintf("DAEMON_HOME=/dydxprotocol/chain/.%s", moniker),
+				"DAEMON_NAME=nemo-networkd",
+				fmt.Sprintf("DAEMON_HOME=/nemo-network/chain/.%s", moniker),
 				fmt.Sprintf("UPGRADE_TO_VERSION=%s", version.CurrentVersion),
 			},
 			ExtraHosts: []string{

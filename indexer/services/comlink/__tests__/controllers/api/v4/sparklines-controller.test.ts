@@ -6,7 +6,7 @@ import {
   PerpetualMarketFromDatabase,
   perpetualMarketRefresher,
   testConstants,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 import { DateTime } from 'luxon';
 import request from 'supertest';
@@ -15,7 +15,7 @@ import { SPARKLINE_TIME_PERIOD_TO_LIMIT_MAP, SPARKLINE_TIME_PERIOD_TO_RESOLUTION
 import { RequestMethod, SparklineTimePeriod } from '../../../../src/types';
 import { sendRequest } from '../../../helpers/helpers';
 import Big from 'big.js';
-import * as SubaccountTable from '@dydxprotocol-indexer/postgres/build/src/stores/subaccount-table';
+import * as SubaccountTable from '@nemo-network-indexer/postgres/build/src/stores/subaccount-table';
 import {
   defaultLiquidityTier,
   defaultLiquidityTier2,
@@ -27,10 +27,10 @@ import {
   defaultPerpetualMarket3,
   defaultSubaccount,
   defaultSubaccount2,
-} from '@dydxprotocol-indexer/postgres/build/__tests__/helpers/constants';
-import * as MarketTable from '@dydxprotocol-indexer/postgres/build/src/stores/market-table';
-import * as LiquidityTiersTable from '@dydxprotocol-indexer/postgres/build/src/stores/liquidity-tiers-table';
-import * as PerpetualMarketTable from '@dydxprotocol-indexer/postgres/build/src/stores/perpetual-market-table';
+} from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+import * as MarketTable from '@nemo-network-indexer/postgres/build/src/stores/market-table';
+import * as LiquidityTiersTable from '@nemo-network-indexer/postgres/build/src/stores/liquidity-tiers-table';
+import * as PerpetualMarketTable from '@nemo-network-indexer/postgres/build/src/stores/perpetual-market-table';
 
 // helper function to seed data
 async function seedData() {
@@ -72,11 +72,11 @@ describe('sparklines-controller#V4', () => {
     await dbHelpers.teardown();
   });
 
-  describe('/v4/sparklines', () => {
+  describe('/sparklines', () => {
     it('successfully returns no sparklines if no candles exist', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/sparklines?timePeriod=ONE_DAY',
+        path: '/sparklines?timePeriod=ONE_DAY',
       });
 
       expect(response.body).toEqual({
@@ -145,7 +145,7 @@ describe('sparklines-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/sparklines?timePeriod=${timePeriod}`,
+        path: `/sparklines?timePeriod=${timePeriod}`,
       });
 
       const resolution: CandleResolution = SPARKLINE_TIME_PERIOD_TO_RESOLUTION_MAP[timePeriod];
@@ -183,7 +183,7 @@ describe('sparklines-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/sparklines?timePeriod=${defaultTimePeriod}`,
+        path: `/sparklines?timePeriod=${defaultTimePeriod}`,
       });
 
       const limit: number = SPARKLINE_TIME_PERIOD_TO_LIMIT_MAP[defaultTimePeriod];
@@ -239,7 +239,7 @@ describe('sparklines-controller#V4', () => {
 
         const response: request.Response = await sendRequest({
           type: RequestMethod.GET,
-          path: `/v4/sparklines?timePeriod=${timePeriod}`,
+          path: `/sparklines?timePeriod=${timePeriod}`,
         });
 
         expect(response.body).toEqual({

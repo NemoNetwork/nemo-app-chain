@@ -1,20 +1,20 @@
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   dbHelpers,
   OrderSide,
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
-import { OrderbookLevelsCache, redis } from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/postgres';
+import { OrderbookLevelsCache, redis } from '@nemo-network-indexer/redis';
 import runTask from '../../src/tasks/uncross-orderbook';
 import { redisClient } from '../../src/helpers/redis';
 import {
   RedisClient,
 } from 'redis';
 
-jest.mock('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache', () => ({
-  ...jest.requireActual('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache'),
+jest.mock('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache', () => ({
+  ...jest.requireActual('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache'),
   deleteStalePriceLevel: jest.fn(),
 }));
 
@@ -89,7 +89,7 @@ describe('uncross-orderbook', () => {
     });
 
     await runTask();
-    expect(require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).not.toHaveBeenCalled();
+    expect(require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).not.toHaveBeenCalled();
   });
 
   it('removes single crossed bid level', async () => {
@@ -115,11 +115,11 @@ describe('uncross-orderbook', () => {
 
     await runTask();
 
-    expect(require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).toHaveBeenCalledWith(expect.objectContaining({
+    expect(require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).toHaveBeenCalledWith(expect.objectContaining({
       side: OrderSide.BUY,
       humanPrice: '45100',
     }));
-    expect(require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).not.toHaveBeenCalledWith(expect.objectContaining({
+    expect(require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).not.toHaveBeenCalledWith(expect.objectContaining({
       side: OrderSide.SELL,
       humanPrice: '45000',
     }));
@@ -159,7 +159,7 @@ describe('uncross-orderbook', () => {
     // the asks are sorted in ascending order
     // the highest bid at price level 45200 was updated after the ask at price level 45000,
     // so the ask at price level 45000 should be removed.
-    expect(require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).toHaveBeenCalledWith(
+    expect(require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).toHaveBeenCalledWith(
       expect.objectContaining({
         side: OrderSide.SELL,
         humanPrice: '45000',
@@ -196,8 +196,8 @@ describe('uncross-orderbook', () => {
 
     await runTask();
 
-    expect(require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).toHaveBeenCalledTimes(2);
-    expect(require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).not.toHaveBeenCalledWith(
+    expect(require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).toHaveBeenCalledTimes(2);
+    expect(require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache').deleteStalePriceLevel).not.toHaveBeenCalledWith(
       expect.objectContaining({
         side: OrderSide.SELL,
         humanPrice: '45000',
@@ -205,7 +205,7 @@ describe('uncross-orderbook', () => {
   });
 
   it('logs a failure to delete stale bid or ask level', async () => {
-    const { deleteStalePriceLevel } = require('@dydxprotocol-indexer/redis/build/src/caches/orderbook-levels-cache');
+    const { deleteStalePriceLevel } = require('@nemo-network-indexer/redis/build/src/caches/orderbook-levels-cache');
     deleteStalePriceLevel.mockImplementationOnce(() => false);
 
     const perpetualMarkets: PerpetualMarketFromDatabase[] = await PerpetualMarketTable.findAll(

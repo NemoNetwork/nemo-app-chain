@@ -15,7 +15,7 @@ import (
 	"testing"
 	"time"
 
-	listingtypes "github.com/dydxprotocol/v4-chain/protocol/x/listing/types"
+	listingtypes "github.com/nemo-network/v4-chain/protocol/x/listing/types"
 
 	"cosmossdk.io/log"
 	"cosmossdk.io/store/rootmulti"
@@ -42,37 +42,37 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	sdkproto "github.com/cosmos/gogoproto/proto"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	appconstants "github.com/dydxprotocol/v4-chain/protocol/app/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/cmd/dydxprotocold/cmd"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/appoptions"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	testlog "github.com/dydxprotocol/v4-chain/protocol/testutil/logger"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	blocktimetypes "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	delaymsgtypes "github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
-	epochstypes "github.com/dydxprotocol/v4-chain/protocol/x/epochs/types"
-	feetiertypes "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
-	govplus "github.com/dydxprotocol/v4-chain/protocol/x/govplus/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	ratelimittypes "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
-	revsharetypes "github.com/dydxprotocol/v4-chain/protocol/x/revshare/types"
-	rewardstypes "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
-	sendingtypes "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	stattypes "github.com/dydxprotocol/v4-chain/protocol/x/stats/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vaulttypes "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
-	vesttypes "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	appconstants "github.com/nemo-network/v4-chain/protocol/app/constants"
+	"github.com/nemo-network/v4-chain/protocol/cmd/nemod/cmd"
+	"github.com/nemo-network/v4-chain/protocol/indexer"
+	"github.com/nemo-network/v4-chain/protocol/testutil/appoptions"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	testlog "github.com/nemo-network/v4-chain/protocol/testutil/logger"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	blocktimetypes "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	delaymsgtypes "github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
+	epochstypes "github.com/nemo-network/v4-chain/protocol/x/epochs/types"
+	feetiertypes "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
+	govplus "github.com/nemo-network/v4-chain/protocol/x/govplus/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	ratelimittypes "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	revsharetypes "github.com/nemo-network/v4-chain/protocol/x/revshare/types"
+	rewardstypes "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
+	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	stattypes "github.com/nemo-network/v4-chain/protocol/x/stats/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
+	vesttypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/exp/slices"
 )
 
-// localdydxprotocol Alice config/priv_validator_key.json.
+// localnemo-network Alice config/priv_validator_key.json.
 const alicePrivValidatorKeyJson = `{
   "address": "124B880684400B4C0086BD4EE882DCC5B61CF7E3",
   "pub_key": {
@@ -86,7 +86,7 @@ const alicePrivValidatorKeyJson = `{
 }
 `
 
-// localdydxprotocol Alice config/node_key.json.
+// localnemo-network Alice config/node_key.json.
 const aliceNodeKeyJson = `{
   "priv_key": {
     "type": "tendermint/PrivKeyEd25519",
@@ -172,7 +172,7 @@ func DefaultTestApp(customFlags map[string]interface{}, baseAppOptions ...func(*
 
 // DefaultGenesis returns a genesis doc using configuration from the local net with a genesis time
 // equivalent to unix epoch + 1 nanosecond. We specifically use non-zero because stateful orders
-// validate that block time is non-zero (https://github.com/dydxprotocol/v4-chain/protocol/blob/
+// validate that block time is non-zero (https://github.com/nemo-network/v4-chain/protocol/blob/
 // 84a046554ab1b4725475500d94a0b3179fdd18c2/x/clob/keeper/stateful_order_state.go#L237).
 func DefaultGenesis() (genesis types.GenesisDoc) {
 	// NOTE: Tendermint uses a custom JSON decoder for GenesisDoc
@@ -1109,7 +1109,7 @@ func (tApp *TestApp) CheckTx(req abcitypes.RequestCheckTx) abcitypes.ResponseChe
 	tApp.panicIfChainIsHalted()
 	res, err := tApp.App.CheckTx(&req)
 	// Note that the dYdX fork of CometBFT explicitly excludes place and cancel order messages. See
-	// https://github.com/dydxprotocol/cometbft/blob/5e6c4b6/mempool/clist_mempool.go#L441
+	// https://github.com/NemoNetwork/cometbft/blob/5e6c4b6/mempool/clist_mempool.go#L441
 	if err == nil && res.IsOK() && !mempool.IsShortTermClobOrderTransaction(req.Tx, newTestingLogger()) {
 		// We want to ensure that we hold the lock only for updating passingCheckTxs so that App.CheckTx can execute
 		// concurrently.
@@ -1243,8 +1243,8 @@ func launchValidatorInDir(
 	parentCtx, cancelFn := context.WithCancel(context.Background())
 
 	appCaptor := make(chan *app.App, 1)
-	// Set up the root command using https://github.com/dydxprotocol/v4-chain/blob/
-	// 1fa21ed5d848ed7cc6a98053838cadb68422079f/protocol/cmd/dydxprotocold/main.go#L12 as a basis.
+	// Set up the root command using https://github.com/nemo-network/v4-chain/blob/
+	// 1fa21ed5d848ed7cc6a98053838cadb68422079f/protocol/cmd/nemod/main.go#L12 as a basis.
 	option := cmd.GetOptionWithCustomStartCmd()
 	rootCmd := cmd.NewRootCmdWithInterceptors(
 		option,

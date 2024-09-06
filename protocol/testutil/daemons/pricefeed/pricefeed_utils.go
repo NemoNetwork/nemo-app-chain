@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/json"
+	"github.com/nemo-network/v4-chain/protocol/testutil/json"
 	"github.com/stretchr/testify/require"
 )
 

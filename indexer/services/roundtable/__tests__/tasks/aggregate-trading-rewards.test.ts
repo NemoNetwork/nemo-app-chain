@@ -11,13 +11,13 @@ import {
   testConstants,
   testConversionHelpers,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import generateTaskFromPeriod, { AggregateTradingReward } from '../../src/tasks/aggregate-trading-rewards';
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import { DateTime, Interval } from 'luxon';
 import { UTC_OPTIONS } from '../../src/lib/constants';
 import { redisClient } from '../../src/helpers/redis';
-import { AggregateTradingRewardsProcessedCache, redis } from '@dydxprotocol-indexer/redis';
+import { AggregateTradingRewardsProcessedCache, redis } from '@nemo-network-indexer/redis';
 import config from '../../src/config';
 
 describe('aggregate-trading-rewards', () => {

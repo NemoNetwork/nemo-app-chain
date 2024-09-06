@@ -2,8 +2,8 @@ package affiliates
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/affiliates/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/affiliates/types"
+	"github.com/nemo-network/v4-chain/protocol/x/affiliates/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

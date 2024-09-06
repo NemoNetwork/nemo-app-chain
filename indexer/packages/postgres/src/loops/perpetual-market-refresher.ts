@@ -1,7 +1,7 @@
 import {
   stats,
   NodeEnv,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import _ from 'lodash';
 
 import config from '../config';

@@ -3,8 +3,8 @@ package lib
 import (
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib/margin"
-	"github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
+	"github.com/nemo-network/v4-chain/protocol/lib/margin"
+	"github.com/nemo-network/v4-chain/protocol/x/assets/types"
 )
 
 // GetNetCollateralAndMarginRequirements returns the net collateral, initial margin, and maintenance margin

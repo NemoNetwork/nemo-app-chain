@@ -14,7 +14,7 @@ import {
   TRADES_WEBSOCKET_MESSAGE_VERSION,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
   BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import { MessageForwarder } from '../../src/lib/message-forwarder';
 import WebSocket from 'ws';
 import {
@@ -28,13 +28,13 @@ import {
   WebsocketEvents,
 } from '../../src/types';
 import { Admin } from 'kafkajs';
-import { BlockHeightMessage, SubaccountMessage, TradeMessage } from '@dydxprotocol-indexer/v4-protos';
+import { BlockHeightMessage, SubaccountMessage, TradeMessage } from '@nemo-network-indexer/v4-protos';
 import {
   dbHelpers,
   testMocks,
   perpetualMarketRefresher,
   blockHeightRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   btcClobPairId,
   btcTicker,

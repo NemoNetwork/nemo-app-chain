@@ -11,10 +11,10 @@
           "atomic": true,
           "endpoints": [
             {
-              "url": "http://dydxprotocold0:1317"
+              "url": "http://nemo-networkd0:1317"
             },
             {
-              "url": "dydxprotocold0:9090"
+              "url": "nemo-networkd0:9090"
             }
           ],
           "batchSize": 0,

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { dbHelpers, Transaction } from '@dydxprotocol-indexer/postgres';
+import { dbHelpers, Transaction } from '@nemo-network-indexer/postgres';
 import {
   AssetCreateEventV1,
   IndexerTendermintBlock,
@@ -7,7 +7,7 @@ import {
   MarketEventV1,
   SubaccountUpdateEventV1,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { createIndexerTendermintBlock, createIndexerTendermintEvent } from '../helpers/indexer-proto-helpers';
 import { MILLIS_IN_NANOS, SECONDS_IN_MILLIS } from '../../src/constants';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
@@ -24,7 +24,7 @@ import { BatchedHandlers } from '../../src/lib/batched-handlers';
 import { SyncHandlers } from '../../src/lib/sync-handlers';
 import { mock, MockProxy } from 'jest-mock-extended';
 import { createPostgresFunctions } from '../../src/helpers/postgres/postgres-functions';
-import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@dydxprotocol-indexer/kafka';
+import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka';
 
 describe('block-processor', () => {
   let batchedHandlers: MockProxy<BatchedHandlers>;

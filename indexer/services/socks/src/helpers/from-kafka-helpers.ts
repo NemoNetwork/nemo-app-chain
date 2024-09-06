@@ -1,11 +1,11 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   parentSubaccountHelpers,
   perpetualMarketRefresher,
   PROTO_TO_CANDLE_RESOLUTION,
   SubaccountMessageContents,
-} from '@dydxprotocol-indexer/postgres';
-import { getParentSubaccountNum } from '@dydxprotocol-indexer/postgres/build/src/lib/parent-subaccount-helpers';
+} from '@nemo-network-indexer/postgres';
+import { getParentSubaccountNum } from '@nemo-network-indexer/postgres/build/src/lib/parent-subaccount-helpers';
 import {
   BlockHeightMessage,
   CandleMessage,
@@ -14,7 +14,7 @@ import {
   OrderbookMessage,
   SubaccountMessage,
   TradeMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { KafkaMessage } from 'kafkajs';
 
 import { TOPIC_TO_CHANNEL, V4_BLOCK_HEIGHT_ID, V4_MARKETS_ID } from '../lib/constants';

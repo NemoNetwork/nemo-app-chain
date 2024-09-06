@@ -1,5 +1,5 @@
-import { logger, runFuncWithTimingStat, stats } from '@dydxprotocol-indexer/base';
-import { KafkaTopics, SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION, getTriggerPrice } from '@dydxprotocol-indexer/kafka';
+import { logger, runFuncWithTimingStat, stats } from '@nemo-network-indexer/base';
+import { KafkaTopics, SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION, getTriggerPrice } from '@nemo-network-indexer/kafka';
 import {
   blockHeightRefresher,
   BlockTable,
@@ -18,19 +18,19 @@ import {
   OrderSide,
   APITimeInForce,
   OrderType,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   OrderbookLevelsCache,
   OrdersCache,
   RemoveOrderResult,
   removeOrder,
   CanceledOrdersCache,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 import {
   ORDER_FLAG_SHORT_TERM,
   isStatefulOrder,
   requiresImmediateExecution,
-} from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/v4-proto-parser';
 import {
   OffChainUpdateV1,
   IndexerOrder,
@@ -39,7 +39,7 @@ import {
   OrderRemoveV1_OrderRemovalStatus,
   RedisOrder,
   SubaccountMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { Big } from 'big.js';
 import { IHeaders, Message } from 'kafkajs';
 

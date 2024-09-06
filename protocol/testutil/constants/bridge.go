@@ -3,7 +3,7 @@ package constants
 import (
 	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethcoretypes "github.com/ethereum/go-ethereum/core/types"
 )
@@ -31,11 +31,11 @@ func init() {
 var (
 	// Private
 	emptyCoin = sdk.Coin{
-		Denom:  "adv4tnt",
+		Denom:  "unemo",
 		Amount: sdkmath.NewInt(0),
 	}
 	coin = sdk.Coin{
-		Denom:  "adv4tnt",
+		Denom:  "unemo",
 		Amount: sdkmath.NewIntFromUint64(888),
 	}
 

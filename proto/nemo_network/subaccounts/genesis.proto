@@ -1,0 +1,12 @@
+syntax = "proto3";
+package nemo_network.subaccounts;
+
+import "gogoproto/gogo.proto";
+import "nemo_network/subaccounts/subaccount.proto";
+
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types";
+
+// GenesisState defines the subaccounts module's genesis state.
+message GenesisState {
+  repeated Subaccount subaccounts = 1 [ (gogoproto.nullable) = false ];
+}

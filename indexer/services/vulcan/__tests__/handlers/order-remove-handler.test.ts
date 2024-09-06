@@ -4,16 +4,16 @@ import {
   stats,
   STATS_FUNCTION_NAME,
   wrapBackgroundTask,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   defaultTime,
 } from '../helpers/constants';
-import { synchronizeWrapBackgroundTask } from '@dydxprotocol-indexer/dev';
+import { synchronizeWrapBackgroundTask } from '@nemo-network-indexer/dev';
 import {
   ORDERBOOKS_WEBSOCKET_MESSAGE_VERSION,
   producer,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import {
   dbHelpers,
   BlockTable,
@@ -31,7 +31,7 @@ import {
   testMocks,
   apiTranslations,
   TimeInForce, blockHeightRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   OrderbookLevelsCache,
   OrderData,
@@ -44,7 +44,7 @@ import {
   SubaccountOrderIdsCache,
   updateOrder,
   CanceledOrderStatus,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 import {
   OffChainUpdateV1,
   OrderbookMessage,
@@ -55,7 +55,7 @@ import {
   RedisOrder,
   SubaccountMessage,
   protoTimestampToDate,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import { IHeaders, ProducerRecord } from 'kafkajs';
 import { DateTime } from 'luxon';
@@ -70,12 +70,12 @@ import {
   handleOrderUpdate,
 } from '../helpers/helpers';
 import { expectWebsocketOrderbookMessage, expectWebsocketSubaccountMessage } from '../helpers/websocket-helpers';
-import { ORDER_FLAG_LONG_TERM } from '@dydxprotocol-indexer/v4-proto-parser';
+import { ORDER_FLAG_LONG_TERM } from '@nemo-network-indexer/v4-proto-parser';
 import Long from 'long';
 import config from '../../src/config';
 
-jest.mock('@dydxprotocol-indexer/base', () => ({
-  ...jest.requireActual('@dydxprotocol-indexer/base'),
+jest.mock('@nemo-network-indexer/base', () => ({
+  ...jest.requireActual('@nemo-network-indexer/base'),
   wrapBackgroundTask: jest.fn(),
 }));
 

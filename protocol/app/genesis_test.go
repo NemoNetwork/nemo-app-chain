@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 )
 
 func TestDefaultGenesisState(t *testing.T) {

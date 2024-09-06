@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/x/revshare/types"
+	"github.com/nemo-network/v4-chain/protocol/x/revshare/types"
 )
 
 type msgServer struct {

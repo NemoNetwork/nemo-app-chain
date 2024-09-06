@@ -3,8 +3,8 @@ package types
 import (
 	"context"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	assets "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	prices "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	assets "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	prices "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // BankKeeper defines the expected interface needed to retrieve account balances.

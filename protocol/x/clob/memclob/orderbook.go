@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/pkg/errors"
 	"github.com/zyedidia/generic/list"
 )

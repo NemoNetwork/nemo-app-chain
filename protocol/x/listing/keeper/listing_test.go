@@ -4,17 +4,17 @@ import (
 	"errors"
 	"testing"
 
-	perpetualtypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
+	perpetualtypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	oracletypes "github.com/skip-mev/slinky/pkg/types"
 	marketmaptypes "github.com/skip-mev/slinky/x/marketmap/types"
 	"github.com/skip-mev/slinky/x/marketmap/types/tickermetadata"
 
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/x/listing/types"
+	"github.com/nemo-network/v4-chain/protocol/x/listing/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
 	"github.com/stretchr/testify/require"
 )
 

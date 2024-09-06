@@ -3,7 +3,7 @@ package types
 import (
 	"math"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
 )
 
 // DefaultQuotingParams returns a default set of `x/vault` parameters.

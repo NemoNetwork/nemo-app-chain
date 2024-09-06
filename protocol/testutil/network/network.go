@@ -21,14 +21,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module/testutil"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	"github.com/dydxprotocol/v4-chain/protocol/app/basic_manager"
-	v4module "github.com/dydxprotocol/v4-chain/protocol/app/module"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/marketmap"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/appoptions"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/ci"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
 	"github.com/gofrs/flock"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	"github.com/nemo-network/v4-chain/protocol/app/basic_manager"
+	v4module "github.com/nemo-network/v4-chain/protocol/app/module"
+	"github.com/nemo-network/v4-chain/protocol/lib/marketmap"
+	"github.com/nemo-network/v4-chain/protocol/testutil/appoptions"
+	"github.com/nemo-network/v4-chain/protocol/testutil/ci"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	marketmaptypes "github.com/skip-mev/slinky/x/marketmap/types"
 	"github.com/stretchr/testify/require"
 )
@@ -173,12 +173,12 @@ func DefaultConfig(options *NetworkConfigOptions) network.Config {
 				appOptions,
 				baseapp.SetPruning(pruningtypes.NewPruningOptionsFromString(val.GetAppConfig().Pruning)),
 				baseapp.SetMinGasPrices(val.GetAppConfig().MinGasPrices),
-				baseapp.SetChainID("dydxprotocol"),
+				baseapp.SetChainID("nemo_network."),
 			)
 		},
 		GenesisState:    genesisState,
 		TimeoutCommit:   2 * time.Second,
-		ChainID:         "dydxprotocol",
+		ChainID:         "nemo_network.",
 		NumValidators:   1,
 		BondDenom:       sdk.DefaultBondDenom,
 		MinGasPrices:    fmt.Sprintf("0.000006%s", sdk.DefaultBondDenom),

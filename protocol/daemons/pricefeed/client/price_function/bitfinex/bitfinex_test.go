@@ -3,14 +3,14 @@ package bitfinex_test
 import (
 	"errors"
 	"fmt"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/price_function/bitfinex"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/price_function/testutil"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_function/bitfinex"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_function/testutil"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/stretchr/testify/require"
 )
 

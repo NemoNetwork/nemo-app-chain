@@ -1,9 +1,9 @@
 package events
 
 import (
-	v1 "github.com/dydxprotocol/v4-chain/protocol/indexer/protocol/v1"
-	sharedtypes "github.com/dydxprotocol/v4-chain/protocol/indexer/shared/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	v1 "github.com/nemo-network/v4-chain/protocol/indexer/protocol/v1"
+	sharedtypes "github.com/nemo-network/v4-chain/protocol/indexer/shared/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 func NewLongTermOrderPlacementEvent(

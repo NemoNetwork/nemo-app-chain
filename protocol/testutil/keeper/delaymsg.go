@@ -2,8 +2,8 @@ package keeper
 
 import (
 	dbm "github.com/cosmos/cosmos-db"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/ante"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/testutil/ante"
 	"testing"
 
 	storetypes "cosmossdk.io/store/types"
@@ -12,11 +12,11 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	bridgekeeper "github.com/dydxprotocol/v4-chain/protocol/x/bridge/keeper"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	bridgekeeper "github.com/nemo-network/v4-chain/protocol/x/bridge/keeper"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
 )
 
 func DelayMsgKeepers(

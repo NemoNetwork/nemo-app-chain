@@ -2,7 +2,7 @@ import {
   stats,
   logger,
   NodeEnv,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 
 import config from '../config';
 import * as BlockTable from '../stores/block-table';

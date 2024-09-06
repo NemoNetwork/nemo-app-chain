@@ -4,11 +4,11 @@ import {
   OrderSide,
   testMocks,
   perpetualMarketRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { sendRequest } from '../../../helpers/helpers';
-import { OrderbookLevelsCache, redis } from '@dydxprotocol-indexer/redis';
+import { OrderbookLevelsCache, redis } from '@nemo-network-indexer/redis';
 import { redisClient } from '../../../../src/helpers/redis/redis-controller';
 
 describe('orderbooks-controller#V4', () => {
@@ -91,7 +91,7 @@ describe('orderbooks-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orderbooks/perpetualMarket/${testConstants.defaultPerpetualMarket.ticker}`,
+        path: `/orderbooks/perpetualMarket/${testConstants.defaultPerpetualMarket.ticker}`,
       });
 
       expect(response.body.bids).toHaveLength(3);
@@ -116,7 +116,7 @@ describe('orderbooks-controller#V4', () => {
 
       await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/orderbooks/perpetualMarket/${invalidTicker}`,
+        path: `/orderbooks/perpetualMarket/${invalidTicker}`,
         expectedStatus: 404,
       });
     });

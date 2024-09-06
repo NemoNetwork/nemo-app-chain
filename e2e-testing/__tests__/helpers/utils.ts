@@ -1,4 +1,4 @@
-import { IPlaceOrder, Network, SocketClient } from '@dydxprotocol/v4-client-js';
+import { IPlaceOrder, Network, SocketClient } from '@nemo-network/v4-client-js';
 import Long from 'long';
 
 import { defaultOrder } from './constants';

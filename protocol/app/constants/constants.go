@@ -1,7 +1,7 @@
 package constants
 
 const (
-	AppName       = "dydxprotocol"
+	AppName       = "nemo"
 	AppDaemonName = AppName + "d"
 	ServiceName   = "validator"
 )

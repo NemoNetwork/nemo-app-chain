@@ -10,30 +10,30 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authsigning "github.com/cosmos/cosmos-sdk/x/auth/signing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/msgs"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	testmsgs "github.com/dydxprotocol/v4-chain/protocol/testutil/msgs"
+	"github.com/nemo-network/v4-chain/protocol/app/msgs"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	testmsgs "github.com/nemo-network/v4-chain/protocol/testutil/msgs"
 	"github.com/stretchr/testify/require"
 )
 
 func TestAppInjectedMsgSamples_Key(t *testing.T) {
 	expectedMsgs := []string{
 		// bridge
-		"/dydxprotocol.bridge.MsgAcknowledgeBridges",
-		"/dydxprotocol.bridge.MsgAcknowledgeBridgesResponse",
+		"/nemo_network.bridge.MsgAcknowledgeBridges",
+		"/nemo_network.bridge.MsgAcknowledgeBridgesResponse",
 
 		// clob
-		"/dydxprotocol.clob.MsgProposedOperations",
-		"/dydxprotocol.clob.MsgProposedOperationsResponse",
+		"/nemo_network.clob.MsgProposedOperations",
+		"/nemo_network.clob.MsgProposedOperationsResponse",
 
 		// perpetuals
-		"/dydxprotocol.perpetuals.MsgAddPremiumVotes",
-		"/dydxprotocol.perpetuals.MsgAddPremiumVotesResponse",
+		"/nemo_network.perpetuals.MsgAddPremiumVotes",
+		"/nemo_network.perpetuals.MsgAddPremiumVotesResponse",
 
 		// prices
-		"/dydxprotocol.prices.MsgUpdateMarketPrices",
-		"/dydxprotocol.prices.MsgUpdateMarketPricesResponse",
+		"/nemo_network.prices.MsgUpdateMarketPrices",
+		"/nemo_network.prices.MsgUpdateMarketPricesResponse",
 	}
 
 	require.Equal(t, expectedMsgs, lib.GetSortedKeys[sort.StringSlice](msgs.AppInjectedMsgSamples))

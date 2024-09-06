@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/dydxprotocol/v4-chain/protocol/x/affiliates/types"
+	"github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 )
 
 // GetTxCmd returns the transaction commands for this module.

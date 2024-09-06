@@ -1,14 +1,14 @@
-FROM dydxprotocol-base
+FROM nemo-network-base
 
 RUN apk add --no-cache bash jq aws-cli
 RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 
-COPY ./testing/version/. /dydxprotocol/
-COPY ./testing/mainnet/. /dydxprotocol/
+COPY ./testing/version/. /nemo-network/
+COPY ./testing/mainnet/. /nemo-network/
 
-ENV HOME /dydxprotocol
+ENV HOME /nemo-network
 WORKDIR $HOME
 
-RUN /dydxprotocol/mainnet.sh
+RUN /nemo-network/mainnet.sh
 
-ENTRYPOINT ["/dydxprotocol/start.sh"]
+ENTRYPOINT ["/nemo-network/start.sh"]

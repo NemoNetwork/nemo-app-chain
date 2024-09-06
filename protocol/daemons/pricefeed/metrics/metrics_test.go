@@ -1,22 +1,23 @@
 package metrics_test
 
 import (
-	"cosmossdk.io/log"
 	"fmt"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
-	grpc_util "github.com/dydxprotocol/v4-chain/protocol/testutil/grpc"
-	pricetypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	"github.com/stretchr/testify/mock"
 	"reflect"
 	"testing"
 	"unsafe"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
-	pricefeedmetrics "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/metrics"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
+	"cosmossdk.io/log"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed/exchange_config"
+	grpc_util "github.com/nemo-network/v4-chain/protocol/testutil/grpc"
+	pricetypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	"github.com/stretchr/testify/mock"
+
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
+	pricefeedmetrics "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/metrics"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
 	"github.com/stretchr/testify/require"
 )
 
@@ -26,7 +27,7 @@ const (
 
 // Used to clear the marketToPair map for testing purposes.
 //
-//go:linkname marketToPair github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/metrics.marketToPair
+//go:linkname marketToPair github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/metrics.marketToPair
 var marketToPair map[types.MarketId]string
 
 // clearMarketToPair resets the backing marketToPair map to an empty map.

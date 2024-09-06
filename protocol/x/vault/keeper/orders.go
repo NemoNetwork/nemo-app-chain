@@ -8,11 +8,11 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/log"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/metrics"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
+	"github.com/nemo-network/v4-chain/protocol/lib/metrics"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 // RefreshAllVaultOrders refreshes all orders for all vaults by
@@ -44,7 +44,7 @@ func (k Keeper) RefreshAllVaultOrders(ctx sdk.Context) {
 			vaultParams.QuotingParams = &defaultQuotingParams
 		}
 		vault := k.subaccountsKeeper.GetSubaccount(ctx, *vaultId.ToSubaccountId())
-		if vault.PerpetualPositions == nil || len(vault.PerpetualPositions) == 0 {
+		if len(vault.PerpetualPositions) == 0 {
 			if vault.GetUsdcPosition().Cmp(vaultParams.QuotingParams.ActivationThresholdQuoteQuantums.BigInt()) == -1 {
 				continue
 			}

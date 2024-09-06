@@ -1,6 +1,6 @@
 {
   "app_hash": null,
-  "app_name": "dydxprotocold",
+  "app_name": "nemod",
   "app_state": {
     "affiliates": {},
     "assets": {
@@ -535,7 +535,7 @@
           "block_height": 6912000,
           "id": 0,
           "msg": {
-            "@type": "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams",
+            "@type": "/nemo_network.feetiers.MsgUpdatePerpetualFeeParams",
             "authority": "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr",
             "params": {
               "tiers": [
@@ -3926,8 +3926,12 @@
     },
     "upgrade": {},
     "vault": {
+<<<<<<< HEAD
+      "params": {
+=======
       "all_owner_share_unlocks": [],
       "default_quoting_params": {
+>>>>>>> main
         "activation_threshold_quote_quantums": "1000000000",
         "layers": 2,
         "order_expiration_seconds": 60,

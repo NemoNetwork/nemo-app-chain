@@ -3,9 +3,9 @@ package types_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -122,6 +122,18 @@ func TestValidateVaultParams(t *testing.T) {
 				QuotingParams: &constants.InvalidQuotingParams,
 			},
 			expectedErr: types.ErrInvalidOrderExpirationSeconds,
+		},
+		"Failure - ActivationThresholdQuoteQuantums is negative": {
+			params: types.Params{
+				Layers:                           2,
+				SpreadMinPpm:                     3_000,
+				SpreadBufferPpm:                  1_500,
+				SkewFactorPpm:                    500_000,
+				OrderSizePctPpm:                  100_000,
+				OrderExpirationSeconds:           5,
+				ActivationThresholdQuoteQuantums: dtypes.NewInt(-1),
+			},
+			expectedErr: types.ErrInvalidActivationThresholdQuoteQuantums,
 		},
 	}
 

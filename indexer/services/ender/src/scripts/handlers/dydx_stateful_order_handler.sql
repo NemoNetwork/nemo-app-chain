@@ -4,10 +4,10 @@ CREATE OR REPLACE FUNCTION dydx_stateful_order_handler(
   Parameters:
     - block_height: the height of the block being processing.
     - block_time: the time of the block being processed.
-    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/proto/dydxprotocol/indexer/indexer_manager/event.proto#L25)
+    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/nemo-network/v4-chain/blob/9ed26bd/proto/nemo-network/indexer/indexer_manager/event.proto#L25)
         converted to JSON format. Conversion to JSON is expected to be done by JSON.stringify.
   Returns: JSON object containing fields:
-    - order: The upserted order in order-model format (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/indexer/packages/postgres/src/models/order-model.ts).
+    - order: The upserted order in order-model format (https://github.com/nemo-network/v4-chain/blob/9ed26bd/indexer/packages/postgres/src/models/order-model.ts).
 
   (Note that no text should exist before the function declaration to ensure that exception line numbers are correct.)
 */

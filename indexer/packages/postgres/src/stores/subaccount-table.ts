@@ -1,4 +1,4 @@
-import { IndexerSubaccountId } from '@dydxprotocol-indexer/v4-protos';
+import { IndexerSubaccountId } from '@nemo-network-indexer/v4-protos';
 import { PartialModelObject, QueryBuilder } from 'objection';
 
 import config from '../config';

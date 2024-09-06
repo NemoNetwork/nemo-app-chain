@@ -19,8 +19,8 @@ import {
   TransferFromDatabase,
   TransferType,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@dydxprotocol-indexer/postgres';
-import { IndexerSubaccountId } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { IndexerSubaccountId } from '@nemo-network-indexer/v4-protos';
 import { DateTime } from 'luxon';
 import {
   addPositionsToContents,
@@ -30,7 +30,7 @@ import {
   generateTransferContents,
   getPnl,
 } from '../../src/helpers/kafka-helper';
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 import { updateBlockCache } from '../../src/caches/block-cache';
 import { defaultPreviousHeight, defaultWalletAddress } from './constants';
 

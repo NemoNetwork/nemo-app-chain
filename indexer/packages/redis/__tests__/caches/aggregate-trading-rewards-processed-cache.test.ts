@@ -4,7 +4,7 @@ import {
   getProcessedTime,
   setProcessedTime,
 } from '../../src/caches/aggregate-trading-rewards-processed-cache';
-import { IsoString, TradingRewardAggregationPeriod } from '@dydxprotocol-indexer/postgres';
+import { IsoString, TradingRewardAggregationPeriod } from '@nemo-network-indexer/postgres';
 
 describe('aggregateTradingRewardsProcessedCache', () => {
   beforeEach(async () => {

@@ -2,8 +2,8 @@ package vault
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
@@ -53,6 +53,9 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	// Export params.
 	genesis.DefaultQuotingParams = k.GetDefaultQuotingParams(ctx)
+
+	// Export vaults.
+	genesis.Vaults = k.GetAllVaults(ctx)
 
 	// Export vaults.
 	genesis.Vaults = k.GetAllVaults(ctx)

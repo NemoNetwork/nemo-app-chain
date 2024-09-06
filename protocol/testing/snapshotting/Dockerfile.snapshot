@@ -1,8 +1,8 @@
-FROM dydxprotocol-base
+FROM nemo-network-base
 
-COPY ./testing/snapshotting/snapshot.sh /dydxprotocol/snapshot.sh
+COPY ./testing/snapshotting/snapshot.sh /nemo-network/snapshot.sh
 
 RUN go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.5.0
 RUN apk add --no-cache bash jq aws-cli
 
-ENTRYPOINT ["/dydxprotocol/snapshot.sh"]
+ENTRYPOINT ["/nemo-network/snapshot.sh"]

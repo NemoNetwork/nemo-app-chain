@@ -8,7 +8,7 @@ import {
   baseConfigSchema,
   parseInteger,
   parseBoolean,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 
 export const complianceConfigSchema = {
   ...baseConfigSchema,

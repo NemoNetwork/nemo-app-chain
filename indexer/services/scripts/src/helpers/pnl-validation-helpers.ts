@@ -9,7 +9,7 @@ import {
   PnlTicksColumns,
   PnlTicksFromDatabase,
   PnlTicksTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import Big from 'big.js';
 import _ from 'lodash';
 

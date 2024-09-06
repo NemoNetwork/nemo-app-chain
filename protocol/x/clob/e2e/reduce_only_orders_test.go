@@ -5,14 +5,14 @@ import (
 	"testing"
 
 	"github.com/cometbft/cometbft/types"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	testutil "github.com/dydxprotocol/v4-chain/protocol/testutil/util"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	prices "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	testutil "github.com/nemo-network/v4-chain/protocol/testutil/util"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	prices "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/require"
 )
 

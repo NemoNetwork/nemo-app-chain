@@ -7,7 +7,7 @@ import {
   dbHelpers,
   SubaccountUsernamesFromDatabase,
   SubaccountFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import subaccountUsernameGenerator from '../../src/tasks/subaccount-username-generator';
 
 describe('subaccount-username-generator', () => {

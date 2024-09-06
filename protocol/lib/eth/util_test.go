@@ -7,9 +7,9 @@ import (
 	sdkmath "cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	libeth "github.com/dydxprotocol/v4-chain/protocol/lib/eth"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
+	libeth "github.com/nemo-network/v4-chain/protocol/lib/eth"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	ethcoretypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/stretchr/testify/require"
@@ -117,11 +117,11 @@ func TestBridgeLogToEvent(t *testing.T) {
 	}{
 		"Success: event ID 0": {
 			inputLog:   constants.EthLog_Event0,
-			inputDenom: "adv4tnt",
+			inputDenom: "unemo",
 			expectedEvent: bridgetypes.BridgeEvent{
 				Id: 0,
 				Coin: sdk.NewCoin(
-					"adv4tnt",
+					"unemo",
 					sdkmath.NewInt(12345),
 				),
 				Address:        "dydx1qqgzqvzq2ps8pqys5zcvp58q7rluextx92xhln",
@@ -173,11 +173,11 @@ func TestBridgeLogToEvent(t *testing.T) {
 		},
 		"Success: event ID 4": {
 			inputLog:   constants.EthLog_Event4,
-			inputDenom: "adv4tnt",
+			inputDenom: "unemo",
 			expectedEvent: bridgetypes.BridgeEvent{
 				Id: 4,
 				Coin: sdk.NewCoin(
-					"adv4tnt",
+					"unemo",
 					sdkmath.NewInt(1234123443214321),
 				),
 				// address shorter than 20 bytes is padded with zeros.

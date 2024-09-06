@@ -1,7 +1,7 @@
 import {
   STATS_NO_SAMPLING, delay, logger, stats,
-} from '@dydxprotocol-indexer/base';
-import { ComplianceClientResponse } from '@dydxprotocol-indexer/compliance';
+} from '@nemo-network-indexer/base';
+import { ComplianceClientResponse } from '@nemo-network-indexer/compliance';
 import {
   ComplianceDataColumns,
   ComplianceDataCreateObject,
@@ -16,7 +16,7 @@ import {
   SubaccountColumns,
   SubaccountFromDatabase,
   SubaccountTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 import { DateTime } from 'luxon';
 

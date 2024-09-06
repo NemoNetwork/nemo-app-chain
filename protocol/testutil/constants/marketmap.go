@@ -3,7 +3,7 @@ package constants
 import (
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib/slinky"
+	"github.com/nemo-network/v4-chain/protocol/lib/slinky"
 	slinkytypes "github.com/skip-mev/slinky/pkg/types"
 	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 )

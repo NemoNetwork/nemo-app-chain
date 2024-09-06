@@ -10,8 +10,8 @@ import {
   LeaderboardPnlTable,
   LeaderboardPnlFromDatabase,
   LeaderboardPnlTimeSpan,
-} from '@dydxprotocol-indexer/postgres';
-import { LeaderboardPnlProcessedCache, redis } from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/postgres';
+import { LeaderboardPnlProcessedCache, redis } from '@nemo-network-indexer/redis';
 
 import generateLeaderboardTaskFromTimespan from '../../src/tasks/create-leaderboard';
 import { DateTime } from 'luxon';

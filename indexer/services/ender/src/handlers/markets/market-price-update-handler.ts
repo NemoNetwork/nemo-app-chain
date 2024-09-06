@@ -1,11 +1,11 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   MarketFromDatabase,
   OraclePriceFromDatabase,
   OraclePriceModel,
   MarketMessageContents, MarketModel,
-} from '@dydxprotocol-indexer/postgres';
-import { MarketEventV1 } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { MarketEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 
 import { generateOraclePriceContents } from '../../helpers/kafka-helper';

@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/price_function"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/types"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_function"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/types"
 )
 
 // OkxResponseBody defines the overall Okx response.

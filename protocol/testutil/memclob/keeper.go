@@ -6,10 +6,10 @@ import (
 
 	"cosmossdk.io/log"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 var _ types.MemClobKeeper = &FakeMemClobKeeper{}
@@ -285,7 +285,7 @@ func (f *FakeMemClobKeeper) GetStatefulOrdersTimeSlice(
 }
 
 func (f *FakeMemClobKeeper) addFakePositionSize(
-	ctx sdk.Context,
+	_ sdk.Context,
 	clobPairId types.ClobPairId,
 	subaccountId satypes.SubaccountId,
 	isBuy bool,
@@ -312,7 +312,7 @@ func (f *FakeMemClobKeeper) addFakePositionSize(
 }
 
 func (f *FakeMemClobKeeper) addFakeFillAmount(
-	ctx sdk.Context,
+	_ sdk.Context,
 	orderId types.OrderId,
 	fillAmount satypes.BaseQuantums,
 ) {

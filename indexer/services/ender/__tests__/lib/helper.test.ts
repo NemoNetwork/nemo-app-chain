@@ -1,5 +1,5 @@
-import { IndexerTendermintEvent, IndexerTendermintEvent_BlockEvent } from '@dydxprotocol-indexer/v4-protos';
-import { ParseMessageError } from '@dydxprotocol-indexer/base';
+import { IndexerTendermintEvent, IndexerTendermintEvent_BlockEvent } from '@nemo-network-indexer/v4-protos';
+import { ParseMessageError } from '@nemo-network-indexer/base';
 import { indexerTendermintEventToTransactionIndex } from '../../src/lib/helper';
 
 describe('helper', () => {

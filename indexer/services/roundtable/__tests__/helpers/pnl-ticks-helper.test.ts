@@ -22,7 +22,7 @@ import {
   MarketTable,
   PerpetualMarketTable,
   perpetualMarketRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   calculateEquity,
   calculateTotalPnl,
@@ -36,13 +36,13 @@ import {
 import { defaultPnlTickForSubaccounts } from '../../src/helpers/constants';
 import Big from 'big.js';
 import { DateTime } from 'luxon';
-import { LatestAccountPnlTicksCache, PnlTickForSubaccounts, redis } from '@dydxprotocol-indexer/redis';
+import { LatestAccountPnlTicksCache, PnlTickForSubaccounts, redis } from '@nemo-network-indexer/redis';
 import { redisClient } from '../../src/helpers/redis';
 import { ZERO } from '../../src/lib/constants';
 import { SubaccountUsdcTransferMap } from '../../src/helpers/types';
 import config from '../../src/config';
 import _ from 'lodash';
-import { ONE_HOUR_IN_MILLISECONDS } from '@dydxprotocol-indexer/base';
+import { ONE_HOUR_IN_MILLISECONDS } from '@nemo-network-indexer/base';
 
 describe('pnl-ticks-helper', () => {
   const positions: PerpetualPositionFromDatabase[] = [

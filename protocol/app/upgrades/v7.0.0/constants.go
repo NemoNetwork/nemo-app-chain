@@ -2,8 +2,8 @@ package v_7_0_0
 
 import (
 	store "cosmossdk.io/store/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/upgrades"
-	affiliatetypes "github.com/dydxprotocol/v4-chain/protocol/x/affiliates/types"
+	"github.com/nemo-network/v4-chain/protocol/app/upgrades"
+	affiliatetypes "github.com/nemo-network/v4-chain/protocol/x/affiliates/types"
 )
 
 const (

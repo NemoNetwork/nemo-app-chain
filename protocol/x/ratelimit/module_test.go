@@ -10,11 +10,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/module"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit"
-	ratelimit_keeper "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/keeper"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/nemo-network/v4-chain/protocol/app/module"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit"
+	ratelimit_keeper "github.com/nemo-network/v4-chain/protocol/x/ratelimit/keeper"
 	"github.com/stretchr/testify/require"
 )
 
@@ -99,8 +99,8 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect NumMessages route registered
 	registeredRoutes := []string{
-		"/dydxprotocol/v4/ratelimit/list_limit_params",
-		"/dydxprotocol/v4/ratelimit/capacity_by_denom",
+		"/nemo-network/ratelimit/list_limit_params",
+		"/nemo-network/ratelimit/capacity_by_denom",
 	}
 
 	for _, route := range registeredRoutes {
@@ -113,7 +113,7 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect unexpected route not registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/dydxprotocol/v4/ratelimit/foo/bar/baz", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/ratelimit/foo/bar/baz", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

@@ -12,15 +12,15 @@ import (
 	cometbfttypes "github.com/cometbft/cometbft/types"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
-	feetierstypes "github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
+	feetierstypes "github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 )
@@ -31,7 +31,7 @@ var (
 
 	DelayMsgAuthority = types.ModuleAddress
 
-	testDenom = "adv4tnt"
+	testDenom = "unemo"
 
 	BridgeGenesisAccountBalance = sdk.NewCoin(testDenom, sdkmath.NewInt(1000000000))
 
@@ -514,7 +514,7 @@ func TestDispatchMessagesForBlock_EventsArePropagated(t *testing.T) {
 	// Delay a complete bridge message, which calls bank transfer that emits a transfer event.
 	bridgeEvent := bridgetypes.BridgeEvent{
 		Id:             1,
-		Coin:           sdk.NewCoin("adv4tnt", sdkmath.NewInt(1_000)),
+		Coin:           sdk.NewCoin("unemo", sdkmath.NewInt(1_000)),
 		Address:        constants.AliceAccAddress.String(),
 		EthBlockHeight: 0,
 	}

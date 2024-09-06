@@ -47,20 +47,20 @@ import (
 	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
 	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 	exportedtypes "github.com/cosmos/ibc-go/v8/modules/core/exported"
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	"github.com/dydxprotocol/v4-chain/protocol/app/basic_manager"
-	daemonflags "github.com/dydxprotocol/v4-chain/protocol/daemons/flags"
-	assetstypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	blocktimetypes "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	epochstypes "github.com/dydxprotocol/v4-chain/protocol/x/epochs/types"
-	perpetualstypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
-	ratelimitmodule "github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
-	rewardsmodule "github.com/dydxprotocol/v4-chain/protocol/x/rewards/types"
-	sendingtypes "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	vestmodule "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	"github.com/nemo-network/v4-chain/protocol/app/basic_manager"
+	daemonflags "github.com/nemo-network/v4-chain/protocol/daemons/flags"
+	assetstypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	blocktimetypes "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	epochstypes "github.com/nemo-network/v4-chain/protocol/x/epochs/types"
+	perpetualstypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
+	ratelimitmodule "github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
+	rewardsmodule "github.com/nemo-network/v4-chain/protocol/x/rewards/types"
+	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vestmodule "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -236,7 +236,7 @@ func BenchmarkFullAppSimulation(b *testing.B) {
 
 	// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 	// vesting accounts during simulation here:
-	// https://github.com/dydxprotocol/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
+	// https://github.com/NemoNetwork/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
 	// For this reason, we need to register the `vesting` module interfaces so that the Genesis state of `auth` can be
 	// marshaled properly.
 	vestingtypes.RegisterInterfaces(dydxApp.InterfaceRegistry())
@@ -304,11 +304,11 @@ func TestFullAppSimulation(t *testing.T) {
 			)
 		})
 	dydxApp.WithRandomlyGeneratedOperationsSimulationManager()
-	require.Equal(t, "dydxprotocol", dydxApp.Name())
+	require.Equal(t, "nemo_network.", dydxApp.Name())
 
 	// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 	// vesting accounts during simulation here:
-	// https://github.com/dydxprotocol/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
+	// https://github.com/NemoNetwork/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
 	// For this reason, we need to register the `vesting` module interfaces so that the Genesis state of `auth` can be
 	// marshaled properly.
 	vestingtypes.RegisterInterfaces(dydxApp.InterfaceRegistry())
@@ -385,7 +385,7 @@ func TestAppStateDeterminism(t *testing.T) {
 
 			// Note: While our app does not use the `vesting` module, the `auth` module still attempts to create
 			// vesting accounts during simulation here:
-			// https://github.com/dydxprotocol/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
+			// https://github.com/NemoNetwork/cosmos-sdk/blob/dydx-fork-v0.47.0-rc2/x/auth/simulation/genesis.go#L26
 			// For this reason, we need to register the `vesting` module interfaces so that the Genesis state of `auth` can be
 			// marshaled properly.
 			vestingtypes.RegisterInterfaces(dydxApp.InterfaceRegistry())
@@ -568,7 +568,7 @@ func AppStateRandomizedFn(
 		func(r *rand.Rand) {
 			// Since the stake token denom has 18 decimals, the initial stake balance needs to be at least
 			// 1e18 to be considered valid. However, in the current implementation of auth simulation logic
-			// (https://github.com/dydxprotocol/cosmos-sdk/blob/93454d9f/x/auth/simulation/genesis.go#L38),
+			// (https://github.com/NemoNetwork/cosmos-sdk/blob/93454d9f/x/auth/simulation/genesis.go#L38),
 			// `initialStake` is casted to an `int64` value (max_int64 ~= 9.22e18).
 			// As such today the only valid range of values for `initialStake` is [1e18, max_int64]. Note
 			// this only represents 1~9 full coins.

@@ -1,6 +1,6 @@
 import {
   KafkaTopics, producer, ProducerMessage, TRADES_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import {
   FillFromDatabase,
   FillTable,
@@ -16,10 +16,10 @@ import {
   TradeMessageContents,
   TradeType,
   TransferFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   BlockHeightMessage, IndexerSubaccountId, SubaccountMessage, TradeMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 import { AnnotatedSubaccountMessage, ConsolidatedKafkaEvent, SingleTradeMessage } from '../../src/lib/types';
@@ -46,7 +46,7 @@ import {
 } from '../../src/helpers/kafka-helper';
 import { DateTime } from 'luxon';
 import { convertToSubaccountMessage } from '../../src/lib/helper';
-import { defaultBlock } from '@dydxprotocol-indexer/postgres/build/__tests__/helpers/constants';
+import { defaultBlock } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
 
 describe('kafka-publisher', () => {
   let producerSendMock: jest.SpyInstance;

@@ -17,7 +17,7 @@ importers:
       '@bugsnag/js': ^7.18.0
       '@bugsnag/node': ^7.18.0
       '@bugsnag/plugin-express': ^7.18.0
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
       '@types/big.js': ^6.1.5
       '@types/express': ^4.17.13
       '@types/lodash': ^4.14.182
@@ -51,7 +51,7 @@ importers:
       winston: 3.8.1
       winston-transport: 4.5.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@types/big.js': 6.1.5
       '@types/express': 4.17.13
       '@types/lodash': 4.14.182
@@ -62,8 +62,8 @@ importers:
 
   packages/compliance:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
       '@types/jest': ^28.1.4
       axios: ^1.2.1
       dotenv-flow: ^3.2.0
@@ -71,12 +71,12 @@ importers:
       lodash: ^4.17.21
       typescript: ^4.7.4
     dependencies:
-      '@dydxprotocol-indexer/base': link:../base
+      '@nemo-network-indexer/base': link:../base
       axios: 1.2.1
       dotenv-flow: 3.2.0
       lodash: 4.17.21
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@types/jest': 28.1.4
       jest: 28.1.2
       typescript: 4.9.5
@@ -118,21 +118,21 @@ importers:
 
   packages/example-package:
     specifiers:
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
       dotenv-flow: ^3.2.0
       typescript: ^4.7.4
     dependencies:
       dotenv-flow: 3.2.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       typescript: 4.7.4
 
   packages/kafka:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/jest': ^28.1.4
       '@types/lodash': ^4.14.182
       '@types/node': ^18.0.3
@@ -144,15 +144,15 @@ importers:
       typescript: ^4.7.4
       uuid: ^8.3.2
     dependencies:
-      '@dydxprotocol-indexer/base': link:../base
-      '@dydxprotocol-indexer/postgres': link:../postgres
-      '@dydxprotocol-indexer/v4-protos': link:../v4-protos
+      '@nemo-network-indexer/base': link:../base
+      '@nemo-network-indexer/postgres': link:../postgres
+      '@nemo-network-indexer/v4-protos': link:../v4-protos
       dotenv-flow: 3.2.0
       kafkajs: 2.2.4
       lodash: 4.17.21
       uuid: 8.3.2
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@types/jest': 28.1.4
       '@types/lodash': 4.14.182
       '@types/node': 18.0.3
@@ -162,10 +162,10 @@ importers:
 
   packages/postgres:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/big.js': ^6.1.5
       '@types/jest': ^28.1.4
       '@types/lodash': ^4.14.182
@@ -188,9 +188,9 @@ importers:
       typescript: ^4.7.4
       uuid: ^8.3.2
     dependencies:
-      '@dydxprotocol-indexer/base': link:../base
-      '@dydxprotocol-indexer/v4-proto-parser': link:../v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../v4-protos
+      '@nemo-network-indexer/base': link:../base
+      '@nemo-network-indexer/v4-proto-parser': link:../v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../v4-protos
       big.js: 6.2.1
       dotenv-flow: 3.2.0
       knex: 0.21.21_pg@8.7.3
@@ -204,7 +204,7 @@ importers:
       ts-node: 10.8.2_2dd5d46eecda2aef953638919121af58
       uuid: 8.3.2
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@types/big.js': 6.1.5
       '@types/jest': 28.1.4
       '@types/lodash': 4.14.182
@@ -217,11 +217,11 @@ importers:
 
   packages/redis:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/big.js': ^6.1.5
       '@types/bluebird': ^3.5.33
       '@types/jest': ^28.1.4
@@ -239,10 +239,10 @@ importers:
       redis: 2.8.0
       typescript: ^4.7.4
     dependencies:
-      '@dydxprotocol-indexer/base': link:../base
-      '@dydxprotocol-indexer/postgres': link:../postgres
-      '@dydxprotocol-indexer/v4-proto-parser': link:../v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../v4-protos
+      '@nemo-network-indexer/base': link:../base
+      '@nemo-network-indexer/postgres': link:../postgres
+      '@nemo-network-indexer/v4-proto-parser': link:../v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../v4-protos
       big.js: 6.2.1
       bluebird: 3.7.2
       dotenv-flow: 3.2.0
@@ -251,7 +251,7 @@ importers:
       luxon: 3.0.1
       redis: 2.8.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@types/big.js': 6.1.5
       '@types/bluebird': 3.5.37
       '@types/jest': 28.1.4
@@ -264,8 +264,8 @@ importers:
 
   packages/v4-proto-parser:
     specifiers:
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/jest': ^28.1.4
       '@types/luxon': ^3.0.0
       '@types/node': ^18.0.3
@@ -274,11 +274,11 @@ importers:
       long: ^5.2.1
       typescript: ^4.7.4
     dependencies:
-      '@dydxprotocol-indexer/v4-protos': link:../v4-protos
+      '@nemo-network-indexer/v4-protos': link:../v4-protos
       dotenv-flow: 3.2.0
       long: 5.2.1
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@types/jest': 28.1.4
       '@types/luxon': 3.0.0
       '@types/node': 18.0.3
@@ -292,7 +292,7 @@ importers:
       '@cosmjs/proto-signing': ^0.32.1
       '@cosmjs/stargate': ^0.32.1
       '@cosmjs/tendermint-rpc': ^0.32.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
       '@osmonauts/lcd': ^0.6.0
       '@osmonauts/telescope': 0.80.0
       '@protobufs/cosmos': ^0.0.11
@@ -314,7 +314,7 @@ importers:
       long: 5.2.1
       protobufjs: 7.2.4
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../dev
+      '@nemo-network-indexer/dev': link:../dev
       '@osmonauts/telescope': 0.80.0
       '@protobufs/cosmos': 0.0.11
       '@protobufs/gogoproto': 0.0.10
@@ -325,8 +325,8 @@ importers:
       '@aws-sdk/client-ecr': ^3.354.0
       '@aws-sdk/client-ecs': ^3.353.0
       '@aws-sdk/client-lambda': ^3.353.0
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
       '@types/aws-lambda': ^8.10.108
       '@types/jest': ^28.1.4
       '@types/lodash': ^4.14.182
@@ -345,13 +345,13 @@ importers:
       '@aws-sdk/client-ecr': 3.354.0
       '@aws-sdk/client-ecs': 3.353.0
       '@aws-sdk/client-lambda': 3.353.0
-      '@dydxprotocol-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/base': link:../../packages/base
       dotenv-flow: 3.2.0
       kafkajs: 2.2.4
       lodash: 4.17.21
       redis: 2.8.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/aws-lambda': 8.10.108
       '@types/jest': 28.1.4
       '@types/lodash': 4.14.182
@@ -365,13 +365,13 @@ importers:
 
   services/bazooka:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/kafka': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/redis': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/kafka': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/redis': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/aws-lambda': ^8.10.108
       '@types/jest': ^28.1.4
       '@types/lodash': ^4.14.182
@@ -389,12 +389,12 @@ importers:
       tsconfig-paths: ^4.0.0
       typescript: ^4.7.4
     dependencies:
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/kafka': link:../../packages/kafka
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/redis': link:../../packages/redis
-      '@dydxprotocol-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo-network-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/kafka': link:../../packages/kafka
+      '@nemo-network-indexer/postgres': link:../../packages/postgres
+      '@nemo-network-indexer/redis': link:../../packages/redis
+      '@nemo-network-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../../packages/v4-protos
       big.js: 6.2.1
       dotenv-flow: 3.2.0
       kafkajs: 2.2.4
@@ -402,7 +402,7 @@ importers:
       long: 5.2.1
       redis: 2.8.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/aws-lambda': 8.10.108
       '@types/jest': 28.1.4
       '@types/lodash': 4.14.182
@@ -422,13 +422,13 @@ importers:
       '@bugsnag/plugin-express': ^7.18.0
       '@cosmjs/crypto': 0.32.1
       '@cosmjs/encoding': ^0.32.3
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/compliance': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/redis': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo_network-indexer/base': workspace:^0.0.1
+      '@nemo_network-indexer/compliance': workspace:^0.0.1
+      '@nemo_network-indexer/dev': workspace:^0.0.1
+      '@nemo_network-indexer/postgres': workspace:^0.0.1
+      '@nemo_network-indexer/redis': workspace:^0.0.1
+      '@nemo_network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo_network-indexer/v4-protos': workspace:^0.0.1
       '@keplr-wallet/cosmos': ^0.12.122
       '@tsoa/runtime': ^5.0.0
       '@types/big.js': ^6.1.5
@@ -474,12 +474,12 @@ importers:
       '@bugsnag/plugin-express': 7.18.0_@bugsnag+core@7.18.0
       '@cosmjs/crypto': 0.32.1
       '@cosmjs/encoding': 0.32.3
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/compliance': link:../../packages/compliance
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/redis': link:../../packages/redis
-      '@dydxprotocol-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo_network-indexer/base': link:../../packages/base
+      '@nemo_network-indexer/compliance': link:../../packages/compliance
+      '@nemo_network-indexer/postgres': link:../../packages/postgres
+      '@nemo_network-indexer/redis': link:../../packages/redis
+      '@nemo_network-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
+      '@nemo_network-indexer/v4-protos': link:../../packages/v4-protos
       '@keplr-wallet/cosmos': 0.12.122
       '@tsoa/runtime': 5.0.0
       big.js: 6.2.1
@@ -501,7 +501,7 @@ importers:
       swagger-ui-express: 4.6.2_express@4.18.1
       tsoa: 5.1.1
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/big.js': 6.1.5
       '@types/body-parser': 1.19.2
       '@types/cors': 2.8.12
@@ -523,13 +523,13 @@ importers:
 
   services/ender:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/kafka': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/redis': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/kafka': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/redis': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/big.js': ^6.1.5
       '@types/jest': ^28.1.4
       '@types/lodash': ^4.14.182
@@ -550,12 +550,12 @@ importers:
       tsconfig-paths: ^4.0.0
       typescript: ^4.7.4
     dependencies:
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/kafka': link:../../packages/kafka
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/redis': link:../../packages/redis
-      '@dydxprotocol-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo-network-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/kafka': link:../../packages/kafka
+      '@nemo-network-indexer/postgres': link:../../packages/postgres
+      '@nemo-network-indexer/redis': link:../../packages/redis
+      '@nemo-network-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../../packages/v4-protos
       big.js: 6.2.1
       dd-trace: 3.32.1
       dotenv-flow: 3.2.0
@@ -566,7 +566,7 @@ importers:
       luxon: 3.0.1
       pg: 8.7.3
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/big.js': 6.1.5
       '@types/jest': 28.1.4
       '@types/lodash': 4.14.182
@@ -580,7 +580,7 @@ importers:
 
   services/example-service:
     specifiers:
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
       '@types/jest': ^28.1.4
       '@types/node': ^18.0.3
       dotenv-flow: ^3.2.0
@@ -591,7 +591,7 @@ importers:
     dependencies:
       dotenv-flow: 3.2.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/jest': 28.1.4
       '@types/node': 18.0.3
       jest: 28.1.2_250642e41d506bccecc9f35ad915bcb5
@@ -601,14 +601,14 @@ importers:
 
   services/roundtable:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/compliance': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/kafka': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/redis': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/compliance': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/kafka': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/redis': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/big.js': ^6.1.5
       '@types/jest': ^28.1.4
       '@types/lodash': ^4.14.182
@@ -631,13 +631,13 @@ importers:
       unique-username-generator: ^1.3.0
       uuid: ^8.3.2
     dependencies:
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/compliance': link:../../packages/compliance
-      '@dydxprotocol-indexer/kafka': link:../../packages/kafka
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/redis': link:../../packages/redis
-      '@dydxprotocol-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo-network-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/compliance': link:../../packages/compliance
+      '@nemo-network-indexer/kafka': link:../../packages/kafka
+      '@nemo-network-indexer/postgres': link:../../packages/postgres
+      '@nemo-network-indexer/redis': link:../../packages/redis
+      '@nemo-network-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../../packages/v4-protos
       aws-sdk: 2.1399.0
       big.js: 6.2.1
       dd-trace: 3.32.1
@@ -649,7 +649,7 @@ importers:
       unique-username-generator: 1.3.0
       uuid: 8.3.2
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/big.js': 6.1.5
       '@types/jest': 28.1.4
       '@types/lodash': 4.14.182
@@ -664,12 +664,12 @@ importers:
 
   services/scripts:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/kafka': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/kafka': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/jest': ^28.1.4
       '@types/node': ^18.0.3
       '@types/yargs': ^16.0.0
@@ -684,11 +684,11 @@ importers:
       typescript: 4.7.4
       yargs: ^13.3.0
     dependencies:
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/kafka': link:../../packages/kafka
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo-network-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/kafka': link:../../packages/kafka
+      '@nemo-network-indexer/postgres': link:../../packages/postgres
+      '@nemo-network-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../../packages/v4-protos
       big.js: 6.2.1
       dotenv-flow: 3.2.0
       kafkajs: 2.2.4
@@ -696,7 +696,7 @@ importers:
       long: 5.2.1
       yargs: 13.3.2
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/jest': 28.1.4
       '@types/node': 18.0.3
       '@types/yargs': 16.0.5
@@ -707,12 +707,12 @@ importers:
 
   services/socks:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/compliance': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/kafka': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/compliance': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/kafka': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/body-parser': ^1.19.2
       '@types/cors': ^2.8.12
       '@types/express': ^4.17.13
@@ -741,11 +741,11 @@ importers:
       uuid: ^8.3.2
       ws: ^8.16.0
     dependencies:
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/compliance': link:../../packages/compliance
-      '@dydxprotocol-indexer/kafka': link:../../packages/kafka
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo-network-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/compliance': link:../../packages/compliance
+      '@nemo-network-indexer/kafka': link:../../packages/kafka
+      '@nemo-network-indexer/postgres': link:../../packages/postgres
+      '@nemo-network-indexer/v4-protos': link:../../packages/v4-protos
       axios: 1.2.1
       body-parser: 1.20.0
       cors: 2.8.5
@@ -760,7 +760,7 @@ importers:
       uuid: 8.3.2
       ws: 8.16.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/body-parser': 1.19.2
       '@types/cors': 2.8.12
       '@types/express': 4.17.13
@@ -778,13 +778,13 @@ importers:
 
   services/vulcan:
     specifiers:
-      '@dydxprotocol-indexer/base': workspace:^0.0.1
-      '@dydxprotocol-indexer/dev': workspace:^0.0.1
-      '@dydxprotocol-indexer/kafka': workspace:^0.0.1
-      '@dydxprotocol-indexer/postgres': workspace:^0.0.1
-      '@dydxprotocol-indexer/redis': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-proto-parser': workspace:^0.0.1
-      '@dydxprotocol-indexer/v4-protos': workspace:^0.0.1
+      '@nemo-network-indexer/base': workspace:^0.0.1
+      '@nemo-network-indexer/dev': workspace:^0.0.1
+      '@nemo-network-indexer/kafka': workspace:^0.0.1
+      '@nemo-network-indexer/postgres': workspace:^0.0.1
+      '@nemo-network-indexer/redis': workspace:^0.0.1
+      '@nemo-network-indexer/v4-proto-parser': workspace:^0.0.1
+      '@nemo-network-indexer/v4-protos': workspace:^0.0.1
       '@types/big.js': ^6.1.5
       '@types/jest': ^28.1.4
       '@types/luxon': 3.0.0
@@ -802,12 +802,12 @@ importers:
       tsconfig-paths: ^4.0.0
       typescript: ^4.7.4
     dependencies:
-      '@dydxprotocol-indexer/base': link:../../packages/base
-      '@dydxprotocol-indexer/kafka': link:../../packages/kafka
-      '@dydxprotocol-indexer/postgres': link:../../packages/postgres
-      '@dydxprotocol-indexer/redis': link:../../packages/redis
-      '@dydxprotocol-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
-      '@dydxprotocol-indexer/v4-protos': link:../../packages/v4-protos
+      '@nemo-network-indexer/base': link:../../packages/base
+      '@nemo-network-indexer/kafka': link:../../packages/kafka
+      '@nemo-network-indexer/postgres': link:../../packages/postgres
+      '@nemo-network-indexer/redis': link:../../packages/redis
+      '@nemo-network-indexer/v4-proto-parser': link:../../packages/v4-proto-parser
+      '@nemo-network-indexer/v4-protos': link:../../packages/v4-protos
       big.js: 6.2.1
       dd-trace: 3.32.1
       dotenv-flow: 3.2.0
@@ -816,7 +816,7 @@ importers:
       luxon: 3.0.1
       redis: 2.8.0
     devDependencies:
-      '@dydxprotocol-indexer/dev': link:../../packages/dev
+      '@nemo-network-indexer/dev': link:../../packages/dev
       '@types/big.js': 6.1.5
       '@types/jest': 28.1.4
       '@types/luxon': 3.0.0
@@ -1774,7 +1774,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@aws-sdk/signature-v4/3.347.0:
+  /@aws-sdk/signature-3.347.0:
     resolution: {integrity: sha512-58Uq1do+VsTHYkP11dTK+DF53fguoNNJL9rHRWhzP+OcYv3/mBMLoS2WPz/x9FO5mBg4ESFsug0I6mXbd36tjw==}
     engines: {node: '>=14.0.0'}
     dependencies:
@@ -1788,7 +1788,7 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@aws-sdk/signature-v4/3.354.0:
+  /@aws-sdk/signature-3.354.0:
     resolution: {integrity: sha512-bDp43P5NkwwznpZqmsr78DuyqNcjtS4mriuajb8XPhFNo8DrMXUrdrKJ+5aNABW7YG8uK8PSKBpq88ado692/w==}
     engines: {node: '>=14.0.0'}
     dependencies:

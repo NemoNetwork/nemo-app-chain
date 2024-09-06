@@ -7,9 +7,9 @@ import (
 	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	appconfig "github.com/dydxprotocol/v4-chain/protocol/app/config"
-	vaultcli "github.com/dydxprotocol/v4-chain/protocol/x/vault/client/cli"
-	vaulttypes "github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	appconfig "github.com/nemo-network/v4-chain/protocol/app/config"
+	vaultcli "github.com/nemo-network/v4-chain/protocol/x/vault/client/cli"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 /*

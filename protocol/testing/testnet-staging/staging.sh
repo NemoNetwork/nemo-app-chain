@@ -5,7 +5,7 @@ set -eo pipefail
 
 source "./genesis.sh"
 
-CHAIN_ID="dydxprotocol-testnet"
+CHAIN_ID="nemo_network.-testnet"
 
 # Define mnemonics for all validators.
 MNEMONICS=(
@@ -99,7 +99,7 @@ NODE_KEYS=(
 )
 
 # Define monikers for each validator. These are made up strings and can be anything.
-# This also controls in which directory the validator's home will be located. i.e. `/dydxprotocol/chain/.alice`
+# This also controls in which directory the validator's home will be located. i.e. `/nemo-network/chain/.alice`
 MONIKERS=(
 	"alice"
 	"bob"
@@ -164,9 +164,9 @@ create_validators() {
 	for i in "${!FULL_NODE_KEYS[@]}"; do
 		FULL_NODE_HOME_DIR="$HOME/chain/.full-node-$i"
 		FULL_NODE_CONFIG_DIR="$FULL_NODE_HOME_DIR/config"
-		dydxprotocold init "full-node" -o --chain-id=$CHAIN_ID --home "$FULL_NODE_HOME_DIR"
+		nemod init "full-node" -o --chain-id=$CHAIN_ID --home "$FULL_NODE_HOME_DIR"
 
-		# Note: `dydxprotocold init` non-deterministically creates `node_id.json` for each validator.
+		# Note: `nemod init` non-deterministically creates `node_id.json` for each validator.
 		# This is inconvenient for persistent peering during testing in Terraform configuration as the `node_id`
 		# would change with every build of this container.
 		#
@@ -186,12 +186,12 @@ create_validators() {
 		VAL_CONFIG_DIR="$VAL_HOME_DIR/config"
 
 		# Initialize the chain and validator files.
-		dydxprotocold init "${MONIKERS[$i]}" -o --chain-id=$CHAIN_ID --home "$VAL_HOME_DIR"
+		nemod init "${MONIKERS[$i]}" -o --chain-id=$CHAIN_ID --home "$VAL_HOME_DIR"
 
 		# Overwrite the randomly generated `priv_validator_key.json` with a key generated deterministically from the mnemonic.
-		dydxprotocold tendermint gen-priv-key --home "$VAL_HOME_DIR" --mnemonic "${MNEMONICS[$i]}"
+		nemod tendermint gen-priv-key --home "$VAL_HOME_DIR" --mnemonic "${MNEMONICS[$i]}"
 
-		# Note: `dydxprotocold init` non-deterministically creates `node_id.json` for each validator.
+		# Note: `nemod init` non-deterministically creates `node_id.json` for each validator.
 		# This is inconvenient for persistent peering during testing in Terraform configuration as the `node_id`
 		# would change with every build of this container.
 		#
@@ -201,7 +201,7 @@ create_validators() {
 
 		edit_config "$VAL_CONFIG_DIR"
 
-		echo "${MNEMONICS[$i]}" | dydxprotocold keys add "${MONIKERS[$i]}" --recover --keyring-backend=test --home "$VAL_HOME_DIR"
+		echo "${MNEMONICS[$i]}" | nemod keys add "${MONIKERS[$i]}" --recover --keyring-backend=test --home "$VAL_HOME_DIR"
 
 		# Using "*" as a subscript results in a single arg: "dydx1... dydx1... dydx1..."
 		# Using "@" as a subscript results in separate args: "dydx1..." "dydx1..." "dydx1..."
@@ -211,13 +211,13 @@ create_validators() {
 		update_genesis_complete_bridge_delay "$VAL_CONFIG_DIR" "600"
 
 		for acct in "${TEST_ACCOUNTS[@]}"; do
-			dydxprotocold add-genesis-account "$acct" 100000000000000000$USDC_DENOM,$TESTNET_VALIDATOR_NATIVE_TOKEN_BALANCE$NATIVE_TOKEN --home "$VAL_HOME_DIR"
+			nemod add-genesis-account "$acct" 100000000000000000$USDC_DENOM,$TESTNET_VALIDATOR_NATIVE_TOKEN_BALANCE$NATIVE_TOKEN --home "$VAL_HOME_DIR"
 		done
 		for acct in "${FAUCET_ACCOUNTS[@]}"; do
-			dydxprotocold add-genesis-account "$acct" 900000000000000000$USDC_DENOM,$TESTNET_VALIDATOR_NATIVE_TOKEN_BALANCE$NATIVE_TOKEN --home "$VAL_HOME_DIR"
+			nemod add-genesis-account "$acct" 900000000000000000$USDC_DENOM,$TESTNET_VALIDATOR_NATIVE_TOKEN_BALANCE$NATIVE_TOKEN --home "$VAL_HOME_DIR"
 		done
 
-		dydxprotocold gentx "${MONIKERS[$i]}" $TESTNET_VALIDATOR_SELF_DELEGATE_AMOUNT$NATIVE_TOKEN --moniker="${MONIKERS[$i]}" --keyring-backend=test --chain-id=$CHAIN_ID --home "$VAL_HOME_DIR"
+		nemod gentx "${MONIKERS[$i]}" $TESTNET_VALIDATOR_SELF_DELEGATE_AMOUNT$NATIVE_TOKEN --moniker="${MONIKERS[$i]}" --keyring-backend=test --chain-id=$CHAIN_ID --home "$VAL_HOME_DIR"
 
 		# Copy the gentx to a shared directory.
 		cp -a "$VAL_CONFIG_DIR/gentx/." /tmp/gentx
@@ -232,7 +232,7 @@ create_validators() {
 	cp -r /tmp/gentx "$FIRST_VAL_CONFIG_DIR"
 
 	# Build the final genesis.json file that all validators and the full-nodes will use.
-	dydxprotocold collect-gentxs --home "$FIRST_VAL_HOME_DIR"
+	nemod collect-gentxs --home "$FIRST_VAL_HOME_DIR"
 
 	# Copy this genesis file to each of the other validators
 	for i in "${!MONIKERS[@]}"; do
@@ -259,18 +259,18 @@ create_validators() {
 setup_cosmovisor() {
 	for i in "${!FULL_NODE_KEYS[@]}"; do
 		FULL_NODE_HOME_DIR="$HOME/chain/.full-node-$i"
-		export DAEMON_NAME=dydxprotocold
+		export DAEMON_NAME=nemod
 		export DAEMON_HOME="$HOME/chain/.full-node-$i"
 
-		cosmovisor init /bin/dydxprotocold
+		cosmovisor init /bin/nemod
 	done
 
 	for i in "${!MONIKERS[@]}"; do
 		VAL_HOME_DIR="$HOME/chain/.${MONIKERS[$i]}"
-		export DAEMON_NAME=dydxprotocold
+		export DAEMON_NAME=nemod
 		export DAEMON_HOME="$HOME/chain/.${MONIKERS[$i]}"
 
-		cosmovisor init /bin/dydxprotocold
+		cosmovisor init /bin/nemod
 	done
 }
 

@@ -3,7 +3,7 @@ package types
 import (
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
 )
 
 // BigIntToNumShares returns a NumShares given a big.Int.

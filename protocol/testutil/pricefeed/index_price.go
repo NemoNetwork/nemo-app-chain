@@ -5,11 +5,11 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/stretchr/testify/require"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app"
-	pricefeedapi "github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/api"
+	"github.com/nemo-network/v4-chain/protocol/app"
+	pricefeedapi "github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/api"
 )
 
 func GetTestMarketPriceUpdates(n int) (indexPrices []*pricefeedapi.MarketPriceUpdate) {

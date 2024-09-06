@@ -1,7 +1,7 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   consumer, producer, TO_ENDER_TOPIC, updateOnMessageFunction,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import { KafkaMessage } from 'kafkajs';
 
 import { onMessage } from '../../lib/on-message';

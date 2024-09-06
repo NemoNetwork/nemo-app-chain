@@ -5,15 +5,15 @@ CREATE OR REPLACE FUNCTION dydx_transfer_handler(
   Parameters:
     - block_height: the height of the block being processing.
     - block_time: the time of the block being processed.
-    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/proto/dydxprotocol/indexer/indexer_manager/event.proto#L25)
+    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/nemo-network/v4-chain/blob/9ed26bd/proto/nemo-network/indexer/indexer_manager/event.proto#L25)
         converted to JSON format. Conversion to JSON is expected to be done by JSON.stringify.
     - event_index: The 'event_index' of the IndexerTendermintEvent.
     - transaction_index: The transaction_index of the IndexerTendermintEvent after the conversion that takes into
-        account the block_event (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/indexer/services/ender/src/lib/helper.ts#L41)
+        account the block_event (https://github.com/nemo-network/v4-chain/blob/9ed26bd/indexer/services/ender/src/lib/helper.ts#L41)
     - transaction_hash: The transaction hash corresponding to this event from the IndexerTendermintBlock 'tx_hashes'.
   Returns: JSON object containing fields:
-    - asset: The existing asset in asset-model format (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/indexer/packages/postgres/src/models/asset-model.ts).
-    - transfer: The new transfer in transfer-model format (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/indexer/packages/postgres/src/models/transfer-model.ts).
+    - asset: The existing asset in asset-model format (https://github.com/nemo-network/v4-chain/blob/9ed26bd/indexer/packages/postgres/src/models/asset-model.ts).
+    - transfer: The new transfer in transfer-model format (https://github.com/nemo-network/v4-chain/blob/9ed26bd/indexer/packages/postgres/src/models/transfer-model.ts).
 
   (Note that no text should exist before the function declaration to ensure that exception line numbers are correct.)
 */

@@ -1,4 +1,4 @@
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 import {
   AssetPositionFromDatabase,
   BlockTable,
@@ -20,7 +20,7 @@ import {
   WalletTable,
   WalletFromDatabase,
   perpetualMarketRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo_network-indexer/postgres';
 import Big from 'big.js';
 import express from 'express';
 import {

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package nemo_network.blocktime;
+
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/blocktime/types";
+
+import "gogoproto/gogo.proto";
+import "nemo_network/blocktime/params.proto";
+
+// GenesisState defines the blocktime module's genesis state.
+message GenesisState {
+  DowntimeParams params = 1 [ (gogoproto.nullable) = false ];
+}

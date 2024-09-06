@@ -1,8 +1,8 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   SubaccountUsernamesTable,
   SubaccountsWithoutUsernamesResult,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { generateUsername } from 'unique-username-generator';
 
 import config from '../config';

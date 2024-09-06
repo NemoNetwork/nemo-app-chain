@@ -2,7 +2,7 @@
 set -eo pipefail
 
 # This file is the startup script for the validator / full-nodes. Copies the correct binaries into
-# the validator home directories, and starts the node using `cosmovisor` to run `dydxprotocold`.
+# the validator home directories, and starts the node using `cosmovisor` to run `nemo-networkd`.
 # Any arguments passed into this script is forwarded to `cosmovisor`.
 # Example usage: ./start.sh run start --home chain/.dydx-1
 

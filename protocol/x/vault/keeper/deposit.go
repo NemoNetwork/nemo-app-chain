@@ -4,10 +4,10 @@ import (
 	"math/big"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	sendingtypes "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/vault/types"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 // DepositToMegavault deposits from a subaccount to megavault by

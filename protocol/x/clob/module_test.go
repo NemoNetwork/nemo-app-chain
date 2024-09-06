@@ -10,28 +10,28 @@ import (
 	"testing"
 
 	sdkmath "cosmossdk.io/math"
-	"github.com/dydxprotocol/v4-chain/protocol/app/module"
-	indexerevents "github.com/dydxprotocol/v4-chain/protocol/indexer/events"
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/indexer_manager"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
+	"github.com/nemo-network/v4-chain/protocol/app/module"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/dtypes"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob"
-	clob_keeper "github.com/dydxprotocol/v4-chain/protocol/x/clob/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/clob/memclob"
-	clob_types "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals"
-	perp_keeper "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/prices"
-	prices_keeper "github.com/dydxprotocol/v4-chain/protocol/x/prices/keeper"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/clob"
+	clob_keeper "github.com/nemo-network/v4-chain/protocol/x/clob/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/clob/memclob"
+	clob_types "github.com/nemo-network/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals"
+	perp_keeper "github.com/nemo-network/v4-chain/protocol/x/perpetuals/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/prices"
+	prices_keeper "github.com/nemo-network/v4-chain/protocol/x/prices/keeper"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	marketmap_keeper "github.com/skip-mev/slinky/x/marketmap/keeper"
 	"github.com/stretchr/testify/mock"
@@ -217,14 +217,14 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect AllClobPairs route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/dydxprotocol/clob/clob_pair", nil)
+	req, err := http.NewRequest("GET", "/nemo-network/clob/clob_pair", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect ClobPair route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/dydxprotocol/clob/clob_pair/0", nil)
+	req, err = http.NewRequest("GET", "/nemo-network/clob/clob_pair/0", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")

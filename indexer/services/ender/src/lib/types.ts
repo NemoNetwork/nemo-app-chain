@@ -1,10 +1,10 @@
-import { KafkaTopics } from '@dydxprotocol-indexer/kafka';
+import { KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   Liquidity,
   PerpetualPositionColumns,
   PerpetualPositionFromDatabase,
   SubaccountMessageContents,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   PerpetualMarketCreateEventV2,
   StatefulOrderEventV1,
@@ -36,12 +36,12 @@ import {
   TradingRewardsEventV1,
   OpenInterestUpdateEventV1,
   BlockHeightMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { IHeaders } from 'kafkajs';
 import Long from 'long';
 
 // Type sourced from protocol:
-// https://github.com/dydxprotocol/v4-chain/blob/main/protocol/indexer/events/constants.go
+// https://github.com/nemo-network/v4-chain/blob/main/protocol/indexer/events/constants.go
 export enum DydxIndexerSubtypes {
   ORDER_FILL = 'order_fill',
   SUBACCOUNT_UPDATE = 'subaccount_update',

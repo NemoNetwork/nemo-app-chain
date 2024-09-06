@@ -4,7 +4,7 @@ package types
 
 import (
 	errorsmod "cosmossdk.io/errors"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 )
 
 // Panic strings
@@ -62,6 +62,11 @@ var (
 		ModuleName,
 		403,
 		"cannot revert perpetual open interest for OIMF calculation",
+	)
+	ErrPerpetualInfoDoesNotExist = errorsmod.Register(
+		ModuleName,
+		404,
+		"PerpetualInfo does not exist in map",
 	)
 
 	// 500 - 599: transfer related.

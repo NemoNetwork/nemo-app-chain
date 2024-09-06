@@ -1,13 +1,13 @@
 import {
   logger, stats, STATS_FUNCTION_NAME, wrapBackgroundTask,
-} from '@dydxprotocol-indexer/base';
-import { synchronizeWrapBackgroundTask } from '@dydxprotocol-indexer/dev';
+} from '@nemo-network-indexer/base';
+import { synchronizeWrapBackgroundTask } from '@nemo-network-indexer/dev';
 import {
   createKafkaMessage,
   getTriggerPrice,
   producer,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import {
   APIOrderStatus,
   APIOrderStatusEnum,
@@ -25,8 +25,8 @@ import {
   testConstants,
   testMocks,
   TimeInForce,
-} from '@dydxprotocol-indexer/postgres';
-import * as redisPackage from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/postgres';
+import * as redisPackage from '@nemo-network-indexer/redis';
 import {
   CanceledOrdersCache,
   CanceledOrderStatus,
@@ -39,7 +39,7 @@ import {
   StatefulOrderUpdatesCache,
   SubaccountOrderIdsCache,
   updateOrder,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 import {
   IndexerOrder,
   OffChainUpdateV1,
@@ -49,7 +49,7 @@ import {
   RedisOrder,
   SubaccountId,
   SubaccountMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { KafkaMessage } from 'kafkajs';
 import Long from 'long';
 import { redisClient, redisClient as client } from '../../src/helpers/redis/redis-controller';
@@ -60,11 +60,11 @@ import {
   expectWebsocketOrderbookMessage,
   expectWebsocketSubaccountMessage,
 } from '../helpers/websocket-helpers';
-import { getOrderIdHash, isStatefulOrder } from '@dydxprotocol-indexer/v4-proto-parser';
+import { getOrderIdHash, isStatefulOrder } from '@nemo-network-indexer/v4-proto-parser';
 import { defaultKafkaHeaders } from '../helpers/constants';
 
-jest.mock('@dydxprotocol-indexer/base', () => ({
-  ...jest.requireActual('@dydxprotocol-indexer/base'),
+jest.mock('@nemo-network-indexer/base', () => ({
+  ...jest.requireActual('@nemo-network-indexer/base'),
   wrapBackgroundTask: jest.fn(),
 }));
 

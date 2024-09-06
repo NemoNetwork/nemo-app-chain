@@ -1,9 +1,9 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   ORDERBOOKS_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
-import { OrderbookMessageContents, PerpetualMarketFromDatabase, protocolTranslations } from '@dydxprotocol-indexer/postgres';
-import { OffChainUpdateV1, OrderbookMessage, RedisOrder } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/kafka';
+import { OrderbookMessageContents, PerpetualMarketFromDatabase, protocolTranslations } from '@nemo-network-indexer/postgres';
+import { OffChainUpdateV1, OrderbookMessage, RedisOrder } from '@nemo-network-indexer/v4-protos';
 import { IHeaders } from 'kafkajs';
 import { OrderbookSide } from 'src/lib/types';
 

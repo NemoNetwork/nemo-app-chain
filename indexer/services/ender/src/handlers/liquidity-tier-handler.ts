@@ -4,8 +4,8 @@ import {
   PerpetualMarketFromDatabase,
   liquidityTierRefresher,
   perpetualMarketRefresher,
-} from '@dydxprotocol-indexer/postgres';
-import { LiquidityTierUpsertEventV1, LiquidityTierUpsertEventV2 } from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/postgres';
+import { LiquidityTierUpsertEventV1, LiquidityTierUpsertEventV2 } from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 import * as pg from 'pg';
 

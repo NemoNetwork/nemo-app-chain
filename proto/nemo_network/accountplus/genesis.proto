@@ -1,0 +1,12 @@
+syntax = "proto3";
+package nemo_network.accountplus;
+
+import "gogoproto/gogo.proto";
+import "nemo_network/accountplus/accountplus.proto";
+
+option go_package = "github.com/nemo-network/v4-chain/protocol/x/accountplus/types";
+
+// Module genesis state
+message GenesisState {
+  repeated AccountState accounts = 1 [ (gogoproto.nullable) = false ];
+}

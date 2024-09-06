@@ -8,7 +8,7 @@ import {
   PositionSide,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo_network-indexer/postgres';
 import { PerpetualPositionResponseObject, RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { getFixedRepresentation, getQueryString, sendRequest } from '../../../helpers/helpers';
@@ -58,7 +58,7 @@ describe('perpetual-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?address=${testConstants.defaultAddress}` +
+        path: `/perpetualPositions?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -110,7 +110,7 @@ describe('perpetual-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?address=${testConstants.defaultAddress}` +
+        path: `/perpetualPositions?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -162,7 +162,7 @@ describe('perpetual-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?address=${testConstants.defaultAddress}` +
+        path: `/perpetualPositions?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -232,7 +232,7 @@ describe('perpetual-positions-controller#V4', () => {
     ) => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/perpetualPositions?${getQueryString(queryParams)}`,
+        path: `/perpetualPositions?${getQueryString(queryParams)}`,
         expectedStatus: 400,
       });
 

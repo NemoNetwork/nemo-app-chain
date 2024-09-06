@@ -3,7 +3,7 @@
 <h1 align="center">dYdX Chain</h1>
 
 <div align="center">
-  <a href='https://github.com/dydxprotocol/v4-chain/blob/main/LICENSE'>
+  <a href='https://github.com/nemo-network/v4-chain/blob/main/LICENSE'>
     <img src='https://img.shields.io/badge/License-AGPL_v3-blue.svg' alt='License' />
   </a>
 </div>
@@ -30,7 +30,7 @@ This repository contains the source code for the Cosmos SDK application responsi
 
 # Clients
 
-[v4-clients](https://github.com/dydxprotocol/v4-clients)
+[v4-clients](https://github.com/nemo-network/v4-clients)
 
 # Third-party Clients
 
@@ -46,20 +46,20 @@ By clicking the above links to third-party clients, you will leave the dYdX Trad
 
 `docs` — Home for documentation pertaining to the entire repo.
 
-`indexer` — Contains source code for indexer services. See its [README](https://github.com/dydxprotocol/v4-chain/blob/main/indexer/README.md) for developer documentation.
+`indexer` — Contains source code for indexer services. See its [README](https://github.com/nemo-network/v4-chain/blob/main/indexer/README.md) for developer documentation.
 
 `proto` — Contains all protocol buffers used by protocol and indexer.
 
-`protocol` — Contains source code for the Cosmos SDK app that runs the protocol. See its [README](https://github.com/dydxprotocol/v4-chain/blob/main/protocol/README.md) for developer documentation.
+`protocol` — Contains source code for the Cosmos SDK app that runs the protocol. See its [README](https://github.com/nemo-network/v4-chain/blob/main/protocol/README.md) for developer documentation.
 
-`v4-proto-js` — Scripts for publishing proto package to [npm](https://www.npmjs.com/package/@dydxprotocol/v4-proto).
+`v4-proto-js` — Scripts for publishing proto package to [npm](https://www.npmjs.com/package/@nemo-network/v4-proto).
 
 `v4-proto-py` — Scripts for publishing proto package to [PyPI](https://pypi.org/project/v4-proto/).
 
 # Contributing
 
-If you encounter a bug, please file an [issue](https://github.com/dydxprotocol/v4-chain/issues) to let us know. Alternatively, please feel free to contribute a bug fix directly. If you are planning to contribute changes that involve significant design choices, please open an issue for discussion instead.
+If you encounter a bug, please file an [issue](https://github.com/nemo-network/v4-chain/issues) to let us know. Alternatively, please feel free to contribute a bug fix directly. If you are planning to contribute changes that involve significant design choices, please open an issue for discussion instead.
 
 # License and Terms
 
-The dYdX Chain is licensed under AGPLv3 and subject to the [v4 Terms of Use](https://dydx.exchange/v4-terms). The full license can be found [here](https://github.com/dydxprotocol/v4-chain/blob/main/LICENSE). dYdX does not deploy or run v4 software for public use, or operate or control any dYdX Chain infrastructure. dYdX products and services are not available to persons or entities who reside in, are located in, are incorporated in, or have registered offices in the United States or Canada, or Restricted Persons (as defined in the dYdX [Terms of Use](https://dydx.exchange/terms)).
+The dYdX Chain is licensed under AGPLv3 and subject to the [v4 Terms of Use](https://dydx.exchange/v4-terms). The full license can be found [here](https://github.com/nemo-network/v4-chain/blob/main/LICENSE). dYdX does not deploy or run v4 software for public use, or operate or control any dYdX Chain infrastructure. dYdX products and services are not available to persons or entities who reside in, are located in, are incorporated in, or have registered offices in the United States or Canada, or Restricted Persons (as defined in the dYdX [Terms of Use](https://dydx.exchange/terms)).

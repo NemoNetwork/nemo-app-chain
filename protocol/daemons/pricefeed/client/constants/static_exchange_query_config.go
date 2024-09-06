@@ -1,8 +1,8 @@
 package constants
 
 import (
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
 )
 
 const (
@@ -50,7 +50,7 @@ var (
 			MaxQueries: defaultMultiMarketMaxQueries,
 		},
 		// Gate has a limit of 900 requests/second
-		// https://www.gate.io/docs/developers/apiv4/en/#frequency-limit-rule
+		// https://www.gate.io/docs/developers/apien/#frequency-limit-rule
 		exchange_common.EXCHANGE_ID_GATE: {
 			ExchangeId: exchange_common.EXCHANGE_ID_GATE,
 			IntervalMs: defaultIntervalMs,

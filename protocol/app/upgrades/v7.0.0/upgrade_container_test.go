@@ -5,9 +5,9 @@ package v_7_0_0_test
 import (
 	"testing"
 
-	v_7_0_0 "github.com/dydxprotocol/v4-chain/protocol/app/upgrades/v7.0.0"
-	"github.com/dydxprotocol/v4-chain/protocol/testing/containertest"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
+	v_7_0_0 "github.com/nemo-network/v4-chain/protocol/app/upgrades/v7.0.0"
+	"github.com/nemo-network/v4-chain/protocol/testing/containertest"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"github.com/stretchr/testify/require"
 )
 

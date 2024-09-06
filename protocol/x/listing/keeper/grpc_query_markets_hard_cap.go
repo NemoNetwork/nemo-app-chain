@@ -4,7 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/listing/types"
+	"github.com/nemo-network/v4-chain/protocol/x/listing/types"
 )
 
 func (k Keeper) MarketsHardCap(

@@ -12,14 +12,14 @@ import (
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 
-	appflags "github.com/dydxprotocol/v4-chain/protocol/app/flags"
-	daemonflags "github.com/dydxprotocol/v4-chain/protocol/daemons/flags"
-	pricefeedtypes "github.com/dydxprotocol/v4-chain/protocol/daemons/server/types/pricefeed"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/slinky/client"
-	daemontypes "github.com/dydxprotocol/v4-chain/protocol/daemons/types"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/appoptions"
-	pricetypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	appflags "github.com/nemo-network/v4-chain/protocol/app/flags"
+	daemonflags "github.com/nemo-network/v4-chain/protocol/daemons/flags"
+	pricefeedtypes "github.com/nemo-network/v4-chain/protocol/daemons/server/types/pricefeed"
+	"github.com/nemo-network/v4-chain/protocol/daemons/slinky/client"
+	daemontypes "github.com/nemo-network/v4-chain/protocol/daemons/types"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/testutil/appoptions"
+	pricetypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 func TestClient(t *testing.T) {

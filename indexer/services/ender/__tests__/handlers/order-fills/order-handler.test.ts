@@ -1,4 +1,4 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   IndexerOrder,
   IndexerOrder_Side,
@@ -12,8 +12,8 @@ import {
   OffChainUpdateV1,
   OrderRemovalReason,
   OrderRemoveV1_OrderRemovalStatus,
-} from '@dydxprotocol-indexer/v4-protos';
-import { redis, CanceledOrdersCache } from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/v4-protos';
+import { redis, CanceledOrdersCache } from '@nemo-network-indexer/redis';
 import {
   assetRefresher,
   CandleFromDatabase,
@@ -38,7 +38,7 @@ import {
   testConstants,
   testMocks,
   TimeInForce,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { KafkaMessage } from 'kafkajs';
 import { DateTime } from 'luxon';
 import {
@@ -47,7 +47,7 @@ import {
   STATEFUL_ORDER_ORDER_FILL_EVENT_TYPE,
   SUBACCOUNT_ORDER_FILL_EVENT_TYPE,
 } from '../../../src/constants';
-import { producer } from '@dydxprotocol-indexer/kafka';
+import { producer } from '@nemo-network-indexer/kafka';
 import { onMessage } from '../../../src/lib/on-message';
 import {
   createIndexerTendermintBlock,
@@ -63,7 +63,7 @@ import {
 } from '../../helpers/indexer-proto-helpers';
 import Big from 'big.js';
 import { getWeightedAverage } from '../../../src/lib/helper';
-import { ORDER_FLAG_LONG_TERM, ORDER_FLAG_SHORT_TERM } from '@dydxprotocol-indexer/v4-proto-parser';
+import { ORDER_FLAG_LONG_TERM, ORDER_FLAG_SHORT_TERM } from '@nemo-network-indexer/v4-proto-parser';
 import { updateBlockCache } from '../../../src/caches/block-cache';
 import {
   defaultOrder, defaultOrderEvent, defaultPreviousHeight, defaultTakerOrder,

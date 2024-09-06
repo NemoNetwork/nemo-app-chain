@@ -4,7 +4,7 @@ import {
   testMocks,
   PnlTicksCreateObject,
   PnlTicksTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { PnlTicksResponseObject, RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { sendRequest } from '../../../helpers/helpers';
@@ -39,7 +39,7 @@ describe('pnlTicks-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historical-pnl?address=${testConstants.defaultAddress}` +
+        path: `/historical-pnl?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -158,7 +158,7 @@ describe('pnlTicks-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historical-pnl?address=${testConstants.defaultAddress}` +
+        path: `/historical-pnl?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&createdBeforeOrAt=${createdAt}` +
           `&createdBeforeOrAtHeight=${blockHeight}`,
@@ -199,7 +199,7 @@ describe('pnlTicks-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historical-pnl?address=${testConstants.defaultAddress}` +
+        path: `/historical-pnl?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&createdOnOrAfter=${testConstants.defaultPnlTick.createdAt}` +
           `&createdOnOrAfterHeight=${testConstants.defaultPnlTick.blockHeight}`,
@@ -241,7 +241,7 @@ describe('pnlTicks-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historical-pnl?address=${testConstants.defaultAddress}` +
+        path: `/historical-pnl?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&createdOnOrAfter=${createdOnOrAfter}` +
           `&createdBeforeOrAt=${createdBeforeOrAt}`,
@@ -254,7 +254,7 @@ describe('pnlTicks-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/historical-pnl?address=${testConstants.defaultAddress}` +
+        path: `/historical-pnl?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -264,7 +264,7 @@ describe('pnlTicks-controller#V4', () => {
     it('Get /historical-pnl with non-existent address and subaccount number returns 404', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/historical-pnl?address=invalid_address&subaccountNumber=100',
+        path: '/historical-pnl?address=invalid_address&subaccountNumber=100',
         expectedStatus: 404,
       });
 

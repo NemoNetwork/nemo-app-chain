@@ -15,11 +15,11 @@ import (
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	txtestutil "github.com/cosmos/cosmos-sdk/x/auth/tx/testutil"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	v4module "github.com/dydxprotocol/v4-chain/protocol/app/module"
-	accountpluskeeper "github.com/dydxprotocol/v4-chain/protocol/x/accountplus/keeper"
-	accountplustypes "github.com/dydxprotocol/v4-chain/protocol/x/accountplus/types"
+	v4module "github.com/nemo-network/v4-chain/protocol/app/module"
+	accountpluskeeper "github.com/nemo-network/v4-chain/protocol/x/accountplus/keeper"
+	accountplustypes "github.com/nemo-network/v4-chain/protocol/x/accountplus/types"
 
-	perpetualskeeper "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/keeper"
+	perpetualskeeper "github.com/nemo-network/v4-chain/protocol/x/perpetuals/keeper"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"

@@ -3,9 +3,9 @@ package feetiers_test
 import (
 	"testing"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	feetiers "github.com/dydxprotocol/v4-chain/protocol/x/feetiers"
-	"github.com/dydxprotocol/v4-chain/protocol/x/feetiers/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	feetiers "github.com/nemo-network/v4-chain/protocol/x/feetiers"
+	"github.com/nemo-network/v4-chain/protocol/x/feetiers/types"
 	"github.com/stretchr/testify/require"
 )
 

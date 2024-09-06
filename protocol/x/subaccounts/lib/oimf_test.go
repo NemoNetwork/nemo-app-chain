@@ -5,10 +5,10 @@ import (
 	"math/big"
 	"testing"
 
-	testutil "github.com/dydxprotocol/v4-chain/protocol/testutil/util"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	salib "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	testutil "github.com/nemo-network/v4-chain/protocol/testutil/util"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	salib "github.com/nemo-network/v4-chain/protocol/x/subaccounts/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/require"
 )
 

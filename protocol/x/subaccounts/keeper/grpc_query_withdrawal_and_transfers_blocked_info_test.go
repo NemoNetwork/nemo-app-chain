@@ -9,12 +9,12 @@ import (
 	"google.golang.org/grpc/status"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	btkeeper "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/keeper"
-	blocktimetypes "github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
-	sakeeper "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	btkeeper "github.com/nemo-network/v4-chain/protocol/x/blocktime/keeper"
+	blocktimetypes "github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
+	sakeeper "github.com/nemo-network/v4-chain/protocol/x/subaccounts/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 func TestQueryWithdrawalAndTransfersBlockedInfo(t *testing.T) {

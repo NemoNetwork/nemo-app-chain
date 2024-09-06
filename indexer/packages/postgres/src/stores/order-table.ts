@@ -1,4 +1,4 @@
-import { IndexerOrderId } from '@dydxprotocol-indexer/v4-protos';
+import { IndexerOrderId } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import { QueryBuilder } from 'objection';
 

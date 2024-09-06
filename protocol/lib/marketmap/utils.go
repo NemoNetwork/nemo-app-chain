@@ -1,7 +1,7 @@
 package marketmap
 
 import (
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	dydx "github.com/skip-mev/slinky/providers/apis/dydx"
 	dydxtypes "github.com/skip-mev/slinky/providers/apis/dydx/types"
 	marketmaptypes "github.com/skip-mev/slinky/x/marketmap/types"

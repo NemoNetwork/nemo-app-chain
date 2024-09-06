@@ -8,10 +8,10 @@ import (
 	sdkmath "cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/app/config"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/app/config"
+	"github.com/nemo-network/v4-chain/protocol/daemons/constants"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
 	ethabi "github.com/ethereum/go-ethereum/accounts/abi"
 	ethcoretypes "github.com/ethereum/go-ethereum/core/types"
 )

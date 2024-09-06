@@ -8,12 +8,12 @@ set -eo pipefail
 # The script must be run from the root of the `v4` repo.
 #
 # example usage:
-# $ ./testing/testnet-external/pregenesis.sh ./build/dydxprotocold --SEED_FAUCET_USDC
+# $ ./testing/testnet-external/pregenesis.sh ./build/nemod --SEED_FAUCET_USDC
 
 # To get the following information, first set up the validator keys locally. Then run:
-# Account address: `dydxprotocold keys show dydx-1-key -a`
-# Consensus address: `dydxprotocold tendermint show-address`
-# Node ID: `dydxprotocold tendermint show-node-id`
+# Account address: `nemod keys show dydx-1-key -a`
+# Consensus address: `nemod tendermint show-address`
+# Node ID: `nemod tendermint show-node-id`
 
 # Check for missing required arguments
 if [ -z "$1" ]; then
@@ -166,7 +166,7 @@ function overwrite_genesis_public_testnet() {
 }
 
 create_pregenesis_file() {
-	VAL_HOME_DIR="$TMP_CHAIN_DIR/.dydxprotocol"
+	VAL_HOME_DIR="$TMP_CHAIN_DIR/.nemo-network"
 	VAL_CONFIG_DIR="$VAL_HOME_DIR/config"
 
 	# This initializes the $VAL_HOME_DIR folder.
@@ -207,7 +207,7 @@ create_pregenesis_file() {
 		# Overwrite the randomly generated `priv_validator_key.json` with a key generated deterministically from the mnemonic.
 		$DYDX_BINARY tendermint gen-priv-key --home "$INDIVIDUAL_VAL_HOME_DIR" --mnemonic "${MNEMONICS[$i]}"
 
-		# Note: `dydxprotocold init` non-deterministically creates `node_id.json` for each validator.
+		# Note: `nemod init` non-deterministically creates `node_id.json` for each validator.
 		# This is inconvenient for persistent peering during testing in Terraform configuration as the `node_id`
 		# would change with every build of this container.
 		#

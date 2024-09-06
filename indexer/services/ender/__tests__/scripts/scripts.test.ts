@@ -8,7 +8,7 @@ import {
   AssetCreateEventV1,
   SubaccountUpdateEventV1,
   MarketEventV1, IndexerOrder_ConditionType,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   BUFFER_ENCODING_UTF_8,
   CLOB_STATUS_TO_MARKET_STATUS,
@@ -33,7 +33,7 @@ import {
   TransferTable,
   BlockTable,
   TendermintEventFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 
 import { createPostgresFunctions } from '../../src/helpers/postgres/postgres-functions';
 import Long from 'long';
@@ -42,7 +42,7 @@ import {
   indexerTendermintEventToTransactionIndex,
   perpetualPositionAndOrderSideMatching,
 } from '../../src/lib/helper';
-import { bigIntToBytes } from '@dydxprotocol-indexer/v4-proto-parser';
+import { bigIntToBytes } from '@nemo-network-indexer/v4-proto-parser';
 import { createIndexerTendermintEvent } from '../helpers/indexer-proto-helpers';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import { defaultAssetCreateEvent, defaultMarketCreate } from '../helpers/constants';

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/shared"
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/daemons/shared"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	"github.com/stretchr/testify/require"
 )
 

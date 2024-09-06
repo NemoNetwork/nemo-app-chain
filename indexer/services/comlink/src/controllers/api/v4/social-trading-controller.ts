@@ -1,10 +1,10 @@
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 import {
   SubaccountFromDatabase,
   SubaccountTable,
   SubaccountUsernamesFromDatabase,
   SubaccountUsernamesTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import express from 'express';
 import {
   checkSchema,

@@ -3,12 +3,12 @@ package keeper
 import (
 	"math/big"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	perplib "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/lib"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	salib "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/lib"
-	"github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	perplib "github.com/nemo-network/v4-chain/protocol/x/perpetuals/lib"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	salib "github.com/nemo-network/v4-chain/protocol/x/subaccounts/lib"
+	"github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
 
 // GetMarginedUpdates calculates the quote balance updates needed

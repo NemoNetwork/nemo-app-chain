@@ -5,17 +5,17 @@ import (
 
 	sdkmath "cosmossdk.io/math"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 
 	"github.com/cometbft/cometbft/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	sendingtypes "github.com/dydxprotocol/v4-chain/protocol/x/sending/types"
-	vesttypes "github.com/dydxprotocol/v4-chain/protocol/x/vest/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
+	vesttypes "github.com/nemo-network/v4-chain/protocol/x/vest/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -32,7 +32,7 @@ func TestSendFromModuleToAccount(t *testing.T) {
 				Authority:        lib.GovModuleAddress.String(),
 				SenderModuleName: vesttypes.CommunityTreasuryAccountName,
 				Recipient:        constants.AliceAccAddress.String(),
-				Coin:             sdk.NewCoin("adv4tnt", sdkmath.NewInt(123)),
+				Coin:             sdk.NewCoin("unemo", sdkmath.NewInt(123)),
 			},
 			initialModuleBalance:   200,
 			expectedProposalStatus: govtypesv1.ProposalStatus_PROPOSAL_STATUS_PASSED,
@@ -42,7 +42,7 @@ func TestSendFromModuleToAccount(t *testing.T) {
 				Authority:        lib.GovModuleAddress.String(),
 				SenderModuleName: vesttypes.CommunityTreasuryAccountName,
 				Recipient:        authtypes.NewModuleAddress(vesttypes.CommunityVesterAccountName).String(),
-				Coin:             sdk.NewCoin("adv4tnt", sdkmath.NewInt(123)),
+				Coin:             sdk.NewCoin("unemo", sdkmath.NewInt(123)),
 			},
 			initialModuleBalance:   123,
 			expectedProposalStatus: govtypesv1.ProposalStatus_PROPOSAL_STATUS_PASSED,
@@ -52,7 +52,7 @@ func TestSendFromModuleToAccount(t *testing.T) {
 				Authority:        lib.GovModuleAddress.String(),
 				SenderModuleName: vesttypes.CommunityTreasuryAccountName,
 				Recipient:        authtypes.NewModuleAddress(vesttypes.CommunityVesterAccountName).String(),
-				Coin:             sdk.NewCoin("adv4tnt", sdkmath.NewInt(124)),
+				Coin:             sdk.NewCoin("unemo", sdkmath.NewInt(124)),
 			},
 			initialModuleBalance:   123,
 			expectedProposalStatus: govtypesv1.ProposalStatus_PROPOSAL_STATUS_FAILED,
@@ -62,7 +62,7 @@ func TestSendFromModuleToAccount(t *testing.T) {
 				Authority:        authtypes.NewModuleAddress(sendingtypes.ModuleName).String(),
 				SenderModuleName: vesttypes.CommunityTreasuryAccountName,
 				Recipient:        constants.AliceAccAddress.String(),
-				Coin:             sdk.NewCoin("adv4tnt", sdkmath.NewInt(123)),
+				Coin:             sdk.NewCoin("unemo", sdkmath.NewInt(123)),
 			},
 			initialModuleBalance:     123,
 			expectSubmitProposalFail: true,

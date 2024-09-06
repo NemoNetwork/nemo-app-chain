@@ -4,10 +4,10 @@ import (
 	"math"
 	"testing"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/x/accountplus"
-	"github.com/dydxprotocol/v4-chain/protocol/x/accountplus/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/x/accountplus"
+	"github.com/nemo-network/v4-chain/protocol/x/accountplus/types"
 	"github.com/stretchr/testify/require"
 )
 

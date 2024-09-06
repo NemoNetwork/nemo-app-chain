@@ -1,5 +1,5 @@
 import config from '../../src/config';
-import { asMock } from '@dydxprotocol-indexer/dev';
+import { asMock } from '@nemo-network-indexer/dev';
 import {
   createDBSnapshot,
   getMostRecentDBSnapshotIdentifier,

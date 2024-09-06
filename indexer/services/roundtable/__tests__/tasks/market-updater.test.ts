@@ -16,21 +16,21 @@ import {
   LiquidityTiersTable,
   LiquidityTiersMap,
   LiquidityTiersColumns,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import _ from 'lodash';
 
 import { getUpdatedMarkets } from '../../src/helpers/websocket';
 import marketUpdaterTask, { getPriceChange } from '../../src/tasks/market-updater';
 import { expectMarketWebsocketMessage } from '../helpers/websocket-helpers';
-import { producer } from '@dydxprotocol-indexer/kafka';
-import { wrapBackgroundTask } from '@dydxprotocol-indexer/base';
+import { producer } from '@nemo-network-indexer/kafka';
+import { wrapBackgroundTask } from '@nemo-network-indexer/base';
 
-import { synchronizeWrapBackgroundTask } from '@dydxprotocol-indexer/dev';
-import { NextFundingCache, redis } from '@dydxprotocol-indexer/redis';
+import { synchronizeWrapBackgroundTask } from '@nemo-network-indexer/dev';
+import { NextFundingCache, redis } from '@nemo-network-indexer/redis';
 import { redisClient } from '../../src/helpers/redis';
 import Big from 'big.js';
 import { DateTime } from 'luxon';
-import * as SubaccountTable from '@dydxprotocol-indexer/postgres/build/src/stores/subaccount-table';
+import * as SubaccountTable from '@nemo-network-indexer/postgres/build/src/stores/subaccount-table';
 import {
   defaultAsset,
   defaultAsset2,
@@ -52,14 +52,14 @@ import {
   defaultTendermintEvent3,
   defaultTendermintEvent4,
   defaultWallet,
-} from '@dydxprotocol-indexer/postgres/build/__tests__/helpers/constants';
-import * as MarketTable from '@dydxprotocol-indexer/postgres/build/src/stores/market-table';
-import * as TendermintEventTable from '@dydxprotocol-indexer/postgres/build/src/stores/tendermint-event-table';
-import * as AssetTable from '@dydxprotocol-indexer/postgres/build/src/stores/asset-table';
-import * as WalletTable from '@dydxprotocol-indexer/postgres/build/src/stores/wallet-table';
+} from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+import * as MarketTable from '@nemo-network-indexer/postgres/build/src/stores/market-table';
+import * as TendermintEventTable from '@nemo-network-indexer/postgres/build/src/stores/tendermint-event-table';
+import * as AssetTable from '@nemo-network-indexer/postgres/build/src/stores/asset-table';
+import * as WalletTable from '@nemo-network-indexer/postgres/build/src/stores/wallet-table';
 
-jest.mock('@dydxprotocol-indexer/base', () => ({
-  ...jest.requireActual('@dydxprotocol-indexer/base'),
+jest.mock('@nemo-network-indexer/base', () => ({
+  ...jest.requireActual('@nemo-network-indexer/base'),
   wrapBackgroundTask: jest.fn(),
 }));
 

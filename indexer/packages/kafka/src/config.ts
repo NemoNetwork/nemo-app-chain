@@ -8,7 +8,7 @@ import {
   parseSchema,
   NodeEnv,
   parseBoolean,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 
 export const kafkaConfigSchema = {
   // Required to set groupId and clientId for kafka.

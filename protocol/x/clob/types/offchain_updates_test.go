@@ -3,8 +3,8 @@ package types
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/indexer/msgsender"
-	satypes "github.com/dydxprotocol/v4-chain/protocol/x/subaccounts/types"
+	"github.com/nemo-network/v4-chain/protocol/indexer/msgsender"
+	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 	"github.com/stretchr/testify/require"
 )
 

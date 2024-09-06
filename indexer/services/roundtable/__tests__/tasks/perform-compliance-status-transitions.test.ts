@@ -4,9 +4,9 @@ import {
   ComplianceStatusTable,
   ComplianceStatus,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import performComplianceStatusTransitionsTask from '../../src/tasks/perform-compliance-status-transitions';
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import config from '../../src/config';
 import { DateTime } from 'luxon';
 

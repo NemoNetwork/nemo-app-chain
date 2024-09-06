@@ -7,7 +7,7 @@ import {
   PositionSide,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { AssetPositionResponseObject, RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { sendRequest } from '../../../helpers/helpers';
@@ -37,7 +37,7 @@ describe('asset-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions?address=${testConstants.defaultAddress}` +
             `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -67,7 +67,7 @@ describe('asset-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions?address=${testConstants.defaultAddress}` +
             `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -102,7 +102,7 @@ describe('asset-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions?address=${testConstants.defaultAddress}` +
             `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -149,7 +149,7 @@ describe('asset-positions-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions?address=${testConstants.defaultAddress}` +
             `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -179,7 +179,7 @@ describe('asset-positions-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}`,
       });
 
@@ -224,7 +224,7 @@ describe('asset-positions-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}`,
       });
 
@@ -275,7 +275,7 @@ describe('asset-positions-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/assetPositions/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/assetPositions/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}`,
       });
 

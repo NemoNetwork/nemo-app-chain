@@ -3,9 +3,9 @@ package ratelimit_test
 import (
 	"testing"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/types"
 	"github.com/stretchr/testify/require"
 )
 

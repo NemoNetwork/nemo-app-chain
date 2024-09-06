@@ -6,9 +6,9 @@ import (
 
 	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
 	channeltypes "github.com/cosmos/ibc-go/v8/modules/core/04-channel/types"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
-	assettypes "github.com/dydxprotocol/v4-chain/protocol/x/assets/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/ratelimit/util"
+	"github.com/nemo-network/v4-chain/protocol/lib"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
+	"github.com/nemo-network/v4-chain/protocol/x/ratelimit/util"
 	"github.com/stretchr/testify/require"
 )
 
@@ -43,8 +43,8 @@ func TestParseDenomFromRecvPacket(t *testing.T) {
 			)),
 		},
 		// Native source assets
-		//    lib.DefaultBaseDenom sent from dYdX to Noble and then back to dYdX (transfer/channel-0/adv4tnt)
-		//    -> remove prefix and leave as is (adv4tnt)
+		//    lib.DefaultBaseDenom sent from dYdX to Noble and then back to dYdX (transfer/channel-0/unemo)
+		//    -> remove prefix and leave as is (unemo)
 		{
 			name:               lib.DefaultBaseDenom,
 			packetDenomTrace:   fmt.Sprintf("%s/%s/%s", transferPort, dydxChannelOnNoble, lib.DefaultBaseDenom),

@@ -6,10 +6,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	perptest "github.com/dydxprotocol/v4-chain/protocol/testutil/perpetuals"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/funding"
-	"github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	perptest "github.com/nemo-network/v4-chain/protocol/testutil/perpetuals"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/funding"
+	"github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 func TestGetFundingIndexDelta(t *testing.T) {

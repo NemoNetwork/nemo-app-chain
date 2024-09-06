@@ -1,11 +1,11 @@
-import { logger, stats } from '@dydxprotocol-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base';
 import {
   FundingEventV1,
-  FundingEventV1_Type,
+  FundingEventV1_Type,nem-newrk
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   assetRefresher,
   dbHelpers,
@@ -19,7 +19,7 @@ import {
   TendermintEventTable,
   testConstants,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { DydxIndexerSubtypes, FundingEventMessage } from '../../src/lib/types';
 import { createIndexerTendermintBlock, createIndexerTendermintEvent } from '../helpers/indexer-proto-helpers';
 import { FundingHandler } from '../../src/handlers/funding-handler';
@@ -34,13 +34,13 @@ import {
 import { updateBlockCache } from '../../src/caches/block-cache';
 import { indexerTendermintEventToTransactionIndex } from '../../src/lib/helper';
 import { KafkaMessage } from 'kafkajs';
-import { createKafkaMessage } from '@dydxprotocol-indexer/kafka';
+import { createKafkaMessage } from '@nemo-network-indexer/kafka';
 import { onMessage } from '../../src/lib/on-message';
 import { expectNextFundingRate } from '../helpers/redis-helpers';
-import { redis } from '@dydxprotocol-indexer/redis';
+import { redis } from '@nemo-network-indexer/redis';
 import Big from 'big.js';
 import { redisClient } from '../../src/helpers/redis/redis-controller';
-import { bigIntToBytes } from '@dydxprotocol-indexer/v4-proto-parser';
+import { bigIntToBytes } from '@nemo-network-indexer/v4-proto-parser';
 import { createPostgresFunctions } from '../../src/helpers/postgres/postgres-functions';
 
 describe('fundingHandler', () => {

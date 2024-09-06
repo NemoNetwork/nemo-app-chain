@@ -5,8 +5,8 @@ import {
   BlockTable,
   dbHelpers,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
-import { stats } from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/postgres';
+import { stats } from '@nemo-network-indexer/base';
 
 describe('height-controller#V4', () => {
   beforeAll(async () => {
@@ -29,7 +29,7 @@ describe('height-controller#V4', () => {
       const latestBlock: BlockFromDatabase = await BlockTable.getLatest();
       const block: any = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/height',
+        path: '/height',
       });
 
       expect(block.body.height).toEqual(latestBlock!.blockHeight);
@@ -45,7 +45,7 @@ describe('height-controller#V4', () => {
     it('Get /height returns 404 if no blocks', async () => {
       await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/height',
+        path: '/height',
         expectedStatus: 404,
       });
       expect(stats.timing).toBeCalledTimes(1);

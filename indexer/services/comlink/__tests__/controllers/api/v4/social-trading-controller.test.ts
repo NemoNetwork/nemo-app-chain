@@ -5,7 +5,7 @@ import {
   SubaccountUsernamesTable,
   SubaccountFromDatabase,
   SubaccountUsernamesFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import request from 'supertest';
 import { RequestMethod } from '../../../../src/types';
 import { sendRequest } from '../../../helpers/helpers';

@@ -31,7 +31,7 @@ import {
   PnlTicksFromDatabase,
   PnlTicksTable,
   AssetFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo_network-indexer/postgres';
 import {
   adjustUSDCAssetPosition,
   calculateEquityAndFreeCollateral,
@@ -57,8 +57,13 @@ import {
   defaultTendermintEventId,
   defaultTendermintEventId2,
   defaultTendermintEventId3,
-} from '@dydxprotocol-indexer/postgres/build/__tests__/helpers/constants';
+<<<<<<< HEAD
+} from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
+import { AssetPositionsMap, PerpetualPositionWithFunding } from '../../src/types';
+=======
+} from '@nemo_network-indexer/postgres/build/__tests__/helpers/constants';
 import { AssetPositionsMap, PerpetualPositionWithFunding, SubaccountResponseObject } from '../../src/types';
+>>>>>>> main
 import { ZERO, ZERO_USDC_POSITION } from '../../src/lib/constants';
 
 describe('helpers', () => {

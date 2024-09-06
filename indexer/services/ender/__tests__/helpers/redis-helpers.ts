@@ -1,9 +1,9 @@
-import { OrderSide } from '@dydxprotocol-indexer/postgres';
+import { OrderSide } from '@nemo-network-indexer/postgres';
 import {
   NextFundingCache,
   OrderbookLevelsCache,
   StateFilledQuantumsCache,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 import Big from 'big.js';
 
 import { redisClient } from '../../src/helpers/redis/redis-controller';

@@ -4,8 +4,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/msgs"
-	"github.com/dydxprotocol/v4-chain/protocol/lib"
+	"github.com/nemo-network/v4-chain/protocol/app/msgs"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 	"github.com/stretchr/testify/require"
 )
 
@@ -119,36 +119,36 @@ func TestNormalMsgs_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
 
 		// affiliates
-		"/dydxprotocol.affiliates.MsgRegisterAffiliate",
-		"/dydxprotocol.affiliates.MsgRegisterAffiliateResponse",
+		"/nemo-network.affiliates.MsgRegisterAffiliate",
+		"/nemo-network.affiliates.MsgRegisterAffiliateResponse",
 
 		// clob
-		"/dydxprotocol.clob.MsgBatchCancel",
-		"/dydxprotocol.clob.MsgBatchCancelResponse",
-		"/dydxprotocol.clob.MsgCancelOrder",
-		"/dydxprotocol.clob.MsgCancelOrderResponse",
-		"/dydxprotocol.clob.MsgPlaceOrder",
-		"/dydxprotocol.clob.MsgPlaceOrderResponse",
+		"/nemo_network.clob.MsgBatchCancel",
+		"/nemo_network.clob.MsgBatchCancelResponse",
+		"/nemo_network.clob.MsgCancelOrder",
+		"/nemo_network.clob.MsgCancelOrderResponse",
+		"/nemo_network.clob.MsgPlaceOrder",
+		"/nemo_network.clob.MsgPlaceOrderResponse",
 
 		// listing
-		"/dydxprotocol.listing.MsgCreateMarketPermissionless",
-		"/dydxprotocol.listing.MsgCreateMarketPermissionlessResponse",
+		"/nemo-network.listing.MsgCreateMarketPermissionless",
+		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse",
 
 		// perpetuals
 
 		// prices
 
 		// sending
-		"/dydxprotocol.sending.MsgCreateTransfer",
-		"/dydxprotocol.sending.MsgCreateTransferResponse",
-		"/dydxprotocol.sending.MsgDepositToSubaccount",
-		"/dydxprotocol.sending.MsgDepositToSubaccountResponse",
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccount",
-		"/dydxprotocol.sending.MsgWithdrawFromSubaccountResponse",
+		"/nemo_network.sending.MsgCreateTransfer",
+		"/nemo_network.sending.MsgCreateTransferResponse",
+		"/nemo_network.sending.MsgDepositToSubaccount",
+		"/nemo_network.sending.MsgDepositToSubaccountResponse",
+		"/nemo_network.sending.MsgWithdrawFromSubaccount",
+		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse",
 
 		// vault
-		"/dydxprotocol.vault.MsgDepositToMegavault",
-		"/dydxprotocol.vault.MsgDepositToMegavaultResponse",
+		"/nemo-network.vault.MsgDepositToMegavault",
+		"/nemo-network.vault.MsgDepositToMegavaultResponse",
 
 		// ibc application module: ICA
 		"/ibc.applications.interchain_accounts.v1.InterchainAccount",

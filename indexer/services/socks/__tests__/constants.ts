@@ -4,12 +4,12 @@ import {
   ORDERBOOKS_WEBSOCKET_MESSAGE_VERSION,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import {
   TransferSubaccountMessageContents,
   TransferType,
   MAX_PARENT_SUBACCOUNTS,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   BlockHeightMessage,
   CandleMessage,
@@ -19,7 +19,7 @@ import {
   SubaccountId,
   SubaccountMessage,
   TradeMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 
 export const btcClobPairId: string = '1';
 export const ethClobPairId: string = '2';

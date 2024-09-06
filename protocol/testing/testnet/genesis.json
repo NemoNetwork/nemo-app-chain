@@ -1610,7 +1610,7 @@
           "block_height": 57600,
           "id": 0,
           "msg": {
-            "@type": "/dydxprotocol.feetiers.MsgUpdatePerpetualFeeParams",
+            "@type": "/nemo-network.feetiers.MsgUpdatePerpetualFeeParams",
             "authority": "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr",
             "params": {
               "tiers": [

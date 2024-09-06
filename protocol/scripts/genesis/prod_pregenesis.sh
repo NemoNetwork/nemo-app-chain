@@ -7,7 +7,7 @@ set -eo pipefail
 #
 # example usage:
 # $ make build
-# $ ./scripts/genesis/prod_pregenesis.sh ./build/dydxprotocold
+# $ ./scripts/genesis/prod_pregenesis.sh ./build/nemod
 
 # Check for missing required arguments
 if [ -z "$1" ]; then
@@ -159,7 +159,7 @@ function overwrite_genesis_production() {
 }
 
 create_pregenesis_file() {
-	VAL_HOME_DIR="$TMP_CHAIN_DIR/.dydxprotocol"
+	VAL_HOME_DIR="$TMP_CHAIN_DIR/.nemo-network"
 	VAL_CONFIG_DIR="$VAL_HOME_DIR/config"
 	# This initializes the $VAL_HOME_DIR folder.
 	$DYDX_BINARY init "test-moniker" -o --chain-id=$CHAIN_ID --home "$VAL_HOME_DIR"

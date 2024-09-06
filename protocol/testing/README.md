@@ -4,7 +4,7 @@ For development and testing purposes, it's useful to be able to deploy the chain
 
 Overall, the steps involve:
 1. Define validator node keys
-2. Build the app binary (i.e. `dydxprotocold`)
+2. Build the app binary (i.e. `nemod`)
 3. Set up configuration files (i.e. `genesis.json`, `app.toml`, `app.toml`, and etc.)
 4. Setup the app data and configs (i.e. moving data and configs files into correct directory)
 
@@ -28,10 +28,10 @@ It's necessary to specify the `--home` flag as this is how the container knows w
 
 ```sh
 # dev
-docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /dydxprotocol/chain/.alice
+docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /nemo-network/chain/.alice
 
 # staging
-docker build . --progress=plain --no-cache -f ./testing/testnet-staging/Dockerfile -t testnet && docker run testnet start --home /dydxprotocol/chain/.alice
+docker build . --progress=plain --no-cache -f ./testing/testnet-staging/Dockerfile -t testnet && docker run testnet start --home /nemo-network/chain/.alice
 ```
 
 # Building and Pushing the Docker container image to ECR
@@ -54,8 +54,8 @@ $ docker run -it --entrypoint /bin/sh <image id>
 
 # Running a full-node
 
-If you wish to run as a full-node instead of a validator, specify the `--home` flag as ` /dydxprotocol/chain/.full-node`.
+If you wish to run as a full-node instead of a validator, specify the `--home` flag as ` /nemo-network/chain/.full-node`.
 
 ```sh
-$ docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /dydxprotocol/chain/.full-node
+$ docker build . --progress=plain --no-cache -f ./testing/testnet-dev/Dockerfile -t testnet && docker run testnet start --home /nemo-network/chain/.full-node
 ```

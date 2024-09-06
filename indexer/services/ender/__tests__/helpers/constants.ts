@@ -1,11 +1,11 @@
-import { SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION } from '@dydxprotocol-indexer/kafka';
-import { testConstants, TradeContent, TradeType } from '@dydxprotocol-indexer/postgres';
+import { SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION } from '@nemo-network-indexer/kafka';
+import { testConstants, TradeContent, TradeType } from '@nemo-network-indexer/postgres';
 import {
   bigIntToBytes,
   ORDER_FLAG_CONDITIONAL,
   ORDER_FLAG_LONG_TERM,
   ORDER_FLAG_SHORT_TERM,
-} from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/v4-proto-parser';
 import {
   AssetCreateEventV1,
   ClobPairStatus,
@@ -37,7 +37,7 @@ import {
   UpdatePerpetualEventV1,
   OpenInterestUpdateEventV1,
   OpenInterestUpdate,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Long from 'long';
 import { DateTime } from 'luxon';
 

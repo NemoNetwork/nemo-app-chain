@@ -1,16 +1,16 @@
 import {
   logger,
   stats,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
   QUOTE_CURRENCY_ATOMIC_RESOLUTION,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   OrderbookLevels,
   OrderbookLevelsCache,
-} from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/redis';
 import Big from 'big.js';
 
 import config from '../config';

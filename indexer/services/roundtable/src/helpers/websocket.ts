@@ -2,8 +2,8 @@ import {
   logger,
   stats,
   wrapBackgroundTask,
-} from '@dydxprotocol-indexer/base';
-import { MARKETS_WEBSOCKET_MESSAGE_VERSION, producer, WebsocketTopics } from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/base';
+import { MARKETS_WEBSOCKET_MESSAGE_VERSION, producer, WebsocketTopics } from '@nemo-network-indexer/kafka';
 import {
   LiquidityTiersFromDatabase,
   LiquidityTiersMap,
@@ -12,14 +12,14 @@ import {
   PerpetualMarketsMap,
   TradingMarketMessageContents,
   helpers,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   MarketMessage,
   OffChainUpdateV1,
   IndexerOrderId,
   OrderRemovalReason,
   OrderRemoveV1_OrderRemovalStatus,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 
 import config from '../config';

@@ -1,6 +1,6 @@
 import {
   logger,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import {
   Consumer, ConsumerRunConfig, EachBatchPayload, KafkaMessage,
 } from 'kafkajs';

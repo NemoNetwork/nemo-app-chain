@@ -3,8 +3,8 @@ package marketmap_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/lib/marketmap"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	"github.com/nemo-network/v4-chain/protocol/lib/marketmap"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	slinkytypes "github.com/skip-mev/slinky/pkg/types"
 	marketmaptypes "github.com/skip-mev/slinky/x/marketmap/types"
 	"github.com/stretchr/testify/require"

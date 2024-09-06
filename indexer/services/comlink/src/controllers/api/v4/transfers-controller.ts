@@ -1,4 +1,4 @@
-import { stats } from '@dydxprotocol-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 import {
   AssetColumns,
   AssetFromDatabase,
@@ -15,7 +15,7 @@ import {
   TransferFromDatabase,
   TransferTable,
   USDC_ASSET_ID,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo_network-indexer/postgres';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import _ from 'lodash';

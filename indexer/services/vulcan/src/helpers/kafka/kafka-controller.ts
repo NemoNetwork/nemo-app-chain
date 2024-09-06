@@ -1,7 +1,7 @@
-import { logger } from '@dydxprotocol-indexer/base';
+import { logger } from '@nemo-network-indexer/base';
 import {
   consumer, producer, KafkaTopics, updateOnMessageFunction, updateOnBatchFunction,
-} from '@dydxprotocol-indexer/kafka';
+} from '@nemo-network-indexer/kafka';
 import { KafkaMessage } from 'kafkajs';
 
 import config from '../../config';

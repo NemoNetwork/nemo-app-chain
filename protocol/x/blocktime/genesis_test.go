@@ -3,9 +3,9 @@ package blocktime_test
 import (
 	"testing"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/x/blocktime"
-	"github.com/dydxprotocol/v4-chain/protocol/x/blocktime/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/x/blocktime"
+	"github.com/nemo-network/v4-chain/protocol/x/blocktime/types"
 	"github.com/stretchr/testify/require"
 )
 

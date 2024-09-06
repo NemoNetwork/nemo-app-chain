@@ -1,4 +1,4 @@
-import { CountryHeaders } from '@dydxprotocol-indexer/compliance';
+import { CountryHeaders } from '@nemo-network-indexer/compliance';
 
 import { IncomingMessage } from '../types';
 

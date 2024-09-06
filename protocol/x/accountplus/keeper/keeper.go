@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/dydxprotocol/v4-chain/protocol/x/accountplus/types"
+	"github.com/nemo-network/v4-chain/protocol/x/accountplus/types"
 )
 
 type Keeper struct {

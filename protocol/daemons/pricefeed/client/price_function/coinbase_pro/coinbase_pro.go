@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/price_function"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/types"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants/exchange_common"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_function"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/types"
 )
 
 // CoinbaseProTicker is our representation of ticker information returned in CoinbasePro response.

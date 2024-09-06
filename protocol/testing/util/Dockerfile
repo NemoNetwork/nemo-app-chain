@@ -1,5 +1,5 @@
-FROM dydxprotocol-base
+FROM nemo-network-base
 
-COPY ./testing/util/new-validator.sh /dydxprotocol/new-validator.sh
+COPY ./testing/util/new-validator.sh /nemo-network/new-validator.sh
 
-ENTRYPOINT ["/dydxprotocol/new-validator.sh"]
+ENTRYPOINT ["/nemo-network/new-validator.sh"]

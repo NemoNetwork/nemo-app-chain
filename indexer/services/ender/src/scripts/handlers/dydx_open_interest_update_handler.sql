@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION dydx_open_interest_update_handler(event_data jsonb) RETURNS jsonb AS $$
 /**
   Parameters:
-    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/dydxprotocol/v4-chain/blob/9ed26bd/proto/dydxprotocol/indexer/indexer_manager/event.proto#L25)
+    - event_data: The 'data' field of the IndexerTendermintEvent (https://github.com/nemo-network/v4-chain/blob/9ed26bd/proto/nemo-network/indexer/indexer_manager/event.proto#L25)
         converted to JSON format. Conversion to JSON is expected to be done by JSON.stringify.
   Returns: JSON object containing fields:
     - open_interest_update: The updated perpetual market open interest

@@ -4,8 +4,8 @@ import (
 	"github.com/gorilla/websocket"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/dydxprotocol/v4-chain/protocol/streaming/types"
-	clobtypes "github.com/dydxprotocol/v4-chain/protocol/x/clob/types"
+	"github.com/nemo-network/v4-chain/protocol/streaming/types"
+	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 )
 
 var _ types.OutgoingMessageSender = (*WebsocketMessageSender)(nil)

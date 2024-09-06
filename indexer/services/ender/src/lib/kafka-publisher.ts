@@ -1,12 +1,12 @@
-import { stats, STATS_NO_SAMPLING } from '@dydxprotocol-indexer/base';
+import { stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base';
 import {
   BatchKafkaProducer,
   KafkaTopics,
   producer,
   ProducerMessage,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
-} from '@dydxprotocol-indexer/kafka';
-import { FillSubaccountMessageContents, TradeMessageContents } from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/kafka';
+import { FillSubaccountMessageContents, TradeMessageContents } from '@nemo-network-indexer/postgres';
 import {
   BlockHeightMessage,
   CandleMessage,
@@ -14,7 +14,7 @@ import {
   OffChainUpdateV1,
   SubaccountMessage,
   TradeMessage,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
 

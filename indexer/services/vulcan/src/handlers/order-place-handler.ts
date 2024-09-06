@@ -1,20 +1,20 @@
-import { logger, runFuncWithTimingStat, stats } from '@dydxprotocol-indexer/base';
-import { createSubaccountWebsocketMessage, KafkaTopics } from '@dydxprotocol-indexer/kafka';
+import { logger, runFuncWithTimingStat, stats } from '@nemo-network-indexer/base';
+import { createSubaccountWebsocketMessage, KafkaTopics } from '@nemo-network-indexer/kafka';
 import {
   blockHeightRefresher,
   OrderFromDatabase,
   OrderTable,
   PerpetualMarketFromDatabase,
   perpetualMarketRefresher,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   CanceledOrdersCache,
   convertToRedisOrder,
   placeOrder,
   PlaceOrderResult,
   StatefulOrderUpdatesCache,
-} from '@dydxprotocol-indexer/redis';
-import { getOrderIdHash, isStatefulOrder, ORDER_FLAG_SHORT_TERM } from '@dydxprotocol-indexer/v4-proto-parser';
+} from '@nemo-network-indexer/redis';
+import { getOrderIdHash, isStatefulOrder, ORDER_FLAG_SHORT_TERM } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,
   OffChainUpdateV1,
@@ -22,7 +22,7 @@ import {
   OrderPlaceV1_OrderPlacementStatus,
   OrderUpdateV1,
   RedisOrder,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { IHeaders, Message } from 'kafkajs';
 
 import config from '../config';

@@ -7,7 +7,7 @@ import {
 } from '../helpers/redis';
 
 // Cache of open orders in a market
-export const OPEN_ORDERS_CACHE_KEY_PREFIX: string = 'v4/open_orders/';
+export const OPEN_ORDERS_CACHE_KEY_PREFIX: string = 'open_orders/';
 
 export async function addOpenOrder(
   orderUuid: string,

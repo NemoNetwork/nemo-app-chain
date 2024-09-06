@@ -8,16 +8,16 @@ import (
 	"time"
 
 	"cosmossdk.io/log"
-	appflags "github.com/dydxprotocol/v4-chain/protocol/app/flags"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/flags"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/api"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/handler"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/price_fetcher"
-	"github.com/dydxprotocol/v4-chain/protocol/daemons/pricefeed/client/types"
-	daemontypes "github.com/dydxprotocol/v4-chain/protocol/daemons/types"
-	libtime "github.com/dydxprotocol/v4-chain/protocol/lib/time"
-	pricestypes "github.com/dydxprotocol/v4-chain/protocol/x/prices/types"
+	appflags "github.com/nemo-network/v4-chain/protocol/app/flags"
+	"github.com/nemo-network/v4-chain/protocol/daemons/flags"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/api"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/constants"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/handler"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/price_fetcher"
+	"github.com/nemo-network/v4-chain/protocol/daemons/pricefeed/client/types"
+	daemontypes "github.com/nemo-network/v4-chain/protocol/daemons/types"
+	libtime "github.com/nemo-network/v4-chain/protocol/lib/time"
+	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 )
 
 // Client encapsulates the logic for executing and cleanly stopping all subtasks associated with the

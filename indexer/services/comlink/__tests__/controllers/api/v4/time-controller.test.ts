@@ -6,7 +6,7 @@ describe('time-controller#V4', () => {
     it('Get /time', async () => {
       const time: any = await sendRequest({
         type: RequestMethod.GET,
-        path: '/v4/time',
+        path: '/time',
       });
 
       expect(time.body.iso).not.toBeNull();

@@ -1,4 +1,4 @@
-import { ClobPairStatus } from '@dydxprotocol-indexer/v4-protos';
+import { ClobPairStatus } from '@nemo-network-indexer/v4-protos';
 
 /**
  * Custom error types.

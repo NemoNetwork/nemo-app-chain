@@ -22,7 +22,7 @@
     "useUnknownInCatchVariables": false,
     "baseUrl": ".",
     "paths": {
-      "@dydxprotocol-indexer/example-package": ["packages/example-package/src"],
+      "@nemo-network-indexer/example-package": ["packages/example-package/src"],
     },
   },
   "exclude": [

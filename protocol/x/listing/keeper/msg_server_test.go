@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/x/listing/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/listing/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/x/listing/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/listing/types"
 	"github.com/stretchr/testify/require"
 )
 

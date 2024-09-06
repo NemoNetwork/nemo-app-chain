@@ -7,7 +7,7 @@ import {
   OrderFromDatabase,
   perpetualMarketRefresher,
   FillFromDatabase,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { FillResponseObject, MarketType, RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import {
@@ -46,7 +46,7 @@ describe('fills-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills?address=${testConstants.defaultAddress}` +
+        path: `/fills?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -94,7 +94,7 @@ describe('fills-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills?address=${testConstants.defaultAddress}` +
+        path: `/fills?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&market=${testConstants.defaultPerpetualMarket2.ticker}&marketType=${MarketType.PERPETUAL}`,
       });
@@ -148,7 +148,7 @@ describe('fills-controller#V4', () => {
 
       let response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills?address=${testConstants.defaultAddress}` +
+        path: `/fills?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}`,
       });
 
@@ -306,7 +306,7 @@ describe('fills-controller#V4', () => {
 
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills?address=${testConstants.defaultAddress}` +
+        path: `/fills?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&market=${testConstants.defaultPerpetualMarket2.ticker}&marketType=${MarketType.PERPETUAL}`,
       });
@@ -361,7 +361,7 @@ describe('fills-controller#V4', () => {
     ) => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills?${getQueryString(queryParams)}`,
+        path: `/fills?${getQueryString(queryParams)}`,
         expectedStatus: 400,
       });
 
@@ -378,7 +378,7 @@ describe('fills-controller#V4', () => {
     it('Returns 404 with unknown market and type', async () => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills?address=${testConstants.defaultAddress}` +
+        path: `/fills?address=${testConstants.defaultAddress}` +
           `&subaccountNumber=${testConstants.defaultSubaccount.subaccountNumber}` +
           `&market=${invalidMarket}&marketType=${MarketType.PERPETUAL}`,
         expectedStatus: 404,
@@ -403,7 +403,7 @@ describe('fills-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}`,
       });
 
@@ -442,7 +442,7 @@ describe('fills-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}` +
             `&market=${testConstants.isolatedPerpetualMarket.ticker}&marketType=${MarketType.PERPETUAL}`,
       });
@@ -477,7 +477,7 @@ describe('fills-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}` +
             `&market=${testConstants.isolatedPerpetualMarket2.ticker}&marketType=${MarketType.PERPETUAL}`,
       });
@@ -532,7 +532,7 @@ describe('fills-controller#V4', () => {
     ) => {
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills/parentSubaccountNumber?${getQueryString(queryParams)}`,
+        path: `/fills/parentSubaccountNumber?${getQueryString(queryParams)}`,
         expectedStatus: 400,
       });
 
@@ -550,7 +550,7 @@ describe('fills-controller#V4', () => {
       const parentSubaccountNumber: number = 0;
       const response: request.Response = await sendRequest({
         type: RequestMethod.GET,
-        path: `/v4/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
+        path: `/fills/parentSubaccountNumber?address=${testConstants.defaultAddress}` +
             `&parentSubaccountNumber=${parentSubaccountNumber}` +
             `&market=${invalidMarket}&marketType=${MarketType.PERPETUAL}`,
         expectedStatus: 404,

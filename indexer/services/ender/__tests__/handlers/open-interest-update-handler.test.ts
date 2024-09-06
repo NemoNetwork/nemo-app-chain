@@ -3,15 +3,15 @@ import {
   IndexerTendermintEvent,
   OpenInterestUpdateEventV1,
   Timestamp,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import {
   dbHelpers,
   PerpetualMarketFromDatabase,
   perpetualMarketRefresher,
   testMocks,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { KafkaMessage } from 'kafkajs';
-import { createKafkaMessage, producer } from '@dydxprotocol-indexer/kafka';
+import { createKafkaMessage, producer } from '@nemo-network-indexer/kafka';
 import { onMessage } from '../../src/lib/on-message';
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import {
@@ -31,8 +31,8 @@ import _ from 'lodash';
 import { createPostgresFunctions } from '../../src/helpers/postgres/postgres-functions';
 import {
   bytesToBigInt,
-} from '@dydxprotocol-indexer/v4-proto-parser';
-import { quantumsToHumanFixedString } from '@dydxprotocol-indexer/postgres/build/src/lib/protocol-translations';
+} from '@nemo-network-indexer/v4-proto-parser';
+import { quantumsToHumanFixedString } from '@nemo-network-indexer/postgres/build/src/lib/protocol-translations';
 
 describe('openInterestUpdateHandler', () => {
   beforeAll(async () => {

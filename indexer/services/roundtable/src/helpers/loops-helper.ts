@@ -2,8 +2,8 @@ import {
   logger,
   stats,
   wrapBackgroundTask,
-} from '@dydxprotocol-indexer/base';
-import { redis } from '@dydxprotocol-indexer/redis';
+} from '@nemo-network-indexer/base';
+import { redis } from '@nemo-network-indexer/redis';
 import { v4 as uuidv4 } from 'uuid';
 
 import config from '../config';

@@ -7,9 +7,9 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	testapp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	perptypes "github.com/dydxprotocol/v4-chain/protocol/x/perpetuals/types"
+	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,7 +31,7 @@ func TestAllLiquidityTiers(
 	abciResponse, err := tApp.App.Query(
 		context.Background(),
 		&abci.RequestQuery{
-			Path: "/dydxprotocol.perpetuals.Query/AllLiquidityTiers",
+			Path: "/nemo_network.perpetuals.Query/AllLiquidityTiers",
 			Data: tApp.App.AppCodec().MustMarshal(&request),
 		})
 	require.NoError(t, err)

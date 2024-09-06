@@ -5,15 +5,15 @@ import (
 	"math"
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/mocks"
+	"github.com/nemo-network/v4-chain/protocol/mocks"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
-	keepertest "github.com/dydxprotocol/v4-chain/protocol/testutil/keeper"
-	bridgetypes "github.com/dydxprotocol/v4-chain/protocol/x/bridge/types"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/keeper"
-	"github.com/dydxprotocol/v4-chain/protocol/x/delaymsg/types"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
+	keepertest "github.com/nemo-network/v4-chain/protocol/testutil/keeper"
+	bridgetypes "github.com/nemo-network/v4-chain/protocol/x/bridge/types"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg/keeper"
+	"github.com/nemo-network/v4-chain/protocol/x/delaymsg/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -26,7 +26,7 @@ type FakeRoutableMsg struct {
 // registered CompleteBridge message type. This is done so that we can bypass the handler check and trigger
 // the ValidateBasic error.
 func (msg *FakeRoutableMsg) XXX_MessageName() string {
-	return "dydxprotocol.bridge.MsgCompleteBridge"
+	return "nemo_network.bridge.MsgCompleteBridge"
 }
 
 // implementing XXX_Size along with XXX_Marshal proto interface methods allows us to simulate an encoding failure.

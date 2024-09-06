@@ -1,14 +1,14 @@
-import { OrderTable } from '@dydxprotocol-indexer/postgres';
+import { OrderTable } from '@nemo-network-indexer/postgres';
 import {
   IndexerOrderId,
   RedisOrder,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 import { RedisClient } from 'redis';
 
 import { getAsync } from '../helpers/redis';
 
 // Cache of order uuid to encoded `RedisOrder`
-export const ORDERS_CACHE_KEY_PREFIX: string = 'v4/orders/';
+export const ORDERS_CACHE_KEY_PREFIX: string = 'orders/';
 
 /**
  * Get an order by the UUID of the order.

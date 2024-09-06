@@ -1,9 +1,9 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,
   SubaccountUpdateEventV1,
-} from '@dydxprotocol-indexer/v4-protos';
+} from '@nemo-network-indexer/v4-protos';
 
 import { DydxIndexerSubtypes } from '../../src/lib/types';
 import { SubaccountUpdateValidator } from '../../src/validators/subaccount-update-validator';

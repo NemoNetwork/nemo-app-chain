@@ -14,13 +14,13 @@ import {
   ComplianceStatusFromDatabase,
   ComplianceStatus,
   ComplianceReason,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import updateComplianceDataTask from '../../src/tasks/update-compliance-data';
-import { STATS_NO_SAMPLING, logger, stats } from '@dydxprotocol-indexer/base';
+import { STATS_NO_SAMPLING, logger, stats } from '@nemo-network-indexer/base';
 import _ from 'lodash';
 import config from '../../src/config';
 import { ClientAndProvider } from '../../src/helpers/compliance-clients';
-import { ComplianceClientResponse } from '@dydxprotocol-indexer/compliance';
+import { ComplianceClientResponse } from '@nemo-network-indexer/compliance';
 import { DateTime } from 'luxon';
 
 interface ComplianceClientResponseWithNull extends Omit<ComplianceClientResponse, 'riskScore'> {

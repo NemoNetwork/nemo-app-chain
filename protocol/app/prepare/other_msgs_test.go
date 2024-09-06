@@ -3,10 +3,10 @@ package prepare_test
 import (
 	"testing"
 
-	"github.com/dydxprotocol/v4-chain/protocol/app/prepare"
-	testApp "github.com/dydxprotocol/v4-chain/protocol/testutil/app"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/constants"
-	"github.com/dydxprotocol/v4-chain/protocol/testutil/encoding"
+	"github.com/nemo-network/v4-chain/protocol/app/prepare"
+	testApp "github.com/nemo-network/v4-chain/protocol/testutil/app"
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
+	"github.com/nemo-network/v4-chain/protocol/testutil/encoding"
 	"github.com/stretchr/testify/require"
 )
 

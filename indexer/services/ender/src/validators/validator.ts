@@ -1,5 +1,5 @@
-import { logger, ParseMessageError } from '@dydxprotocol-indexer/base';
-import { IndexerTendermintBlock, IndexerTendermintEvent } from '@dydxprotocol-indexer/v4-protos';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base';
+import { IndexerTendermintBlock, IndexerTendermintEvent } from '@nemo-network-indexer/v4-protos';
 
 import { Handler } from '../handlers/handler';
 import { EventMessage } from '../lib/types';

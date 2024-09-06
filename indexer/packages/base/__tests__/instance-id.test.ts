@@ -1,6 +1,6 @@
 import { setInstanceId, getInstanceId, resetForTests } from '../src/instance-id';
 import { axiosRequest } from '../src/axios';
-import { asMock } from '@dydxprotocol-indexer/dev';
+import { asMock } from '@nemo-network-indexer/dev';
 import logger from '../src/logger';
 import config from '../src/config';
 

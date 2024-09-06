@@ -8,7 +8,7 @@ import {
   SocketClient,
   SubaccountInfo,
   ValidatorClient,
-} from '@dydxprotocol/v4-client-js';
+} from '@nemo-network/v4-client-js';
 import {
   DYDX_LOCAL_ADDRESS,
   DYDX_LOCAL_ADDRESS_2,
@@ -30,7 +30,7 @@ import {
   OrderSide,
   OrderTable,
   SubaccountTable,
-} from '@dydxprotocol-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 
 async function placeOrder(
   mnemonic: string,
@@ -149,7 +149,7 @@ describe('orders', () => {
       fee: '0.0125',
     }));
 
-    // Check API /v4/orders endpoint
+    // Check API /orders endpoint
     const [ordersResponse, ordersResponse2] = await Promise.all([
       indexerClient.account.getSubaccountOrders(DYDX_LOCAL_ADDRESS,
         0,
@@ -208,7 +208,7 @@ describe('orders', () => {
       }),
     );
 
-    // Check API /v4/perpetualPositions endpoint
+    // Check API /perpetualPositions endpoint
     const [response, response2] = await Promise.all([
       indexerClient.account.getSubaccountPerpetualPositions(DYDX_LOCAL_ADDRESS, 0),
       indexerClient.account.getSubaccountPerpetualPositions(DYDX_LOCAL_ADDRESS_2, 0),
@@ -232,7 +232,7 @@ describe('orders', () => {
       }),
     );
 
-    // Check API /v4/orderbooks endpoint
+    // Check API /orderbooks endpoint
     const orderbooksResponse = await indexerClient.markets.getPerpetualMarketOrderbook('BTC-USD');
     expect(orderbooksResponse).toEqual(
       expect.objectContaining({
@@ -246,7 +246,7 @@ describe('orders', () => {
       }),
     );
 
-    // Check API /v4/candles endpoint
+    // Check API /candles endpoint
     const candlesResponse = await indexerClient.markets.getPerpetualMarketCandles(
       'BTC-USD',
       CandleResolution.ONE_MINUTE,

@@ -1,6 +1,6 @@
 import {
   NodeEnv,
-} from '@dydxprotocol-indexer/base';
+} from '@nemo-network-indexer/base';
 import Knex from 'knex';
 
 import config from '../config';
