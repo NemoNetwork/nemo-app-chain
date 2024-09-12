@@ -20,7 +20,7 @@ import {
   WalletTable,
   WalletFromDatabase,
   perpetualMarketRefresher,
-} from '@nemo_network-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import Big from 'big.js';
 import express from 'express';
 import {

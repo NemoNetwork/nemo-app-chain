@@ -7,7 +7,7 @@ import {
   testConstants,
   MAX_PARENT_SUBACCOUNTS,
   CHILD_SUBACCOUNT_MULTIPLIER,
-} from '@nemo_network-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 
 describe('schemas', () => {
   const positiveNonInteger: number = 3.2;

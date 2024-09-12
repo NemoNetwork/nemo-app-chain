@@ -8,7 +8,7 @@ import {
   perpetualMarketRefresher,
   FillColumns,
   Ordering,
-} from '@nemo_network-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import express from 'express';
 import {
   checkSchema,

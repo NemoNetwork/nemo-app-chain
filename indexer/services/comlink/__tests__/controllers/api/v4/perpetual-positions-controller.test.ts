@@ -8,7 +8,7 @@ import {
   PositionSide,
   testConstants,
   testMocks,
-} from '@nemo_network-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import { PerpetualPositionResponseObject, RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { getFixedRepresentation, getQueryString, sendRequest } from '../../../helpers/helpers';

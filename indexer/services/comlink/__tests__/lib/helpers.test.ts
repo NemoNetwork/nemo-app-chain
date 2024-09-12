@@ -31,7 +31,7 @@ import {
   PnlTicksFromDatabase,
   PnlTicksTable,
   AssetFromDatabase,
-} from '@nemo_network-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import {
   adjustUSDCAssetPosition,
   calculateEquityAndFreeCollateral,
@@ -61,7 +61,7 @@ import {
 } from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
 import { AssetPositionsMap, PerpetualPositionWithFunding } from '../../src/types';
 =======
-} from '@nemo_network-indexer/postgres/build/__tests__/helpers/constants';
+} from '@nemo-network-indexer/postgres/build/__tests__/helpers/constants';
 import { AssetPositionsMap, PerpetualPositionWithFunding, SubaccountResponseObject } from '../../src/types';
 >>>>>>> main
 import { ZERO, ZERO_USDC_POSITION } from '../../src/lib/constants';

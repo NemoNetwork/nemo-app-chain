@@ -10,8 +10,8 @@ import {
 import { getIpAddr } from '../../../../src/lib/utils';
 import { sendRequest } from '../../../helpers/helpers';
 import { RequestMethod } from '../../../../src/types';
-import { stats } from '@nemo_network-indexer/base';
-import { redis } from '@nemo_network-indexer/redis';
+import { stats } from '@nemo-network-indexer/base';
+import { redis } from '@nemo-network-indexer/redis';
 import { ratelimitRedis } from '../../../../src/caches/rate-limiters';
 import { ComplianceControllerHelper } from '../../../../src/controllers/api/compliance-controller';
 import config from '../../../../src/config';
@@ -20,7 +20,7 @@ import { ComplianceAction } from '../../../../src/controllers/api/v4/compliance-
 import { ExtendedSecp256k1Signature, Secp256k1 } from '@cosmjs/crypto';
 import { verifyADR36Amino } from '@keplr-wallet/cosmos';
 import { getGeoComplianceReason } from '../../../../src/helpers/compliance/compliance-utils';
-import { isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo_network-indexer/compliance';
+import { isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo-network-indexer/compliance';
 import { toBech32 } from '@cosmjs/encoding';
 
 jest.mock('@nemo-network-indexer/compliance');
