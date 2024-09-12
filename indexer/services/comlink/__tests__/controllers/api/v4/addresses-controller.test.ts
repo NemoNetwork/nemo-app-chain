@@ -14,7 +14,7 @@ import {
 import { RequestMethod } from '../../../../src/types';
 import request from 'supertest';
 import { getFixedRepresentation, sendRequest } from '../../../helpers/helpers';
-import { stats } from '@nemo_network-indexer/base';
+import { stats } from '@nemo-network-indexer/base';
 
 describe('addresses-controller#V4', () => {
   const latestHeight: string = '3';

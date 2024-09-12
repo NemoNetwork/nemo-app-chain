@@ -19,7 +19,7 @@ import {
   INDEXER_GEOBLOCKED_PAYLOAD,
   isRestrictedCountryHeaders,
   isWhitelistedAddress,
-} from '@nemo_network-indexer/compliance';
+} from '@nemo-network-indexer/compliance';
 import config from '../../src/config';
 
 jest.mock('@nemo-network-indexer/compliance');

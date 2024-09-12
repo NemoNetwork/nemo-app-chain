@@ -15,7 +15,7 @@ import {
   TransferFromDatabase,
   TransferTable,
   USDC_ASSET_ID,
-} from '@nemo_network-indexer/postgres';
+} from '@nemo-network-indexer/postgres';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import _ from 'lodash';
