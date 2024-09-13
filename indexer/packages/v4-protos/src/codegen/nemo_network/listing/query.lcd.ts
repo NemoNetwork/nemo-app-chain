@@ -15,7 +15,7 @@ export class LCDQueryClient {
 
 
   async listingVaultDepositParams(_params: QueryListingVaultDepositParams = {}): Promise<QueryListingVaultDepositParamsResponseSDKType> {
-    const endpoint = `nemo-network/listing/vault_deposit_params`;
+    const endpoint = `nemo_network/listing/vault_deposit_params`;
     return await this.req.get<QueryListingVaultDepositParamsResponseSDKType>(endpoint);
   }
 

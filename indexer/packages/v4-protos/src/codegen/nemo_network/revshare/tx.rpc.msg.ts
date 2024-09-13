@@ -27,13 +27,13 @@ export class MsgClientImpl implements Msg {
 
   setMarketMapperRevenueShare(request: MsgSetMarketMapperRevenueShare): Promise<MsgSetMarketMapperRevenueShareResponse> {
     const data = MsgSetMarketMapperRevenueShare.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.revshare.Msg", "SetMarketMapperRevenueShare", data);
+    const promise = this.rpc.request("nemo_network.revshare.Msg", "SetMarketMapperRevenueShare", data);
     return promise.then(data => MsgSetMarketMapperRevenueShareResponse.decode(new _m0.Reader(data)));
   }
 
   setMarketMapperRevShareDetailsForMarket(request: MsgSetMarketMapperRevShareDetailsForMarket): Promise<MsgSetMarketMapperRevShareDetailsForMarketResponse> {
     const data = MsgSetMarketMapperRevShareDetailsForMarket.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.revshare.Msg", "SetMarketMapperRevShareDetailsForMarket", data);
+    const promise = this.rpc.request("nemo_network.revshare.Msg", "SetMarketMapperRevShareDetailsForMarket", data);
     return promise.then(data => MsgSetMarketMapperRevShareDetailsForMarketResponse.decode(new _m0.Reader(data)));
   }
 

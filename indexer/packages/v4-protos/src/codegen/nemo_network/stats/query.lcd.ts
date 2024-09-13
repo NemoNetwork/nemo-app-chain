@@ -18,21 +18,21 @@ export class LCDQueryClient {
 
 
   async params(_params: QueryParamsRequest = {}): Promise<QueryParamsResponseSDKType> {
-    const endpoint = `nemo-network/stats/params`;
+    const endpoint = `nemo_network/v4/stats/params`;
     return await this.req.get<QueryParamsResponseSDKType>(endpoint);
   }
   /* Queries StatsMetadata. */
 
 
   async statsMetadata(_params: QueryStatsMetadataRequest = {}): Promise<QueryStatsMetadataResponseSDKType> {
-    const endpoint = `nemo-network/stats/stats_metadata`;
+    const endpoint = `nemo_network/v4/stats/stats_metadata`;
     return await this.req.get<QueryStatsMetadataResponseSDKType>(endpoint);
   }
   /* Queries GlobalStats. */
 
 
   async globalStats(_params: QueryGlobalStatsRequest = {}): Promise<QueryGlobalStatsResponseSDKType> {
-    const endpoint = `nemo-network/stats/global_stats`;
+    const endpoint = `nemo_network/v4/stats/global_stats`;
     return await this.req.get<QueryGlobalStatsResponseSDKType>(endpoint);
   }
   /* Queries UserStats. */
@@ -47,7 +47,7 @@ export class LCDQueryClient {
       options.params.user = params.user;
     }
 
-    const endpoint = `nemo-network/stats/user_stats`;
+    const endpoint = `nemo_network/v4/stats/user_stats`;
     return await this.req.get<QueryUserStatsResponseSDKType>(endpoint, options);
   }
 

@@ -21,13 +21,13 @@ export class MsgClientImpl implements Msg {
 
   registerAffiliate(request: MsgRegisterAffiliate): Promise<MsgRegisterAffiliateResponse> {
     const data = MsgRegisterAffiliate.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.affiliates.Msg", "RegisterAffiliate", data);
+    const promise = this.rpc.request("nemo_network.affiliates.Msg", "RegisterAffiliate", data);
     return promise.then(data => MsgRegisterAffiliateResponse.decode(new _m0.Reader(data)));
   }
 
   updateAffiliateTiers(request: MsgUpdateAffiliateTiers): Promise<MsgUpdateAffiliateTiersResponse> {
     const data = MsgUpdateAffiliateTiers.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.affiliates.Msg", "UpdateAffiliateTiers", data);
+    const promise = this.rpc.request("nemo_network.affiliates.Msg", "UpdateAffiliateTiers", data);
     return promise.then(data => MsgUpdateAffiliateTiersResponse.decode(new _m0.Reader(data)));
   }
 

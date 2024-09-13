@@ -4,7 +4,7 @@ export const createRPCMsgClient = async ({
 }: {
   rpc: Rpc;
 }) => ({
-  nemo-network: {
+  nemo_network: {
     affiliates: new (await import("./affiliates/tx.rpc.msg")).MsgClientImpl(rpc),
     blocktime: new (await import("./blocktime/tx.rpc.msg")).MsgClientImpl(rpc),
     bridge: new (await import("./bridge/tx.rpc.msg")).MsgClientImpl(rpc),

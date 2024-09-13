@@ -17,7 +17,7 @@ export class LCDQueryClient {
 
 
   async asset(params: QueryAssetRequest): Promise<QueryAssetResponseSDKType> {
-    const endpoint = `nemo-network/assets/asset/${params.id}`;
+    const endpoint = `nemo_network/assets/asset/${params.id}`;
     return await this.req.get<QueryAssetResponseSDKType>(endpoint);
   }
   /* Queries a list of Asset items. */
@@ -34,7 +34,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `nemo-network/assets/asset`;
+    const endpoint = `nemo_network/assets/asset`;
     return await this.req.get<QueryAllAssetsResponseSDKType>(endpoint, options);
   }
 

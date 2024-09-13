@@ -20,21 +20,21 @@ export class LCDQueryClient {
 
 
   async eventParams(_params: QueryEventParamsRequest = {}): Promise<QueryEventParamsResponseSDKType> {
-    const endpoint = `nemo-network/bridge/event_params`;
+    const endpoint = `nemo_network/v4/bridge/event_params`;
     return await this.req.get<QueryEventParamsResponseSDKType>(endpoint);
   }
   /* Queries the ProposeParams. */
 
 
   async proposeParams(_params: QueryProposeParamsRequest = {}): Promise<QueryProposeParamsResponseSDKType> {
-    const endpoint = `nemo-network/bridge/propose_params`;
+    const endpoint = `nemo_network/v4/bridge/propose_params`;
     return await this.req.get<QueryProposeParamsResponseSDKType>(endpoint);
   }
   /* Queries the SafetyParams. */
 
 
   async safetyParams(_params: QuerySafetyParamsRequest = {}): Promise<QuerySafetyParamsResponseSDKType> {
-    const endpoint = `nemo-network/bridge/safety_params`;
+    const endpoint = `nemo_network/v4/bridge/safety_params`;
     return await this.req.get<QuerySafetyParamsResponseSDKType>(endpoint);
   }
   /* Queries the AcknowledgedEventInfo.
@@ -43,7 +43,7 @@ export class LCDQueryClient {
 
 
   async acknowledgedEventInfo(_params: QueryAcknowledgedEventInfoRequest = {}): Promise<QueryAcknowledgedEventInfoResponseSDKType> {
-    const endpoint = `nemo-network/bridge/acknowledged_event_info`;
+    const endpoint = `nemo_network/v4/bridge/acknowledged_event_info`;
     return await this.req.get<QueryAcknowledgedEventInfoResponseSDKType>(endpoint);
   }
   /* Queries the RecognizedEventInfo.
@@ -52,7 +52,7 @@ export class LCDQueryClient {
 
 
   async recognizedEventInfo(_params: QueryRecognizedEventInfoRequest = {}): Promise<QueryRecognizedEventInfoResponseSDKType> {
-    const endpoint = `nemo-network/bridge/recognized_event_info`;
+    const endpoint = `nemo_network/v4/bridge/recognized_event_info`;
     return await this.req.get<QueryRecognizedEventInfoResponseSDKType>(endpoint);
   }
   /* Queries all `MsgCompleteBridge` messages that are delayed (not yet
@@ -68,7 +68,7 @@ export class LCDQueryClient {
       options.params.address = params.address;
     }
 
-    const endpoint = `nemo-network/bridge/delayed_complete_bridge_messages`;
+    const endpoint = `nemo_network/v4/bridge/delayed_complete_bridge_messages`;
     return await this.req.get<QueryDelayedCompleteBridgeMessagesResponseSDKType>(endpoint, options);
   }
 

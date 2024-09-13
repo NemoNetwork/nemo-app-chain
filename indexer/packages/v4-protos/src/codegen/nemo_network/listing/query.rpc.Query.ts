@@ -22,13 +22,13 @@ export class QueryClientImpl implements Query {
 
   marketsHardCap(request: QueryMarketsHardCap = {}): Promise<QueryMarketsHardCapResponse> {
     const data = QueryMarketsHardCap.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.listing.Query", "MarketsHardCap", data);
+    const promise = this.rpc.request("nemo_network.listing.Query", "MarketsHardCap", data);
     return promise.then(data => QueryMarketsHardCapResponse.decode(new _m0.Reader(data)));
   }
 
   listingVaultDepositParams(request: QueryListingVaultDepositParams = {}): Promise<QueryListingVaultDepositParamsResponse> {
     const data = QueryListingVaultDepositParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.listing.Query", "ListingVaultDepositParams", data);
+    const promise = this.rpc.request("nemo_network.listing.Query", "ListingVaultDepositParams", data);
     return promise.then(data => QueryListingVaultDepositParamsResponse.decode(new _m0.Reader(data)));
   }
 

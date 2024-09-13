@@ -20,7 +20,7 @@ export class LCDQueryClient {
 
 
   async clobPair(params: QueryGetClobPairRequest): Promise<QueryClobPairResponseSDKType> {
-    const endpoint = `nemo-network/clob/clob_pair/${params.id}`;
+    const endpoint = `nemo_network/clob/clob_pair/${params.id}`;
     return await this.req.get<QueryClobPairResponseSDKType>(endpoint);
   }
   /* Queries a list of ClobPair items. */
@@ -37,28 +37,28 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `nemo-network/clob/clob_pair`;
+    const endpoint = `nemo_network/clob/clob_pair`;
     return await this.req.get<QueryClobPairAllResponseSDKType>(endpoint, options);
   }
   /* Queries EquityTierLimitConfiguration. */
 
 
   async equityTierLimitConfiguration(_params: QueryEquityTierLimitConfigurationRequest = {}): Promise<QueryEquityTierLimitConfigurationResponseSDKType> {
-    const endpoint = `nemo-network/clob/equity_tier`;
+    const endpoint = `nemo_network/clob/equity_tier`;
     return await this.req.get<QueryEquityTierLimitConfigurationResponseSDKType>(endpoint);
   }
   /* Queries BlockRateLimitConfiguration. */
 
 
   async blockRateLimitConfiguration(_params: QueryBlockRateLimitConfigurationRequest = {}): Promise<QueryBlockRateLimitConfigurationResponseSDKType> {
-    const endpoint = `nemo-network/clob/block_rate`;
+    const endpoint = `nemo_network/clob/block_rate`;
     return await this.req.get<QueryBlockRateLimitConfigurationResponseSDKType>(endpoint);
   }
   /* Queries LiquidationsConfiguration. */
 
 
   async liquidationsConfiguration(_params: QueryLiquidationsConfigurationRequest = {}): Promise<QueryLiquidationsConfigurationResponseSDKType> {
-    const endpoint = `nemo-network/clob/liquidations_config`;
+    const endpoint = `nemo_network/clob/liquidations_config`;
     return await this.req.get<QueryLiquidationsConfigurationResponseSDKType>(endpoint);
   }
 

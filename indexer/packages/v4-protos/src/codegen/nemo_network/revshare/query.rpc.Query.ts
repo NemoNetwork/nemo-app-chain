@@ -25,13 +25,13 @@ export class QueryClientImpl implements Query {
 
   marketMapperRevenueShareParams(request: QueryMarketMapperRevenueShareParams = {}): Promise<QueryMarketMapperRevenueShareParamsResponse> {
     const data = QueryMarketMapperRevenueShareParams.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.revshare.Query", "MarketMapperRevenueShareParams", data);
+    const promise = this.rpc.request("nemo_network.revshare.Query", "MarketMapperRevenueShareParams", data);
     return promise.then(data => QueryMarketMapperRevenueShareParamsResponse.decode(new _m0.Reader(data)));
   }
 
   marketMapperRevShareDetails(request: QueryMarketMapperRevShareDetails): Promise<QueryMarketMapperRevShareDetailsResponse> {
     const data = QueryMarketMapperRevShareDetails.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.revshare.Query", "MarketMapperRevShareDetails", data);
+    const promise = this.rpc.request("nemo_network.revshare.Query", "MarketMapperRevShareDetails", data);
     return promise.then(data => QueryMarketMapperRevShareDetailsResponse.decode(new _m0.Reader(data)));
   }
 

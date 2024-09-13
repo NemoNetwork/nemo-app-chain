@@ -26,19 +26,19 @@ export class QueryClientImpl implements Query {
 
   affiliateInfo(request: AffiliateInfoRequest): Promise<AffiliateInfoResponse> {
     const data = AffiliateInfoRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.affiliates.Query", "AffiliateInfo", data);
+    const promise = this.rpc.request("nemo_network.affiliates.Query", "AffiliateInfo", data);
     return promise.then(data => AffiliateInfoResponse.decode(new _m0.Reader(data)));
   }
 
   referredBy(request: ReferredByRequest): Promise<ReferredByResponse> {
     const data = ReferredByRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.affiliates.Query", "ReferredBy", data);
+    const promise = this.rpc.request("nemo_network.affiliates.Query", "ReferredBy", data);
     return promise.then(data => ReferredByResponse.decode(new _m0.Reader(data)));
   }
 
   allAffiliateTiers(request: AllAffiliateTiersRequest = {}): Promise<AllAffiliateTiersResponse> {
     const data = AllAffiliateTiersRequest.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.affiliates.Query", "AllAffiliateTiers", data);
+    const promise = this.rpc.request("nemo_network.affiliates.Query", "AllAffiliateTiers", data);
     return promise.then(data => AllAffiliateTiersResponse.decode(new _m0.Reader(data)));
   }
 

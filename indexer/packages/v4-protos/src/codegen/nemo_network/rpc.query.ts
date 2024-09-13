@@ -8,7 +8,7 @@ export const createRPCQueryClient = async ({
   const tmClient = await Tendermint34Client.connect(rpcEndpoint);
   const client = new QueryClient(tmClient);
   return {
-    nemo-network: {
+    nemo_network: {
       affiliates: (await import("./affiliates/query.rpc.Query")).createRpcQueryExtension(client),
       assets: (await import("./assets/query.rpc.Query")).createRpcQueryExtension(client),
       blocktime: (await import("./blocktime/query.rpc.Query")).createRpcQueryExtension(client),

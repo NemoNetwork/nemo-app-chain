@@ -16,14 +16,14 @@ export class LCDQueryClient {
 
 
   async downtimeParams(_params: QueryDowntimeParamsRequest = {}): Promise<QueryDowntimeParamsResponseSDKType> {
-    const endpoint = `nemo-network/blocktime/downtime_params`;
+    const endpoint = `nemo_network/v4/blocktime/downtime_params`;
     return await this.req.get<QueryDowntimeParamsResponseSDKType>(endpoint);
   }
   /* Queries all recorded downtime info. */
 
 
   async allDowntimeInfo(_params: QueryAllDowntimeInfoRequest = {}): Promise<QueryAllDowntimeInfoResponseSDKType> {
-    const endpoint = `nemo-network/blocktime/all_downtime_info`;
+    const endpoint = `nemo_network/v4/blocktime/all_downtime_info`;
     return await this.req.get<QueryAllDowntimeInfoResponseSDKType>(endpoint);
   }
 

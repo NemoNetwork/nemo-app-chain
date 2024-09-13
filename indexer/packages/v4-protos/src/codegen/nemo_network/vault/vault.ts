@@ -1,4 +1,3 @@
-import { MarketPrice, MarketPriceSDKType } from "../prices/market_price";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../helpers";
 /** VaultType represents different types of vaults. */

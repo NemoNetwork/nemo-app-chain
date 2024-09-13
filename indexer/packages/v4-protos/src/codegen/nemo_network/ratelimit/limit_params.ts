@@ -42,7 +42,7 @@ export interface Limiter {
   /**
    * baseline_minimum is the minimum maximum withdrawal coin amount within the
    * time period.
-   * e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 unemo for 50k DV4TNT
+   * e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 adv4tnt for 50k DV4TNT
    */
 
   baselineMinimum: Uint8Array;
@@ -65,7 +65,7 @@ export interface LimiterSDKType {
   /**
    * baseline_minimum is the minimum maximum withdrawal coin amount within the
    * time period.
-   * e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 unemo for 50k DV4TNT
+   * e.g. 100_000_000_000 uusdc for 100k USDC; 5e22 adv4tnt for 50k DV4TNT
    */
 
   baseline_minimum: Uint8Array;

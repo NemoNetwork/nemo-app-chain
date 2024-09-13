@@ -445,7 +445,7 @@ export interface StreamTakerOrderStatus {
   /**
    * The state of the taker order after attempting to match it against the
    * orderbook. Possible enum values can be found here:
-   * https://github.com/nemo-network/v4-chain/blob/main/protocol/x/clob/types/orderbook.go#L105
+   * https://github.com/nemo_network/v4-chain/blob/main/protocol/x/clob/types/orderbook.go#L105
    */
   orderStatus: number;
   /** The amount of remaining (non-matched) base quantums of this taker order. */
@@ -471,7 +471,7 @@ export interface StreamTakerOrderStatusSDKType {
   /**
    * The state of the taker order after attempting to match it against the
    * orderbook. Possible enum values can be found here:
-   * https://github.com/nemo-network/v4-chain/blob/main/protocol/x/clob/types/orderbook.go#L105
+   * https://github.com/nemo_network/v4-chain/blob/main/protocol/x/clob/types/orderbook.go#L105
    */
   order_status: number;
   /** The amount of remaining (non-matched) base quantums of this taker order. */

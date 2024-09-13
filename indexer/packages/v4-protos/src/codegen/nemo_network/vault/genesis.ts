@@ -162,10 +162,6 @@ export const GenesisState = {
       OwnerShareUnlocks.encode(v!, writer.uint32(42).fork()).ldelim();
     }
 
-    for (const v of message.vaults) {
-      Vault.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-
     return writer;
   },
 
@@ -196,10 +192,6 @@ export const GenesisState = {
 
         case 5:
           message.allOwnerShareUnlocks.push(OwnerShareUnlocks.decode(reader, reader.uint32()));
-          break;
-
-        case 2:
-          message.vaults.push(Vault.decode(reader, reader.uint32()));
           break;
 
         default:

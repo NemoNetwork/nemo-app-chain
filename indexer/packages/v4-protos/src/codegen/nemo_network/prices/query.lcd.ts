@@ -19,7 +19,7 @@ export class LCDQueryClient {
 
 
   async marketPrice(params: QueryMarketPriceRequest): Promise<QueryMarketPriceResponseSDKType> {
-    const endpoint = `nemo-network/prices/market/${params.id}`;
+    const endpoint = `nemo_network/prices/market/${params.id}`;
     return await this.req.get<QueryMarketPriceResponseSDKType>(endpoint);
   }
   /* Queries a list of MarketPrice items. */
@@ -36,14 +36,14 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `nemo-network/prices/market`;
+    const endpoint = `nemo_network/prices/market`;
     return await this.req.get<QueryAllMarketPricesResponseSDKType>(endpoint, options);
   }
   /* Queries a MarketParam by id. */
 
 
   async marketParam(params: QueryMarketParamRequest): Promise<QueryMarketParamResponseSDKType> {
-    const endpoint = `nemo-network/prices/params/market/${params.id}`;
+    const endpoint = `nemo_network/prices/params/market/${params.id}`;
     return await this.req.get<QueryMarketParamResponseSDKType>(endpoint);
   }
   /* Queries a list of MarketParam items. */
@@ -60,7 +60,7 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `nemo-network/prices/params/market`;
+    const endpoint = `nemo_network/prices/params/market`;
     return await this.req.get<QueryAllMarketParamsResponseSDKType>(endpoint, options);
   }
 

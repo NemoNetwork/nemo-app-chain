@@ -25,7 +25,7 @@ export class MsgClientImpl implements Msg {
 
   depositToMegavault(request: MsgDepositToMegavault): Promise<MsgDepositToMegavaultResponse> {
     const data = MsgDepositToMegavault.encode(request).finish();
-    const promise = this.rpc.request("nemo-network.vault.Msg", "DepositToMegavault", data);
+    const promise = this.rpc.request("nemo_network.vault.Msg", "DepositToMegavault", data);
     return promise.then(data => MsgDepositToMegavaultResponse.decode(new _m0.Reader(data)));
   }
 
