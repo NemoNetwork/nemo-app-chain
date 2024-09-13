@@ -23,6 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@nemo-network-indexer/example-package": ["packages/example-package/src"],
+      "@nemo-network-indexer/base": ["packages/base/src"],
     },
   },
   "exclude": [

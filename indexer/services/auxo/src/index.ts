@@ -24,7 +24,7 @@ import {
   LastUpdateStatus,
   UpdateFunctionCodeCommand,
 } from '@aws-sdk/client-lambda';
-import { logger, startBugsnag } from '@nemo-network-indexer/base';
+import { logger, startBugsnag } from '../../../packages/base/build';
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import _ from 'lodash';
 

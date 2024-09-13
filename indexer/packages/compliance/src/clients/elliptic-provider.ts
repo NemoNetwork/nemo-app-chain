@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
-import { TooManyRequestsError, logger, stats } from '@nemo-network-indexer/base';
+import { TooManyRequestsError, logger, stats } from '../../../base/build';
+
 import axios, { AxiosResponse } from 'axios';
 import _ from 'lodash';
 

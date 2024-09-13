@@ -4,10 +4,11 @@
   "description": "",
   "main": "build/src/index.js",
   "devDependencies": {
-    "@nemo-network-indexer/dev": "workspace:^0.0.1",
-    "jest": "^28.1.2",
-    "@types/jest": "^28.1.4",
-    "typescript": "^4.7.4"
+    "@types/jest": "^28.1.8",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^22.5.4",
+    "jest": "^28.1.3",
+    "typescript": "^4.9.5"
   },
   "scripts": {
     "lint": "eslint --ext .ts,.js .",
@@ -28,9 +29,11 @@
   },
   "homepage": "https://github.com/nemo-network/indexer#readme",
   "dependencies": {
-    "@nemo-network-indexer/base": "workspace:^0.0.1",
-    "axios": "^1.2.1",
-    "dotenv-flow": "^3.2.0",
+    "axios": "^1.7.7",
+    "dotenv-flow": "^3.3.0",
     "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "@nemo-network-indexer/base": "workspace:^0.0.1"
   }
 }

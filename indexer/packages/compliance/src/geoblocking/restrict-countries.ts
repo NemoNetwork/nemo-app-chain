@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base';
+import { stats } from '../../../base/build';
 
 import config from '../config';
 import { isRestrictedCountry } from './util';

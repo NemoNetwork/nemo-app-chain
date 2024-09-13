@@ -8,7 +8,7 @@ import {
   baseConfigSchema,
   parseInteger,
   parseBoolean,
-} from '@nemo-network-indexer/base';
+} from '../../base/build';
 
 export const complianceConfigSchema = {
   ...baseConfigSchema,

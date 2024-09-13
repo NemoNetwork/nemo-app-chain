@@ -6,7 +6,7 @@ import {
   parseSchema,
   baseConfigSchema,
   parseNumber,
-} from '@nemo-network-indexer/base';
+} from '../../../packages/base/build';
 
 export const configSchema = {
   ...baseConfigSchema,

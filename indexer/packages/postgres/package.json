@@ -9,7 +9,7 @@
     "@types/jest": "^28.1.4",
     "@types/lodash": "^4.14.182",
     "@types/luxon": "^3.0.0",
-    "@types/node": "^18.0.3",
+    "@types/node": "^18.19.50",
     "@types/pg": "^8.6.5",
     "@types/uuid": "^8.3.4",
     "jest": "^28.1.2",
