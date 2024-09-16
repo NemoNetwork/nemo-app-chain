@@ -28,8 +28,8 @@ import {
   TransferFromDatabase,
   TransferType,
   parentSubaccountHelpers,
-} from '@nemo-network-indexer/postgres';
-import { OrderbookLevels, PriceLevel } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { OrderbookLevels, PriceLevel } from '@nemo-network-indexer/redis/src';
 import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';

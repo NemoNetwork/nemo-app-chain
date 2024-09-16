@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base';
+import { stats } from '@nemo-network-indexer/base/src';
 import {
   DEFAULT_POSTGRES_OPTIONS,
   FundingIndexUpdatesColumns,
@@ -8,7 +8,7 @@ import {
   Ordering,
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import {

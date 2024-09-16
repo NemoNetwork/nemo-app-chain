@@ -1,10 +1,10 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import {
   BatchKafkaProducer,
   KafkaTopics,
   producer,
   ProducerMessage,
-} from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/kafka/src';
 import {
   OrderFromDatabase,
   OrderTable,
@@ -12,7 +12,7 @@ import {
   PerpetualMarketFromDatabase,
   perpetualMarketRefresher,
   protocolTranslations,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { getOrderIdHash } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,

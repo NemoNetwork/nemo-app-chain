@@ -10,7 +10,7 @@ import {
   SubaccountMessageContents,
   SubaccountTable,
   TimeInForce,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import {
   IndexerOrder,
   IndexerOrder_ConditionType,

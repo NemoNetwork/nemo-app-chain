@@ -1,4 +1,4 @@
-import { SubaccountTable } from '@nemo-network-indexer/postgres';
+import { SubaccountTable } from '@nemo-network-indexer/postgres/src';
 import { IndexerSubaccountId } from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 import { RedisClient } from 'redis';

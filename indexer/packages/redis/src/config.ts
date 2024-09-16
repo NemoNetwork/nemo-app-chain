@@ -6,7 +6,7 @@ import {
   parseInteger,
   parseString,
   parseSchema,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 
 export const redisConfigSchema = {
   // Required environment variables.

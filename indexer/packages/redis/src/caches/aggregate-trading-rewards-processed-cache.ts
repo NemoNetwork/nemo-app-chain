@@ -1,4 +1,4 @@
-import { IsoString, TradingRewardAggregationPeriod } from '@nemo-network-indexer/postgres';
+import { IsoString, TradingRewardAggregationPeriod } from '@nemo-network-indexer/postgres/src';
 import { RedisClient } from 'redis';
 
 import { getAsync } from '../helpers/redis';

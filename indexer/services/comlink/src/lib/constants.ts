@@ -1,6 +1,6 @@
 import {
   CandleResolution, PositionSide, USDC_ASSET_ID, USDC_SYMBOL,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import Big from 'big.js';
 
 import { AssetPositionResponseObject, SparklineTimePeriod } from '../types';

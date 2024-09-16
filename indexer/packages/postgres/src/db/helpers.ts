@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import Big from 'big.js';
 import { DateTime } from 'luxon';
 

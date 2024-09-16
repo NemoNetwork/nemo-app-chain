@@ -24,6 +24,11 @@
     "paths": {
       "@nemo-network-indexer/example-package": ["packages/example-package/src"],
       "@nemo-network-indexer/base": ["packages/base/src"],
+      "@nemo-network-indexer/dev": ["packages/dev/src"],
+      "@nemo-network-indexer/kafka": ["packages/kafka/src"],
+      "@nemo-network-indexer/postgres": ["packages/postgres/src"],
+      "@nemo-network-indexer/redis": ["packages/redis/src"],
+      "@nemo-network-indexer/compliance": ["packages/compliance/src"],
     },
   },
   "exclude": [

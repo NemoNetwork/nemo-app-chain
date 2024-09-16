@@ -1,10 +1,10 @@
-import { stats } from '@nemo-network-indexer/base';
+import { stats } from '@nemo-network-indexer/base/src';
 import {
   SubaccountFromDatabase,
   SubaccountTable,
   SubaccountUsernamesFromDatabase,
   SubaccountUsernamesTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import express from 'express';
 import {
   checkSchema,

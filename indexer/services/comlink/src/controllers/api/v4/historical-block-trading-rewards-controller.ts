@@ -1,11 +1,11 @@
-import { stats } from '@nemo-network-indexer/base';
+import { stats } from '@nemo-network-indexer/base/src';
 import {
   IsoString,
   Ordering,
   TradingRewardColumns,
   TradingRewardFromDatabase,
   TradingRewardTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import _ from 'lodash';

@@ -9,7 +9,7 @@ import {
   OrderTable,
   testConstants,
   testMocks,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import {
   getPnl,
   getRealizedFunding,

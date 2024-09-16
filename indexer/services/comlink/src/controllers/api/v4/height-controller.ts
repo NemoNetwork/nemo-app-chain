@@ -1,5 +1,5 @@
-import { stats } from '@nemo-network-indexer/base';
-import { BlockTable, BlockFromDatabase } from '@nemo-network-indexer/postgres';
+import { stats } from '@nemo-network-indexer/base/src';
+import { BlockTable, BlockFromDatabase } from '@nemo-network-indexer/postgres/src';
 import express from 'express';
 import { Controller, Get, Route } from 'tsoa';
 

@@ -7,7 +7,7 @@ import {
   baseConfigSchema,
   parseInteger,
   parseBoolean,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   kafkaConfigSchema,
 } from '@nemo-network-indexer/kafka';
@@ -16,7 +16,7 @@ import {
 } from '@nemo-network-indexer/postgres';
 import {
   redisConfigSchema,
-} from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/redis/src';
 
 export const configSchema = {
   ...baseConfigSchema,

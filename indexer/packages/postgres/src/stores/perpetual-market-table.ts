@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import Knex from 'knex';
 import _ from 'lodash';
 import { QueryBuilder } from 'objection';

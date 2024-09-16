@@ -1,4 +1,4 @@
-import { PnlTicksCreateObject } from '@nemo-network-indexer/postgres';
+import { PnlTicksCreateObject } from '@nemo-network-indexer/postgres/src';
 import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 
 // Type for the result of an order being placed

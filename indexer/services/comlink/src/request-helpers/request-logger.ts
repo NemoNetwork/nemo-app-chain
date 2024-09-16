@@ -1,4 +1,4 @@
-import { logger, safeJsonStringify } from '@nemo-network-indexer/base';
+import { logger, safeJsonStringify } from '@nemo-network-indexer/base/src';
 import express from 'express';
 
 import config from '../config';

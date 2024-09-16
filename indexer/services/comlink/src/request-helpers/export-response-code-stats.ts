@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base';
+import { stats } from '@nemo-network-indexer/base/src';
 import express from 'express';
 
 import config from '../config';

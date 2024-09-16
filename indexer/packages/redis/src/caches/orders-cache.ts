@@ -1,4 +1,4 @@
-import { OrderTable } from '@nemo-network-indexer/postgres';
+import { OrderTable } from '@nemo-network-indexer/postgres/src';
 import {
   IndexerOrderId,
   RedisOrder,

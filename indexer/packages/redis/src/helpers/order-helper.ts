@@ -1,4 +1,4 @@
-import { OrderTable, PerpetualMarketFromDatabase, protocolTranslations } from '@nemo-network-indexer/postgres';
+import { OrderTable, PerpetualMarketFromDatabase, protocolTranslations } from '@nemo-network-indexer/postgres/src';
 import { IndexerOrder, RedisOrder, RedisOrder_TickerType } from '@nemo-network-indexer/v4-protos';
 
 /**

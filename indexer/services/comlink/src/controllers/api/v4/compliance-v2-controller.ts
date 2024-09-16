@@ -2,8 +2,8 @@ import {
   ExtendedSecp256k1Signature, Secp256k1, ripemd160, sha256,
 } from '@cosmjs/crypto';
 import { toBech32 } from '@cosmjs/encoding';
-import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base';
-import { CountryHeaders, isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo-network-indexer/compliance';
+import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base/src';
+import { CountryHeaders, isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo-network-indexer/compliance/src';
 import {
   ComplianceReason,
   ComplianceStatus,
@@ -11,7 +11,7 @@ import {
   ComplianceStatusTable,
   WalletFromDatabase,
   WalletTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { verifyADR36Amino } from '@keplr-wallet/cosmos';
 import express from 'express';
 import { matchedData } from 'express-validator';

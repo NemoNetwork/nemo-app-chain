@@ -1,4 +1,4 @@
-import { logger, wrapBackgroundTask } from '@nemo-network-indexer/base';
+import { logger, wrapBackgroundTask } from '@nemo-network-indexer/base/src';
 import {
   updateOnMessageFunction,
   consumer,
@@ -6,7 +6,7 @@ import {
   startConsumer,
   stopConsumer,
   TO_ENDER_TOPIC,
-} from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/kafka/src';
 import { IndexerTendermintBlock, IndexerTendermintEvent } from '@nemo-network-indexer/v4-protos';
 import { KafkaMessage } from 'kafkajs';
 import _ from 'lodash';

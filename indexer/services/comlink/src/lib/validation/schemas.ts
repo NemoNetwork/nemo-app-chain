@@ -2,7 +2,7 @@ import {
   perpetualMarketRefresher,
   MAX_PARENT_SUBACCOUNTS,
   CHILD_SUBACCOUNT_MULTIPLIER,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { checkSchema, ParamSchema } from 'express-validator';
 
 import config from '../../config';

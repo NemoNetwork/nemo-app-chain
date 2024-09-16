@@ -1,4 +1,4 @@
-import { LeaderboardPnlTimeSpan } from '@nemo-network-indexer/postgres';
+import { LeaderboardPnlTimeSpan } from '@nemo-network-indexer/postgres/src';
 import { RedisClient } from 'redis';
 
 import { getAsync } from '../helpers/redis';

@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base';
+import { stats } from '@nemo-network-indexer/base/src';
 import {
   DEFAULT_POSTGRES_OPTIONS,
   Ordering, PaginationFromDatabase,
@@ -24,7 +24,7 @@ import {
   MarketFromDatabase,
   BlockFromDatabase,
   FundingIndexUpdatesTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import express from 'express';
 import _ from 'lodash';
 import {

@@ -2,7 +2,7 @@ import {
   stats,
   logger,
   NodeEnv,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 
 import config from '../config';
 import * as AssetTable from '../stores/asset-table';

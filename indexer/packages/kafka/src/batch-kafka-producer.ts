@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base/src';
 import { IHeaders, Producer, RecordMetadata } from 'kafkajs';
 import _ from 'lodash';
 
