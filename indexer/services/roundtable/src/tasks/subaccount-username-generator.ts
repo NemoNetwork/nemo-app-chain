@@ -1,8 +1,8 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import {
   SubaccountUsernamesTable,
   SubaccountsWithoutUsernamesResult,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { generateUsername } from 'unique-username-generator';
 
 import config from '../config';

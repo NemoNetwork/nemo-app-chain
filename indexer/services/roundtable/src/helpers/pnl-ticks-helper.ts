@@ -1,4 +1,4 @@
-import { logger, stats } from '@nemo-network-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base/src';
 import {
   AssetPositionTable,
   FundingIndexMap,
@@ -17,8 +17,8 @@ import {
   SubaccountTable,
   SubaccountToPerpetualPositionsMap,
   TransferTable,
-} from '@nemo-network-indexer/postgres';
-import { LatestAccountPnlTicksCache, PnlTickForSubaccounts } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { LatestAccountPnlTicksCache, PnlTickForSubaccounts } from '@nemo-network-indexer/redis/src';
 import Big from 'big.js';
 import _ from 'lodash';
 import { DateTime } from 'luxon';

@@ -1,8 +1,8 @@
 import {
   ComplianceClient,
   getComplianceClient,
-} from '@nemo-network-indexer/compliance';
-import { ComplianceProvider } from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/compliance/src';
+import { ComplianceProvider } from '@nemo-network-indexer/postgres/src';
 
 export interface ClientAndProvider {
   client: ComplianceClient,

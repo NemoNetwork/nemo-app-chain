@@ -1,4 +1,4 @@
-import { logger, stats } from '@nemo-network-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base/src';
 import {
   BlockFromDatabase,
   BlockTable,
@@ -6,8 +6,8 @@ import {
   PnlTicksTable,
   Transaction,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres';
-import { LatestAccountPnlTicksCache } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { LatestAccountPnlTicksCache } from '@nemo-network-indexer/redis/src';
 import _ from 'lodash';
 
 import config from '../config';

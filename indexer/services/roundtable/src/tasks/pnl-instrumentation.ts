@@ -1,12 +1,12 @@
-import { logger, stats } from '@nemo-network-indexer/base';
+import { logger, stats } from '@nemo-network-indexer/base/src';
 import {
   BlockFromDatabase,
   BlockTable, PnlTicksCreateObject,
   SubaccountFromDatabase,
   SubaccountTable,
   TransferTable,
-} from '@nemo-network-indexer/postgres';
-import { PnlTickForSubaccounts } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { PnlTickForSubaccounts } from '@nemo-network-indexer/redis/src';
 import _ from 'lodash';
 import { DateTime } from 'luxon';
 

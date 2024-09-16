@@ -1,6 +1,6 @@
 import {
   logger,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import Athena from 'aws-sdk/clients/athena';
 import RDS from 'aws-sdk/clients/rds';
 import S3 from 'aws-sdk/clients/s3';

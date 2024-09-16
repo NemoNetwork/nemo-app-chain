@@ -1,6 +1,6 @@
 import {
   stats,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   BlockFromDatabase,
   BlockTable,
@@ -8,7 +8,7 @@ import {
   OrderStatus,
   OrderTable,
   PaginationFromDatabase,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { ORDER_FLAG_SHORT_TERM } from '@nemo-network-indexer/v4-proto-parser';
 
 import config from '../config';

@@ -1,11 +1,11 @@
 import {
   logger,
   stats,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   StatefulOrderUpdateInfo,
   StatefulOrderUpdatesCache,
-} from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/redis/src';
 import { OrderUpdateV1 } from '@nemo-network-indexer/v4-protos';
 
 import config from '../config';

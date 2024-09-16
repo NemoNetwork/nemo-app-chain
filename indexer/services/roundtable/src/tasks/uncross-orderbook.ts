@@ -1,6 +1,6 @@
-import { logger, stats } from '@nemo-network-indexer/base';
-import { OrderSide, PerpetualMarketFromDatabase, PerpetualMarketTable } from '@nemo-network-indexer/postgres';
-import { OrderbookLevels, OrderbookLevelsCache } from '@nemo-network-indexer/redis';
+import { logger, stats } from '@nemo-network-indexer/base/src';
+import { OrderSide, PerpetualMarketFromDatabase, PerpetualMarketTable } from '@nemo-network-indexer/postgres/src';
+import { OrderbookLevels, OrderbookLevelsCache } from '@nemo-network-indexer/redis/src';
 import Big from 'big.js';
 
 import config from '../config';

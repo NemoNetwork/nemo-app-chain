@@ -1,12 +1,12 @@
 import {
   stats,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   OrderSide,
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
 } from '@nemo-network-indexer/postgres';
-import { OrderbookLevels, OrderbookLevelsCache, PriceLevel } from '@nemo-network-indexer/redis';
+import { OrderbookLevels, OrderbookLevelsCache, PriceLevel } from '@nemo-network-indexer/redis/src';
 import _ from 'lodash';
 
 import config from '../config';

@@ -1,12 +1,12 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import {
   LeaderboardPnlTimeSpan,
   LeaderboardPnlCreateObject,
   LeaderboardPnlTable,
   PnlTicksTable,
   Transaction,
-} from '@nemo-network-indexer/postgres';
-import { LeaderboardPnlProcessedCache } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { LeaderboardPnlProcessedCache } from '@nemo-network-indexer/redis/src';
 import _ from 'lodash';
 
 import config from '../config';

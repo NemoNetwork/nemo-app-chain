@@ -2,8 +2,8 @@ import {
   logger,
   stats,
   wrapBackgroundTask,
-} from '@nemo-network-indexer/base';
-import { redis } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/base/src';
+import { redis } from '@nemo-network-indexer/redis/src';
 import { v4 as uuidv4 } from 'uuid';
 
 import config from '../config';

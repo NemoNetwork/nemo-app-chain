@@ -1,15 +1,15 @@
 import {
   logger,
   stats,
-} from '@nemo-network-indexer/base';
-import { BatchKafkaProducer, KafkaTopics, producer } from '@nemo-network-indexer/kafka';
-import { BlockTable, BlockFromDatabase } from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/base/src';
+import { BatchKafkaProducer, KafkaTopics, producer } from '@nemo-network-indexer/kafka/src';
+import { BlockTable, BlockFromDatabase } from '@nemo-network-indexer/postgres/src';
 import {
   OrderData,
   OrderExpiryCache,
   OrdersCache,
   OrdersDataCache,
-} from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/redis/src';
 import { getOrderIdHash } from '@nemo-network-indexer/v4-proto-parser';
 import { IndexerOrder, RedisOrder } from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';

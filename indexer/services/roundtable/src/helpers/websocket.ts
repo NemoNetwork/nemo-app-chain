@@ -2,8 +2,8 @@ import {
   logger,
   stats,
   wrapBackgroundTask,
-} from '@nemo-network-indexer/base';
-import { MARKETS_WEBSOCKET_MESSAGE_VERSION, producer, WebsocketTopics } from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/base/src';
+import { MARKETS_WEBSOCKET_MESSAGE_VERSION, producer, WebsocketTopics } from '@nemo-network-indexer/kafka/src';
 import {
   LiquidityTiersFromDatabase,
   LiquidityTiersMap,
@@ -12,7 +12,7 @@ import {
   PerpetualMarketsMap,
   TradingMarketMessageContents,
   helpers,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import {
   MarketMessage,
   OffChainUpdateV1,

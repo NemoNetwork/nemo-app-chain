@@ -4,7 +4,7 @@ import {
   floorDate,
   logger,
   runFuncWithTimingStat,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   BlockFromDatabase,
   BlockTable,
@@ -21,8 +21,8 @@ import {
   TradingRewardFromDatabase,
   TradingRewardTable,
   Transaction,
-} from '@nemo-network-indexer/postgres';
-import { AggregateTradingRewardsProcessedCache } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { AggregateTradingRewardsProcessedCache } from '@nemo-network-indexer/redis/src';
 import Big from 'big.js';
 import _ from 'lodash';
 import { DateTime, Interval } from 'luxon';
