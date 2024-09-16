@@ -1,7 +1,7 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import {
   consumer, producer, KafkaTopics, updateOnMessageFunction, updateOnBatchFunction,
-} from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/kafka/src';
 import { KafkaMessage } from 'kafkajs';
 
 import config from '../../config';

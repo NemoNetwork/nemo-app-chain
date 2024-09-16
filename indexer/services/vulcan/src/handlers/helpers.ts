@@ -1,4 +1,4 @@
-import { StateFilledQuantumsCache } from '@nemo-network-indexer/redis';
+import { StateFilledQuantumsCache } from '@nemo-network-indexer/redis/src';
 import { IndexerOrder_Side, RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 

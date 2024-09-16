@@ -1,7 +1,7 @@
 import {
   logger, stats, STATS_NO_SAMPLING, wrapBackgroundTask,
-} from '@nemo-network-indexer/base';
-import { producer } from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/base/src';
+import { producer } from '@nemo-network-indexer/kafka/src';
 import { Message } from 'kafkajs';
 
 import config from '../config';

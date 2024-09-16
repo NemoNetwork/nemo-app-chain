@@ -1,8 +1,8 @@
-import { logger, ParseMessageError } from '@nemo-network-indexer/base';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base/src';
 import {
   ORDERBOOKS_WEBSOCKET_MESSAGE_VERSION,
-} from '@nemo-network-indexer/kafka';
-import { OrderbookMessageContents, PerpetualMarketFromDatabase, protocolTranslations } from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/kafka/src';
+import { OrderbookMessageContents, PerpetualMarketFromDatabase, protocolTranslations } from '@nemo-network-indexer/postgres/src';
 import { OffChainUpdateV1, OrderbookMessage, RedisOrder } from '@nemo-network-indexer/v4-protos';
 import { IHeaders } from 'kafkajs';
 import { OrderbookSide } from 'src/lib/types';

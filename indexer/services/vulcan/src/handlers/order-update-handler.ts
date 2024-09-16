@@ -2,20 +2,20 @@ import {
   logger,
   runFuncWithTimingStat,
   stats,
-} from '@nemo-network-indexer/base';
-import { KafkaTopics } from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/base/src';
+import { KafkaTopics } from '@nemo-network-indexer/kafka/src';
 import {
   PerpetualMarketFromDatabase,
   protocolTranslations,
   perpetualMarketRefresher,
   OrderTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import {
   updateOrder,
   UpdateOrderResult,
   OrderbookLevelsCache,
   StatefulOrderUpdatesCache,
-} from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/redis/src';
 import { isStatefulOrder, requiresImmediateExecution } from '@nemo-network-indexer/v4-proto-parser';
 import {
   OffChainUpdateV1,

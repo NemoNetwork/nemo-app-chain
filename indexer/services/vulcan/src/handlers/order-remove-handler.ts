@@ -1,5 +1,5 @@
-import { logger, runFuncWithTimingStat, stats } from '@nemo-network-indexer/base';
-import { KafkaTopics, SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION, getTriggerPrice } from '@nemo-network-indexer/kafka';
+import { logger, runFuncWithTimingStat, stats } from '@nemo-network-indexer/base/src';
+import { KafkaTopics, SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION, getTriggerPrice } from '@nemo-network-indexer/kafka/src';
 import {
   blockHeightRefresher,
   BlockTable,
@@ -18,14 +18,14 @@ import {
   OrderSide,
   APITimeInForce,
   OrderType,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import {
   OrderbookLevelsCache,
   OrdersCache,
   RemoveOrderResult,
   removeOrder,
   CanceledOrdersCache,
-} from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/redis/src';
 import {
   ORDER_FLAG_SHORT_TERM,
   isStatefulOrder,

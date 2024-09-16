@@ -3,8 +3,8 @@ import {
   stats,
   ParseMessageError,
   STATS_NO_SAMPLING,
-} from '@nemo-network-indexer/base';
-import { KafkaTopics } from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/base/src';
+import { KafkaTopics } from '@nemo-network-indexer/kafka/src';
 import { OffChainUpdateV1 } from '@nemo-network-indexer/v4-protos';
 import { IHeaders, KafkaMessage } from 'kafkajs';
 import { Handler } from 'src/handlers/handler';
