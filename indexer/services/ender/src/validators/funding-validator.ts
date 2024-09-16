@@ -1,5 +1,5 @@
-import { logger } from '@nemo-network-indexer/base';
-import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import { logger } from '@nemo-network-indexer/base/src';
+import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres/src';
 import {
   FundingEventV1,
   FundingEventV1_Type,

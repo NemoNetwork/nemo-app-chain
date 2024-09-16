@@ -777,6 +777,9 @@ importers:
       '@nemo-network-indexer/v4-protos':
         specifier: workspace:^0.0.1
         version: link:../../packages/v4-protos
+      '@types/redis':
+        specifier: 2.8.27
+        version: 2.8.27
       big.js:
         specifier: ^6.0.2
         version: 6.2.2

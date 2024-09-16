@@ -2,7 +2,7 @@ import {
   AssetFromDatabase,
   AssetModel,
   assetRefresher,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { AssetCreateEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 

@@ -1,4 +1,4 @@
-import { redis as redisLib } from '@nemo-network-indexer/redis';
+import { redis as redisLib } from '@nemo-network-indexer/redis/src';
 import {
   RedisClient,
 } from 'redis';

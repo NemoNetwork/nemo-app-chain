@@ -1,5 +1,5 @@
-import { stats } from '@nemo-network-indexer/base';
-import { CANDLES_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka';
+import { stats } from '@nemo-network-indexer/base/src';
+import { CANDLES_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka/src';
 import {
   CANDLE_RESOLUTION_TO_PROTO,
   CandleColumns,
@@ -20,7 +20,7 @@ import {
   TradeMessageContents,
   helpers,
 } from '@nemo-network-indexer/postgres';
-import { OrderbookLevelsCache } from '@nemo-network-indexer/redis';
+import { OrderbookLevelsCache } from '@nemo-network-indexer/redis/src';
 import { CandleMessage } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';

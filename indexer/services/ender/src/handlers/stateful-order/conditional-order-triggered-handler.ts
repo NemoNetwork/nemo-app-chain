@@ -4,7 +4,7 @@ import {
   PerpetualMarketFromDatabase,
   orderTranslations,
   SubaccountFromDatabase, OrderModel, PerpetualMarketModel,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import SubaccountModel from '@nemo-network-indexer/postgres/build/src/models/subaccount-model';
 import { getOrderIdHash } from '@nemo-network-indexer/v4-proto-parser';
 import {

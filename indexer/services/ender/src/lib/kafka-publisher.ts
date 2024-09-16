@@ -1,12 +1,12 @@
-import { stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base';
+import { stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base/src';
 import {
   BatchKafkaProducer,
   KafkaTopics,
   producer,
   ProducerMessage,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
-} from '@nemo-network-indexer/kafka';
-import { FillSubaccountMessageContents, TradeMessageContents } from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/kafka/src';
+import { FillSubaccountMessageContents, TradeMessageContents } from '@nemo-network-indexer/postgres/src';
 import {
   BlockHeightMessage,
   CandleMessage,

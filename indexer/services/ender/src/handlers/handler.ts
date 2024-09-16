@@ -3,14 +3,14 @@ import {
   ParseMessageError,
   runFuncWithTimingStat,
   stats,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   MARKETS_WEBSOCKET_MESSAGE_VERSION,
   SUBACCOUNTS_WEBSOCKET_MESSAGE_VERSION,
   TRADES_WEBSOCKET_MESSAGE_VERSION,
   KafkaTopics,
-} from '@nemo-network-indexer/kafka';
-import { SubaccountMessageContents } from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/kafka/src';
+import { SubaccountMessageContents } from '@nemo-network-indexer/postgres/src';
 import {
   IndexerTendermintBlock,
   IndexerTendermintEvent,

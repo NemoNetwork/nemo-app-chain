@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import { MarketEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 

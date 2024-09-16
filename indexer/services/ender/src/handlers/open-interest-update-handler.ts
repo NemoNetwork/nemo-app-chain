@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import {
   PerpetualMarketFromDatabase,
   PerpetualMarketModel,
@@ -6,7 +6,7 @@ import {
   MarketMessageContents,
   TradingMarketMessageContents,
   TradingPerpetualMarketMessage,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { OpenInterestUpdateEventV1 } from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 import * as pg from 'pg';

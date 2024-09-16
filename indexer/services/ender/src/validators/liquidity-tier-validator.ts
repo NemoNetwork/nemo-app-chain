@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import { IndexerTendermintEvent, LiquidityTierUpsertEventV1, LiquidityTierUpsertEventV2 } from '@nemo-network-indexer/v4-protos';
 
 import { Handler } from '../handlers/handler';

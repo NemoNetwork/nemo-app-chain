@@ -5,7 +5,7 @@
   "main": "build/index",
   "scripts": {
     "start": "node --heapsnapshot-signal=SIGUSR2 -r dd-trace/init -r dotenv-flow/config build/src/index.js",
-    "build": "rm -rf build/ && tsc && cp -r src/scripts build/src/scripts",
+    "build": "rm -rf build/ && tsc && mkdir build/src && cp -r src/scripts build/src/scripts",
     "build:prod": "pnpm run build",
     "build:watch": "pnpm run build -- --watch",
     "coverage": "pnpm test -- --coverage",
@@ -22,6 +22,7 @@
     "@nemo-network-indexer/redis": "workspace:^0.0.1",
     "@nemo-network-indexer/v4-proto-parser": "workspace:^0.0.1",
     "@nemo-network-indexer/v4-protos": "workspace:^0.0.1",
+    "@types/redis": "2.8.27",
     "big.js": "^6.0.2",
     "dd-trace": "^3.32.1",
     "dotenv-flow": "^3.2.0",

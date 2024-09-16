@@ -1,4 +1,4 @@
-import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres';
+import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres/src';
 import { IndexerTendermintEvent, UpdateClobPairEventV1 } from '@nemo-network-indexer/v4-protos';
 
 import { Handler } from '../handlers/handler';

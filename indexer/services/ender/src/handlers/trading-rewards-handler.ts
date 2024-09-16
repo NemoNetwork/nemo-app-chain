@@ -3,7 +3,7 @@ import {
   TradingRewardFromDatabase,
   TradingRewardModel,
   TradingRewardSubaccountMessageContents,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { TradingRewardsEventV1 } from '@nemo-network-indexer/v4-protos';
 import _ from 'lodash';
 import * as pg from 'pg';

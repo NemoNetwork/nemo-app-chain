@@ -1,4 +1,4 @@
-import { NodeEnv } from '@nemo-network-indexer/base';
+import { NodeEnv } from '@nemo-network-indexer/base/src';
 import {
   CandleFromDatabase,
   CandleResolution,
@@ -7,7 +7,7 @@ import {
   PerpetualMarketColumns,
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import _ from 'lodash';
 
 let candlesMap: CandlesMap = {};

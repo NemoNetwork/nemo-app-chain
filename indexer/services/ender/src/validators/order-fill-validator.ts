@@ -1,8 +1,8 @@
 import {
   Liquidity,
   OrderTable,
-} from '@nemo-network-indexer/postgres';
-import { CanceledOrdersCache } from '@nemo-network-indexer/redis';
+} from '@nemo-network-indexer/postgres/src';
+import { CanceledOrdersCache } from '@nemo-network-indexer/redis/src';
 import {
   IndexerTendermintEvent,
   LiquidationOrderV1,

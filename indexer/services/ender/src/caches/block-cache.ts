@@ -1,4 +1,4 @@
-import { NodeEnv, logger, stats } from '@nemo-network-indexer/base';
+import { NodeEnv, logger, stats } from '@nemo-network-indexer/base/src';
 import {
   BlockFromDatabase,
   BlockTable,
@@ -6,7 +6,7 @@ import {
   Transaction,
   assetRefresher,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import Big from 'big.js';
 
 import config from '../config';

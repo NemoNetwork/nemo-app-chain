@@ -12,7 +12,7 @@ import {
   SubaccountMessageContents,
   SubaccountTable,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import _ from 'lodash';
 import * as pg from 'pg';
 

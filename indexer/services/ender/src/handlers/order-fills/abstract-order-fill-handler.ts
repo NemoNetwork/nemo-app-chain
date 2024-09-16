@@ -10,7 +10,7 @@ import {
   SubaccountMessageContents,
   TradeMessageContents,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { getOrderIdHash } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,
