@@ -1,6 +1,6 @@
 import {
   InfoObject, getInstanceId, logger, safeJsonStringify, stats,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import { v4 as uuidv4 } from 'uuid';
 import WebSocket from 'ws';
 

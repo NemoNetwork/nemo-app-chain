@@ -1,10 +1,10 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import {
   parentSubaccountHelpers,
   perpetualMarketRefresher,
   PROTO_TO_CANDLE_RESOLUTION,
   SubaccountMessageContents,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import { getParentSubaccountNum } from '@nemo-network-indexer/postgres/build/src/lib/parent-subaccount-helpers';
 import {
   BlockHeightMessage,

@@ -1,4 +1,4 @@
-import { INDEXER_COMPLIANCE_BLOCKED_PAYLOAD } from '@nemo-network-indexer/compliance';
+import { INDEXER_COMPLIANCE_BLOCKED_PAYLOAD } from '@nemo-network-indexer/compliance/src';
 
 export class InvalidForwardMessageError extends Error {
   constructor(message: string) {

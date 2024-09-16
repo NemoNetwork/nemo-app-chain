@@ -5,14 +5,14 @@ import {
   parseNumber,
   parseSchema,
   parseString,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   complianceConfigSchema,
-} from '@nemo-network-indexer/compliance';
-import { kafkaConfigSchema } from '@nemo-network-indexer/kafka';
+} from '@nemo-network-indexer/compliance/src';
+import { kafkaConfigSchema } from '@nemo-network-indexer/kafka/src';
 import {
   postgresConfigSchema,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 
 export const configSchema = {
   ...baseConfigSchema,

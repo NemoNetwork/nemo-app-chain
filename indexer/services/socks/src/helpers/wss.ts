@@ -1,4 +1,4 @@
-import { stats, getInstanceId, logger } from '@nemo-network-indexer/base';
+import { stats, getInstanceId, logger } from '@nemo-network-indexer/base/src';
 import WebSocket from 'ws';
 
 import config from '../config';

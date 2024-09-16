@@ -3,7 +3,7 @@ import {
   getInstanceId,
   logger,
   stats,
-} from '@nemo-network-indexer/base';
+} from '@nemo-network-indexer/base/src';
 import {
   APIOrderStatus,
   BestEffortOpenedStatus,
@@ -13,7 +13,7 @@ import {
   MAX_PARENT_SUBACCOUNTS,
   OrderStatus,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres';
+} from '@nemo-network-indexer/postgres/src';
 import WebSocket from 'ws';
 
 import config from '../config';
@@ -570,11 +570,7 @@ export class Subscriptions {
         // TODO(DEC-1462): Use the /active-orders endpoint once it's added.
         axiosRequest({
           method: RequestMethod.GET,
-<<<<<<< HEAD
-          url: `${COMLINK_URL}/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=OPEN,UNTRIGGERED,BEST_EFFORT_OPENED`,
-=======
           url: `${COMLINK_URL}/v4/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
->>>>>>> main
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,

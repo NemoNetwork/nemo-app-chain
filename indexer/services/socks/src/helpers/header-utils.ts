@@ -1,4 +1,4 @@
-import { CountryHeaders } from '@nemo-network-indexer/compliance';
+import { CountryHeaders } from '@nemo-network-indexer/compliance/src';
 
 import { IncomingMessage } from '../types';
 

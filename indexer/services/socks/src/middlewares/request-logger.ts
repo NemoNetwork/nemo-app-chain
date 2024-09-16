@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 import express from 'express';
 import { ResponseWithBody } from 'src/types';
 

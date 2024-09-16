@@ -1,4 +1,4 @@
-import { safeAxiosRequest } from '@nemo-network-indexer/base';
+import { safeAxiosRequest } from '@nemo-network-indexer/base/src';
 import { AxiosRequestConfig } from 'axios';
 
 import config from '../config';

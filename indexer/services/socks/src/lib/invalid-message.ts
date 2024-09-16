@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base';
+import { logger } from '@nemo-network-indexer/base/src';
 
 import config from '../config';
 import { createErrorMessage } from '../helpers/message';
