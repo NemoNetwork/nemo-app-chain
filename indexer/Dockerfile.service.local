@@ -2,7 +2,9 @@
 FROM dydxprotocol/indexer-node:16-alpine-m1
 ENV NODE_ENV=development
 ARG service
-
+RUN apt-get update && \
+    apt-get install -y \
+        sudo
 # RUN apk add --no-cache bash jq aws-cli
 RUN adduser -S dydx
 RUN mkdir -p /home/dydx/app
