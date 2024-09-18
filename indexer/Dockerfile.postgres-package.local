@@ -1,6 +1,10 @@
 # Dockerfile to containerize postgres package locally
-FROM dydxprotocol/indexer-node:16-alpine-m1
+FROM node:18-alpine
 ENV NODE_ENV=development
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN corepack enable
 
 RUN adduser -S dydx
 RUN mkdir -p /home/dydx/app
