@@ -4,9 +4,10 @@ ENV NODE_ENV=development
 ARG service
 
 # RUN apk add --no-cache bash jq aws-cli
-# RUN adduser -S dydx
+RUN apk add --no-cache bash jq
+RUN adduser -S dydx
 RUN mkdir -p /home/dydx/app
-# RUN chown dydx -R /home/dydx/app
+RUN chown dydx -R /home/dydx/app
 
 WORKDIR /home/dydx/app
 
