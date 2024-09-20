@@ -76,15 +76,15 @@ services:
   #     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
   #     - /var/lib/docker/containers:/var/lib/docker/containers:ro
   #   profiles: ["export-to-datadog"]
-  # postgres-package:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.postgres-package.local
-  #   links:
-  #     - postgres
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
+  postgres-package:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres-package.local
+    links:
+      - postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
   # ender:
   #   build:
   #     context: .
