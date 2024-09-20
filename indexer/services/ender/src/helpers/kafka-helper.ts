@@ -27,7 +27,7 @@ import {
   TradingPerpetualMarketMessage,
   TransferFromDatabase,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import { SubaccountId } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';

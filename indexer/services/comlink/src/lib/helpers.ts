@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import {
   AssetPositionFromDatabase,
   BlockFromDatabase,
@@ -24,7 +24,7 @@ import {
   AssetFromDatabase,
   MarketColumns,
   AssetColumns,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import Big from 'big.js';
 import express from 'express';
 import _ from 'lodash';

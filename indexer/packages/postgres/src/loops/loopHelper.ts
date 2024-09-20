@@ -1,4 +1,4 @@
-import { delay, logger } from '@nemo-network-indexer/base/src';
+import { delay, logger } from '@nemo-network-indexer/base/build';
 
 export async function startUpdateLoop(
   updateFunction: () => Promise<void>,

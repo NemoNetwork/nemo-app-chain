@@ -1,7 +1,7 @@
 import {
   logger,
   stats,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import {
   PerpetualMarketFromDatabase,
   PerpetualMarketTable,
@@ -10,7 +10,7 @@ import {
 import {
   OrderbookLevels,
   OrderbookLevelsCache,
-} from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/redis/build/redis/src';
 import Big from 'big.js';
 
 import config from '../config';

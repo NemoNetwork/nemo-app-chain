@@ -4,7 +4,7 @@ import {
   SubaccountMessageContents,
   TransferFromDatabase,
   TransferModel,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import { TransferEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 

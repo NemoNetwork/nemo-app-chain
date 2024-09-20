@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import {
   FillFromDatabase,
   FillModel,
@@ -11,7 +11,7 @@ import {
   PerpetualPositionModel,
   SubaccountTable,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import { DeleveragingEventV1 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 

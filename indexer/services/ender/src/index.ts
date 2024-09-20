@@ -1,8 +1,8 @@
-import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base/src';
-import { stopConsumer, startConsumer } from '@nemo-network-indexer/kafka/src';
+import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base/build';
+import { stopConsumer, startConsumer } from '@nemo-network-indexer/kafka/build/src';
 import {
   assetRefresher, perpetualMarketRefresher, liquidityTierRefresher,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 
 import { initializeAllCaches } from './caches/block-cache';
 import config from './config';

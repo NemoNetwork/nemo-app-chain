@@ -1,4 +1,4 @@
-import { logger, ParseMessageError } from '@nemo-network-indexer/base/src';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base/build';
 import { IndexerTendermintBlock, IndexerTendermintEvent } from '@nemo-network-indexer/v4-protos';
 
 import { Handler } from '../handlers/handler';

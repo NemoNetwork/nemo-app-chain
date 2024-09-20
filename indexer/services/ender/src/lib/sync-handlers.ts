@@ -1,4 +1,4 @@
-import { logger, stats } from '@nemo-network-indexer/base/src';
+import { logger, stats } from '@nemo-network-indexer/base/build';
 import _ from 'lodash';
 import * as pg from 'pg';
 

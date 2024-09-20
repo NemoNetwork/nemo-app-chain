@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 
 /**
  * @function sanitizeArray

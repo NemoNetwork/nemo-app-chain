@@ -1,7 +1,7 @@
 import {
   stats,
   NodeEnv,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import _ from 'lodash';
 
 import config from '../config';

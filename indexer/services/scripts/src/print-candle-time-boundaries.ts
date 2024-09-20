@@ -1,4 +1,4 @@
-import { CandleResolution, NUM_SECONDS_IN_CANDLE_RESOLUTIONS } from '@nemo-network-indexer/postgres/src';
+import { CandleResolution, NUM_SECONDS_IN_CANDLE_RESOLUTIONS } from '@nemo-network-indexer/postgres/build/src';
 import { DateTime } from 'luxon';
 import yargs from 'yargs';
 

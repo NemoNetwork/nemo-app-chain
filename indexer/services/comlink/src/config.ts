@@ -4,12 +4,12 @@ import {
   parseInteger,
   parseSchema,
   parseString,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import { complianceConfigSchema } from '@nemo-network-indexer/compliance/src';
 import {
   postgresConfigSchema,
-} from '@nemo-network-indexer/postgres/src';
-import { redisConfigSchema } from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/postgres/build/src';
+import { redisConfigSchema } from '@nemo-network-indexer/redis/build/redis/src';
 
 export const configSchema = {
   ...baseConfigSchema,

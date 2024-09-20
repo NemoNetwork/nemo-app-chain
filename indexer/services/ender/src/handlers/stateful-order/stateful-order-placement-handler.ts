@@ -1,4 +1,4 @@
-import { OrderTable } from '@nemo-network-indexer/postgres/src';
+import { OrderTable } from '@nemo-network-indexer/postgres/build/src';
 import { getOrderIdHash } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,

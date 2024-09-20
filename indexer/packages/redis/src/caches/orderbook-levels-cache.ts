@@ -1,5 +1,5 @@
-import { logger } from '@nemo-network-indexer/base/src';
-import { OrderSide } from '@nemo-network-indexer/postgres/src';
+import { logger } from '@nemo-network-indexer/base/build';
+import { OrderSide } from '@nemo-network-indexer/postgres/build/src';
 import Big from 'big.js';
 import _ from 'lodash';
 import { Callback, RedisClient } from 'redis';

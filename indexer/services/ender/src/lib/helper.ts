@@ -1,10 +1,10 @@
-import { logger, ParseMessageError } from '@nemo-network-indexer/base/src';
+import { logger, ParseMessageError } from '@nemo-network-indexer/base/build';
 import {
   OrderSide,
   PerpetualMarketFromDatabase,
   PositionSide,
   protocolTranslations,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   IndexerTendermintEvent,
   IndexerTendermintEvent_BlockEvent,

@@ -1,6 +1,6 @@
-import { baseConfigSchema, parseSchema } from '@nemo-network-indexer/base/src';
-import { kafkaConfigSchema } from '@nemo-network-indexer/kafka/src';
-import { postgresConfigSchema } from '@nemo-network-indexer/postgres/src';
+import { baseConfigSchema, parseSchema } from '@nemo-network-indexer/base/build';
+import { kafkaConfigSchema } from '@nemo-network-indexer/kafka/build/src';
+import { postgresConfigSchema } from '@nemo-network-indexer/postgres/build/src';
 
 export const configSchema = {
   ...baseConfigSchema,

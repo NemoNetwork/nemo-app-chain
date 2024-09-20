@@ -9,7 +9,7 @@ import {
   PnlTicksColumns,
   PnlTicksFromDatabase,
   PnlTicksTable,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import Big from 'big.js';
 import _ from 'lodash';
 

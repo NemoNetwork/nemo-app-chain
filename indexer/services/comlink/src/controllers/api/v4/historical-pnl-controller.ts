@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base/src';
+import { stats } from '@nemo-network-indexer/base/build';
 import {
   DEFAULT_POSTGRES_OPTIONS,
   IsoString,
@@ -8,7 +8,7 @@ import {
   QueryableField,
   SubaccountFromDatabase,
   SubaccountTable,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import {

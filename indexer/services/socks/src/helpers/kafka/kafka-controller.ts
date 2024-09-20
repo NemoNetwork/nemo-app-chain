@@ -1,9 +1,9 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import {
   WebsocketTopics,
   consumer,
   stopConsumer,
-} from '@nemo-network-indexer/kafka/src';
+} from '@nemo-network-indexer/kafka/build/src';
 
 export async function connect(): Promise<void> {
   await consumer.connect();

@@ -1,6 +1,6 @@
-import { stats } from '@nemo-network-indexer/base/src';
-import { PerpetualMarketFromDatabase, perpetualMarketRefresher } from '@nemo-network-indexer/postgres/src';
-import { OrderbookLevels, OrderbookLevelsCache } from '@nemo-network-indexer/redis/src';
+import { stats } from '@nemo-network-indexer/base/build';
+import { PerpetualMarketFromDatabase, perpetualMarketRefresher } from '@nemo-network-indexer/postgres/build/src';
+import { OrderbookLevels, OrderbookLevelsCache } from '@nemo-network-indexer/redis/build/redis/src';
 import express from 'express';
 import { checkSchema, matchedData } from 'express-validator';
 import {

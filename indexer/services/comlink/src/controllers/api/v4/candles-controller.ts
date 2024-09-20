@@ -1,7 +1,7 @@
-import { stats } from '@nemo-network-indexer/base/src';
+import { stats } from '@nemo-network-indexer/base/build';
 import {
   CandleFromDatabase, CandleResolution, CandleTable,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
 import { checkSchema, matchedData } from 'express-validator';
 import {

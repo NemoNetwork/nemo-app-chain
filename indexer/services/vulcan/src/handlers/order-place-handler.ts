@@ -1,19 +1,19 @@
-import { logger, runFuncWithTimingStat, stats } from '@nemo-network-indexer/base/src';
-import { createSubaccountWebsocketMessage, KafkaTopics } from '@nemo-network-indexer/kafka/src';
+import { logger, runFuncWithTimingStat, stats } from '@nemo-network-indexer/base/build';
+import { createSubaccountWebsocketMessage, KafkaTopics } from '@nemo-network-indexer/kafka/build/src';
 import {
   blockHeightRefresher,
   OrderFromDatabase,
   OrderTable,
   PerpetualMarketFromDatabase,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   CanceledOrdersCache,
   convertToRedisOrder,
   placeOrder,
   PlaceOrderResult,
   StatefulOrderUpdatesCache,
-} from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/redis/build/redis/src';
 import { getOrderIdHash, isStatefulOrder, ORDER_FLAG_SHORT_TERM } from '@nemo-network-indexer/v4-proto-parser';
 import {
   IndexerOrder,

@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
-import { logger, stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base/src';
-import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka/src';
+import { logger, stats, STATS_NO_SAMPLING } from '@nemo-network-indexer/base/build';
+import { BLOCK_HEIGHT_WEBSOCKET_MESSAGE_VERSION, KafkaTopics } from '@nemo-network-indexer/kafka/build/src';
 import {
   storeHelpers,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   BlockHeightMessage,
   IndexerTendermintBlock,

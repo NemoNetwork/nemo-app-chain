@@ -8,7 +8,7 @@ import {
   parseString,
   parseSchema,
   baseConfigSchema,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 
 export const configSecrets: (keyof typeof postgresConfigSchema)[] = [
   'DB_PASSWORD',
@@ -25,9 +25,9 @@ export const postgresConfigSchema = {
   IS_USING_DB_READONLY: parseBoolean({ default: true }),
 
   DB_PORT: parseInteger({ default: 5435 }),
-  DB_NAME: parseString({ default: 'dydx_dev' }),
-  DB_USERNAME: parseString({ default: 'dydx_dev' }),
-  DB_PASSWORD: parseString({ default: 'dydxserver123' }),
+  DB_NAME: parseString({ default: 'nemo_dev' }),
+  DB_USERNAME: parseString({ default: 'nemo_dev' }),
+  DB_PASSWORD: parseString({ default: 'nemoserver123' }),
   PG_POOL_MIN: parseInteger({ default: 1 }),
   PG_POOL_MAX: parseInteger({ default: 2 }),
   PG_ACQUIRE_CONNECTION_TIMEOUT_MS: parseInteger({ default: 10_000 }),

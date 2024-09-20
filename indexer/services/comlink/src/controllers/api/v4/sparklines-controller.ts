@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base/src';
+import { stats } from '@nemo-network-indexer/base/build';
 import {
   CandleColumns,
   CandleFromDatabase,
@@ -8,7 +8,7 @@ import {
   Ordering,
   PerpetualMarketColumns,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
 import { checkSchema, matchedData } from 'express-validator';
 import _ from 'lodash';

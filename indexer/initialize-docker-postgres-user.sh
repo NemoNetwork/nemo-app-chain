@@ -26,4 +26,4 @@ EOSQL
 }
 
 initialize_extensions
-grant_datadog_access_with_pword
+# grant_datadog_access_with_pword

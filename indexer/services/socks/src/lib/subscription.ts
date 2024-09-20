@@ -3,7 +3,7 @@ import {
   getInstanceId,
   logger,
   stats,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import {
   APIOrderStatus,
   BestEffortOpenedStatus,
@@ -13,7 +13,7 @@ import {
   MAX_PARENT_SUBACCOUNTS,
   OrderStatus,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import WebSocket from 'ws';
 
 import config from '../config';

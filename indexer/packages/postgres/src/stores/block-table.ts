@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import { QueryBuilder } from 'objection';
 
 import { DEFAULT_POSTGRES_OPTIONS } from '../constants';

@@ -1,6 +1,6 @@
-import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base/src';
-import { producer } from '@nemo-network-indexer/kafka/src';
-import { LeaderboardPnlTimeSpan, TradingRewardAggregationPeriod } from '@nemo-network-indexer/postgres/src';
+import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base/build';
+import { producer } from '@nemo-network-indexer/kafka/build/src';
+import { LeaderboardPnlTimeSpan, TradingRewardAggregationPeriod } from '@nemo-network-indexer/postgres/build/src';
 
 import config from './config';
 import { complianceProvider } from './helpers/compliance-clients';

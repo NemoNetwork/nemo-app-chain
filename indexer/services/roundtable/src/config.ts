@@ -17,16 +17,16 @@ import {
   TEN_SECONDS_IN_MILLISECONDS,
   FOUR_HOURS_IN_MILLISECONDS,
   ONE_DAY_IN_MILLISECONDS,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import {
   kafkaConfigSchema,
-} from '@nemo-network-indexer/kafka/src';
+} from '@nemo-network-indexer/kafka/build/src';
 import {
   postgresConfigSchema,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   redisConfigSchema,
-} from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/redis/build/redis/src';
 
 export const configSchema = {
   ...baseConfigSchema,

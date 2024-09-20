@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import express from 'express';
 import { validationResult, matchedData } from 'express-validator';
 import { isEqual, isObject, forEach } from 'lodash';

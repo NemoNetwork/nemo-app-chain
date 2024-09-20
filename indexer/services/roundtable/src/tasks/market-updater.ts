@@ -1,7 +1,7 @@
 import {
   logger,
   stats,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import {
   FillTable,
   Market24HourTradeVolumes,
@@ -16,8 +16,8 @@ import {
   PriceMap,
   LiquidityTiersFromDatabase,
   LiquidityTiersTable, LiquidityTiersMap, LiquidityTiersColumns,
-} from '@nemo-network-indexer/postgres/src';
-import { NextFundingCache } from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/postgres/build/src';
+import { NextFundingCache } from '@nemo-network-indexer/redis/build/redis/src';
 import Big from 'big.js';
 import _ from 'lodash';
 

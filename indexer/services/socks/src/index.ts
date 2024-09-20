@@ -1,8 +1,8 @@
 import {
   logger, setInstanceId, getInstanceId, startBugsnag, wrapBackgroundTask,
-} from '@nemo-network-indexer/base/src';
-import { startConsumer } from '@nemo-network-indexer/kafka/src';
-import { blockHeightRefresher, perpetualMarketRefresher } from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/base/build';
+import { startConsumer } from '@nemo-network-indexer/kafka/build/src';
+import { blockHeightRefresher, perpetualMarketRefresher } from '@nemo-network-indexer/postgres/build/src';
 
 import config from './config';
 import {

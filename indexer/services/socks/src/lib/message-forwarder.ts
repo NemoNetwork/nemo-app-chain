@@ -3,8 +3,8 @@ import {
   getInstanceId,
   logger,
   InfoObject,
-} from '@nemo-network-indexer/base/src';
-import { updateOnBatchFunction, updateOnMessageFunction } from '@nemo-network-indexer/kafka/src';
+} from '@nemo-network-indexer/base/build';
+import { updateOnBatchFunction, updateOnMessageFunction } from '@nemo-network-indexer/kafka/build/src';
 import {
   Batch,
   EachBatchPayload,

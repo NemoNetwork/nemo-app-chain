@@ -1,4 +1,4 @@
-import { redis as redisLib } from '@nemo-network-indexer/redis/src';
+import { redis as redisLib } from '@nemo-network-indexer/redis/build/redis/src';
 import { RateLimiterRedis } from 'rate-limiter-flexible';
 import { RedisClient } from 'redis';
 

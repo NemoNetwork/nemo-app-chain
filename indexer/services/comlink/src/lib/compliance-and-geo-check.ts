@@ -9,7 +9,7 @@ import {
   ComplianceStatus,
   ComplianceStatusFromDatabase,
   ComplianceStatusTable,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
 import { matchedData } from 'express-validator';
 

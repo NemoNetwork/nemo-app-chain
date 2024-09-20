@@ -1,5 +1,5 @@
-import { axiosRequest, logger, stats } from '@nemo-network-indexer/base/src';
-import { BlockFromDatabase, BlockTable, IsoString } from '@nemo-network-indexer/postgres/src';
+import { axiosRequest, logger, stats } from '@nemo-network-indexer/base/build';
+import { BlockFromDatabase, BlockTable, IsoString } from '@nemo-network-indexer/postgres/build/src';
 import Big from 'big.js';
 import { DateTime } from 'luxon';
 

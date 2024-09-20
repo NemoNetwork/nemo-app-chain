@@ -1,7 +1,7 @@
 import {
   PerpetualMarketFromDatabase, PerpetualMarketModel,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import { PerpetualMarketCreateEventV1, PerpetualMarketCreateEventV2 } from '@nemo-network-indexer/v4-protos';
 import * as pg from 'pg';
 

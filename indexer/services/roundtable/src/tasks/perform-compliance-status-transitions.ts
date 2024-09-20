@@ -1,13 +1,13 @@
 import {
   ONE_DAY_IN_MILLISECONDS,
   stats,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import {
   ComplianceStatusFromDatabase,
   ComplianceStatusTable,
   ComplianceStatus,
   ComplianceStatusUpsertObject,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 
 import config from '../config';
 

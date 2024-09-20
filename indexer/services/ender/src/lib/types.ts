@@ -1,10 +1,10 @@
-import { KafkaTopics } from '@nemo-network-indexer/kafka/src';
+import { KafkaTopics } from '@nemo-network-indexer/kafka/build/src';
 import {
   Liquidity,
   PerpetualPositionColumns,
   PerpetualPositionFromDatabase,
   SubaccountMessageContents,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   PerpetualMarketCreateEventV2,
   StatefulOrderEventV1,

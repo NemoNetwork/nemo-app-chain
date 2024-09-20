@@ -1,6 +1,6 @@
-import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base/src';
+import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base/build';
 import { ComplianceClientResponse, INDEXER_COMPLIANCE_BLOCKED_PAYLOAD } from '@nemo-network-indexer/compliance/src';
-import { ComplianceDataCreateObject, ComplianceDataFromDatabase, ComplianceTable } from '@nemo-network-indexer/postgres/src';
+import { ComplianceDataCreateObject, ComplianceDataFromDatabase, ComplianceTable } from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
 import { checkSchema, matchedData } from 'express-validator';
 import _ from 'lodash';

@@ -4,13 +4,13 @@ import {
   ParseMessageError,
   wrapBackgroundTask,
   STATS_NO_SAMPLING,
-} from '@nemo-network-indexer/base/src';
-import { KafkaTopics } from '@nemo-network-indexer/kafka/src';
+} from '@nemo-network-indexer/base/build';
+import { KafkaTopics } from '@nemo-network-indexer/kafka/build/src';
 import {
   Transaction,
   IsolationLevel,
   CandleFromDatabase,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   IndexerTendermintBlock,
 } from '@nemo-network-indexer/v4-protos';

@@ -1,7 +1,7 @@
-import { delay, logger, startBugsnag } from '@nemo-network-indexer/base/src';
-import { admin, KafkaTopics, producer } from '@nemo-network-indexer/kafka/src';
-import { dbHelpers } from '@nemo-network-indexer/postgres/src';
-import { redis } from '@nemo-network-indexer/redis/src';
+import { delay, logger, startBugsnag } from '@nemo-network-indexer/base/build';
+import { admin, KafkaTopics, producer } from '@nemo-network-indexer/kafka/build/src';
+import { dbHelpers } from '@nemo-network-indexer/postgres/build/src';
+import { redis } from '@nemo-network-indexer/redis/build/redis/src';
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
 import { ITopicConfig, ITopicMetadata } from 'kafkajs';
 import _ from 'lodash';

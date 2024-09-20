@@ -1,4 +1,4 @@
-import { logger, stats } from '@nemo-network-indexer/base/src';
+import { logger, stats } from '@nemo-network-indexer/base/build';
 import {
   FundingIndexUpdatesTable,
   PerpetualMarketFromDatabase,
@@ -7,8 +7,8 @@ import {
   PerpetualMarketModel,
   FundingIndexUpdatesFromDatabase,
   FundingIndexUpdatesModel,
-} from '@nemo-network-indexer/postgres/src';
-import { NextFundingCache } from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/postgres/build/src';
+import { NextFundingCache } from '@nemo-network-indexer/redis/build/redis/src';
 import { bytesToBigInt } from '@nemo-network-indexer/v4-proto-parser';
 import {
   FundingEventV1_Type,

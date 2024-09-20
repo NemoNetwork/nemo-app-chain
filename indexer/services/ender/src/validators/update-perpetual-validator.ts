@@ -1,4 +1,4 @@
-import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres/src';
+import { perpetualMarketRefresher } from '@nemo-network-indexer/postgres/build/src';
 import { IndexerTendermintEvent, UpdatePerpetualEventV1 } from '@nemo-network-indexer/v4-protos';
 
 import { Handler } from '../handlers/handler';

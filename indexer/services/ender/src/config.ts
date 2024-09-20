@@ -6,14 +6,14 @@ import {
   parseSchema,
   baseConfigSchema,
   parseBoolean,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import {
   kafkaConfigSchema,
-} from '@nemo-network-indexer/kafka/src';
+} from '@nemo-network-indexer/kafka/build/src';
 import {
   postgresConfigSchema,
-} from '@nemo-network-indexer/postgres/src';
-import { redisConfigSchema } from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/postgres/build/src';
+import { redisConfigSchema } from '@nemo-network-indexer/redis/build/redis/src';
 
 export const configSchema = {
   ...baseConfigSchema,

@@ -1,4 +1,4 @@
-import { logger, stats } from '@nemo-network-indexer/base/src';
+import { logger, stats } from '@nemo-network-indexer/base/build';
 import {
   APIOrderStatus,
   APIOrderStatusEnum,
@@ -17,7 +17,7 @@ import {
   protocolTranslations,
   SubaccountTable,
 } from '@nemo-network-indexer/postgres';
-import { OrdersCache, SubaccountOrderIdsCache } from '@nemo-network-indexer/redis/src';
+import { OrdersCache, SubaccountOrderIdsCache } from '@nemo-network-indexer/redis/build/redis/src';
 import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import express from 'express';

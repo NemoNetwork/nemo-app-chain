@@ -1,4 +1,4 @@
-import { stats } from '@nemo-network-indexer/base/src';
+import { stats } from '@nemo-network-indexer/base/build';
 import {
   AssetColumns,
   AssetFromDatabase,
@@ -14,7 +14,7 @@ import {
   QueryableField,
   SubaccountFromDatabase,
   SubaccountTable,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import Big from 'big.js';
 import express from 'express';
 import { matchedData } from 'express-validator';

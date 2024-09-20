@@ -3,7 +3,7 @@ import {
   Transaction,
   assetRefresher,
   perpetualMarketRefresher,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 
 export async function refreshDataCaches(): Promise<void> {
   const txId: number = await Transaction.start();

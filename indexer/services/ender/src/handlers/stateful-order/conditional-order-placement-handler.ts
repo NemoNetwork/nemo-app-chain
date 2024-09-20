@@ -3,7 +3,7 @@ import {
   OrderTable,
   PerpetualMarketFromDatabase, PerpetualMarketModel,
   SubaccountMessageContents,
-} from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/postgres/build/src';
 import {
   IndexerSubaccountId,
   StatefulOrderEventV1,

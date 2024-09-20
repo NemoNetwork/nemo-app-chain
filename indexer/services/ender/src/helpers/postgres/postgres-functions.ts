@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 
-import { logger } from '@nemo-network-indexer/base/src';
-import { dbHelpers, storeHelpers } from '@nemo-network-indexer/postgres/src';
+import { logger } from '@nemo-network-indexer/base/build';
+import { dbHelpers, storeHelpers } from '@nemo-network-indexer/postgres/build/src';
 
 export type PostgresFunction = {
   // The name of the script

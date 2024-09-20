@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import {
   consumer, producer, TO_ENDER_TOPIC, updateOnMessageFunction,
 } from '@nemo-network-indexer/kafka';

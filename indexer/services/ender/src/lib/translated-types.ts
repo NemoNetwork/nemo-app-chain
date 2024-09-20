@@ -1,4 +1,4 @@
-import { Liquidity } from '@nemo-network-indexer/postgres/src';
+import { Liquidity } from '@nemo-network-indexer/postgres/build/src';
 import {
   IndexerAssetPosition,
   IndexerOrder,

@@ -2,8 +2,8 @@ import {
   logger,
   wrapBackgroundTask,
   startBugsnag,
-} from '@nemo-network-indexer/base/src';
-import { perpetualMarketRefresher, liquidityTierRefresher } from '@nemo-network-indexer/postgres/src';
+} from '@nemo-network-indexer/base/build';
+import { perpetualMarketRefresher, liquidityTierRefresher } from '@nemo-network-indexer/postgres/build/src';
 
 import config from './config';
 import IndexV4 from './controllers/api/index-v4';

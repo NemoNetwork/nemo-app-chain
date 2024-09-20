@@ -1,6 +1,6 @@
-import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base/src';
-import { stopConsumer, startConsumer } from '@nemo-network-indexer/kafka/src';
-import { blockHeightRefresher, perpetualMarketRefresher } from '@nemo-network-indexer/postgres/src';
+import { logger, startBugsnag, wrapBackgroundTask } from '@nemo-network-indexer/base/build';
+import { stopConsumer, startConsumer } from '@nemo-network-indexer/kafka/build/src';
+import { blockHeightRefresher, perpetualMarketRefresher } from '@nemo-network-indexer/postgres/build/src';
 
 import config from './config';
 import { connect as connectToKafka } from './helpers/kafka/kafka-controller';

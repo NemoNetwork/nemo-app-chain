@@ -15,8 +15,8 @@ import {
   PerpetualPositionModel,
   SubaccountTable,
   UpdatedPerpetualPositionSubaccountKafkaObject,
-} from '@nemo-network-indexer/postgres/src';
-import { StateFilledQuantumsCache } from '@nemo-network-indexer/redis/src';
+} from '@nemo-network-indexer/postgres/build/src';
+import { StateFilledQuantumsCache } from '@nemo-network-indexer/redis/build/redis/src';
 import { isStatefulOrder } from '@nemo-network-indexer/v4-proto-parser';
 import { IndexerOrder, IndexerOrderId, IndexerSubaccountId } from '@nemo-network-indexer/v4-protos';
 import Long from 'long';

@@ -1,6 +1,6 @@
 import {
   NodeEnv,
-} from '@nemo-network-indexer/base/src';
+} from '@nemo-network-indexer/base/build';
 import Knex from 'knex';
 
 import config from '../config';

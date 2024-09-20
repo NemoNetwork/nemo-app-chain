@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import express from 'express';
 import _ from 'lodash';
 import { RateLimiterRedis, RateLimiterRes } from 'rate-limiter-flexible';

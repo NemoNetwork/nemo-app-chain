@@ -1,4 +1,4 @@
-import { logger } from '@nemo-network-indexer/base/src';
+import { logger } from '@nemo-network-indexer/base/build';
 import { IndexerOrder, IndexerOrder_Side } from '@nemo-network-indexer/v4-protos';
 import Long from 'long';
 

@@ -1,4 +1,4 @@
-import { PnlTicksCreateObject } from '@nemo-network-indexer/postgres/src';
+import { PnlTicksCreateObject } from '@nemo-network-indexer/postgres/build/src';
 import _ from 'lodash';
 import { RedisClient } from 'redis';
 
