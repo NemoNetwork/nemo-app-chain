@@ -42,7 +42,7 @@ services:
   redis:
     image: redis:5.0.6-alpine
     ports:
-      - 6382:6382
+      - 6379:6379
   nemod0:
     image: local:e2etest-nemo-network
     entrypoint:
@@ -155,7 +155,7 @@ services:
     links:
       - postgres
     environment:
-      - REDIS_URL=redis://redis:6382
+      - REDIS_URL=redis://redis:6379
     depends_on:
       kafka:
         condition: service_healthy
@@ -169,8 +169,8 @@ services:
         service: comlink
     environment:
       - PORT=3002
-      - REDIS_URL=redis://redis:6382
-      - RATE_LIMIT_REDIS_URL=redis://redis:6382
+      - REDIS_URL=redis://redis:6379
+      - RATE_LIMIT_REDIS_URL=redis://redis:6379
       - RATE_LIMIT_ENABLED=false
       - COMPLIANCE_DATA_CLIENT=PLACEHOLDER
     ports:
@@ -220,7 +220,7 @@ services:
       args:
         service: vulcan
     environment:
-      - REDIS_URL=redis://redis:6382
+      - REDIS_URL=redis://redis:6379
     ports:
       - 3005:3005
     depends_on:

@@ -39,4 +39,4 @@ services:
   redis:
     image: redis:5.0.6-alpine
     ports:
-      - 6382:6382
+      - 6379:6379

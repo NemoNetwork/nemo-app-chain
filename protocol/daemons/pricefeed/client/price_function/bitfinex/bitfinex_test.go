@@ -3,8 +3,9 @@ package bitfinex_test
 import (
 	"errors"
 	"fmt"
-	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 	"testing"
+
+	"github.com/nemo-network/v4-chain/protocol/testutil/constants"
 
 	"github.com/nemo-network/v4-chain/protocol/testutil/daemons/pricefeed"
 
@@ -34,7 +35,7 @@ var (
 	}
 
 	// Test response strings.
-	btcTicker = `["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271]`
+	btcTicker = `["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271]`
 	ethTicker = `["tETHUSD",1898.4,567.73204365,1898.5,479.12571969,104.6,0.05831196,1898.4,12095.61872826,1903.4,1787.7]`
 
 	ResponseStringTemplate  = `[%s]`
@@ -58,14 +59,14 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		"Unavailable - invalid response": {
 			// Invalid due to trailing comma in JSON.
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271,]`),
+				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271,]`),
 			exponentMap:   BtcExponentMap,
 			expectedError: errors.New("invalid character ']' looking for beginning of value"),
 		},
 		"Unavailable - invalid pair type in response: number": {
 			// Invalid due to number pair when string was expected.
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`[12,30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271]`),
+				`[12,30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -75,7 +76,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		"Unavailable - invalid bid price type in response: string": {
 			// Invalid due to string bid price when float was expected.
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD","30169",24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271]`),
+				`["tBTCUSD","30169",24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -85,7 +86,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		"Unavailable - invalid ask price type in response: string": {
 			// Invalid due to string ask price when float was expected.
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169.2,24.43585233,"30170",19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271]`),
+				`["tBTCUSD",30169.2,24.43585233,"30170",19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -95,7 +96,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		"Unavailable - invalid last price type in response: string": {
 			// Invalid due to string last price when float was expected.
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169.2,24.43585233,30170,19.64058018,1812,0.06388605,"30175",3180.89036382,30801,28271]`),
+				`["tBTCUSD",30169.2,24.43585233,30170,19.64058018,1812,0.06388605,"30175",3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -104,7 +105,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		},
 		"Unavailable - bid price is 0": {
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",0,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271]`),
+				`["tBTCUSD",0,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -114,7 +115,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		},
 		"Unavailable - ask price is negative": {
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169,24.43585233,-1,19.64058018,1812,0.06388605,30175,3180.89036382,30801,28271]`),
+				`["tBTCUSD",30169,24.43585233,-1,19.64058018,1812,0.06388605,30175,3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -124,7 +125,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		},
 		"Unavailable - last price is negative": {
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,-2,3180.89036382,30801,28271]`),
+				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,-2,3180.89036379,30801,28271]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -150,7 +151,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		},
 		"Unavailable - incomplete response": {
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036382,30801]`),
+				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175,3180.89036379,30801]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -159,7 +160,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		},
 		"Unavailable - non-requested ticker doesn't get marked as unavailable": {
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBBBUSD",30169,24.43585233,"30170",19.64058018,1812,0.06388605,30175,3180.89036382,30801]`),
+				`["tBBBUSD",30169,24.43585233,"30170",19.64058018,1812,0.06388605,30175,3180.89036379,30801]`),
 			exponentMap:      BtcExponentMap,
 			expectedPriceMap: make(map[string]uint64),
 			expectedUnavailableMap: map[string]error{
@@ -195,7 +196,7 @@ func TestBitfinexPriceFunction_Mixed(t *testing.T) {
 		},
 		"Success - integers": {
 			responseJsonString: fmt.Sprintf(ResponseStringTemplate,
-				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175.43,3180.89036382,30801,28271]`),
+				`["tBTCUSD",30169,24.43585233,30170,19.64058018,1812,0.06388605,30175.43,3180.89036379,30801,28271]`),
 			exponentMap: BtcExponentMap,
 			expectedPriceMap: map[string]uint64{
 				BTCUSDC_TICKER: uint64(3_017_000_000),

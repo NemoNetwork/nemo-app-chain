@@ -50,12 +50,12 @@ services:
   redis:
     image: redis:5.0.6-alpine
     ports:
-      - 6382:6382
+      - 6379:6379
     labels:
       com.datadoghq.ad.logs: '[{"source": "indexer", "service": "redis"}]'
       com.datadoghq.ad.check_names: '["redisdb"]'
       com.datadoghq.ad.init_configs: '[{}]'
-      com.datadoghq.ad.instances: '[{"host": "%%host%%","port":"6382","password":"%%env_REDIS_PASSWORD%%"}]'
+      com.datadoghq.ad.instances: '[{"host": "%%host%%","port":"6379","password":"%%env_REDIS_PASSWORD%%"}]'
   # datadog-agent:
   #   build: datadog
   #   links:
@@ -101,7 +101,7 @@ services:
       - DD_PROFILING_ENABLED=true
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - REDIS_URL=redis://redis:6382
+      - REDIS_URL=redis://redis:6379
     labels:
       com.datadoghq.ad.logs: '[{"source": "indexer", "service": "ender"}]'
     depends_on:
@@ -121,8 +121,8 @@ services:
       - DD_PROFILING_ENABLED=true
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - REDIS_URL=redis://redis:6382
-      - RATE_LIMIT_REDIS_URL=redis://redis:6382
+      - REDIS_URL=redis://redis:6379
+      - RATE_LIMIT_REDIS_URL=redis://redis:6379
       - PORT=3002
       - RATE_LIMIT_ENABLED=false
       - INDEXER_LEVEL_GEOBLOCKING_ENABLED=false
@@ -197,7 +197,7 @@ services:
       - DD_PROFILING_ENABLED=true
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - REDIS_URL=redis://redis:6382
+      - REDIS_URL=redis://redis:6379
     labels:
       com.datadoghq.ad.logs: '[{"source": "indexer", "service": "vulcan"}]'
     ports:
