@@ -5,7 +5,7 @@
   "main": "build/index",
   "scripts": {
     "start": "node --heapsnapshot-signal=SIGUSR2 -r dd-trace/init -r dotenv-flow/config build/index.js",
-    "build": "rm -rf build/ && tsc && mkdir build/src && cp -r src/scripts build/src/scripts",
+    "build": "rm -rf build/ && tsc && cp -r src/scripts build/scripts",
     "build:prod": "pnpm run build",
     "build:watch": "pnpm run build -- --watch",
     "coverage": "pnpm test -- --coverage",
