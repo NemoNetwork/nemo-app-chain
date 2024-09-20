@@ -47,15 +47,15 @@ services:
       com.datadoghq.ad.check_names: '["postgres"]'
       com.datadoghq.ad.init_configs: '[{}]'
       com.datadoghq.ad.instances: '[{"host":"%%host%%", "port":5432,"username":"datadog","password":"nemoserver123"}]'
-  # redis:
-  #   image: redis:5.0.6-alpine
-  #   ports:
-  #     - 6382:6379
-  #   labels:
-  #     com.datadoghq.ad.logs: '[{"source": "indexer", "service": "redis"}]'
-  #     com.datadoghq.ad.check_names: '["redisdb"]'
-  #     com.datadoghq.ad.init_configs: '[{}]'
-  #     com.datadoghq.ad.instances: '[{"host": "%%host%%","port":"6379","password":"%%env_REDIS_PASSWORD%%"}]'
+  redis:
+    image: redis:5.0.6-alpine
+    ports:
+      - 6382:6379
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "indexer", "service": "redis"}]'
+      com.datadoghq.ad.check_names: '["redisdb"]'
+      com.datadoghq.ad.init_configs: '[{}]'
+      com.datadoghq.ad.instances: '[{"host": "%%host%%","port":"6379","password":"%%env_REDIS_PASSWORD%%"}]'
   # datadog-agent:
   #   build: datadog
   #   links:
@@ -109,33 +109,33 @@ services:
   #       condition: service_healthy
   #     postgres-package:
   #       condition: service_completed_successfully
-  # comlink:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.service.local
-  #     args:
-  #       service: comlink
-  #   environment:
-  #     # See https://docs.datadoghq.com/profiler/enabling/nodejs/ for DD_ specific environment variables.
-  #     # Note that DD_SERVICE and DD_VERSION are read by default from package.json
-  #     - DD_PROFILING_ENABLED=true
-  #     - DD_ENV=localnet_${USER}
-  #     - DD_AGENT_HOST=datadog-agent
-  #     - REDIS_URL=redis://redis:6379
-  #     - RATE_LIMIT_REDIS_URL=redis://redis:6379
-  #     - PORT=3002
-  #     - RATE_LIMIT_ENABLED=false
-  #     - INDEXER_LEVEL_GEOBLOCKING_ENABLED=false
-  #     - COMPLIANCE_DATA_CLIENT=PLACEHOLDER
-  #   labels:
-  #     com.datadoghq.ad.logs: '[{"source": "indexer", "service": "comlink"}]'
-  #   ports:
-  #     - 3002:3002
-  #   links:
-  #     - postgres
-  #   depends_on:
-  #     postgres-package:
-  #       condition: service_completed_successfully
+  comlink:
+    build:
+      context: .
+      dockerfile: Dockerfile.service.local
+      args:
+        service: comlink
+    environment:
+      # See https://docs.datadoghq.com/profiler/enabling/nodejs/ for DD_ specific environment variables.
+      # Note that DD_SERVICE and DD_VERSION are read by default from package.json
+      - DD_PROFILING_ENABLED=true
+      - DD_ENV=localnet_${USER}
+      - DD_AGENT_HOST=datadog-agent
+      - REDIS_URL=redis://redis:6379
+      - RATE_LIMIT_REDIS_URL=redis://redis:6379
+      - PORT=3002
+      - RATE_LIMIT_ENABLED=false
+      - INDEXER_LEVEL_GEOBLOCKING_ENABLED=false
+      - COMPLIANCE_DATA_CLIENT=PLACEHOLDER
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "indexer", "service": "comlink"}]'
+    ports:
+      - 3002:3002
+    links:
+      - postgres
+    depends_on:
+      postgres-package:
+        condition: service_completed_successfully
   # socks:
   #   build:
   #     context: .
