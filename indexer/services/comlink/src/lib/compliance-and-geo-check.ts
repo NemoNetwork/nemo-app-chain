@@ -4,7 +4,7 @@ import {
   INDEXER_GEOBLOCKED_PAYLOAD,
   INDEXER_COMPLIANCE_BLOCKED_PAYLOAD,
   isWhitelistedAddress,
-} from '@nemo-network-indexer/compliance/src';
+} from '@nemo-network-indexer/compliance/build';
 import {
   ComplianceStatus,
   ComplianceStatusFromDatabase,

@@ -8,7 +8,7 @@ import {
 } from '@nemo-network-indexer/base/build';
 import {
   complianceConfigSchema,
-} from '@nemo-network-indexer/compliance/src';
+} from '@nemo-network-indexer/compliance/build';
 import { kafkaConfigSchema } from '@nemo-network-indexer/kafka/build/src';
 import {
   postgresConfigSchema,

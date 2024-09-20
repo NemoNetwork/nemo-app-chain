@@ -1,4 +1,4 @@
-import { CountryHeaders, isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance/src';
+import { CountryHeaders, isRestrictedCountryHeaders } from '@nemo-network-indexer/compliance/build';
 import { ComplianceReason } from '@nemo-network-indexer/postgres/build/src';
 
 export function getGeoComplianceReason(

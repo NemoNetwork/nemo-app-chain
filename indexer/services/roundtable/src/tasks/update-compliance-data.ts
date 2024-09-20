@@ -1,7 +1,7 @@
 import {
   STATS_NO_SAMPLING, delay, logger, stats,
 } from '@nemo-network-indexer/base/build';
-import { ComplianceClientResponse } from '@nemo-network-indexer/compliance/src';
+import { ComplianceClientResponse } from '@nemo-network-indexer/compliance/build';
 import {
   ComplianceDataColumns,
   ComplianceDataCreateObject,

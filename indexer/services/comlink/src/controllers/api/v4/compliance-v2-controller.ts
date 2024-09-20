@@ -3,7 +3,7 @@ import {
 } from '@cosmjs/crypto';
 import { toBech32 } from '@cosmjs/encoding';
 import { logger, stats, TooManyRequestsError } from '@nemo-network-indexer/base/build';
-import { CountryHeaders, isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo-network-indexer/compliance/src';
+import { CountryHeaders, isRestrictedCountryHeaders, isWhitelistedAddress } from '@nemo-network-indexer/compliance/build';
 import {
   ComplianceReason,
   ComplianceStatus,

@@ -5,7 +5,7 @@ import {
   parseSchema,
   parseString,
 } from '@nemo-network-indexer/base/build';
-import { complianceConfigSchema } from '@nemo-network-indexer/compliance/src';
+import { complianceConfigSchema } from '@nemo-network-indexer/compliance/build';
 import {
   postgresConfigSchema,
 } from '@nemo-network-indexer/postgres/build/src';
