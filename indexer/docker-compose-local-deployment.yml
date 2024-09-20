@@ -184,23 +184,23 @@ services:
         condition: service_healthy
       postgres-package:
         condition: service_completed_successfully
-  # vulcan:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.service.local
-  #     args:
-  #       service: vulcan
-  #   environment:
-  #     # See https://docs.datadoghq.com/profiler/enabling/nodejs/ for DD_ specific environment variables.
-  #     # Note that DD_SERVICE and DD_VERSION are read by default from package.json
-  #     - DD_PROFILING_ENABLED=true
-  #     - DD_ENV=localnet_${USER}
-  #     - DD_AGENT_HOST=datadog-agent
-  #     - REDIS_URL=redis://redis:6379
-  #   labels:
-  #     com.datadoghq.ad.logs: '[{"source": "indexer", "service": "vulcan"}]'
-  #   ports:
-  #     - 3005:3005
-  #   depends_on:
-  #     kafka:
-  #       condition: service_healthy
+  vulcan:
+    build:
+      context: .
+      dockerfile: Dockerfile.service.local
+      args:
+        service: vulcan
+    environment:
+      # See https://docs.datadoghq.com/profiler/enabling/nodejs/ for DD_ specific environment variables.
+      # Note that DD_SERVICE and DD_VERSION are read by default from package.json
+      - DD_PROFILING_ENABLED=true
+      - DD_ENV=localnet_${USER}
+      - DD_AGENT_HOST=datadog-agent
+      - REDIS_URL=redis://redis:6379
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "indexer", "service": "vulcan"}]'
+    ports:
+      - 3005:3005
+    depends_on:
+      kafka:
+        condition: service_healthy
