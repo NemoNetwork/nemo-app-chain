@@ -32,7 +32,7 @@ services:
       context: .
       dockerfile: Dockerfile.postgres.local
     ports:
-      - 5435:5432
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: nemoserver123
       POSTGRES_USER: nemo_dev
@@ -56,26 +56,26 @@ services:
       com.datadoghq.ad.check_names: '["redisdb"]'
       com.datadoghq.ad.init_configs: '[{}]'
       com.datadoghq.ad.instances: '[{"host": "%%host%%","port":"6379","password":"%%env_REDIS_PASSWORD%%"}]'
-  # datadog-agent:
-  #   build: datadog
-  #   links:
-  #     - redis
-  #     - vulcan
-  #     - comlink
-  #     - ender
-  #   environment:
-  #     - DD_API_KEY=${DD_API_KEY}
-  #     - DD_LOGS_ENABLED=true
-  #     - DD_TAGS="service:local-indexer dev:${USER}"
-  #     - DD_APM_ENABLED=true
-  #     - DD_APM_NON_LOCAL_TRAFFIC=true
-  #     - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - /proc/:/host/proc/:ro
-  #     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
-  #     - /var/lib/docker/containers:/var/lib/docker/containers:ro
-  #   profiles: ["export-to-datadog"]
+  datadog-agent:
+    build: datadog
+    links:
+      - redis
+      - vulcan
+      - comlink
+      - ender
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+      - DD_LOGS_ENABLED=true
+      - DD_TAGS="service:local-indexer dev:${USER}"
+      - DD_APM_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    profiles: ["export-to-datadog"]
   postgres-package:
     build:
       context: .
@@ -127,7 +127,6 @@ services:
       - RATE_LIMIT_ENABLED=false
       - INDEXER_LEVEL_GEOBLOCKING_ENABLED=false
       - COMPLIANCE_DATA_CLIENT=PLACEHOLDER
-      - TENDERMINT_WS_URL=localhost:26657/websocket
     labels:
       com.datadoghq.ad.logs: '[{"source": "indexer", "service": "comlink"}]'
     ports:

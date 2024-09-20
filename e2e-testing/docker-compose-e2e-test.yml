@@ -29,7 +29,7 @@ services:
       context: ../indexer
       dockerfile: ../indexer/Dockerfile.postgres.local
     ports:
-      - 5435:5432
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: nemoserver123
       POSTGRES_USER: nemo_dev

@@ -492,7 +492,7 @@ func TestProcessRewardsForBlock(t *testing.T) {
 					Coins: []sdk.Coin{{
 						Denom: TestRewardTokenDenom,
 						Amount: sdkmath.NewIntFromBigInt(
-							big_testutil.MustFirst(new(big.Int).SetString("1000543500000000000000", 10)),
+							big_testutil.MustFirst(new(big.Int).SetString("1000543200000000000000", 10)),
 						), // $2021.3 weight / $2 price * 99% ~= 1000 full coin
 					}},
 				},
@@ -511,7 +511,7 @@ func TestProcessRewardsForBlock(t *testing.T) {
 						Denom: TestRewardTokenDenom,
 						Amount: sdkmath.NewIntFromBigInt(
 							big_testutil.MustFirst(new(big.Int).SetString("1998201137750000000000000", 10)),
-						), // 2_000_123 - 507.667 - 1000.5435 - 413.6517 ~= 1_998_201.1 full coins
+						), // 2_000_123 - 507.667 - 1000.5432 - 413.6517 ~= 1_998_201.1 full coins
 					}},
 				},
 			},
