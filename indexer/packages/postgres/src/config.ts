@@ -24,7 +24,7 @@ export const postgresConfigSchema = {
   DB_READONLY_HOSTNAME: parseString({ default: 'localhost' }),
   IS_USING_DB_READONLY: parseBoolean({ default: true }),
 
-  DB_PORT: parseInteger({ default: 5435 }),
+  DB_PORT: parseInteger({ default: 5432 }),
   DB_NAME: parseString({ default: 'nemo_dev' }),
   DB_USERNAME: parseString({ default: 'nemo_dev' }),
   DB_PASSWORD: parseString({ default: 'nemoserver123' }),
