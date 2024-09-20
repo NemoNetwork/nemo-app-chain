@@ -136,31 +136,31 @@ services:
     depends_on:
       postgres-package:
         condition: service_completed_successfully
-  # socks:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.service.local
-  #     args:
-  #       service: socks
-  #   ports:
-  #     - 3003:3003
-  #   links:
-  #     - postgres
-  #   environment:
-  #     - WS_PORT=3003
-  #     # See https://docs.datadoghq.com/profiler/enabling/nodejs/ for DD_ specific environment variables.
-  #     # Note that DD_SERVICE and DD_VERSION are read by default from package.json
-  #     - DD_PROFILING_ENABLED=true
-  #     - DD_ENV=localnet_${USER}
-  #     - DD_AGENT_HOST=datadog-agent
-  #     - COMLINK_URL=host.docker.internal:3002
-  #   labels:
-  #     com.datadoghq.ad.logs: '[{"source": "indexer", "service": "socks"}]'
-  #   depends_on:
-  #     kafka:
-  #       condition: service_healthy
-  #     postgres-package:
-  #       condition: service_completed_successfully
+  socks:
+    build:
+      context: .
+      dockerfile: Dockerfile.service.local
+      args:
+        service: socks
+    ports:
+      - 3003:3003
+    links:
+      - postgres
+    environment:
+      - WS_PORT=3003
+      # See https://docs.datadoghq.com/profiler/enabling/nodejs/ for DD_ specific environment variables.
+      # Note that DD_SERVICE and DD_VERSION are read by default from package.json
+      - DD_PROFILING_ENABLED=true
+      - DD_ENV=localnet_${USER}
+      - DD_AGENT_HOST=datadog-agent
+      - COMLINK_URL=host.docker.internal:3002
+    labels:
+      com.datadoghq.ad.logs: '[{"source": "indexer", "service": "socks"}]'
+    depends_on:
+      kafka:
+        condition: service_healthy
+      postgres-package:
+        condition: service_completed_successfully
   # roundtable:
   #   build:
   #     context: .
