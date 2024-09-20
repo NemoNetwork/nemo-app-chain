@@ -25,7 +25,7 @@ jobs:
       redis:
         image: redis:5.0.6-alpine
         ports: 
-          - 6379:6379
+          - 6382:6382
       kafka:
         image: blacktop/kafka:2.6
         env:
@@ -86,8 +86,8 @@ jobs:
         # ignore exit code 124.
         run: |
           timeout 30 docker run -e DB_PORT='5432' \
-          -e REDIS_URL='redis://localhost:6379' \
-          -e RATE_LIMIT_REDIS_URL='redis://localhost:6379' \
+          -e REDIS_URL='redis://localhost:6382' \
+          -e RATE_LIMIT_REDIS_URL='redis://localhost:6382' \
           -e NODE_ENV='test' \
           --network="host" \
           service-base || ( [[ $? -eq 124 ]] && \

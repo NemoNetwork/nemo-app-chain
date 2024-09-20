@@ -34,7 +34,7 @@ export const configSchema = {
 
   // Rate limit Redis URL
   RATE_LIMIT_REDIS_URL: parseString({
-    default: 'redis://localhost:6379',
+    default: 'redis://localhost:6382',
   }),
   // Rate limits
   RATE_LIMIT_ENABLED: parseBoolean({ default: true }),

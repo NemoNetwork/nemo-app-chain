@@ -24,7 +24,7 @@ jobs:
       redis:
         image: redis:5.0.6-alpine
         ports: 
-          - 6379:6379
+          - 6382:6382
       kafka:
         image: blacktop/kafka:2.6
         env:
@@ -62,5 +62,5 @@ jobs:
         run: ${{ inputs.COMMAND }}
         env:
           DB_PORT: 5432
-          REDIS_URL: redis://localhost:6379
-          RATE_LIMIT_REDIS_URL: redis://localhost:6379
+          REDIS_URL: redis://localhost:6382
+          RATE_LIMIT_REDIS_URL: redis://localhost:6382
