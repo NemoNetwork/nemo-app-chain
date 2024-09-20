@@ -127,6 +127,7 @@ services:
       - RATE_LIMIT_ENABLED=false
       - INDEXER_LEVEL_GEOBLOCKING_ENABLED=false
       - COMPLIANCE_DATA_CLIENT=PLACEHOLDER
+      - TENDERMINT_WS_URL=ws://34.138.56.239:26657/websocket
     labels:
       com.datadoghq.ad.logs: '[{"source": "indexer", "service": "comlink"}]'
     ports:
