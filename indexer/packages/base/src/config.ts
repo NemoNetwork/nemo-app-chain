@@ -33,7 +33,7 @@ export const baseConfigSchema = {
   SERVICE_NAME: parseString({ default: '' }),
 
   // Optional environment variables.
-  NODE_ENV: parseString({ default: null }),
+  NODE_ENV: parseString({ default: 'development' }),
   ENABLE_LOGS_IN_TEST: parseBoolean({ default: false }),
   STATSD_HOST: parseString({ default: 'localhost' }),
   STATSD_PORT: parseInteger({ default: 8125 }),
