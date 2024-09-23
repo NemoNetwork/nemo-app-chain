@@ -6,6 +6,7 @@ import {
   parseSchema,
   baseConfigSchema,
   parseBoolean,
+  parseString,
 } from '@nemo-network-indexer/base/build';
 import {
   kafkaConfigSchema,
@@ -23,6 +24,7 @@ export const configSchema = {
   SEND_WEBSOCKET_MESSAGES: parseBoolean({
     default: true,
   }),
+  SERVICE_NAME: parseString({default: "ender"})
 };
 
 export default parseSchema(configSchema);
