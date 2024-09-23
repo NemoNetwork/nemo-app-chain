@@ -76,7 +76,7 @@ export async function shouldSkipBlock(
       message: 'Reinitializing block cache',
       blockHeight,
       previousBlockHeight,
-      currentBlockHeight: getCurrentBlockHeight(),
+      currentBlockHeight: blockHeight,
     });
     return shouldSkipBlock(blockHeight, false);
   }
