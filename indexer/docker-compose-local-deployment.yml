@@ -6,7 +6,7 @@ services:
       - 9092:9092
       - 29092:29092 # External access
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_CREATE_TOPICS:
         "to-ender:1:1,\
         to-vulcan:1:1,\
