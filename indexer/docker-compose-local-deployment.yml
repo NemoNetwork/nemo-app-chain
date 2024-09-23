@@ -5,7 +5,7 @@ services:
     ports:
       - 9092:9092
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_CREATE_TOPICS:
         "to-ender:1:1,\
         to-vulcan:1:1,\
@@ -15,10 +15,6 @@ services:
         to-websockets-markets:1:1,\
         to-websockets-candles:1:1,\
         to-websockets-block-height:1:1"
-      KAFKA_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       DD_AGENT_HOST: datadog-agent
     healthcheck:
       test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --topic to-websockets-candles --describe"]
