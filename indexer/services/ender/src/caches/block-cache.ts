@@ -76,9 +76,9 @@ export async function shouldSkipBlock(
       message: 'Reinitializing block cache',
       blockHeight,
       previousBlockHeight,
-      currentBlockHeight: blockHeight,
+      currentBlockHeight: getCurrentBlockHeight(),
     });
-    return shouldSkipBlock(blockHeight, false);
+    return false;
   }
 
   // For debugging purposes, we want to know if we are skipping blocks
@@ -97,7 +97,7 @@ function blockAlreadyProcessed(blockHeight: string): boolean {
 }
 
 function isNextBlock(blockHeight: string): boolean {
-  return Big(currentBlockHeight).plus(1).eq(blockHeight);
+  return Big(blockHeight).gt(currentBlockHeight);
 }
 
 /**
