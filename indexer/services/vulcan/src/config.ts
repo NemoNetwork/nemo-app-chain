@@ -7,6 +7,7 @@ import {
   parseSchema,
   baseConfigSchema,
   parseBoolean,
+  parseString,
 } from '@nemo-network-indexer/base/build';
 import {
   kafkaConfigSchema,
@@ -40,6 +41,9 @@ export const configSchema = {
   }),
   SEND_SUBACCOUNT_WEBSOCKET_MESSAGE_FOR_CANCELS_MISSING_ORDERS: parseBoolean({
     default: true,
+  }),
+  KAFKA_BROKER_URLS: parseString({
+    default: 'kafka:9092',
   }),
 };
 
