@@ -1,7 +1,7 @@
 export VERSION := $(shell echo $(shell git describe --tags --always --match "protocol/v*") | sed 's/^protocol\/v//')
 BUILDDIR ?= $(CURDIR)/build
 DOCKER := $(shell which docker)
-HTTPS_GIT := https://github.com/NemoNetwork/v4.git
+HTTPS_GIT := https://github.com/nemonetwork/v4.git
 GO_VERSION := $(shell cat go.mod | grep -E 'go [0-9].[0-9]+' | cut -d ' ' -f 2)
 PROJECT_NAME := $(shell git remote get-url origin | xargs basename -s .git)
 CGO_ENABLED=1
@@ -255,10 +255,10 @@ test-race:
 	@VERSION=$(VERSION) go test -mod=readonly -timeout 20m -race -tags='test_ledger_mock $(build_tags)' ./...
 
 test-cover:
-	@VERSION=$(VERSION) go test -mod=readonly -timeout 12m -coverprofile=coverage.out -covermode=atomic -coverpkg=github.com/NemoNetwork/v4-chain/protocol/... -tags='test_ledger_mock $(build_tags)' ./...
+	@VERSION=$(VERSION) go test -mod=readonly -timeout 12m -coverprofile=coverage.out -covermode=atomic -coverpkg=github.com/nemonetwork/v4-chain/protocol/... -tags='test_ledger_mock $(build_tags)' ./...
 
 test-exchanges:
-	@VERSION=$(VERSION) go test -mod=readonly -tags='test_ledger_mock exchange_tests $(build_tags)' github.com/NemoNetwork/v4-chain/protocol/daemons/pricefeed/client/handler -run "TestQueryingActualExchanges"
+	@VERSION=$(VERSION) go test -mod=readonly -tags='test_ledger_mock exchange_tests $(build_tags)' github.com/nemonetwork/v4-chain/protocol/daemons/pricefeed/client/handler -run "TestQueryingActualExchanges"
 
 test-unit-and-integration:
 	@VERSION=$(VERSION) go test -mod=readonly -tags='integration_test test_ledger_mock $(build_tags)' ./...
@@ -276,7 +276,7 @@ test-container-accept: # run ./app/upgrades/v5.2.0 first to avoid resource confl
 
 test-container-build:
 	$(MAKE) localnet-build
-	@docker build . -t NemoNetwork-container-test -f testing/containertest/Dockerfile --no-cache
+	@docker build . -t nemonetwork-container-test -f testing/containertest/Dockerfile --no-cache
 
 .PHONY: test test-all test-cover test-unit test-race test-container
 	\ container-test-build-base container-test-build-local
@@ -322,7 +322,7 @@ proto-download-deps:
 	mkdir -p "$(THIRD_PARTY_DIR)/cosmos_tmp" && \
 	cd "$(THIRD_PARTY_DIR)/cosmos_tmp" && \
 	git init && \
-	git remote add origin "https://github.com/NemoNetwork/cosmos-sdk.git" && \
+	git remote add origin "https://github.com/nemonetwork/cosmos-sdk.git" && \
 	git config core.sparseCheckout true && \
 	printf "proto\nthird_party\n" > .git/info/sparse-checkout && \
 	git pull origin main && \
@@ -370,27 +370,27 @@ proto-download-deps:
 ###############################################################################
 
 localnet-new-validator:
-	@docker run --rm -it $(shell docker build --build-arg VERSION=$(VERSION) --build-arg COMMIT=$(COMMIT) . -t NemoNetwork-base && docker build . -q -f ./testing/util/Dockerfile)
+	@docker run --rm -it $(shell docker build --build-arg VERSION=$(VERSION) --build-arg COMMIT=$(COMMIT) . -t nemonetwork-base && docker build . -q -f ./testing/util/Dockerfile)
 
 localnet-build:
-	docker build --build-arg VERSION=$(VERSION) --build-arg COMMIT=$(COMMIT) . -t NemoNetwork-base --no-cache
+	docker build --build-arg VERSION=$(VERSION) --build-arg COMMIT=$(COMMIT) . -t nemonetwork-base --no-cache
 
 localnet-build-amd64:
-	DOCKER_BUILDKIT=1 docker build --build-arg VERSION=$(VERSION) --build-arg COMMIT=$(COMMIT) -f Dockerfile . -t NemoNetwork-base --no-cache --platform linux/amd64
+	DOCKER_BUILDKIT=1 docker build --build-arg VERSION=$(VERSION) --build-arg COMMIT=$(COMMIT) -f Dockerfile . -t nemonetwork-base --no-cache --platform linux/amd64
 
 reset-chain:
 	rm -rf localnet
 	# Creates the directories which store the chain data for each node.
-	mkdir -p localnet/NemoNetwork0
-	mkdir -p localnet/NemoNetwork1
-	mkdir -p localnet/NemoNetwork2
-	mkdir -p localnet/NemoNetwork3
+	mkdir -p localnet/nemonetwork0
+	mkdir -p localnet/nemonetwork1
+	mkdir -p localnet/nemonetwork2
+	mkdir -p localnet/nemonetwork3
 	# These files are created as part of `nemod init`, and are required to initialize the chain,
 	# but mounting the volumes removes them. This is a workaround to create them again.
-	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/NemoNetwork0/priv_validator_state.json
-	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/NemoNetwork1/priv_validator_state.json
-	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/NemoNetwork2/priv_validator_state.json
-	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/NemoNetwork3/priv_validator_state.json
+	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/nemonetwork0/priv_validator_state.json
+	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/nemonetwork1/priv_validator_state.json
+	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/nemonetwork2/priv_validator_state.json
+	echo '{"height": "0", "round": 0, "step": 0 }' > localnet/nemonetwork3/priv_validator_state.json
 
 localnet-init:
 	make reset-chain
@@ -409,7 +409,7 @@ localnet-compose-upd:
 
 build-e2etest-image:
 	@echo "Build e2e test image at commit ${GIT_COMMIT_HASH}"
-	@docker build . -t local:e2etest-NemoNetwork -f testing/e2etest-local/Dockerfile --no-cache
+	@docker build . -t local:e2etest-nemonetwork -f testing/e2etest-local/Dockerfile --no-cache
 
 localnet-start: localnet-init localnet-compose-up
 localnet-startd: localnet-init localnet-compose-upd
