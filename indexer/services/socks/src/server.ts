@@ -18,7 +18,9 @@ export default function server(): Express {
   app.use(resBodyCapture);
 
   const corsOptions = {
-    origin: process.env.CORS_ORIGIN,
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow specific methods
+    credentials: true, // Enable setting of the Access-Control-Allow-Credentials
     optionsSuccessStatus: 200,
   };
 
