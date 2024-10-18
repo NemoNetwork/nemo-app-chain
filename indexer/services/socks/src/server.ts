@@ -18,10 +18,14 @@ export default function server(): Express {
   app.use(resBodyCapture);
 
   const corsOptions = {
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allow specific methods
-    credentials: true, // Enable setting of the Access-Control-Allow-Credentials
-    optionsSuccessStatus: 200,
+    origin: 'https://testnet-dapp.nemonetwork.org',
+    // origin: '*', // Allow all origins
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'], // Allow all methods
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'], // Allow all common headers
+    exposedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'], // Expose headers to the browser
+    credentials: true, // Allow credentials (cookies, authorization headers)
+    preflightContinue: true, // Pass the CORS preflight response to the next handler
+    optionsSuccessStatus: 204,
   };
 
   app.use(cors(corsOptions));
