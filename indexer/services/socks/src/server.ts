@@ -18,8 +18,8 @@ export default function server(): Express {
   app.use(resBodyCapture);
 
   const corsOptions = {
-    origin: 'https://testnet-dapp.nemonetwork.org',
-    // origin: '*', // Allow all origins
+    // origin: 'https://testnet-dapp.nemonetwork.org',
+    origin: '*', // Allow all origins
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'], // Allow all methods
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'], // Allow all common headers
     exposedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Origin', 'Accept'], // Expose headers to the browser
@@ -29,7 +29,8 @@ export default function server(): Express {
   };
 
   app.use(cors(corsOptions));
-
+  // Handle preflight OPTIONS requests
+  app.options('*', cors(corsOptions));
   app.use(nocache());
 
   app.get('/health', (_req: express.Request, res: express.Response) => {
