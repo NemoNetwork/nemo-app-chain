@@ -30,7 +30,7 @@ export default function server(): Express {
 
   app.use(cors(corsOptions));
   // Handle preflight OPTIONS requests
-  app.options('*', cors(corsOptions));
+  // app.options('*', cors(corsOptions));
   app.use(nocache());
 
   app.get('/health', (_req: express.Request, res: express.Response) => {
