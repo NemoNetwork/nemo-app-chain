@@ -155,7 +155,7 @@ services:
       - DD_PROFILING_ENABLED=true
       - DD_ENV=localnet_${USER}
       - DD_AGENT_HOST=datadog-agent
-      - COMLINK_URL=host.docker.internal:3002
+      - COMLINK_URL=127.0.0.1:3002
     labels:
       com.datadoghq.ad.logs: '[{"source": "indexer", "service": "socks"}]'
     depends_on:
