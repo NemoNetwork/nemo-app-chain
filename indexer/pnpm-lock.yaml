@@ -569,6 +569,9 @@ importers:
       '@types/aws-lambda':
         specifier: ^8.10.108
         version: 8.10.145
+      '@types/big.js':
+        specifier: ^6.2.2
+        version: 6.2.2
       '@types/jest':
         specifier: ^28.1.4
         version: 28.1.8
@@ -1000,9 +1003,18 @@ importers:
       '@nemo-network-indexer/dev':
         specifier: workspace:^0.0.1
         version: link:../../packages/dev
+      '@types/big.js':
+        specifier: ^6.2.2
+        version: 6.2.2
       '@types/jest':
         specifier: ^28.1.4
         version: 28.1.8
+      '@types/lodash':
+        specifier: ^4.17.7
+        version: 4.17.7
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
       '@types/node':
         specifier: ^18.0.3
         version: 18.19.50
@@ -2740,6 +2752,9 @@ packages:
 
   '@types/luxon@3.0.0':
     resolution: {integrity: sha512-Lx+EZoJxUKw4dp8uei9XiUVNlgkYmax5+ovqt6Xf3LzJOnWhlfJw/jLBmqfGVwOP/pDr4HT8bI1WtxK0IChMLw==}
+
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
@@ -10536,6 +10551,8 @@ snapshots:
   '@types/long@4.0.2': {}
 
   '@types/luxon@3.0.0': {}
+
+  '@types/luxon@3.4.2': {}
 
   '@types/methods@1.1.4': {}
 
