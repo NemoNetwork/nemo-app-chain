@@ -123,6 +123,7 @@ func mergeMarketMaps(this, other mmtypes.MarketMap) mmtypes.MarketMap {
 		// If the market does not exist in this map, we add it.
 		thisMarket, ok := this.Markets[name]
 		if !ok {
+			otherMarket.Ticker.MinProviderCount = 1
 			this.Markets[name] = otherMarket
 			continue
 		}
@@ -140,6 +141,7 @@ func mergeMarketMaps(this, other mmtypes.MarketMap) mmtypes.MarketMap {
 			}
 		}
 
+		thisMarket.Ticker.MinProviderCount = 1
 		this.Markets[name] = thisMarket
 	}
 
