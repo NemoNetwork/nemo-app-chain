@@ -42,9 +42,9 @@ export default function server(
 
   app.use(RequestLogger);
 
-  if (indexV4) {
-    app.use('/v4', indexV4);
-  }
+  // if (indexV4) {
+  //   app.use('/v4', indexV4);
+  // }
 
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
