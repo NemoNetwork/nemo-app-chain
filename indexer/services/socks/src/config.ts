@@ -35,7 +35,7 @@ export const configSchema = {
 
   RATE_LIMIT_ENABLED: parseBoolean({ default: true }),
   RATE_LIMIT_SUBSCRIBE_POINTS: parseNumber({ default: 2 }),
-  RATE_LIMIT_SUBSCRIBE_DURATION_MS: parseInteger({ default: 1000 }),
+  RATE_LIMIT_SUBSCRIBE_DURATION_MS: parseInteger({ default: 500 }),
   RATE_LIMIT_PING_POINTS: parseNumber({ default: 5 }),
   RATE_LIMIT_PING_DURATION_MS: parseInteger({ default: 1000 }),
   RATE_LIMIT_INVALID_MESSAGE_POINTS: parseNumber({ default: 2 }),

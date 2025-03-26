@@ -114,7 +114,36 @@ export class Subscriptions {
     }
 
     const subscriptionId: string = this.normalizeSubscriptionId(channel, id);
- 
+    const duration: number = this.subscribeRateLimiter.rateLimit({
+      connectionId,
+      key: channel + subscriptionId,
+    });
+    if (duration > 0) {
+      sendMessage(
+        ws,
+        connectionId,
+        createErrorMessage(
+          `Too many subscribe attempts for channel ${channel}-${subscriptionId}. Please ` +
+          ' reconnect and try again.',
+          connectionId,
+          messageId,
+        ),
+      );
+
+      // Violated rate-limit; disconnect.
+      ws.close(
+        WS_CLOSE_CODE_POLICY_VIOLATION,
+        JSON.stringify({ message: 'Rate limited' }),
+      );
+
+      logger.info({
+        at: 'subscription#subscribe',
+        message: 'Connection closed due to violating rate limit',
+        connectionId,
+      });
+      return;
+    }
+
     let initialResponse: string;
     const startGetInitialResponse: number = Date.now();
     try {
