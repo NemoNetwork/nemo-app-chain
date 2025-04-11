@@ -25,7 +25,7 @@ import { getReqRateLimiter } from '../../../caches/rate-limiters';
 import config from '../../../config';
 import { complianceProvider } from '../../../helpers/compliance/compliance-clients';
 import { getGeoComplianceReason } from '../../../helpers/compliance/compliance-utils';
-import { DYDX_ADDRESS_PREFIX, GEOBLOCK_REQUEST_TTL_SECONDS } from '../../../lib/constants';
+import { NEMO_ADDRESS_PREFIX, GEOBLOCK_REQUEST_TTL_SECONDS } from '../../../lib/constants';
 import { create4xxResponse, handleControllerError } from '../../../lib/helpers';
 import { rateLimiterMiddleware } from '../../../lib/rate-limit';
 import { getIpAddr } from '../../../lib/utils';
@@ -70,7 +70,7 @@ class ComplianceV2Controller extends Controller {
     }: {
       restricted: boolean,
     } = await controller.screen(address);
-    if (!address.startsWith(DYDX_ADDRESS_PREFIX)) {
+    if (!address.startsWith(NEMO_ADDRESS_PREFIX)) {
       if (restricted) {
         return {
           status: ComplianceStatus.BLOCKED,
@@ -273,7 +273,7 @@ router.post(
 );
 
 function generateAddress(pubkeyArray: Uint8Array): string {
-  return toBech32('dydx', ripemd160(sha256(pubkeyArray)));
+  return toBech32('nemo', ripemd160(sha256(pubkeyArray)));
 }
 
 /**
@@ -293,10 +293,10 @@ async function validateSignature(
   pubkey: string,
   currentStatus?: string,
 ): Promise<express.Response| undefined> {
-  if (!address.startsWith(DYDX_ADDRESS_PREFIX)) {
+  if (!address.startsWith(NEMO_ADDRESS_PREFIX)) {
     return create4xxResponse(
       res,
-      `Address ${address} is not a valid dYdX V4 address`,
+      `Address ${address} is not a valid nemo address`,
     );
   }
 
@@ -359,7 +359,7 @@ function validateSignatureKeplr(
   const signedMessageUint = new Uint8Array(Buffer.from(signedMessage, 'base64'));
 
   const isVerified = verifyADR36Amino(
-    'dydx', address, messageToSign, pubKeyUint, signedMessageUint, 'secp256k1',
+    'nemo', address, messageToSign, pubKeyUint, signedMessageUint, 'secp256k1',
   );
 
   if (!isVerified) {
@@ -565,7 +565,7 @@ if (config.EXPOSE_SET_COMPLIANCE_ENDPOINT) {
       } = req.body as SetComplianceStatusRequest;
 
       try {
-        if (!address.startsWith(DYDX_ADDRESS_PREFIX)) {
+        if (!address.startsWith(NEMO_ADDRESS_PREFIX)) {
           return create4xxResponse(
             res,
             `Address ${address} is not a dydx address`,
