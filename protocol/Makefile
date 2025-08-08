@@ -1,4 +1,4 @@
-export VERSION := $(shell echo $(shell git describe --tags --always --match "protocol/v*") | sed 's/^protocol\/v//')
+export VERSION := v0.1.0
 BUILDDIR ?= $(CURDIR)/build
 DOCKER := $(shell which docker)
 HTTPS_GIT := https://github.com/nemonetwork/v4.git
