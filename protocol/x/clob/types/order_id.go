@@ -43,8 +43,7 @@ func (o *OrderId) IsLongTermOrder() bool {
 // IsStatefulOrder returns whether this order is a stateful order, which is true for Long-Term
 // and conditional orders and false for Short-Term orders.
 func (o *OrderId) IsStatefulOrder() bool {
-	// return o.IsLongTermOrder() || o.IsConditionalOrder()
-	return true
+	return o.IsLongTermOrder() || o.IsConditionalOrder()
 }
 
 // MustBeStatefulOrder panics if the orderId is not a stateful order, else it does nothing.
