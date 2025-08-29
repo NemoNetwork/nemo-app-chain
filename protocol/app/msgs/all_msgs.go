@@ -149,10 +149,10 @@ var (
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal":       {},
 
 		// affiliates
-		"/nemo-network.affiliates.MsgRegisterAffiliate":            {},
-		"/nemo-network.affiliates.MsgRegisterAffiliateResponse":    {},
-		"/nemo-network.affiliates.MsgUpdateAffiliateTiers":         {},
-		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse": {},
+		"/nemo_network.affiliates.MsgRegisterAffiliate":            {},
+		"/nemo_network.affiliates.MsgRegisterAffiliateResponse":    {},
+		"/nemo_network.affiliates.MsgUpdateAffiliateTiers":         {},
+		"/nemo_network.affiliates.MsgUpdateAffiliateTiersResponse": {},
 
 		// blocktime
 		"/nemo_network.blocktime.MsgUpdateDowntimeParams":         {},
@@ -203,12 +203,12 @@ var (
 		"/nemo_network.govplus.MsgSlashValidatorResponse": {},
 
 		// listing
-		"/nemo-network.listing.MsgSetMarketsHardCap":                    {},
-		"/nemo-network.listing.MsgSetMarketsHardCapResponse":            {},
-		"/nemo-network.listing.MsgCreateMarketPermissionless":           {},
-		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse":   {},
-		"/nemo-network.listing.MsgSetListingVaultDepositParams":         {},
-		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse": {},
+		"/nemo_network.listing.MsgSetMarketsHardCap":                    {},
+		"/nemo_network.listing.MsgSetMarketsHardCapResponse":            {},
+		"/nemo_network.listing.MsgCreateMarketPermissionless":           {},
+		"/nemo_network.listing.MsgCreateMarketPermissionlessResponse":   {},
+		"/nemo_network.listing.MsgSetListingVaultDepositParams":         {},
+		"/nemo_network.listing.MsgSetListingVaultDepositParamsResponse": {},
 
 		// perpetuals
 		"/nemo_network.perpetuals.MsgAddPremiumVotes":               {},
@@ -249,12 +249,12 @@ var (
 		"/nemo_network.stats.MsgUpdateParamsResponse": {},
 
 		// vault
-		"/nemo-network.vault.MsgDepositToMegavault":                 {},
-		"/nemo-network.vault.MsgDepositToMegavaultResponse":         {},
-		"/nemo-network.vault.MsgSetVaultParams":                     {},
-		"/nemo-network.vault.MsgSetVaultParamsResponse":             {},
-		"/nemo-network.vault.MsgUpdateDefaultQuotingParams":         {},
-		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse": {},
+		"/nemo_network.vault.MsgDepositToMegavault":                 {},
+		"/nemo_network.vault.MsgDepositToMegavaultResponse":         {},
+		"/nemo_network.vault.MsgSetVaultParams":                     {},
+		"/nemo_network.vault.MsgSetVaultParamsResponse":             {},
+		"/nemo_network.vault.MsgUpdateDefaultQuotingParams":         {},
+		"/nemo_network.vault.MsgUpdateDefaultQuotingParamsResponse": {},
 
 		// vest
 		"/nemo_network.vest.MsgSetVestEntry":            {},
@@ -263,10 +263,10 @@ var (
 		"/nemo_network.vest.MsgDeleteVestEntryResponse": {},
 
 		// revshare
-		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare":                     {},
-		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse":             {},
-		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         {},
-		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": {},
+		"/nemo_network.revshare.MsgSetMarketMapperRevenueShare":                     {},
+		"/nemo_network.revshare.MsgSetMarketMapperRevenueShareResponse":             {},
+		"/nemo_network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         {},
+		"/nemo_network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": {},
 
 		// rewards
 		"/nemo_network.rewards.MsgUpdateParams":         {},

@@ -1,6 +1,8 @@
 package grpc
 
 import (
+	"fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/nemo-network/v4-chain/protocol/streaming/grpc/types"
 	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
@@ -24,7 +26,7 @@ func (sm *NoopGrpcStreamingManager) Subscribe(
 ) (
 	err error,
 ) {
-	return clobtypes.ErrGrpcStreamingManagerNotEnabled
+	return fmt.Errorf("grpc streaming manager is not enabled")
 }
 
 func (sm *NoopGrpcStreamingManager) SendSnapshot(

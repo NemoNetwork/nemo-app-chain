@@ -126,7 +126,7 @@ func (sm *GrpcStreamingManagerImpl) Subscribe(
 
 	// Perform some basic validation on the request.
 	if len(clobPairIds) == 0 {
-		return clobtypes.ErrInvalidGrpcStreamingRequest
+		return fmt.Errorf("invalid grpc streaming request: no clob pair ids")
 	}
 
 	sm.Lock()

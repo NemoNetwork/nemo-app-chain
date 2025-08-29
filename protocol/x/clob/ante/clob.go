@@ -55,15 +55,9 @@ func (cd ClobDecorator) AnteHandle(
 		return next(ctx, tx, simulate)
 	}
 
-	// Ensure that if this is a clob message then that there is only one.
-	// If it isn't a clob message then pass to the next AnteHandler.
-	isSingleClobMsgTx, err := IsSingleClobMsgTx(tx)
-	if err != nil {
+	// Check if the transaction is a valid clob tx
+	if err := ValidateMsgsInClobTx(tx); err != nil {
 		return ctx, err
-	}
-
-	if !isSingleClobMsgTx {
-		return next(ctx, tx, simulate)
 	}
 
 	// Disable order placement and cancelation processing if the clob keeper is not initialized.
@@ -77,6 +71,7 @@ func (cd ClobDecorator) AnteHandle(
 	msgs := tx.GetMsgs()
 	var msg = msgs[0]
 
+	var err error
 	switch msg := msg.(type) {
 	case *types.MsgCancelOrder:
 		if msg.OrderId.IsStatefulOrder() {
@@ -179,37 +174,70 @@ func (cd ClobDecorator) AnteHandle(
 	return next(ctx, tx, simulate)
 }
 
-// IsSingleClobMsgTx returns `true` if the supplied `tx` consist of a single clob message
-// (`MsgPlaceOrder` or `MsgCancelOrder` or `MsgBatchCancel`). If `msgs` consist of multiple
-// clob messages, or a mix of on-chain and clob messages, an error is returned.
-func IsSingleClobMsgTx(tx sdk.Tx) (bool, error) {
+// HasClobMsg returns `true` if the transaction has at least one clob msg
+func HasClobMsg(tx sdk.Tx) bool {
 	msgs := tx.GetMsgs()
-	var hasMessage = false
 
 	for _, msg := range msgs {
 		switch msg.(type) {
-		case *types.MsgCancelOrder, *types.MsgPlaceOrder, *types.MsgBatchCancel:
-			hasMessage = true
+		case *types.MsgCancelOrder:
+			return true
+		case *types.MsgPlaceOrder:
+			return true
+		case *types.MsgBatchCancel:
+			return true
 		}
+	}
+	return false
+}
 
-		if hasMessage {
-			break
+// ValidateMsgsInClobTx checks if the transaction contains a valid set of clob msgs
+// This function assumes that the input tx has at least one clob msg
+// A transaction with a clob msg must adhere to the below conditions
+//   - If the tx contains a short term order msg, the tx can only have one msg
+//   - If the tx contains a stateful order msg, it can only contain other stateful order msgs
+//     or a single transfer msg
+func ValidateMsgsInClobTx(tx sdk.Tx) error {
+	msgs := tx.GetMsgs()
+
+	var hasShortTermOrder = false
+	// Non CLOB msgs other than a single transfer msg are not allowed in CLOB msg transactions
+	// because there is no gas fee charged for CLOB transactions
+	var hasDisallowedMsg = false
+
+	for _, msg := range msgs {
+		switch msg := msg.(type) {
+		case *types.MsgCancelOrder:
+			if msg.OrderId.IsShortTermOrder() {
+				hasShortTermOrder = true
+			}
+		case *types.MsgPlaceOrder:
+			if msg.Order.OrderId.IsShortTermOrder() {
+				hasShortTermOrder = true
+			}
+		case *types.MsgBatchCancel:
+			// MsgBatchCancel processes only short term orders for now.
+			hasShortTermOrder = true
+		default:
+			hasDisallowedMsg = true
 		}
 	}
 
-	if !hasMessage {
-		return false, nil
-	}
-
-	numMsgs := len(msgs)
-	if numMsgs > 1 {
-		return false, errorsmod.Wrap(
+	if hasShortTermOrder && len(msgs) > 1 {
+		return errorsmod.Wrap(
 			sdkerrors.ErrInvalidRequest,
-			"a transaction containing MsgCancelOrder or MsgPlaceOrder or MsgBatchCancel may not contain more than one message",
+			"a transaction containing short term order may not contain more than one message",
 		)
 	}
 
-	return true, nil
+	if hasDisallowedMsg {
+		return errorsmod.Wrap(
+			sdkerrors.ErrInvalidRequest,
+			"a transaction containing stateful orders cannot be accompanied by non transfer msgs",
+		)
+	}
+
+	return nil
 }
 
 // IsShortTermClobMsgTx returns `true` if the supplied `tx` consist of a single clob message
