@@ -102,6 +102,12 @@ func (cd ClobDecorator) AnteHandle(
 				log.Error, err,
 			)
 		} else {
+			log.DebugLog(ctx, "Received new non-stateful order",
+				log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
+				log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
+				log.Error, err,
+			)
+
 			// No need to process short term orders on `ReCheckTx`.
 			if ctx.IsReCheckTx() {
 				return next(ctx, tx, simulate)
