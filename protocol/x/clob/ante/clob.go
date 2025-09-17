@@ -93,6 +93,12 @@ func (cd ClobDecorator) AnteHandle(
 		)
 
 	case *types.MsgPlaceOrder:
+		log.DebugLog(ctx, "Received new place order message: clob ante handler",
+			log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
+			log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
+			log.Error, err,
+		)
+
 		if msg.Order.OrderId.IsStatefulOrder() {
 			err = cd.clobKeeper.PlaceStatefulOrder(ctx, msg, false)
 
