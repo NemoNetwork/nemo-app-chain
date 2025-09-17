@@ -50,7 +50,7 @@ func (cd ClobDecorator) AnteHandle(
 	simulate bool,
 	next sdk.AnteHandler,
 ) (sdk.Context, error) {
-	log.DebugLog(ctx, "Received new place order message: clob ante handler before validation",
+	log.InfoLog(ctx, "Received new place order message: clob ante handler before validation",
 		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
 		log.Error, nil,
@@ -61,7 +61,7 @@ func (cd ClobDecorator) AnteHandle(
 		return next(ctx, tx, simulate)
 	}
 
-	log.DebugLog(ctx, "Received new place order message: clob ante handler after validation",
+	log.InfoLog(ctx, "Received new place order message: clob ante handler after validation",
 		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
 		log.Error, nil,
@@ -71,7 +71,7 @@ func (cd ClobDecorator) AnteHandle(
 		return ctx, err
 	}
 
-	log.DebugLog(ctx, "Received new place order message: clob ante handler before IsInitialized",
+	log.InfoLog(ctx, "Received new place order message: clob ante handler before IsInitialized",
 		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
 		log.Error, nil,
@@ -84,7 +84,7 @@ func (cd ClobDecorator) AnteHandle(
 		)
 	}
 
-	log.DebugLog(ctx, "Received new place order message: clob ante handler after IsInitialized",
+	log.InfoLog(ctx, "Received new place order message: clob ante handler after IsInitialized",
 		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
 		log.Error, nil,
@@ -109,13 +109,13 @@ func (cd ClobDecorator) AnteHandle(
 			err = cd.clobKeeper.CancelShortTermOrder(ctx, msg)
 		}
 
-		log.DebugLog(ctx, "Received new order cancellation",
+		log.InfoLog(ctx, "Received new order cancellation",
 			log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 			log.Error, err,
 		)
 
 	case *types.MsgPlaceOrder:
-		log.DebugLog(ctx, "Received new place order message: clob ante handler",
+		log.InfoLog(ctx, "Received new place order message: clob ante handler",
 			log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 			log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
 			log.Error, err,
@@ -124,13 +124,13 @@ func (cd ClobDecorator) AnteHandle(
 		if msg.Order.OrderId.IsStatefulOrder() {
 			err = cd.clobKeeper.PlaceStatefulOrder(ctx, msg, false)
 
-			log.DebugLog(ctx, "Received new stateful order",
+			log.InfoLog(ctx, "Received new stateful order",
 				log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 				log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
 				log.Error, err,
 			)
 		} else {
-			log.DebugLog(ctx, "Received new non-stateful order",
+			log.InfoLog(ctx, "Received new non-stateful order",
 				log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 				log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
 				log.Error, err,
@@ -165,7 +165,7 @@ func (cd ClobDecorator) AnteHandle(
 				msg,
 			)
 
-			log.DebugLog(ctx, "Received new short term order",
+			log.InfoLog(ctx, "Received new short term order",
 				log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 				log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
 				log.OrderStatus, status,
@@ -194,7 +194,7 @@ func (cd ClobDecorator) AnteHandle(
 			)
 		}
 
-		log.DebugLog(
+		log.InfoLog(
 			ctx,
 			"Received new batch cancellation",
 			log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
