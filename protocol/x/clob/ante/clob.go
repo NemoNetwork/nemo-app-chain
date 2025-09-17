@@ -50,16 +50,32 @@ func (cd ClobDecorator) AnteHandle(
 	simulate bool,
 	next sdk.AnteHandler,
 ) (sdk.Context, error) {
+	log.DebugLog(ctx, "Received new place order message: clob ante handler before validation",
+		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
+		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
+		log.Error, nil,
+	)
+
 	// No need to process during `DeliverTx` or simulation, call next `AnteHandler`.
 	if lib.IsDeliverTxMode(ctx) || simulate {
 		return next(ctx, tx, simulate)
 	}
 
+	log.DebugLog(ctx, "Received new place order message: clob ante handler after validation",
+		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
+		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
+		log.Error, nil,
+	)
 	// Check if the transaction is a valid clob tx
 	if err := ValidateMsgsInClobTx(tx); err != nil {
 		return ctx, err
 	}
 
+	log.DebugLog(ctx, "Received new place order message: clob ante handler before IsInitialized",
+		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
+		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
+		log.Error, nil,
+	)
 	// Disable order placement and cancelation processing if the clob keeper is not initialized.
 	if !cd.clobKeeper.IsInitialized() {
 		return ctx, errorsmod.Wrap(
@@ -67,6 +83,12 @@ func (cd ClobDecorator) AnteHandle(
 			"clob keeper is not initialized. Please wait for the next block.",
 		)
 	}
+
+	log.DebugLog(ctx, "Received new place order message: clob ante handler after IsInitialized",
+		log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
+		log.OrderHash, cometbftlog.NewLazySprintf("%X", tx.GetMsgs()[0].(*types.MsgPlaceOrder).Order.GetOrderHash()),
+		log.Error, nil,
+	)
 
 	msgs := tx.GetMsgs()
 	var msg = msgs[0]
