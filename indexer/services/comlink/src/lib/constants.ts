@@ -28,6 +28,6 @@ Record<SparklineTimePeriod, CandleResolution> = {
   [SparklineTimePeriod.SEVEN_DAYS]: CandleResolution.FOUR_HOURS,
 };
 
-export const DYDX_ADDRESS_PREFIX: string = 'dydx';
+export const NEMO_ADDRESS_PREFIX: string = 'nemo';
 
 export const GEOBLOCK_REQUEST_TTL_SECONDS: number = 30;
