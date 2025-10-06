@@ -90,6 +90,20 @@ export interface ParentSubaccountResponse {
   childSubaccounts: SubaccountResponseObject[],
 }
 
+export interface AccountOverviewResponse {
+  address: string,
+  /**
+   * @isInt
+   */
+  parentSubaccountNumber: number,
+  portfolioValue: string,
+  unrealizedPnl: string,
+  crossLeverage: string | null,
+  crossMarginUsage: string | null,
+  maintenanceMargin: string,
+  crossMarginRatio: string | null,
+}
+
 export type SubaccountById = {[id: string]: SubaccountFromDatabase};
 
 /* ------- TIME TYPES ------- */

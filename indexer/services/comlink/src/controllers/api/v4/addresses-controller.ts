@@ -20,6 +20,7 @@ import {
   WalletTable,
   WalletFromDatabase,
   perpetualMarketRefresher,
+  helpers,
 } from '@nemo-network-indexer/postgres';
 import Big from 'big.js';
 import express from 'express';
@@ -39,6 +40,7 @@ import {
   handleControllerError,
   getChildSubaccountIds,
   getSubaccountResponse,
+  getSignedNotionalAndRisk,
 } from '../../../lib/helpers';
 import { rateLimiterMiddleware } from '../../../lib/rate-limit';
 import { CheckAddressSchema, CheckParentSubaccountSchema, CheckSubaccountSchema } from '../../../lib/validation/schemas';
@@ -51,6 +53,7 @@ import {
   AddressResponse,
   ParentSubaccountResponse,
   ParentSubaccountRequest,
+  AccountOverviewResponse,
 } from '../../../types';
 
 const router: express.Router = express.Router();
@@ -292,6 +295,121 @@ class AddressesController extends Controller {
         Big(0),
       ).toString(),
       childSubaccounts: subaccountResponses,
+    };
+  }
+
+  @Get('/:address/parentSubaccountNumber/:parentSubaccountNumber/overview')
+  public async getParentSubaccountOverview(
+    @Path() address: string,
+    @Path() parentSubaccountNumber: number,
+  ): Promise<AccountOverviewResponse> {
+    const childSubaccountIds: string[] = getChildSubaccountIds(address, parentSubaccountNumber);
+
+    const [subaccounts, latestBlock, markets]: [
+      SubaccountFromDatabase[],
+      BlockFromDatabase,
+      MarketFromDatabase[],
+    ] = await Promise.all([
+      SubaccountTable.findAll(
+        {
+          id: childSubaccountIds,
+          address,
+        },
+        [],
+      ),
+      BlockTable.getLatest(),
+      MarketTable.findAll(
+        {},
+        [],
+      ),
+    ]);
+
+    if (subaccounts.length === 0) {
+      throw new NotFoundError(`No subaccounts found for address ${address} and parentSubaccountNumber ${parentSubaccountNumber}`);
+    }
+
+    const marketsMap: { [id: number]: MarketFromDatabase } = markets.reduce((acc, m) => {
+      acc[m.id] = m; return acc;
+    }, {} as { [id: number]: MarketFromDatabase });
+
+    const perpetualMarketsMap = perpetualMarketRefresher.getPerpetualMarketsMap();
+
+    // Aggregate metrics across all child subaccounts
+    let equityTotal = Big(0);
+    let unrealizedPnlTotal = Big(0);
+    let notionalTotalAbs = Big(0);
+    let maintenanceRiskTotal = Big(0);
+    let initialRiskTotal = Big(0);
+
+    // For equity, reuse existing subaccount responses to ensure funding-adjusted USDC is included
+    const latestFundingIndexMap: FundingIndexMap = await FundingIndexUpdatesTable.findFundingIndexMap(latestBlock.blockHeight);
+
+    for (const subaccount of subaccounts) {
+      const [perpetualPositions, assetPositions, assets, lastUpdatedFundingIndexMap]: [
+        PerpetualPositionFromDatabase[],
+        AssetPositionFromDatabase[],
+        AssetFromDatabase[],
+        FundingIndexMap,
+      ] = await Promise.all([
+        getOpenPerpetualPositionsForSubaccount(subaccount.id),
+        getAssetPositionsForSubaccount(subaccount.id),
+        AssetTable.findAll({}, []),
+        FundingIndexUpdatesTable.findFundingIndexMap(subaccount.updatedAtHeight),
+      ]);
+
+      // Build subaccount response to get equity (funding-adjusted)
+      const subResp = getSubaccountResponse(
+        subaccount,
+        perpetualPositions,
+        assetPositions,
+        assets,
+        markets,
+        perpetualMarketsMap,
+        latestBlock.blockHeight,
+        latestFundingIndexMap,
+        lastUpdatedFundingIndexMap,
+      );
+      equityTotal = equityTotal.plus(subResp.equity);
+
+      // Walk positions for unrealized PnL, notional, and risks
+      for (const position of perpetualPositions) {
+        const perp = perpetualMarketsMap[position.perpetualId];
+        const market = marketsMap[perp.marketId];
+
+        // Unrealized PnL
+        const uPnl = Big(helpers.getUnrealizedPnl(
+          position as unknown as any,
+          perp as unknown as any,
+          market as unknown as any,
+        ) as string);
+        unrealizedPnlTotal = unrealizedPnlTotal.plus(uPnl);
+
+        // Notional and risks
+        const { signedNotional, individualRisk } = getSignedNotionalAndRisk({
+          size: Big(position.size),
+          perpetualMarket: perp,
+          market,
+        });
+        notionalTotalAbs = notionalTotalAbs.plus(signedNotional.abs());
+        maintenanceRiskTotal = maintenanceRiskTotal.plus(individualRisk.maintenance);
+        initialRiskTotal = initialRiskTotal.plus(individualRisk.initial);
+      }
+    }
+
+    const equity = equityTotal;
+    const crossLeverage = equity.gt(0) ? notionalTotalAbs.div(equity) : null;
+    const crossMarginUsage = equity.gt(0) ? initialRiskTotal.div(equity) : null;
+    const crossMarginRatio = maintenanceRiskTotal.gt(0) ? equity.div(maintenanceRiskTotal) : null;
+
+    return {
+      address,
+      parentSubaccountNumber,
+      portfolioValue: equity.toFixed(),
+      unrealizedPnl: unrealizedPnlTotal.toFixed(),
+      crossLeverage: crossLeverage ? crossLeverage.toFixed() : null,
+      crossMarginUsage: crossMarginUsage ? crossMarginUsage.toFixed() : null,
+      maintenanceMargin: maintenanceRiskTotal.toFixed(),
+      crossMarginRatio: crossMarginRatio ? crossMarginRatio.toFixed() : null,
     };
   }
 }
