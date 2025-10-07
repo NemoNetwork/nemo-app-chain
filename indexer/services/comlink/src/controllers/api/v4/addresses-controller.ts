@@ -544,6 +544,52 @@ router.get(
   },
 );
 
+router.get(
+  '/:address/parentSubaccountNumber/:parentSubaccountNumber/overview',
+  rateLimiterMiddleware(getReqRateLimiter),
+  ...CheckParentSubaccountSchema,
+  handleValidationErrors,
+  complianceAndGeoCheck,
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+    const {
+      address,
+      parentSubaccountNumber,
+    }: {
+      address: string,
+      parentSubaccountNumber: number,
+    } = matchedData(req) as ParentSubaccountRequest;
+
+    const parentSubaccountNum = +parentSubaccountNumber;
+
+    try {
+      const controller: AddressesController = new AddressesController();
+      const overviewResponse: AccountOverviewResponse = await controller.getParentSubaccountOverview(
+        address,
+        parentSubaccountNum,
+      );
+
+      return res.send({
+        overview: overviewResponse,
+      });
+    } catch (error) {
+      return handleControllerError(
+        'AddressesController GET /:address/parentSubaccountNumber/:parentSubaccountNumber/overview',
+        'Addresses overview error',
+        error,
+        req,
+        res,
+      );
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.get_parentSubaccount_overview.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
 // eslint-disable-next-line  @typescript-eslint/require-await
 async function getOpenPerpetualPositionsForSubaccount(
   subaccountId: string,
