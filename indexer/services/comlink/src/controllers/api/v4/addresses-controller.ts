@@ -54,6 +54,7 @@ import {
   ParentSubaccountResponse,
   ParentSubaccountRequest,
   AccountOverviewResponse,
+  EquityAndMarginUsageResponse,
 } from '../../../types';
 
 const router: express.Router = express.Router();
@@ -412,6 +413,108 @@ class AddressesController extends Controller {
       crossMarginRatio: crossMarginRatio ? crossMarginRatio.toFixed() : null,
     };
   }
+
+  @Get('/:address/parentSubaccountNumber/:parentSubaccountNumber/equity-margin-usage')
+  public async getEquityAndMarginUsage(
+    @Path() address: string,
+    @Path() parentSubaccountNumber: number,
+  ): Promise<EquityAndMarginUsageResponse> {
+    const childSubaccountIds: string[] = getChildSubaccountIds(address, parentSubaccountNumber);
+
+    const [subaccounts, latestBlock, markets]: [
+      SubaccountFromDatabase[],
+      BlockFromDatabase,
+      MarketFromDatabase[],
+    ] = await Promise.all([
+      SubaccountTable.findAll(
+        {
+          id: childSubaccountIds,
+          address,
+        },
+        [],
+      ),
+      BlockTable.getLatest(),
+      MarketTable.findAll(
+        {},
+        [],
+      ),
+    ]);
+
+    if (subaccounts.length === 0) {
+      throw new NotFoundError(`No subaccounts found for address ${address} and parentSubaccountNumber ${parentSubaccountNumber}`);
+    }
+
+    const marketsMap: { [id: number]: MarketFromDatabase } = markets.reduce((acc, m) => {
+      acc[m.id] = m; return acc;
+    }, {} as { [id: number]: MarketFromDatabase });
+
+    const perpetualMarketsMap = perpetualMarketRefresher.getPerpetualMarketsMap();
+
+    // Aggregate metrics across all child subaccounts
+    let equityTotal = Big(0);
+    let initialRiskTotal = Big(0);
+    let maintenanceRiskTotal = Big(0);
+
+    // For equity, reuse existing subaccount responses to ensure funding-adjusted USDC is included
+    const latestFundingIndexMap: FundingIndexMap = await FundingIndexUpdatesTable.findFundingIndexMap(latestBlock.blockHeight);
+
+    for (const subaccount of subaccounts) {
+      const [perpetualPositions, assetPositions, assets, lastUpdatedFundingIndexMap]: [
+        PerpetualPositionFromDatabase[],
+        AssetPositionFromDatabase[],
+        AssetFromDatabase[],
+        FundingIndexMap,
+      ] = await Promise.all([
+        getOpenPerpetualPositionsForSubaccount(subaccount.id),
+        getAssetPositionsForSubaccount(subaccount.id),
+        AssetTable.findAll({}, []),
+        FundingIndexUpdatesTable.findFundingIndexMap(subaccount.updatedAtHeight),
+      ]);
+
+      // Build subaccount response to get equity (funding-adjusted)
+      const subResp = getSubaccountResponse(
+        subaccount,
+        perpetualPositions,
+        assetPositions,
+        assets,
+        markets,
+        perpetualMarketsMap,
+        latestBlock.blockHeight,
+        latestFundingIndexMap,
+        lastUpdatedFundingIndexMap,
+      );
+      equityTotal = equityTotal.plus(subResp.equity);
+
+      // Walk positions for risks
+      for (const position of perpetualPositions) {
+        const perp = perpetualMarketsMap[position.perpetualId];
+        const market = marketsMap[perp.marketId];
+
+        // Calculate risks
+        const { individualRisk } = getSignedNotionalAndRisk({
+          size: Big(position.size),
+          perpetualMarket: perp,
+          market,
+        });
+        initialRiskTotal = initialRiskTotal.plus(individualRisk.initial);
+        maintenanceRiskTotal = maintenanceRiskTotal.plus(individualRisk.maintenance);
+      }
+    }
+
+    const equity = equityTotal;
+    
+    // Calculate usage percentages
+    const imUsagePercentage = equity.gt(0) ? initialRiskTotal.div(equity).mul(100) : Big(0);
+    const mmUsagePercentage = equity.gt(0) ? maintenanceRiskTotal.div(equity).mul(100) : Big(0);
+
+    return {
+      address,
+      parentSubaccountNumber,
+      equity: equity.toFixed(),
+      imUsagePercentage: imUsagePercentage.toFixed(),
+      mmUsagePercentage: mmUsagePercentage.toFixed(),
+    };
+  }
 }
 
 router.get(
@@ -584,6 +687,52 @@ router.get(
     } finally {
       stats.timing(
         `${config.SERVICE_NAME}.${controllerName}.get_parentSubaccount_overview.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
+router.get(
+  '/:address/parentSubaccountNumber/:parentSubaccountNumber/equity-margin-usage',
+  rateLimiterMiddleware(getReqRateLimiter),
+  ...CheckParentSubaccountSchema,
+  handleValidationErrors,
+  complianceAndGeoCheck,
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+    const {
+      address,
+      parentSubaccountNumber,
+    }: {
+      address: string,
+      parentSubaccountNumber: number,
+    } = matchedData(req) as ParentSubaccountRequest;
+
+    const parentSubaccountNum = +parentSubaccountNumber;
+
+    try {
+      const controller: AddressesController = new AddressesController();
+      const equityMarginUsageResponse: EquityAndMarginUsageResponse = await controller.getEquityAndMarginUsage(
+        address,
+        parentSubaccountNum,
+      );
+
+      return res.send({
+        equityMarginUsage: equityMarginUsageResponse,
+      });
+    } catch (error) {
+      return handleControllerError(
+        'AddressesController GET /:address/parentSubaccountNumber/:parentSubaccountNumber/equity-margin-usage',
+        'Addresses equity margin usage error',
+        error,
+        req,
+        res,
+      );
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.get_equity_margin_usage.timing`,
         Date.now() - start,
       );
     }

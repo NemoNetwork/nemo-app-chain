@@ -104,6 +104,17 @@ export interface AccountOverviewResponse {
   crossMarginRatio: string | null,
 }
 
+export interface EquityAndMarginUsageResponse {
+  address: string,
+  /**
+   * @isInt
+   */
+  parentSubaccountNumber: number,
+  equity: string,
+  imUsagePercentage: string,
+  mmUsagePercentage: string,
+}
+
 export type SubaccountById = {[id: string]: SubaccountFromDatabase};
 
 /* ------- TIME TYPES ------- */
