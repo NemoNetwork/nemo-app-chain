@@ -155,6 +155,22 @@ export const CheckLimitSchema = checkSchema(limitSchemaRecord);
 
 export const CheckPaginationSchema = checkSchema(paginationSchemaRecord);
 
+export const CheckSubaccountHistoricalFundingSchema = checkSchema({
+  ...limitSchemaRecord,
+  ...effectiveBeforeOrAtSchemaRecord,
+  address: {
+    in: ['params'],
+    isString: true,
+  },
+  subaccountNumber: {
+    in: ['params'],
+    isInt: {
+      options: { gt: -1, lt: MAX_PARENT_SUBACCOUNTS * CHILD_SUBACCOUNT_MULTIPLIER + 1 },
+    },
+    errorMessage: 'subaccountNumber must be a non-negative integer less than 128001',
+  },
+});
+
 export const CheckLimitAndCreatedBeforeOrAtSchema = checkSchema({
   ...limitSchemaRecord,
   ...createdBeforeOrAtSchemaRecord,

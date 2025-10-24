@@ -436,6 +436,19 @@ export interface HistoricalFundingResponseObject {
   effectiveAtHeight: string,
 }
 
+export interface SubaccountHistoricalFundingResponse {
+  historicalFunding: SubaccountHistoricalFundingResponseObject[],
+}
+
+export interface SubaccountHistoricalFundingResponseObject {
+  market: string,
+  positionType: 'LONG' | 'SHORT',
+  date: IsoString,
+  positionSize: string,
+  payment: string,
+  fundingRate: string,
+}
+
 /* ------- GET REQUEST TYPES ------- */
 
 export interface AddressRequest {
@@ -572,6 +585,11 @@ export interface SparklinesRequest {
 
 export interface HistoricalFundingRequest extends LimitAndEffectiveBeforeRequest {
   ticker: string,
+}
+
+export interface SubaccountHistoricalFundingRequest extends LimitAndEffectiveBeforeRequest {
+  address: string,
+  subaccountNumber: number,
 }
 
 /* ------- COLLATERALIZATION TYPES ------- */
