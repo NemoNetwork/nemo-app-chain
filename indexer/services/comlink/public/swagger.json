@@ -240,6 +240,76 @@
         "type": "object",
         "additionalProperties": false
       },
+      "AccountOverviewResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "parentSubaccountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "portfolioValue": {
+            "type": "string"
+          },
+          "unrealizedPnl": {
+            "type": "string"
+          },
+          "crossLeverage": {
+            "type": "string",
+            "nullable": true
+          },
+          "crossMarginUsage": {
+            "type": "string",
+            "nullable": true
+          },
+          "maintenanceMargin": {
+            "type": "string"
+          },
+          "crossMarginRatio": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "address",
+          "parentSubaccountNumber",
+          "portfolioValue",
+          "unrealizedPnl",
+          "maintenanceMargin"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EquityAndMarginUsageResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "parentSubaccountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "equity": {
+            "type": "string"
+          },
+          "imUsagePercentage": {
+            "type": "string"
+          },
+          "mmUsagePercentage": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "parentSubaccountNumber",
+          "equity",
+          "imUsagePercentage",
+          "mmUsagePercentage"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "AffiliateReferralCodeResponse": {
         "properties": {
           "referralCode": {
@@ -712,6 +782,57 @@
           "historicalFunding": {
             "items": {
               "$ref": "#/components/schemas/HistoricalFundingResponseObject"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "historicalFunding"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SubaccountHistoricalFundingResponseObject": {
+        "properties": {
+          "market": {
+            "type": "string"
+          },
+          "positionType": {
+            "enum": [
+              "LONG",
+              "SHORT"
+            ],
+            "type": "string"
+          },
+          "date": {
+            "$ref": "#/components/schemas/IsoString"
+          },
+          "positionSize": {
+            "type": "string"
+          },
+          "payment": {
+            "type": "string"
+          },
+          "fundingRate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "market",
+          "positionType",
+          "date",
+          "positionSize",
+          "payment",
+          "fundingRate"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SubaccountHistoricalFundingResponse": {
+        "properties": {
+          "historicalFunding": {
+            "items": {
+              "$ref": "#/components/schemas/SubaccountHistoricalFundingResponseObject"
             },
             "type": "array"
           }
@@ -1664,6 +1785,80 @@
         ]
       }
     },
+    "/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/overview": {
+      "get": {
+        "operationId": "GetParentSubaccountOverview",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountOverviewResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "parentSubaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/equity-margin-usage": {
+      "get": {
+        "operationId": "GetEquityAndMarginUsage",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EquityAndMarginUsageResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "parentSubaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
     "/affiliates/referral_code": {
       "get": {
         "operationId": "GetReferralCode",
@@ -2256,6 +2451,69 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "effectiveBeforeOrAtHeight",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "effectiveBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/historicalFunding/address/{address}/{subaccountNumber}": {
+      "get": {
+        "operationId": "GetSubaccountHistoricalFunding",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubaccountHistoricalFundingResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
             }
           },
           {
