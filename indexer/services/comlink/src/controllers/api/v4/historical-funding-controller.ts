@@ -85,7 +85,7 @@ class HistoricalFundingController extends Controller {
     };
   }
 
-  @Get('/subaccount/:address/:subaccountNumber')
+  @Get('/address/:address/:subaccountNumber')
   async getSubaccountHistoricalFunding(
     @Path() address: string,
     @Path() subaccountNumber: number,
@@ -225,7 +225,7 @@ router.get(
 );
 
 router.get(
-  '/subaccount/:address/:subaccountNumber',
+  '/address/:address/:subaccountNumber',
   rateLimiterMiddleware(getReqRateLimiter),
   ...CheckSubaccountHistoricalFundingSchema,
   handleValidationErrors,
