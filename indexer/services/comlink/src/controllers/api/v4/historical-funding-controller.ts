@@ -1,6 +1,7 @@
 import { stats } from '@nemo-network-indexer/base/build';
 import {
   DEFAULT_POSTGRES_OPTIONS,
+  FillTable,
   FundingIndexUpdatesColumns,
   FundingIndexUpdatesFromDatabase,
   FundingIndexUpdatesTable,
@@ -14,6 +15,7 @@ import {
   PerpetualPositionFromDatabase,
   PerpetualPositionStatus,
   PositionSide,
+  perpetualMarketRefresher,
 } from '@nemo-network-indexer/postgres/build/src';
 import Big from 'big.js';
 import express from 'express';
@@ -159,6 +161,33 @@ class HistoricalFundingController extends Controller {
 
     // Create a map to track previous funding index for each perpetual
     const previousFundingIndexMap: { [perpetualId: string]: string | undefined } = {};
+    // Create a map to track historical position sizes at each funding index update
+    const historicalPositionSizeMap: { [perpetualId: string]: { [height: string]: string } } = {};
+
+    // Pre-calculate historical position sizes for each funding index update
+    await perpetualMarketRefresher.updatePerpetualMarkets();
+    const clobPairIdToPerpetualId: { [clobPairId: string]: string } = {};
+    for (const market of perpetualMarkets) {
+      const perpetualMarket = perpetualMarketRefresher.getPerpetualMarketFromId(market.id);
+      if (perpetualMarket) {
+        clobPairIdToPerpetualId[perpetualMarket.clobPairId] = market.id.toString();
+      }
+    }
+
+    // For each unique effectiveAtHeight, get historical position sizes
+    const uniqueHeights = [...new Set(fundingIndicesAsc.map(fi => fi.effectiveAtHeight))];
+    for (const height of uniqueHeights) {
+      const openSizes = await FillTable.getOpenSizeWithFundingIndex(subaccountId, height);
+      for (const openSize of openSizes) {
+        const perpetualId = clobPairIdToPerpetualId[openSize.clobPairId];
+        if (perpetualId) {
+          if (!historicalPositionSizeMap[perpetualId]) {
+            historicalPositionSizeMap[perpetualId] = {};
+          }
+          historicalPositionSizeMap[perpetualId][height] = openSize.openSize;
+        }
+      }
+    }
 
     // Create response objects
     const historicalFunding: SubaccountHistoricalFundingResponseObject[] = fundingIndicesAsc.map(
@@ -166,9 +195,16 @@ class HistoricalFundingController extends Controller {
         const perpetualMarket = perpetualMarketsMap[fundingIndex.perpetualId];
         const position = perpetualPositions.find(pos => pos.perpetualId === fundingIndex.perpetualId);
         
+        // Get historical position size at this funding index update time
+        const historicalPositionSize = historicalPositionSizeMap[fundingIndex.perpetualId]?.[fundingIndex.effectiveAtHeight];
+        const positionSizeStr = historicalPositionSize || (position ? position.size : '0');
+        const positionSize = Big(positionSizeStr);
+        
+        // Determine position type from position size sign (positive = LONG, negative = SHORT)
+        const positionType = positionSize.gte(0) ? 'LONG' : 'SHORT';
+        
         let payment = '0';
-        if (position) {
-          const positionSize = Big(position.size);
+        if (position && !positionSize.eq(0)) {
           const currentFundingIndex = Big(fundingIndex.fundingIndex);
           const previousFundingIndex = previousFundingIndexMap[fundingIndex.perpetualId];
           
@@ -191,9 +227,9 @@ class HistoricalFundingController extends Controller {
         
         return {
           market: perpetualMarket?.ticker || 'UNKNOWN',
-          positionType: position?.side === PositionSide.LONG ? 'LONG' : 'SHORT',
+          positionType,
           date: fundingIndex.effectiveAt,
-          positionSize: position ? position.size : '0',
+          positionSize: positionSizeStr,
           payment,
           fundingRate: fundingIndex.rate,
         };
