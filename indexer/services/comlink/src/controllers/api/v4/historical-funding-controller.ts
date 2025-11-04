@@ -33,6 +33,7 @@ import { CheckEffectiveBeforeOrAtSchema, CheckLimitSchema, CheckTickerParamSchem
 import { handleValidationErrors } from '../../../request-helpers/error-handler';
 import ExportResponseCodeStats from '../../../request-helpers/export-response-code-stats';
 import { historicalFundingToResponseObject } from '../../../request-helpers/request-transformer';
+import { quantumsToHuman } from '@nemo-network-indexer/postgres/build/src/lib/protocol-translations';
 import {
   HistoricalFundingRequest,
   HistoricalFundingResponse,
@@ -168,10 +169,8 @@ class HistoricalFundingController extends Controller {
     await perpetualMarketRefresher.updatePerpetualMarkets();
     const clobPairIdToPerpetualId: { [clobPairId: string]: string } = {};
     for (const market of perpetualMarkets) {
-      const perpetualMarket = perpetualMarketRefresher.getPerpetualMarketFromId(market.id);
-      if (perpetualMarket) {
-        clobPairIdToPerpetualId[perpetualMarket.clobPairId] = market.id.toString();
-      }
+      // Use the market's clobPairId directly from the database
+      clobPairIdToPerpetualId[market.clobPairId] = market.id.toString();
     }
 
     // For each unique effectiveAtHeight, get historical position sizes
@@ -181,10 +180,20 @@ class HistoricalFundingController extends Controller {
       for (const openSize of openSizes) {
         const perpetualId = clobPairIdToPerpetualId[openSize.clobPairId];
         if (perpetualId) {
-          if (!historicalPositionSizeMap[perpetualId]) {
-            historicalPositionSizeMap[perpetualId] = {};
+          const market = perpetualMarkets.find(m => m.id.toString() === perpetualId);
+          if (market) {
+            // Convert openSize from base quantums to human-readable format
+            // openSize from getOpenSizeWithFundingIndex is in base quantums (signed)
+            // Use quantumsToHuman helper to convert to human-readable format
+            // Note: quantumsToHuman multiplies by 10^atomicResolution, preserving the sign
+            const openSizeHuman = quantumsToHuman(openSize.openSize, market.atomicResolution).toFixed();
+            
+            if (!historicalPositionSizeMap[perpetualId]) {
+              historicalPositionSizeMap[perpetualId] = {};
+            }
+            // Store the converted position size (preserves sign: positive = LONG, negative = SHORT)
+            historicalPositionSizeMap[perpetualId][height] = openSizeHuman;
           }
-          historicalPositionSizeMap[perpetualId][height] = openSize.openSize;
         }
       }
     }
@@ -197,11 +206,16 @@ class HistoricalFundingController extends Controller {
         
         // Get historical position size at this funding index update time
         const historicalPositionSize = historicalPositionSizeMap[fundingIndex.perpetualId]?.[fundingIndex.effectiveAtHeight];
-        const positionSizeStr = historicalPositionSize || (position ? position.size : '0');
+        // Use historical position size if available, otherwise fall back to current position size
+        // If no position exists at all, use '0' (no position)
+        const positionSizeStr = historicalPositionSize !== undefined 
+          ? historicalPositionSize 
+          : (position ? position.size : '0');
         const positionSize = Big(positionSizeStr);
         
         // Determine position type from position size sign (positive = LONG, negative = SHORT)
-        const positionType = positionSize.gte(0) ? 'LONG' : 'SHORT';
+        // Note: positionSize of exactly 0 means no position, we'll show as LONG (could also be SHORT, but 0 is edge case)
+        const positionType = positionSize.gt(0) ? 'LONG' : positionSize.lt(0) ? 'SHORT' : 'LONG';
         
         let payment = '0';
         if (position && !positionSize.eq(0)) {
