@@ -15,6 +15,7 @@ import {
   PerpetualPositionStatus,
   PositionSide,
 } from '@nemo-network-indexer/postgres/build/src';
+import Big from 'big.js';
 import express from 'express';
 import { matchedData } from 'express-validator';
 import {
@@ -136,7 +137,8 @@ class HistoricalFundingController extends Controller {
       return acc;
     }, {} as { [id: string]: PerpetualMarketFromDatabase });
 
-    // Get funding index updates for all perpetual markets
+    // Get funding index updates for all perpetual markets, ordered by height DESC
+    // We need to reverse to ASC to calculate payment from previous index
     const fundingIndices: FundingIndexUpdatesFromDatabase[] = await FundingIndexUpdatesTable.findAll(
       {
         perpetualId: perpetualIds,
@@ -152,22 +154,54 @@ class HistoricalFundingController extends Controller {
       },
     );
 
+    // Reverse to ascending order for calculating payment from funding index changes
+    const fundingIndicesAsc = [...fundingIndices].reverse();
+
+    // Create a map to track previous funding index for each perpetual
+    const previousFundingIndexMap: { [perpetualId: string]: string | undefined } = {};
+
     // Create response objects
-    const historicalFunding: SubaccountHistoricalFundingResponseObject[] = fundingIndices.map(
+    const historicalFunding: SubaccountHistoricalFundingResponseObject[] = fundingIndicesAsc.map(
       (fundingIndex: FundingIndexUpdatesFromDatabase): SubaccountHistoricalFundingResponseObject => {
         const perpetualMarket = perpetualMarketsMap[fundingIndex.perpetualId];
         const position = perpetualPositions.find(pos => pos.perpetualId === fundingIndex.perpetualId);
+        
+        let payment = '0';
+        if (position) {
+          const positionSize = Big(position.size);
+          const currentFundingIndex = Big(fundingIndex.fundingIndex);
+          const previousFundingIndex = previousFundingIndexMap[fundingIndex.perpetualId];
+          
+          if (previousFundingIndex !== undefined) {
+            // Calculate payment based on funding index change
+            // Using the same convention as getUnsettledFunding:
+            // Payment = positionSize * (previousFundingIndex - currentFundingIndex)
+            // This ensures correct signs: when funding index increases, shorts get paid (positive)
+            const fundingIndexChange = Big(previousFundingIndex).minus(currentFundingIndex);
+            payment = positionSize.times(fundingIndexChange).toFixed();
+          } else {
+            // For the first funding index update, we can't calculate payment
+            // Use settledFunding as fallback, but this is cumulative
+            payment = position.settledFunding;
+          }
+          
+          // Update previous funding index for next iteration
+          previousFundingIndexMap[fundingIndex.perpetualId] = fundingIndex.fundingIndex;
+        }
         
         return {
           market: perpetualMarket?.ticker || 'UNKNOWN',
           positionType: position?.side === PositionSide.LONG ? 'LONG' : 'SHORT',
           date: fundingIndex.effectiveAt,
           positionSize: position ? position.size : '0',
-          payment: position ? position.settledFunding : '0',
+          payment,
           fundingRate: fundingIndex.rate,
         };
       },
     );
+
+    // Reverse back to DESC order for response
+    historicalFunding.reverse();
 
     return {
       historicalFunding,
