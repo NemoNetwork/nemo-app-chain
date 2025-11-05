@@ -182,11 +182,11 @@ class HistoricalFundingController extends Controller {
         if (perpetualId) {
           const market = perpetualMarkets.find(m => m.id.toString() === perpetualId);
           if (market) {
-            // Convert openSize from base quantums to human-readable format
-            // openSize from getOpenSizeWithFundingIndex is in base quantums (signed)
-            // Use quantumsToHuman helper to convert to human-readable format
-            // Note: quantumsToHuman multiplies by 10^atomicResolution, preserving the sign
-            const openSizeHuman = quantumsToHuman(openSize.openSize, market.atomicResolution).toFixed();
+            // openSize from getOpenSizeWithFundingIndex is already in human-readable format
+            // The fills.size column is stored in human-readable format (decimal in database)
+            // So we don't need to convert - just use it directly
+            // The sign is preserved: positive = LONG, negative = SHORT
+            const openSizeHuman = openSize.openSize;
             
             if (!historicalPositionSizeMap[perpetualId]) {
               historicalPositionSizeMap[perpetualId] = {};
