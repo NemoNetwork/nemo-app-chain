@@ -199,6 +199,7 @@ export interface FillResponseObject {
    * @isInt
    */
   subaccountNumber: number,
+  closedPnL?: string,
 }
 
 /* ------- TRANSFER TYPES ------- */
@@ -397,6 +398,7 @@ export interface OrderResponseObject extends Omit<OrderFromDatabase, 'timeInForc
    * @isInt
    */
   subaccountNumber: number,
+  average?: string,
 }
 
 export type RedisOrderMap = { [orderId: string]: RedisOrder };

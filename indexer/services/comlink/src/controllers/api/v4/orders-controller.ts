@@ -3,6 +3,9 @@ import {
   APIOrderStatus,
   APIOrderStatusEnum,
   DEFAULT_POSTGRES_OPTIONS,
+  FillColumns,
+  FillFromDatabase,
+  FillModel,
   IsoString,
   OrderColumns,
   OrderFromDatabase,
@@ -17,6 +20,7 @@ import {
   protocolTranslations,
   SubaccountTable,
 } from '@nemo-network-indexer/postgres';
+import { knexReadReplica } from '@nemo-network-indexer/postgres/build/src/helpers/knex';
 import { OrdersCache, SubaccountOrderIdsCache } from '@nemo-network-indexer/redis/build/redis/src';
 import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
@@ -62,6 +66,51 @@ import {
 
 const router: express.Router = express.Router();
 const controllerName: string = 'orders-controller';
+
+/**
+ * Calculates average fill price for each order by querying fills and computing weighted average.
+ * @param orderIds Array of order IDs to calculate average fill prices for.
+ * @returns A map of orderId to average fill price (as string).
+ */
+async function calculateAverageFillPrices(
+  orderIds: string[],
+): Promise<Record<string, string>> {
+  if (orderIds.length === 0) {
+    return {};
+  }
+
+  // Query fills for all order IDs using FillModel since FillQueryConfig doesn't support orderId
+  const fills: FillFromDatabase[] = await FillModel.query(knexReadReplica.getConnection())
+    .whereIn(FillColumns.orderId, orderIds)
+    .whereNotNull(FillColumns.orderId);
+
+  // Group fills by orderId and calculate weighted average
+  const fillsByOrderId = _.groupBy(fills, (fill) => fill.orderId);
+  const averagePrices: Record<string, string> = {};
+
+  _.forEach(fillsByOrderId, (orderFills: FillFromDatabase[], orderId: string) => {
+    if (orderFills.length === 0) {
+      return;
+    }
+
+    // Calculate weighted average: sum(price * size) / sum(size)
+    let totalValue = Big(0);
+    let totalSize = Big(0);
+
+    orderFills.forEach((fill) => {
+      const price = Big(fill.price);
+      const size = Big(fill.size);
+      totalValue = totalValue.plus(price.mul(size));
+      totalSize = totalSize.plus(size);
+    });
+
+    if (totalSize.gt(0)) {
+      averagePrices[orderId!] = totalValue.div(totalSize).toFixed();
+    }
+  });
+
+  return averagePrices;
+}
 
 /**
  * Lists orders for a set of subaccounts based on various filters.
@@ -186,6 +235,16 @@ async function listOrdersCommon(
       },
     );
   }
+
+  // Calculate average fill price for each order
+  const orderIds: string[] = mergedResponses.map((order) => order.id);
+  const averageFillPrices: Record<string, string> = await calculateAverageFillPrices(orderIds);
+
+  // Add average field to each order response
+  mergedResponses = mergedResponses.map((order) => ({
+    ...order,
+    average: averageFillPrices[order.id],
+  }));
 
   return sortAndLimitResponses(
     mergedResponses,
