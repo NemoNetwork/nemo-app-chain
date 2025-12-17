@@ -758,3 +758,29 @@ export interface AffiliateSnapshotResponseObject {
 export interface AffiliateTotalVolumeResponse {
   totalVolume: number | null,
 }
+
+/* ------- PORTFOLIO TYPES ------- */
+
+export interface PortfolioValueResponse {
+  address: string,
+  portfolioValue: string,
+}
+
+export interface VolumeResponse {
+  address: string,
+  volume: string,
+  periodDays: number,
+}
+
+export interface FeesPercentageResponse {
+  address: string,
+  takerPercentage: string,
+  makerPercentage: string,
+  totalFees: string,
+}
+
+export interface TotalFundingFeeResponse {
+  address: string,
+  totalFundingFee: string,
+  unsettledFunding: string,
+}
