@@ -784,3 +784,48 @@ export interface TotalFundingFeeResponse {
   totalFundingFee: string,
   unsettledFunding: string,
 }
+
+export interface LivePnlResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface RealizedPnlResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface ProfitFactorResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface MaxDrawdownResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface HealthResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface EquityResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface EquityListResponse {
+  address: string,
+  subaccountNumber: number,
+  equityList: Array<{
+    date: IsoString,
+    value: string,
+  }>,
+}
