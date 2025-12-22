@@ -325,8 +325,8 @@ class PortfolioController extends Controller {
   public async getLivePnl(
     @Path() address: string,
     @Path() subaccountNumber: number,
-    @Query() dateFrom?: IsoString,
-    @Query() dateTo?: IsoString,
+    @Query() createdOnOrAfter?: IsoString,
+    @Query() createdBeforeOrAt?: IsoString,
   ): Promise<LivePnlResponse> {
     const subaccountId: string = SubaccountTable.uuid(address, subaccountNumber);
     const subaccount: SubaccountFromDatabase | undefined = await SubaccountTable.findById(subaccountId);
@@ -335,13 +335,23 @@ class PortfolioController extends Controller {
       throw new NotFoundError(`No subaccount found with address ${address} and subaccountNumber ${subaccountNumber}`);
     }
 
-    // Get latest PnL tick or calculate from current positions
+    // Get latest PnL tick within date range or calculate from current positions
+    const requiredFields: QueryableField[] = [];
+    if (createdOnOrAfter) {
+      requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+    }
+    if (createdBeforeOrAt) {
+      requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+    }
+
     const { results: pnlTicks } = await PnlTicksTable.findAll(
       {
         subaccountId: [subaccountId],
+        createdOnOrAfter,
+        createdBeforeOrAt,
         limit: 1,
       },
-      [QueryableField.LIMIT],
+      requiredFields.length > 0 ? requiredFields : [QueryableField.LIMIT],
       {
         ...DEFAULT_POSTGRES_OPTIONS,
         orderBy: [[QueryableField.BLOCK_HEIGHT, Ordering.DESC]],
@@ -414,8 +424,8 @@ class PortfolioController extends Controller {
   public async getRealizedPnl(
     @Path() address: string,
     @Path() subaccountNumber: number,
-    @Query() dateFrom?: IsoString,
-    @Query() dateTo?: IsoString,
+    @Query() createdOnOrAfter?: IsoString,
+    @Query() createdBeforeOrAt?: IsoString,
   ): Promise<RealizedPnlResponse> {
     const subaccountId: string = SubaccountTable.uuid(address, subaccountNumber);
     const subaccount: SubaccountFromDatabase | undefined = await SubaccountTable.findById(subaccountId);
@@ -425,13 +435,21 @@ class PortfolioController extends Controller {
     }
 
     // Get fills in date range
+    const requiredFields: QueryableField[] = [];
+    if (createdOnOrAfter) {
+      requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+    }
+    if (createdBeforeOrAt) {
+      requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+    }
+
     const { results: fills } = await FillTable.findAll(
       {
         subaccountId: [subaccountId],
-        createdOnOrAfter: dateFrom,
-        createdBeforeOrAt: dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       },
-      dateFrom ? [QueryableField.CREATED_ON_OR_AFTER] : [],
+      requiredFields,
     );
 
     // Get all perpetual positions to track entry prices
@@ -456,7 +474,6 @@ class PortfolioController extends Controller {
 
     for (const fill of fills) {
       const perpetualMarket = perpetualMarketRefresher.getPerpetualMarketFromClobPairId(fill.clobPairId);
-      if (!perpetualMarket) continue;
       if (!perpetualMarket) continue;
 
       const key = `${fill.subaccountId}-${fill.clobPairId}`;
@@ -496,8 +513,8 @@ class PortfolioController extends Controller {
   public async getProfitFactor(
     @Path() address: string,
     @Path() subaccountNumber: number,
-    @Query() dateFrom?: IsoString,
-    @Query() dateTo?: IsoString,
+    @Query() createdOnOrAfter?: IsoString,
+    @Query() createdBeforeOrAt?: IsoString,
   ): Promise<ProfitFactorResponse> {
     const subaccountId: string = SubaccountTable.uuid(address, subaccountNumber);
     const subaccount: SubaccountFromDatabase | undefined = await SubaccountTable.findById(subaccountId);
@@ -507,13 +524,21 @@ class PortfolioController extends Controller {
     }
 
     // Get fills in date range
+    const requiredFields: QueryableField[] = [];
+    if (createdOnOrAfter) {
+      requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+    }
+    if (createdBeforeOrAt) {
+      requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+    }
+
     const { results: fills } = await FillTable.findAll(
       {
         subaccountId: [subaccountId],
-        createdOnOrAfter: dateFrom,
-        createdBeforeOrAt: dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       },
-      dateFrom ? [QueryableField.CREATED_ON_OR_AFTER] : [],
+      requiredFields,
     );
 
     // Get all perpetual positions to track entry prices
@@ -539,7 +564,6 @@ class PortfolioController extends Controller {
 
     for (const fill of fills) {
       const perpetualMarket = perpetualMarketRefresher.getPerpetualMarketFromClobPairId(fill.clobPairId);
-      if (!perpetualMarket) continue;
       if (!perpetualMarket) continue;
 
       const key = `${fill.subaccountId}-${fill.clobPairId}`;
@@ -585,8 +609,8 @@ class PortfolioController extends Controller {
   public async getMaxDrawdown(
     @Path() address: string,
     @Path() subaccountNumber: number,
-    @Query() dateFrom?: IsoString,
-    @Query() dateTo?: IsoString,
+    @Query() createdOnOrAfter?: IsoString,
+    @Query() createdBeforeOrAt?: IsoString,
   ): Promise<MaxDrawdownResponse> {
     const subaccountId: string = SubaccountTable.uuid(address, subaccountNumber);
     const subaccount: SubaccountFromDatabase | undefined = await SubaccountTable.findById(subaccountId);
@@ -596,13 +620,21 @@ class PortfolioController extends Controller {
     }
 
     // Get PnL ticks in date range
+    const requiredFields: QueryableField[] = [];
+    if (createdOnOrAfter) {
+      requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+    }
+    if (createdBeforeOrAt) {
+      requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+    }
+
     const { results: pnlTicks } = await PnlTicksTable.findAll(
       {
         subaccountId: [subaccountId],
-        createdOnOrAfter: dateFrom,
-        createdBeforeOrAt: dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       },
-      dateFrom ? [QueryableField.CREATED_ON_OR_AFTER] : [],
+      requiredFields,
       {
         ...DEFAULT_POSTGRES_OPTIONS,
         orderBy: [[QueryableField.BLOCK_HEIGHT, Ordering.ASC]],
@@ -777,8 +809,8 @@ class PortfolioController extends Controller {
   public async getEquityList(
     @Path() address: string,
     @Path() subaccountNumber: number,
-    @Query() dateFrom?: IsoString,
-    @Query() dateTo?: IsoString,
+    @Query() createdOnOrAfter?: IsoString,
+    @Query() createdBeforeOrAt?: IsoString,
   ): Promise<EquityListResponse> {
     const subaccountId: string = SubaccountTable.uuid(address, subaccountNumber);
     const subaccount: SubaccountFromDatabase | undefined = await SubaccountTable.findById(subaccountId);
@@ -788,13 +820,21 @@ class PortfolioController extends Controller {
     }
 
     // Get PnL ticks in date range
+    const requiredFields: QueryableField[] = [];
+    if (createdOnOrAfter) {
+      requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+    }
+    if (createdBeforeOrAt) {
+      requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+    }
+
     const { results: pnlTicks } = await PnlTicksTable.findAll(
       {
         subaccountId: [subaccountId],
-        createdOnOrAfter: dateFrom,
-        createdBeforeOrAt: dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       },
-      dateFrom ? [QueryableField.CREATED_ON_OR_AFTER] : [],
+      requiredFields,
       {
         ...DEFAULT_POSTGRES_OPTIONS,
         orderBy: [[QueryableField.BLOCK_HEIGHT, Ordering.ASC]],
@@ -983,22 +1023,22 @@ router.get(
     const {
       address,
       subaccountNumber,
-      dateFrom,
-      dateTo,
+      createdOnOrAfter,
+      createdBeforeOrAt,
     }: {
       address: string,
       subaccountNumber: number,
-      dateFrom?: IsoString,
-      dateTo?: IsoString,
-    } = matchedData(req) as { address: string, subaccountNumber: number, dateFrom?: IsoString, dateTo?: IsoString };
+      createdOnOrAfter?: IsoString,
+      createdBeforeOrAt?: IsoString,
+    } = matchedData(req) as { address: string, subaccountNumber: number, createdOnOrAfter?: IsoString, createdBeforeOrAt?: IsoString };
 
     try {
       const controller: PortfolioController = new PortfolioController();
       const response: LivePnlResponse = await controller.getLivePnl(
         address,
         subaccountNumber,
-        dateFrom,
-        dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       );
 
       return res.send(response);
@@ -1032,22 +1072,22 @@ router.get(
     const {
       address,
       subaccountNumber,
-      dateFrom,
-      dateTo,
+      createdOnOrAfter,
+      createdBeforeOrAt,
     }: {
       address: string,
       subaccountNumber: number,
-      dateFrom?: IsoString,
-      dateTo?: IsoString,
-    } = matchedData(req) as { address: string, subaccountNumber: number, dateFrom?: IsoString, dateTo?: IsoString };
+      createdOnOrAfter?: IsoString,
+      createdBeforeOrAt?: IsoString,
+    } = matchedData(req) as { address: string, subaccountNumber: number, createdOnOrAfter?: IsoString, createdBeforeOrAt?: IsoString };
 
     try {
       const controller: PortfolioController = new PortfolioController();
       const response: RealizedPnlResponse = await controller.getRealizedPnl(
         address,
         subaccountNumber,
-        dateFrom,
-        dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       );
 
       return res.send(response);
@@ -1081,22 +1121,22 @@ router.get(
     const {
       address,
       subaccountNumber,
-      dateFrom,
-      dateTo,
+      createdOnOrAfter,
+      createdBeforeOrAt,
     }: {
       address: string,
       subaccountNumber: number,
-      dateFrom?: IsoString,
-      dateTo?: IsoString,
-    } = matchedData(req) as { address: string, subaccountNumber: number, dateFrom?: IsoString, dateTo?: IsoString };
+      createdOnOrAfter?: IsoString,
+      createdBeforeOrAt?: IsoString,
+    } = matchedData(req) as { address: string, subaccountNumber: number, createdOnOrAfter?: IsoString, createdBeforeOrAt?: IsoString };
 
     try {
       const controller: PortfolioController = new PortfolioController();
       const response: ProfitFactorResponse = await controller.getProfitFactor(
         address,
         subaccountNumber,
-        dateFrom,
-        dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       );
 
       return res.send(response);
@@ -1130,22 +1170,22 @@ router.get(
     const {
       address,
       subaccountNumber,
-      dateFrom,
-      dateTo,
+      createdOnOrAfter,
+      createdBeforeOrAt,
     }: {
       address: string,
       subaccountNumber: number,
-      dateFrom?: IsoString,
-      dateTo?: IsoString,
-    } = matchedData(req) as { address: string, subaccountNumber: number, dateFrom?: IsoString, dateTo?: IsoString };
+      createdOnOrAfter?: IsoString,
+      createdBeforeOrAt?: IsoString,
+    } = matchedData(req) as { address: string, subaccountNumber: number, createdOnOrAfter?: IsoString, createdBeforeOrAt?: IsoString };
 
     try {
       const controller: PortfolioController = new PortfolioController();
       const response: MaxDrawdownResponse = await controller.getMaxDrawdown(
         address,
         subaccountNumber,
-        dateFrom,
-        dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       );
 
       return res.send(response);
@@ -1263,22 +1303,22 @@ router.get(
     const {
       address,
       subaccountNumber,
-      dateFrom,
-      dateTo,
+      createdOnOrAfter,
+      createdBeforeOrAt,
     }: {
       address: string,
       subaccountNumber: number,
-      dateFrom?: IsoString,
-      dateTo?: IsoString,
-    } = matchedData(req) as { address: string, subaccountNumber: number, dateFrom?: IsoString, dateTo?: IsoString };
+      createdOnOrAfter?: IsoString,
+      createdBeforeOrAt?: IsoString,
+    } = matchedData(req) as { address: string, subaccountNumber: number, createdOnOrAfter?: IsoString, createdBeforeOrAt?: IsoString };
 
     try {
       const controller: PortfolioController = new PortfolioController();
       const response: EquityListResponse = await controller.getEquityList(
         address,
         subaccountNumber,
-        dateFrom,
-        dateTo,
+        createdOnOrAfter,
+        createdBeforeOrAt,
       );
 
       return res.send(response);
