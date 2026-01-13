@@ -276,12 +276,10 @@ class PortfolioController extends Controller {
     const perpetualMarketsMap = perpetualMarketRefresher.getPerpetualMarketsMap();
 
     let totalUnsettledFunding = Big(0);
-    let totalRealizedFunding = Big(0);
 
     for (const subaccount of subaccounts) {
       const [
         perpetualPositions,
-        assetPositions,
         lastUpdatedFundingIndexMap,
       ] = await Promise.all([
         PerpetualPositionTable.findAll(
@@ -291,27 +289,38 @@ class PortfolioController extends Controller {
           },
           [],
         ),
-        AssetPositionTable.findAll(
-          {
-            subaccountId: [subaccount.id],
-          },
-          [],
-        ),
         FundingIndexUpdatesTable.findFundingIndexMap(subaccount.updatedAtHeight),
       ]);
 
-      // Calculate unsettled funding for open positions
-      const unsettledFunding = getTotalUnsettledFunding(
-        perpetualPositions,
-        latestFundingIndexMap,
-        lastUpdatedFundingIndexMap,
-      );
-      totalUnsettledFunding = totalUnsettledFunding.plus(unsettledFunding);
+      // Only calculate if we have positions and valid funding index maps
+      if (perpetualPositions.length > 0 && lastUpdatedFundingIndexMap && Object.keys(lastUpdatedFundingIndexMap).length > 0) {
+        // Filter positions to only those with funding index entries in both maps
+        const positionsWithFunding = perpetualPositions.filter((position) => {
+          const latestIndex = latestFundingIndexMap[position.perpetualId];
+          const lastUpdatedIndex = lastUpdatedFundingIndexMap[position.perpetualId];
+          return (
+            latestIndex !== undefined &&
+            lastUpdatedIndex !== undefined &&
+            latestIndex !== null &&
+            lastUpdatedIndex !== null
+          );
+        });
 
+        // Calculate unsettled funding for open positions
+        if (positionsWithFunding.length > 0) {
+          const unsettledFunding = getTotalUnsettledFunding(
+            positionsWithFunding,
+            latestFundingIndexMap,
+            lastUpdatedFundingIndexMap,
+          );
+          totalUnsettledFunding = totalUnsettledFunding.plus(unsettledFunding);
+        }
+      }
     }
 
-    // Total funding fee = unsettled funding (negative means paid, positive means received)
-    // We'll return it as a positive value if paid, negative if received
+    // Total funding fee = negative of unsettled funding
+    // Negative unsettled funding means user paid funding (fee), positive means received funding
+    // We return totalFundingFee as positive if paid, negative if received
     const totalFundingFee = totalUnsettledFunding.neg();
 
     return {
@@ -335,7 +344,8 @@ class PortfolioController extends Controller {
       throw new NotFoundError(`No subaccount found with address ${address} and subaccountNumber ${subaccountNumber}`);
     }
 
-    // Get latest PnL tick within date range or calculate from current positions
+    // Get latest PnL tick within date range
+    // If date filters are provided, we must respect them and only return PnL from that time period
     const requiredFields: QueryableField[] = [];
     const queryConfig: {
       subaccountId: string[];
@@ -367,10 +377,17 @@ class PortfolioController extends Controller {
     const latestPnlTick: PnlTicksFromDatabase | undefined = pnlTicks[0];
     
     let livePnl = Big(0);
+    
+    // If date filters are provided, we must only use PnL ticks from that period
+    // Don't fall back to current positions calculation when date filters are active
+    const hasDateFilters = createdOnOrAfter !== undefined || createdBeforeOrAt !== undefined;
+    
     if (latestPnlTick) {
+      // Use the PnL tick from the specified date range
       livePnl = Big(latestPnlTick.totalPnl);
-    } else {
-      // Calculate from current positions if no PnL tick exists
+    } else if (!hasDateFilters) {
+      // Only calculate from current positions if NO date filters are provided
+      // This allows the endpoint to work for "current/live" PnL when no filters are given
       const [latestBlock, assets, markets] = await Promise.all([
         BlockTable.getLatest(),
         AssetTable.findAll({}, []),
@@ -415,10 +432,35 @@ class PortfolioController extends Controller {
         lastUpdatedFundingIndexMap,
       );
 
-      // Calculate PnL as equity minus net transfers
-      // This is a simplified calculation - actual PnL would need historical data
-      livePnl = Big(subaccountResponse.equity);
+      // For live PnL without date filters, we need to calculate total PnL
+      // Total PnL = current equity - total net transfers
+      // Since we don't have total transfers easily available here, we'll use a simplified approach
+      // Get the most recent PnL tick to calculate the difference
+      const { results: mostRecentPnlTicks } = await PnlTicksTable.findAll(
+        {
+          subaccountId: [subaccountId],
+          limit: 1,
+        },
+        [QueryableField.LIMIT],
+        {
+          ...DEFAULT_POSTGRES_OPTIONS,
+          orderBy: [[QueryableField.BLOCK_HEIGHT, Ordering.DESC]],
+        },
+      );
+      
+      if (mostRecentPnlTicks.length > 0) {
+        const mostRecentTick = mostRecentPnlTicks[0];
+        // Calculate PnL change: current equity - most recent equity + most recent total PnL
+        livePnl = Big(subaccountResponse.equity)
+          .minus(Big(mostRecentTick.equity))
+          .plus(Big(mostRecentTick.totalPnl));
+      } else {
+        // If no historical PnL ticks exist, use equity as a fallback
+        // (though this isn't technically correct, it's better than 0)
+        livePnl = Big(subaccountResponse.equity);
+      }
     }
+    // If hasDateFilters is true and no PnL tick was found, livePnl remains 0
 
     return {
       address,
@@ -844,6 +886,18 @@ class PortfolioController extends Controller {
       throw new NotFoundError(`No subaccount found with address ${address} and subaccountNumber ${subaccountNumber}`);
     }
 
+    // Get latest block, assets, and markets for current equity calculation
+    const [latestBlock, assets, markets] = await Promise.all([
+      BlockTable.getLatest(),
+      AssetTable.findAll({}, []),
+      MarketTable.findAll({}, []),
+    ]);
+
+    const latestFundingIndexMap: FundingIndexMap = await FundingIndexUpdatesTable
+      .findFundingIndexMap(latestBlock.blockHeight);
+
+    const perpetualMarketsMap = perpetualMarketRefresher.getPerpetualMarketsMap();
+
     // Get PnL ticks in date range
     // Build query config conditionally to only include defined date filters
     const requiredFields: QueryableField[] = [];
@@ -865,6 +919,7 @@ class PortfolioController extends Controller {
     }
 
     // Query PnL ticks ordered by block height ascending (chronological order)
+    // No limit is set, so all matching PnL ticks will be returned
     const { results: pnlTicks } = await PnlTicksTable.findAll(
       queryConfig,
       requiredFields,
@@ -880,6 +935,73 @@ class PortfolioController extends Controller {
       date: tick.blockTime,
       value: tick.equity,
     }));
+
+    // Calculate current equity from positions (same way as getEquity)
+    // This ensures consistency between getEquity and getEquityList
+    const [
+      perpetualPositions,
+      assetPositions,
+      lastUpdatedFundingIndexMap,
+    ] = await Promise.all([
+      PerpetualPositionTable.findAll(
+        {
+          subaccountId: [subaccountId],
+          status: [PerpetualPositionStatus.OPEN],
+        },
+        [],
+      ),
+      AssetPositionTable.findAll(
+        {
+          subaccountId: [subaccountId],
+        },
+        [],
+      ),
+      FundingIndexUpdatesTable.findFundingIndexMap(subaccount.updatedAtHeight),
+    ]);
+
+    const subaccountResponse = getSubaccountResponse(
+      subaccount,
+      perpetualPositions,
+      assetPositions,
+      assets,
+      markets,
+      perpetualMarketsMap,
+      latestBlock.blockHeight,
+      latestFundingIndexMap,
+      lastUpdatedFundingIndexMap,
+    );
+
+    // Add current equity as the latest point, but only if it falls within the date range
+    // Check if current equity should be included based on date filters
+    const shouldIncludeCurrentEquity = (): boolean => {
+      const currentBlockTime = latestBlock.time;
+      
+      // If createdBeforeOrAt is specified and current time is after it, don't include
+      if (createdBeforeOrAt && currentBlockTime > createdBeforeOrAt) {
+        return false;
+      }
+      
+      // If createdOnOrAfter is specified and current time is before it, don't include
+      if (createdOnOrAfter && currentBlockTime < createdOnOrAfter) {
+        return false;
+      }
+      
+      // If no date filters, or current time is within the range, include it
+      // Also check if it's newer than the last PnL tick
+      const lastPnlTickBlockTime = pnlTicks.length > 0 
+        ? pnlTicks[pnlTicks.length - 1].blockTime 
+        : undefined;
+      
+      // Include if there are no PnL ticks or if current time is after the last tick
+      return !lastPnlTickBlockTime || currentBlockTime > lastPnlTickBlockTime;
+    };
+    
+    if (shouldIncludeCurrentEquity()) {
+      equityList.push({
+        date: latestBlock.time,
+        value: subaccountResponse.equity,
+      });
+    }
 
     return {
       address,
