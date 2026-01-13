@@ -337,20 +337,27 @@ class PortfolioController extends Controller {
 
     // Get latest PnL tick within date range or calculate from current positions
     const requiredFields: QueryableField[] = [];
+    const queryConfig: {
+      subaccountId: string[];
+      createdOnOrAfter?: IsoString;
+      createdBeforeOrAt?: IsoString;
+      limit: number;
+    } = {
+      subaccountId: [subaccountId],
+      limit: 1,
+    };
+
     if (createdOnOrAfter) {
       requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+      queryConfig.createdOnOrAfter = createdOnOrAfter;
     }
     if (createdBeforeOrAt) {
       requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+      queryConfig.createdBeforeOrAt = createdBeforeOrAt;
     }
 
     const { results: pnlTicks } = await PnlTicksTable.findAll(
-      {
-        subaccountId: [subaccountId],
-        createdOnOrAfter,
-        createdBeforeOrAt,
-        limit: 1,
-      },
+      queryConfig,
       requiredFields.length > 0 ? requiredFields : [QueryableField.LIMIT],
       {
         ...DEFAULT_POSTGRES_OPTIONS,
@@ -436,19 +443,25 @@ class PortfolioController extends Controller {
 
     // Get fills in date range
     const requiredFields: QueryableField[] = [];
+    const queryConfig: {
+      subaccountId: string[];
+      createdOnOrAfter?: IsoString;
+      createdBeforeOrAt?: IsoString;
+    } = {
+      subaccountId: [subaccountId],
+    };
+
     if (createdOnOrAfter) {
       requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+      queryConfig.createdOnOrAfter = createdOnOrAfter;
     }
     if (createdBeforeOrAt) {
       requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+      queryConfig.createdBeforeOrAt = createdBeforeOrAt;
     }
 
     const { results: fills } = await FillTable.findAll(
-      {
-        subaccountId: [subaccountId],
-        createdOnOrAfter,
-        createdBeforeOrAt,
-      },
+      queryConfig,
       requiredFields,
     );
 
@@ -525,19 +538,25 @@ class PortfolioController extends Controller {
 
     // Get fills in date range
     const requiredFields: QueryableField[] = [];
+    const queryConfig: {
+      subaccountId: string[];
+      createdOnOrAfter?: IsoString;
+      createdBeforeOrAt?: IsoString;
+    } = {
+      subaccountId: [subaccountId],
+    };
+
     if (createdOnOrAfter) {
       requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+      queryConfig.createdOnOrAfter = createdOnOrAfter;
     }
     if (createdBeforeOrAt) {
       requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+      queryConfig.createdBeforeOrAt = createdBeforeOrAt;
     }
 
     const { results: fills } = await FillTable.findAll(
-      {
-        subaccountId: [subaccountId],
-        createdOnOrAfter,
-        createdBeforeOrAt,
-      },
+      queryConfig,
       requiredFields,
     );
 
@@ -621,19 +640,25 @@ class PortfolioController extends Controller {
 
     // Get PnL ticks in date range
     const requiredFields: QueryableField[] = [];
+    const queryConfig: {
+      subaccountId: string[];
+      createdOnOrAfter?: IsoString;
+      createdBeforeOrAt?: IsoString;
+    } = {
+      subaccountId: [subaccountId],
+    };
+
     if (createdOnOrAfter) {
       requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+      queryConfig.createdOnOrAfter = createdOnOrAfter;
     }
     if (createdBeforeOrAt) {
       requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+      queryConfig.createdBeforeOrAt = createdBeforeOrAt;
     }
 
     const { results: pnlTicks } = await PnlTicksTable.findAll(
-      {
-        subaccountId: [subaccountId],
-        createdOnOrAfter,
-        createdBeforeOrAt,
-      },
+      queryConfig,
       requiredFields,
       {
         ...DEFAULT_POSTGRES_OPTIONS,
@@ -820,20 +845,28 @@ class PortfolioController extends Controller {
     }
 
     // Get PnL ticks in date range
+    // Build query config conditionally to only include defined date filters
     const requiredFields: QueryableField[] = [];
+    const queryConfig: {
+      subaccountId: string[];
+      createdOnOrAfter?: IsoString;
+      createdBeforeOrAt?: IsoString;
+    } = {
+      subaccountId: [subaccountId],
+    };
+
     if (createdOnOrAfter) {
       requiredFields.push(QueryableField.CREATED_ON_OR_AFTER);
+      queryConfig.createdOnOrAfter = createdOnOrAfter;
     }
     if (createdBeforeOrAt) {
       requiredFields.push(QueryableField.CREATED_BEFORE_OR_AT);
+      queryConfig.createdBeforeOrAt = createdBeforeOrAt;
     }
 
+    // Query PnL ticks ordered by block height ascending (chronological order)
     const { results: pnlTicks } = await PnlTicksTable.findAll(
-      {
-        subaccountId: [subaccountId],
-        createdOnOrAfter,
-        createdBeforeOrAt,
-      },
+      queryConfig,
       requiredFields,
       {
         ...DEFAULT_POSTGRES_OPTIONS,
@@ -841,8 +874,10 @@ class PortfolioController extends Controller {
       },
     );
 
+    // Map PnL ticks to equity list format
+    // Use blockTime as the date since it represents when the equity was actually calculated
     const equityList = pnlTicks.map((tick: PnlTicksFromDatabase) => ({
-      date: tick.createdAt,
+      date: tick.blockTime,
       value: tick.equity,
     }));
 
