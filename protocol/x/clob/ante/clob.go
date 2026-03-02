@@ -124,7 +124,7 @@ func (cd ClobDecorator) AnteHandle(
 				msg,
 			)
 
-			log.InfoLog(ctx, "Received new short term order, but rejected as they are now handled off-chain via memclob",
+			log.InfoLog(ctx, "Received new short term order and placed off-chain via memclob",
 				log.Tx, cometbftlog.NewLazySprintf("%X", tmhash.Sum(ctx.TxBytes())),
 				log.OrderHash, cometbftlog.NewLazySprintf("%X", msg.Order.GetOrderHash()),
 				log.OrderStatus, status,
@@ -132,9 +132,14 @@ func (cd ClobDecorator) AnteHandle(
 				log.Error, err,
 			)
 
+			description := ""
+			if err != nil {
+				description = err.Error()
+			}
+
 			return ctx, errorsmod.Wrap(
 				sdkerrors.ErrInvalidRequest,
-				"short-term orders are now handled off-chain via memclob and should not be submitted to the blockchain",
+				description,
 			)
 		}
 	case *types.MsgBatchCancel:
