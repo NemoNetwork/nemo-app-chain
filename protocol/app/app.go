@@ -199,6 +199,12 @@ import (
 	marketmapmodulekeeper "github.com/skip-mev/slinky/x/marketmap/keeper"
 	marketmapmoduletypes "github.com/skip-mev/slinky/x/marketmap/types"
 
+	// ICS consumer (Interchain Security)
+	ccvconsumermodule "github.com/cosmos/interchain-security/v5/x/ccv/consumer"
+	ccvconsumerkeeper "github.com/cosmos/interchain-security/v5/x/ccv/consumer/keeper"
+	ccvconsumertypes "github.com/cosmos/interchain-security/v5/x/ccv/consumer/types"
+	ccvtypes "github.com/cosmos/interchain-security/v5/x/ccv/types"
+
 	// IBC
 	ica "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts"
 	icacontrollertypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/types"
@@ -303,6 +309,9 @@ type App struct {
 	GovPlusKeeper         govplusmodulekeeper.Keeper
 	AccountPlusKeeper     accountplusmodulekeeper.Keeper
 	AffiliatesKeeper      affiliatesmodulekeeper.Keeper
+
+	// ICS consumer keeper
+	CCVConsumerKeeper ccvconsumerkeeper.Keeper
 
 	MarketMapKeeper marketmapmodulekeeper.Keeper
 
@@ -461,6 +470,7 @@ func New(
 		accountplusmoduletypes.StoreKey,
 		marketmapmoduletypes.StoreKey,
 		affiliatesmoduletypes.StoreKey,
+		ccvconsumertypes.StoreKey,
 	)
 	keys[authtypes.StoreKey] = keys[authtypes.StoreKey].WithLocking()
 	tkeys := storetypes.NewTransientStoreKeys(
@@ -651,11 +661,12 @@ func New(
 	// Set legacy router for backwards compatibility with gov v1beta1
 	govKeeper.SetLegacyRouter(govRouter)
 
-	// grant capabilities for the ibc, ibc-transfer, ICAHostKeeper and ratelimit modules
+	// grant capabilities for the ibc, ibc-transfer, ICAHostKeeper, ICS consumer, and ratelimit modules
 
 	scopedIBCKeeper := app.CapabilityKeeper.ScopeToModule(ibcexported.ModuleName)
 	scopedIBCTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
 	scopedICAHostKeeper := app.CapabilityKeeper.ScopeToModule(icahosttypes.SubModuleName)
+	scopedCCVConsumerKeeper := app.CapabilityKeeper.ScopeToModule(ccvconsumertypes.ModuleName)
 	// scopedRatelimitKeeper is not used as an input to any other module.
 	app.CapabilityKeeper.ScopeToModule(ratelimitmoduletypes.ModuleName)
 
@@ -670,6 +681,30 @@ func New(
 		app.UpgradeKeeper,
 		scopedIBCKeeper,
 		lib.GovModuleAddress.String(),
+	)
+
+	// ICS consumer keeper
+	validatorAddrCodec := addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32ValidatorAddrPrefix())
+	consAddrCodec := addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32ConsensusAddrPrefix())
+
+	app.CCVConsumerKeeper = ccvconsumerkeeper.NewKeeper(
+		appCodec,
+		keys[ccvconsumertypes.StoreKey],
+		app.getSubspace(ccvconsumertypes.ModuleName),
+		scopedCCVConsumerKeeper,
+		app.IBCKeeper.ChannelKeeper,
+		app.IBCKeeper.PortKeeper,
+		app.IBCKeeper.ConnectionKeeper,
+		app.IBCKeeper.ClientKeeper,
+		app.SlashingKeeper,
+		app.BankKeeper,
+		app.AccountKeeper,
+		app.TransferKeeper,
+		app.IBCKeeper,
+		authtypes.FeeCollectorName,
+		lib.GovModuleAddress.String(),
+		validatorAddrCodec,
+		consAddrCodec,
 	)
 
 	// Create ICA Host Keeper
@@ -731,11 +766,19 @@ func New(
 	var transferStack ibcporttypes.IBCModule = transferIBCModule
 	transferStack = ratelimitmodule.NewIBCMiddleware(app.RatelimitKeeper, transferStack)
 
+	// ICS consumer IBC module
+	ccvConsumerModule := ccvconsumermodule.NewAppModule(
+		app.CCVConsumerKeeper,
+		app.getSubspace(ccvconsumertypes.ModuleName),
+	)
+	var ccvConsumerIBCModule ibcporttypes.IBCModule = ccvConsumerModule
+
 	icaHostIBCModule := icahost.NewIBCModule(app.ICAHostKeeper)
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter()
 	// Ordering of `AddRoute` does not matter.
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferStack)
+	ibcRouter.AddRoute(ccvtypes.ConsumerPortID, ccvConsumerIBCModule)
 	ibcRouter.AddRoute(icahosttypes.SubModuleName, icaHostIBCModule)
 
 	app.IBCKeeper.SetRouter(ibcRouter)
@@ -1252,6 +1295,10 @@ func New(
 		upgrade.NewAppModule(app.UpgradeKeeper, addresscodec.NewBech32Codec(sdk.Bech32PrefixAccAddr)),
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
+		ccvconsumermodule.NewAppModule(
+			app.CCVConsumerKeeper,
+			app.getSubspace(ccvconsumertypes.ModuleName),
+		),
 		ica.NewAppModule(nil, &app.ICAHostKeeper),
 		params.NewAppModule(app.ParamsKeeper),
 		consensus.NewAppModule(appCodec, app.ConsensusParamsKeeper),
@@ -1297,6 +1344,7 @@ func New(
 		capabilitytypes.ModuleName,
 		distrtypes.ModuleName,
 		slashingtypes.ModuleName,
+		ccvconsumertypes.ModuleName,
 		evidencetypes.ModuleName,
 		stakingtypes.ModuleName,
 		ibcexported.ModuleName,
@@ -1351,6 +1399,7 @@ func New(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		ibcexported.ModuleName,
+		ccvconsumertypes.ModuleName,
 		ibctransfertypes.ModuleName,
 		ratelimitmoduletypes.ModuleName,
 		consensusparamtypes.ModuleName,
@@ -1398,6 +1447,7 @@ func New(
 		govtypes.ModuleName,
 		crisistypes.ModuleName,
 		ibcexported.ModuleName,
+		ccvconsumertypes.ModuleName,
 		genutiltypes.ModuleName,
 		evidencetypes.ModuleName,
 		paramstypes.ModuleName,
@@ -2005,6 +2055,7 @@ func initParamsKeeper(
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName).WithKeyTable(ibctransfertypes.ParamKeyTable())
 	paramsKeeper.Subspace(icahosttypes.SubModuleName).WithKeyTable(icahosttypes.ParamKeyTable())
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName).WithKeyTable(icacontrollertypes.ParamKeyTable())
+	paramsKeeper.Subspace(ccvconsumertypes.ModuleName)
 
 	return paramsKeeper
 }

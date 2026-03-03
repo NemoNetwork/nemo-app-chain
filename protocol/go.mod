@@ -14,6 +14,7 @@ require (
 	github.com/cosmos/cosmos-sdk v0.50.9
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/gogoproto v1.6.0
+	github.com/cosmos/interchain-security/v5 v5.1.1
 	github.com/go-playground/validator/v10 v10.14.0
 	github.com/gofrs/flock v0.8.1
 	github.com/gogo/protobuf v1.3.2 // indirect
@@ -156,7 +157,6 @@ require (
 	github.com/cosmos/btcutil v1.0.5 // indirect
 	github.com/cosmos/gogogateway v1.2.0 // indirect
 	github.com/cosmos/ics23/go v0.10.0 // indirect
-	github.com/cosmos/interchain-security/v5 v5.1.1 // indirect
 	github.com/cosmos/ledger-cosmos-go v0.13.3 // indirect
 	github.com/cosmos/rosetta-sdk-go v0.10.0 // indirect
 	github.com/crate-crypto/go-kzg-4844 v1.0.0 // indirect
@@ -449,7 +449,6 @@ require (
 // Block for dep upgrades that would have been pulled in via Slinky
 replace (
 	cosmossdk.io/x/upgrade => cosmossdk.io/x/upgrade v0.1.1
-	github.com/cosmos/ibc-go/v8 => github.com/cosmos/ibc-go/v8 v8.0.0
 	github.com/google/pprof => github.com/google/pprof v0.0.0-20230228050547-1710fef4ab10
 	github.com/prometheus/client_golang => github.com/prometheus/client_golang v1.18.0
 	github.com/prometheus/common => github.com/prometheus/common v0.47.0
