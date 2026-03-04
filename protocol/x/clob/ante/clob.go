@@ -138,7 +138,7 @@ func (cd ClobDecorator) AnteHandle(
 			}
 
 			return ctx, errorsmod.Wrap(
-				sdkerrors.ErrInvalidRequest,
+				types.ErrNonStatefullOrderPlacement,
 				description,
 			)
 		}
