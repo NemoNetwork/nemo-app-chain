@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	v7_0_0 "github.com/nemo-network/v4-chain/protocol/app/upgrades/v7.0.0"
+	v8_0_0 "github.com/nemo-network/v4-chain/protocol/app/upgrades/v8.0.0"
 
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -15,6 +16,7 @@ var (
 	// New upgrades should be added to this slice after they are implemented.
 	Upgrades = []upgrades.Upgrade{
 		v7_0_0.Upgrade,
+		v8_0_0.Upgrade,
 	}
 	Forks = []upgrades.Fork{}
 )
@@ -30,6 +32,19 @@ func (app *App) setupUpgradeHandlers() {
 		v7_0_0.CreateUpgradeHandler(
 			app.ModuleManager,
 			app.configurator,
+		),
+	)
+
+	if app.UpgradeKeeper.HasHandler(v8_0_0.UpgradeName) {
+		panic(fmt.Sprintf("Cannot register duplicate upgrade handler '%s'", v8_0_0.UpgradeName))
+	}
+	app.UpgradeKeeper.SetUpgradeHandler(
+		v8_0_0.UpgradeName,
+		v8_0_0.CreateUpgradeHandlerWithConsumerInit(
+			app.ModuleManager,
+			app.configurator,
+			app.CCVConsumerKeeper,
+			app.StakingKeeper,
 		),
 	)
 }
