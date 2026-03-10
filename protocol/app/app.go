@@ -683,30 +683,6 @@ func New(
 		lib.GovModuleAddress.String(),
 	)
 
-	// ICS consumer keeper
-	validatorAddrCodec := addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32ValidatorAddrPrefix())
-	consAddrCodec := addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32ConsensusAddrPrefix())
-
-	app.CCVConsumerKeeper = ccvconsumerkeeper.NewKeeper(
-		appCodec,
-		keys[ccvconsumertypes.StoreKey],
-		app.getSubspace(ccvconsumertypes.ModuleName),
-		scopedCCVConsumerKeeper,
-		app.IBCKeeper.ChannelKeeper,
-		app.IBCKeeper.PortKeeper,
-		app.IBCKeeper.ConnectionKeeper,
-		app.IBCKeeper.ClientKeeper,
-		app.SlashingKeeper,
-		app.BankKeeper,
-		app.AccountKeeper,
-		app.TransferKeeper,
-		app.IBCKeeper,
-		authtypes.FeeCollectorName,
-		lib.GovModuleAddress.String(),
-		validatorAddrCodec,
-		consAddrCodec,
-	)
-
 	// Create ICA Host Keeper
 	app.ICAHostKeeper = icahostkeeper.NewKeeper(
 		appCodec,
@@ -720,6 +696,7 @@ func New(
 		app.MsgServiceRouter(),                      // msgRouter
 		lib.GovModuleAddress.String(),               // authority
 	)
+	app.ICAHostKeeper.WithQueryRouter(app.GRPCQueryRouter())
 
 	app.BlockTimeKeeper = *blocktimemodulekeeper.NewKeeper(
 		appCodec,
@@ -761,6 +738,30 @@ func New(
 	)
 	transferModule := transfer.NewAppModule(app.TransferKeeper)
 	transferIBCModule := transfer.NewIBCModule(app.TransferKeeper)
+
+	// ICS consumer keeper
+	validatorAddrCodec := addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32ValidatorAddrPrefix())
+	consAddrCodec := addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32ConsensusAddrPrefix())
+
+	app.CCVConsumerKeeper = ccvconsumerkeeper.NewKeeper(
+		appCodec,
+		keys[ccvconsumertypes.StoreKey],
+		app.getSubspace(ccvconsumertypes.ModuleName),
+		scopedCCVConsumerKeeper,
+		app.IBCKeeper.ChannelKeeper,
+		app.IBCKeeper.PortKeeper,
+		app.IBCKeeper.ConnectionKeeper,
+		app.IBCKeeper.ClientKeeper,
+		app.SlashingKeeper,
+		app.BankKeeper,
+		app.AccountKeeper,
+		app.TransferKeeper,
+		app.IBCKeeper,
+		authtypes.FeeCollectorName,
+		lib.GovModuleAddress.String(),
+		validatorAddrCodec,
+		consAddrCodec,
+	)
 
 	// Wrap the x/ratelimit middlware over the IBC Transfer module
 	var transferStack ibcporttypes.IBCModule = transferIBCModule
@@ -1493,6 +1494,7 @@ func New(
 		govtypes.ModuleName,
 		crisistypes.ModuleName,
 		ibcexported.ModuleName,
+		ccvconsumertypes.ModuleName,
 		genutiltypes.ModuleName,
 		evidencetypes.ModuleName,
 		paramstypes.ModuleName,

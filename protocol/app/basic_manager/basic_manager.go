@@ -19,6 +19,7 @@ import (
 	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/cosmos/ibc-go/modules/capability"
+	ccvconsumermodule "github.com/cosmos/interchain-security/v5/x/ccv/consumer"
 	delaymsgmodule "github.com/nemo-network/v4-chain/protocol/x/delaymsg"
 	listingmodule "github.com/nemo-network/v4-chain/protocol/x/listing"
 
@@ -79,6 +80,8 @@ var (
 		transfer.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		authzmodule.AppModuleBasic{},
+
+		ccvconsumermodule.AppModuleBasic{},
 
 		// Custom modules
 		pricesmodule.AppModuleBasic{},
