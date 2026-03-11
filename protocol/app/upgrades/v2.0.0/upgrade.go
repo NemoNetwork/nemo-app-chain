@@ -1,10 +1,10 @@
-package v_8_0_0
+package v_2_0_0
 
 import (
 	"context"
 
-	abci "github.com/cometbft/cometbft/abci/types"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
+	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
@@ -36,7 +36,7 @@ func CreateUpgradeHandlerWithConsumerInit(
 	stakingKeeper *stakingkeeper.Keeper,
 ) upgradetypes.UpgradeHandler {
 	return func(ctx context.Context, plan upgradetypes.Plan, vm module.VersionMap) (module.VersionMap, error) {
-		sdkCtx := lib.UnwrapSDKContext(ctx, "app/upgrades/v8.0.0")
+		sdkCtx := lib.UnwrapSDKContext(ctx, "app/upgrades/v2.0.0")
 
 		// 1. Run migrations for all modules (including registering the new consumer module in the version map).
 		vm, err := mm.RunMigrations(ctx, configurator, vm)
@@ -62,7 +62,7 @@ func CreateUpgradeHandlerWithConsumerInit(
 		}
 
 		consumerKeeper.InitGenesis(sdkCtx, consumerGenesis)
-		sdkCtx.Logger().Info("v8.0.0 upgrade: CCV consumer module initialized (PreCCV=true)")
+		sdkCtx.Logger().Info("v2.0.0 upgrade: CCV consumer module initialized (PreCCV=true)")
 
 		return vm, nil
 	}
