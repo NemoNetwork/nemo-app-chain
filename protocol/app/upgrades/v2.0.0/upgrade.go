@@ -25,7 +25,8 @@ func CreateUpgradeHandler(
 
 // CreateUpgradeHandlerWithConsumerInit returns an upgrade handler that:
 // 1. Runs module migrations.
-// 2. Initializes the CCV consumer module state for a standalone->consumer changeover (PreCCV=true, initial val set from staking).
+// 2. Adds the CCV consumer module to the version map.
+// 3. Initializes the CCV consumer module.
 func CreateUpgradeHandlerWithConsumerInit(
 	mm *module.Manager,
 	configurator module.Configurator,
