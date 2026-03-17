@@ -1,4 +1,4 @@
-export VERSION := v0.1.0
+export VERSION := v2.0.0
 BUILDDIR ?= $(CURDIR)/build
 DOCKER := $(shell which docker)
 HTTPS_GIT := https://github.com/nemonetwork/v4.git

@@ -276,7 +276,10 @@
           "parentSubaccountNumber",
           "portfolioValue",
           "unrealizedPnl",
-          "maintenanceMargin"
+          "crossLeverage",
+          "crossMarginUsage",
+          "maintenanceMargin",
+          "crossMarginRatio"
         ],
         "type": "object",
         "additionalProperties": false
@@ -652,6 +655,9 @@
           "subaccountNumber": {
             "type": "integer",
             "format": "int32"
+          },
+          "closedPnL": {
+            "type": "string"
           }
         },
         "required": [
@@ -798,11 +804,11 @@
             "type": "string"
           },
           "positionType": {
+            "type": "string",
             "enum": [
               "LONG",
               "SHORT"
-            ],
-            "type": "string"
+            ]
           },
           "date": {
             "$ref": "#/components/schemas/IsoString"
@@ -1118,6 +1124,9 @@
           "subaccountNumber": {
             "type": "integer",
             "format": "int32"
+          },
+          "average": {
+            "type": "string"
           }
         },
         "required": [
@@ -1282,6 +1291,249 @@
         },
         "required": [
           "positions"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PortfolioValueResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "portfolioValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "portfolioValue"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "VolumeResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "string"
+          },
+          "periodDays": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "address",
+          "volume",
+          "periodDays"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "FeesPercentageResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "takerPercentage": {
+            "type": "string"
+          },
+          "makerPercentage": {
+            "type": "string"
+          },
+          "totalFees": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "takerPercentage",
+          "makerPercentage",
+          "totalFees"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TotalFundingFeeResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "totalFundingFee": {
+            "type": "string"
+          },
+          "unsettledFunding": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "totalFundingFee",
+          "unsettledFunding"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "LivePnlResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RealizedPnlResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ProfitFactorResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MaxDrawdownResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "HealthResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EquityResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EquityListResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "equityList": {
+            "items": {
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "date": {
+                  "$ref": "#/components/schemas/IsoString"
+                }
+              },
+              "required": [
+                "value",
+                "date"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "equityList"
         ],
         "type": "object",
         "additionalProperties": false
@@ -3221,6 +3473,457 @@
             "schema": {
               "format": "double",
               "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/value": {
+      "get": {
+        "operationId": "GetPortfolioValue",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioValueResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/volume": {
+      "get": {
+        "operationId": "GetVolume",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VolumeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/fees-percentage": {
+      "get": {
+        "operationId": "GetFeesPercentage",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeesPercentageResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/total-funding-fee": {
+      "get": {
+        "operationId": "GetTotalFundingFee",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TotalFundingFeeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/live-pnl": {
+      "get": {
+        "operationId": "GetLivePnl",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LivePnlResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/realized-pnl": {
+      "get": {
+        "operationId": "GetRealizedPnl",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RealizedPnlResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/profit-factor": {
+      "get": {
+        "operationId": "GetProfitFactor",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfitFactorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/max-drawdown": {
+      "get": {
+        "operationId": "GetMaxDrawdown",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaxDrawdownResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/health": {
+      "get": {
+        "operationId": "GetHealth",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/equity": {
+      "get": {
+        "operationId": "GetEquity",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EquityResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/equity-list": {
+      "get": {
+        "operationId": "GetEquityList",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EquityListResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
             }
           },
           {

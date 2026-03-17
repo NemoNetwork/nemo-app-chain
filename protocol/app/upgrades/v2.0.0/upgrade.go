@@ -4,13 +4,10 @@ import (
 	"context"
 
 	upgradetypes "cosmossdk.io/x/upgrade/types"
-	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
 	ccvconsumerkeeper "github.com/cosmos/interchain-security/v5/x/ccv/consumer/keeper"
-	ccvconsumertypes "github.com/cosmos/interchain-security/v5/x/ccv/consumer/types"
-	ccv "github.com/cosmos/interchain-security/v5/x/ccv/types"
 
 	"github.com/nemo-network/v4-chain/protocol/lib"
 )
@@ -44,40 +41,8 @@ func CreateUpgradeHandlerWithConsumerInit(
 			return vm, err
 		}
 
-		// 2. Initialize the CCV consumer module state for a chain that was previously standalone.
-		// PreCCV=true: consumer module will not drive validator set until the provider CCV channel is established.
-		// InitialValSet: current staking validator set, used when changeover completes.
-		initialValSet, err := getInitialValidatorSet(ctx, stakingKeeper)
-		if err != nil {
-			return vm, err
-		}
-
-		consumerGenesis := ccvconsumertypes.DefaultGenesisState()
-		consumerGenesis.PreCCV = true
-		consumerGenesis.Params = ccv.DefaultParams()
-		consumerGenesis.Provider.InitialValSet = initialValSet
-
-		if err := consumerGenesis.Validate(); err != nil {
-			return vm, err
-		}
-
-		consumerKeeper.InitGenesis(sdkCtx, consumerGenesis)
-		sdkCtx.Logger().Info("v2.0.0 upgrade: CCV consumer module initialized (PreCCV=true)")
+		sdkCtx.Logger().Info("v2.0.0 upgrade: CCV consumer module addition")
 
 		return vm, nil
 	}
-}
-
-// getInitialValidatorSet returns the current bonded validator set as abci.ValidatorUpdate slice.
-func getInitialValidatorSet(ctx context.Context, k *stakingkeeper.Keeper) ([]abci.ValidatorUpdate, error) {
-	validators, err := k.GetLastValidators(ctx)
-	if err != nil {
-		return nil, err
-	}
-	powerReduction := k.PowerReduction(ctx)
-	updates := make([]abci.ValidatorUpdate, 0, len(validators))
-	for _, val := range validators {
-		updates = append(updates, val.ABCIValidatorUpdate(powerReduction))
-	}
-	return updates, nil
 }
