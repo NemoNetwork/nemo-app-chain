@@ -26,10 +26,6 @@ func (app *App) setupUpgradeHandlers() {
 		panic(fmt.Sprintf("Cannot register duplicate upgrade handler '%s'", v2_0_0.UpgradeName))
 	}
 
-	if app.UpgradeKeeper.HasHandler(v2_0_0.UpgradeName) {
-		panic(fmt.Sprintf("Cannot register duplicate upgrade handler '%s'", v2_0_0.UpgradeName))
-	}
-
 	app.UpgradeKeeper.SetUpgradeHandler(
 		v2_0_0.UpgradeName,
 		v2_0_0.CreateUpgradeHandlerWithConsumerInit(
