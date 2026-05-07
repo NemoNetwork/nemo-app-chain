@@ -4,13 +4,10 @@ import {
   UserComplaintTable,
 } from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
-import { checkSchema } from 'express-validator';
-import {
-  Controller, Post, Route,
-} from 'tsoa';
+import { checkSchema, matchedData } from 'express-validator';
 
 import config from '../../../config';
-import { create4xxResponse, handleControllerError } from '../../../lib/helpers';
+import { handleControllerError } from '../../../lib/helpers';
 import { handleValidationErrors } from '../../../request-helpers/error-handler';
 import ExportResponseCodeStats from '../../../request-helpers/export-response-code-stats';
 
@@ -32,17 +29,6 @@ const UserComplaintSchema = checkSchema({
   },
 });
 
-@Route('userComplaints')
-class UserComplaintsController extends Controller {
-  @Post('/')
-  async create(
-    message: string,
-    email?: string,
-  ): Promise<UserComplaintFromDatabase> {
-    return UserComplaintTable.create({ message, email });
-  }
-}
-
 router.post(
   '/',
   ...UserComplaintSchema,
@@ -57,18 +43,13 @@ router.post(
     }: {
       message: string,
       email?: string,
-    } = req.body;
-
-    if (!message || typeof message !== 'string' || message.trim().length === 0) {
-      return create4xxResponse(res, 'message is required and must be a non-empty string');
-    }
+    } = matchedData(req) as { message: string, email?: string };
 
     try {
-      const controller = new UserComplaintsController();
-      const complaint: UserComplaintFromDatabase = await controller.create(
-        message.trim(),
+      const complaint: UserComplaintFromDatabase = await UserComplaintTable.create({
+        message: message.trim(),
         email,
-      );
+      });
 
       return res.status(201).send(complaint);
     } catch (error) {
