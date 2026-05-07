@@ -12,6 +12,7 @@ import {
   Options,
   Ordering,
   QueryableField,
+  QueryConfig,
   UserComplaintColumns,
   UserComplaintCreateObject,
   UserComplaintFromDatabase,
@@ -30,7 +31,7 @@ export async function findAll(
     {
       createdBeforeOrAt,
       limit,
-    },
+    } as QueryConfig,
     requiredFields,
   );
 
