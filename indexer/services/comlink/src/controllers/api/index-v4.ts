@@ -22,6 +22,7 @@ import SparklinesController from './v4/sparklines-controller';
 import TimeController from './v4/time-controller';
 import TradesController from './v4/trades-controller';
 import TransfersController from './v4/transfers-controller';
+import UserComplaintsController from './v4/user-complaints-controller';
 import VaultController from './v4/vault-controller';
 
 // Keep routers in alphabetical order
@@ -49,6 +50,7 @@ router.use('/transfers', TransfersController);
 router.use('/screen', ComplianceController);
 router.use('/compliance', ComplianceV2Controller);
 router.use('/trader', SocialTradingController);
+router.use('/userComplaints', UserComplaintsController);
 router.use('/vault', VaultController);
 
 export default router;
