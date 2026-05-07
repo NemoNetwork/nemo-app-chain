@@ -19,8 +19,9 @@ echo "[2/4] Building postgres-package image..."
 docker compose -f "$COMPOSE_FILE" build postgres-package
 
 echo "[3/4] Running database migrations..."
-# postgres-package depends_on postgres (service_healthy), so it waits automatically
-docker compose -f "$COMPOSE_FILE" run --rm postgres-package
+# Use 'up' (not 'run') so Compose tracks postgres-package as service_completed_successfully.
+# comlink depends_on postgres-package with that condition, so it won't start otherwise.
+docker compose -f "$COMPOSE_FILE" up --no-deps postgres-package
 
 echo "[4/4] Rebuilding and restarting comlink..."
 docker compose -f "$COMPOSE_FILE" build comlink
