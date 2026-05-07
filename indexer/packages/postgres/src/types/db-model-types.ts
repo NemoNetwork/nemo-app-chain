@@ -288,6 +288,7 @@ export type CandlesResolutionMap = { [resolution: string]: CandleFromDatabase };
 
 export interface UserComplaintFromDatabase {
   id: string,
+  walletAddress: string,
   message: string,
   email?: string,
   createdAt: IsoString,

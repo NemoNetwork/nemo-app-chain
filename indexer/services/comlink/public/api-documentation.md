@@ -4366,6 +4366,100 @@ fetch(`${baseURL}/transfers/between?sourceAddress=string&sourceSubaccountNumber=
 This operation does not require authentication
 </aside>
 
+## Create
+
+<a id="opIdCreate"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.post(f'{baseURL}/userComplaints', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+const inputBody = '{
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/userComplaints`,
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`POST /userComplaints`
+
+> Body parameter
+
+```json
+{
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string"
+}
+```
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[UserComplaintRequest](#schemausercomplaintrequest)|true|none|
+
+> Example responses
+
+> 201 Response
+
+```json
+{
+  "id": "string",
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string",
+  "createdAt": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|Created|[UserComplaintFromDatabase](#schemausercomplaintfromdatabase)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 ## GetMegavaultHistoricalPnl
 
 <a id="opIdGetMegavaultHistoricalPnl"></a>
@@ -7276,6 +7370,58 @@ or
 |offset|integer(int32)|false|none|none|
 |transfersSubset|[[TransferResponseObject](#schematransferresponseobject)]|true|none|none|
 |totalNetTransfers|string|true|none|none|
+
+## UserComplaintFromDatabase
+
+<a id="schemausercomplaintfromdatabase"></a>
+<a id="schema_UserComplaintFromDatabase"></a>
+<a id="tocSusercomplaintfromdatabase"></a>
+<a id="tocsusercomplaintfromdatabase"></a>
+
+```json
+{
+  "id": "string",
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string",
+  "createdAt": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|none|
+|walletAddress|string|true|none|none|
+|message|string|true|none|none|
+|email|string|false|none|none|
+|createdAt|[IsoString](#schemaisostring)|true|none|none|
+
+## UserComplaintRequest
+
+<a id="schemausercomplaintrequest"></a>
+<a id="schema_UserComplaintRequest"></a>
+<a id="tocSusercomplaintrequest"></a>
+<a id="tocsusercomplaintrequest"></a>
+
+```json
+{
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|walletAddress|string|true|none|none|
+|message|string|true|none|none|
+|email|string|false|none|none|
 
 ## MegavaultHistoricalPnlResponse
 

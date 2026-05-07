@@ -16,9 +16,10 @@ export default class UserComplaintModel extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'message'],
+      required: ['id', 'walletAddress', 'message'],
       properties: {
         id: { type: 'string', format: 'uuid' },
+        walletAddress: { type: 'string' },
         message: { type: 'string' },
         email: { type: ['string', 'null'] },
         createdAt: { type: 'string', format: 'date-time' },
@@ -29,6 +30,8 @@ export default class UserComplaintModel extends Model {
   QueryBuilderType!: UpsertQueryBuilder<this>;
 
   id!: string;
+
+  walletAddress!: string;
 
   message!: string;
 

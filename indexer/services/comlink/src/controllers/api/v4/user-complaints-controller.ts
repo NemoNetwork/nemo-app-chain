@@ -5,6 +5,9 @@ import {
 } from '@nemo-network-indexer/postgres/build/src';
 import express from 'express';
 import { checkSchema, matchedData } from 'express-validator';
+import {
+  Body, Controller, Post, Route, SuccessResponse,
+} from 'tsoa';
 
 import config from '../../../config';
 import { handleControllerError } from '../../../lib/helpers';
@@ -14,7 +17,19 @@ import ExportResponseCodeStats from '../../../request-helpers/export-response-co
 const router: express.Router = express.Router();
 const controllerName: string = 'user-complaints-controller';
 
+interface UserComplaintRequest {
+  walletAddress: string,
+  message: string,
+  email?: string,
+}
+
 const UserComplaintSchema = checkSchema({
+  walletAddress: {
+    in: ['body'],
+    isString: true,
+    notEmpty: true,
+    errorMessage: 'walletAddress is required and must be a non-empty string',
+  },
   message: {
     in: ['body'],
     isString: true,
@@ -29,6 +44,21 @@ const UserComplaintSchema = checkSchema({
   },
 });
 
+@Route('userComplaints')
+class UserComplaintsController extends Controller {
+  @Post('/')
+  @SuccessResponse('201', 'Created')
+  async create(
+    @Body() body: UserComplaintRequest,
+  ): Promise<UserComplaintFromDatabase> {
+    return UserComplaintTable.create({
+      walletAddress: body.walletAddress,
+      message: body.message.trim(),
+      email: body.email,
+    });
+  }
+}
+
 router.post(
   '/',
   ...UserComplaintSchema,
@@ -38,16 +68,16 @@ router.post(
     const start: number = Date.now();
 
     const {
+      walletAddress,
       message,
       email,
-    }: {
-      message: string,
-      email?: string,
-    } = matchedData(req) as { message: string, email?: string };
+    } = matchedData(req) as UserComplaintRequest;
 
     try {
-      const complaint: UserComplaintFromDatabase = await UserComplaintTable.create({
-        message: message.trim(),
+      const controller: UserComplaintsController = new UserComplaintsController();
+      const complaint: UserComplaintFromDatabase = await controller.create({
+        walletAddress,
+        message,
         email,
       });
 

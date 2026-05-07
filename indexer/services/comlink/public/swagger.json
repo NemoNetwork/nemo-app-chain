@@ -1839,6 +1839,52 @@
         "type": "object",
         "additionalProperties": false
       },
+      "UserComplaintFromDatabase": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "walletAddress": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/IsoString"
+          }
+        },
+        "required": [
+          "id",
+          "walletAddress",
+          "message",
+          "createdAt"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UserComplaintRequest": {
+        "properties": {
+          "walletAddress": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "walletAddress",
+          "message"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "MegavaultHistoricalPnlResponse": {
         "properties": {
           "megavaultPnl": {
@@ -4288,6 +4334,35 @@
             }
           }
         ]
+      }
+    },
+    "/userComplaints": {
+      "post": {
+        "operationId": "Create",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserComplaintFromDatabase"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserComplaintRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/vault/v1/megavault/historicalPnl": {
