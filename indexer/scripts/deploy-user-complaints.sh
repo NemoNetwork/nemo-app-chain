@@ -8,23 +8,28 @@ cd "$SCRIPT_DIR/.."
 COMPOSE_FILE="docker-compose-local-deployment.yml"
 BRANCH="feat/update-indexer"
 
-echo "[1/4] Pulling latest code from $BRANCH..."
+echo "[1/5] Pulling latest code from $BRANCH..."
 # Stash any local changes so checkout never aborts
 git stash --include-untracked --quiet
 git fetch origin
 git checkout "$BRANCH"
 git pull origin "$BRANCH"
 
-echo "[2/4] Building postgres-package image..."
-docker compose -f "$COMPOSE_FILE" build postgres-package
+echo "[2/5] Compiling TypeScript (build:all)..."
+# The Dockerfile copies pre-compiled build/ dirs from the host — must build first
+pnpm run build:all
 
-echo "[3/4] Running database migrations..."
+echo "[3/5] Running database migrations..."
+# Rebuild postgres-package image (includes new migration files) then run migrations.
 # Use 'up' (not 'run') so Compose tracks postgres-package as service_completed_successfully.
 # comlink depends_on postgres-package with that condition, so it won't start otherwise.
+docker compose -f "$COMPOSE_FILE" build postgres-package
 docker compose -f "$COMPOSE_FILE" up --no-deps postgres-package
 
-echo "[4/4] Rebuilding and restarting comlink..."
+echo "[4/5] Building comlink Docker image..."
 docker compose -f "$COMPOSE_FILE" build comlink
+
+echo "[5/5] Restarting comlink..."
 # --no-deps avoids touching postgres/redis/kafka; migration already ran in step 3
 docker compose -f "$COMPOSE_FILE" up -d --no-deps comlink
 
