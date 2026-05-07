@@ -21,6 +21,7 @@ import {
   PositionSide,
   SubaccountFromDatabase,
   TradeType,
+  UserComplaintFromDatabase,
   TradingRewardAggregationPeriod,
   TransferType,
 } from '@nemo-network-indexer/postgres';
@@ -828,4 +829,8 @@ export interface EquityListResponse {
     date: IsoString,
     value: string,
   }>,
+}
+
+export interface UserComplaintsResponse {
+  complaints: UserComplaintFromDatabase[],
 }
