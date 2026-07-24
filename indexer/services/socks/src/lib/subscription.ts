@@ -570,7 +570,7 @@ export class Subscriptions {
         // TODO(DEC-1462): Use the /active-orders endpoint once it's added.
         axiosRequest({
           method: RequestMethod.GET,
-          url: `${COMLINK_URL}/v4/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
+          url: `${COMLINK_URL}/orders?address=${address}&subaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,
@@ -629,7 +629,7 @@ export class Subscriptions {
       ] = await Promise.all([
         axiosRequest({
           method: RequestMethod.GET,
-          url: `${COMLINK_URL}/v4/addresses/${address}/parentSubaccountNumber/${subaccountNumber}`,
+          url: `${COMLINK_URL}/addresses/${address}/parentSubaccountNumber/${subaccountNumber}`,
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,
@@ -639,7 +639,7 @@ export class Subscriptions {
         // TODO(DEC-1462): Use the /active-orders endpoint once it's added.
         axiosRequest({
           method: RequestMethod.GET,
-          url: `${COMLINK_URL}/v4/orders/parentSubaccountNumber?address=${address}&parentSubaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
+          url: `${COMLINK_URL}/orders/parentSubaccountNumber?address=${address}&parentSubaccountNumber=${subaccountNumber}&status=${VALID_ORDER_STATUS}`,
           timeout: config.INITIAL_GET_TIMEOUT_MS,
           headers: {
             'cf-ipcountry': country,

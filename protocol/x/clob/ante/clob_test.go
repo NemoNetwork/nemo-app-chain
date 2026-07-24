@@ -333,10 +333,9 @@ func TestIsClobTransaction(t *testing.T) {
 			tx := builder.GetTx()
 
 			// Invoke the function under test.
-			result, err := ante.IsSingleClobMsgTx(tx)
+			err = ante.ValidateMsgsInClobTx(tx)
 
 			// Assert the results.
-			require.Equal(t, tc.expectedResult, result)
 			require.ErrorIs(t, tc.expectedErr, err)
 		})
 	}

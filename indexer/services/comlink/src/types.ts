@@ -21,6 +21,7 @@ import {
   PositionSide,
   SubaccountFromDatabase,
   TradeType,
+  UserComplaintFromDatabase,
   TradingRewardAggregationPeriod,
   TransferType,
 } from '@nemo-network-indexer/postgres';
@@ -88,6 +89,31 @@ export interface ParentSubaccountResponse {
   equity: string, // aggregated over all child subaccounts
   freeCollateral: string, // aggregated over all child subaccounts
   childSubaccounts: SubaccountResponseObject[],
+}
+
+export interface AccountOverviewResponse {
+  address: string,
+  /**
+   * @isInt
+   */
+  parentSubaccountNumber: number,
+  portfolioValue: string,
+  unrealizedPnl: string,
+  crossLeverage: string | null,
+  crossMarginUsage: string | null,
+  maintenanceMargin: string,
+  crossMarginRatio: string | null,
+}
+
+export interface EquityAndMarginUsageResponse {
+  address: string,
+  /**
+   * @isInt
+   */
+  parentSubaccountNumber: number,
+  equity: string,
+  imUsagePercentage: string,
+  mmUsagePercentage: string,
 }
 
 export type SubaccountById = {[id: string]: SubaccountFromDatabase};
@@ -174,6 +200,7 @@ export interface FillResponseObject {
    * @isInt
    */
   subaccountNumber: number,
+  closedPnL?: string,
 }
 
 /* ------- TRANSFER TYPES ------- */
@@ -372,6 +399,7 @@ export interface OrderResponseObject extends Omit<OrderFromDatabase, 'timeInForc
    * @isInt
    */
   subaccountNumber: number,
+  average?: string,
 }
 
 export type RedisOrderMap = { [orderId: string]: RedisOrder };
@@ -409,6 +437,19 @@ export interface HistoricalFundingResponseObject {
   price: string,
   effectiveAt: IsoString,
   effectiveAtHeight: string,
+}
+
+export interface SubaccountHistoricalFundingResponse {
+  historicalFunding: SubaccountHistoricalFundingResponseObject[],
+}
+
+export interface SubaccountHistoricalFundingResponseObject {
+  market: string,
+  positionType: 'LONG' | 'SHORT',
+  date: IsoString,
+  positionSize: string,
+  payment: string,
+  fundingRate: string,
 }
 
 /* ------- GET REQUEST TYPES ------- */
@@ -547,6 +588,11 @@ export interface SparklinesRequest {
 
 export interface HistoricalFundingRequest extends LimitAndEffectiveBeforeRequest {
   ticker: string,
+}
+
+export interface SubaccountHistoricalFundingRequest extends LimitAndEffectiveBeforeRequest {
+  address: string,
+  subaccountNumber: number,
 }
 
 /* ------- COLLATERALIZATION TYPES ------- */
@@ -712,4 +758,79 @@ export interface AffiliateSnapshotResponseObject {
 
 export interface AffiliateTotalVolumeResponse {
   totalVolume: number | null,
+}
+
+/* ------- PORTFOLIO TYPES ------- */
+
+export interface PortfolioValueResponse {
+  address: string,
+  portfolioValue: string,
+}
+
+export interface VolumeResponse {
+  address: string,
+  volume: string,
+  periodDays: number,
+}
+
+export interface FeesPercentageResponse {
+  address: string,
+  takerPercentage: string,
+  makerPercentage: string,
+  totalFees: string,
+}
+
+export interface TotalFundingFeeResponse {
+  address: string,
+  totalFundingFee: string,
+  unsettledFunding: string,
+}
+
+export interface LivePnlResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface RealizedPnlResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface ProfitFactorResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface MaxDrawdownResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface HealthResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface EquityResponse {
+  address: string,
+  subaccountNumber: number,
+  value: string,
+}
+
+export interface EquityListResponse {
+  address: string,
+  subaccountNumber: number,
+  equityList: Array<{
+    date: IsoString,
+    value: string,
+  }>,
+}
+
+export interface UserComplaintsResponse {
+  complaints: UserComplaintFromDatabase[],
 }

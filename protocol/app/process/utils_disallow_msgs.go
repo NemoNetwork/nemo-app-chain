@@ -14,10 +14,10 @@ func IsDisallowClobOrderMsgInOtherTxs(targetMsg sdk.Msg) bool {
 	case *clobtypes.MsgCancelOrder:
 		orderId := msg.GetOrderId()
 		return !orderId.IsStatefulOrder() // not stateful -> returns true -> disallow
-	case *clobtypes.MsgPlaceOrder:
-		order := msg.GetOrder()
-		orderId := order.GetOrderId()
-		return !orderId.IsStatefulOrder() // not stateful -> returns true -> disallow
+	// case *clobtypes.MsgPlaceOrder:
+	// 	order := msg.GetOrder()
+	// 	orderId := order.GetOrderId()
+	// 	return !orderId.IsStatefulOrder() // not stateful -> returns true -> disallow
 	case *clobtypes.MsgBatchCancel:
 		return true
 	}

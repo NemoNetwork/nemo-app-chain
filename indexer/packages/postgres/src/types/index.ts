@@ -29,3 +29,4 @@ export * from './pagination-types';
 export * from './subaccount-usernames-types';
 export * from './leaderboard-pnl-types';
 export { PositionSide } from './position-types';
+export * from './user-complaint-types';

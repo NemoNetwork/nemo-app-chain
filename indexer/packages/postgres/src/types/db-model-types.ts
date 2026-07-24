@@ -285,4 +285,12 @@ export type OraclePricesMap = { [marketId: number]: OraclePriceFromDatabase[] };
 export type PriceMap = { [marketId: number]: string };
 export type FundingIndexMap = { [perpetualId: string]: Big };
 export type CandlesResolutionMap = { [resolution: string]: CandleFromDatabase };
+
+export interface UserComplaintFromDatabase {
+  id: string,
+  walletAddress: string,
+  message: string,
+  email?: string,
+  createdAt: IsoString,
+}
 export type CandlesMap = { [ticker: string]: CandlesResolutionMap };

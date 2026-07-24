@@ -144,6 +144,7 @@ export function fillToResponseObject(
   fill: FillFromDatabase,
   marketsByClobPairId: MarketAndTypeByClobPairId,
   subaccountNumber: number,
+  closedPnL?: string,
 ): FillResponseObject {
   return {
     id: fill.id,
@@ -160,6 +161,7 @@ export function fillToResponseObject(
     orderId: fill.orderId,
     clientMetadata: fill.clientMetadata,
     subaccountNumber,
+    closedPnL,
   };
 }
 

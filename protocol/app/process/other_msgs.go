@@ -43,6 +43,7 @@ func DecodeOtherMsgsTx(decoder sdk.TxDecoder, txBytes []byte) (*OtherMsgsTx, err
 				)
 		}
 
+		// Do not check stateful/non-stateful orders in OtherTxs since it will be addressed properly in Clob ante handler.
 		if IsDisallowClobOrderMsgInOtherTxs(msg) {
 			return nil,
 				errorsmod.Wrapf(

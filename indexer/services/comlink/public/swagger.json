@@ -240,6 +240,79 @@
         "type": "object",
         "additionalProperties": false
       },
+      "AccountOverviewResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "parentSubaccountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "portfolioValue": {
+            "type": "string"
+          },
+          "unrealizedPnl": {
+            "type": "string"
+          },
+          "crossLeverage": {
+            "type": "string",
+            "nullable": true
+          },
+          "crossMarginUsage": {
+            "type": "string",
+            "nullable": true
+          },
+          "maintenanceMargin": {
+            "type": "string"
+          },
+          "crossMarginRatio": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "address",
+          "parentSubaccountNumber",
+          "portfolioValue",
+          "unrealizedPnl",
+          "crossLeverage",
+          "crossMarginUsage",
+          "maintenanceMargin",
+          "crossMarginRatio"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EquityAndMarginUsageResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "parentSubaccountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "equity": {
+            "type": "string"
+          },
+          "imUsagePercentage": {
+            "type": "string"
+          },
+          "mmUsagePercentage": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "parentSubaccountNumber",
+          "equity",
+          "imUsagePercentage",
+          "mmUsagePercentage"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "AffiliateReferralCodeResponse": {
         "properties": {
           "referralCode": {
@@ -582,6 +655,9 @@
           "subaccountNumber": {
             "type": "integer",
             "format": "int32"
+          },
+          "closedPnL": {
+            "type": "string"
           }
         },
         "required": [
@@ -712,6 +788,57 @@
           "historicalFunding": {
             "items": {
               "$ref": "#/components/schemas/HistoricalFundingResponseObject"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "historicalFunding"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SubaccountHistoricalFundingResponseObject": {
+        "properties": {
+          "market": {
+            "type": "string"
+          },
+          "positionType": {
+            "type": "string",
+            "enum": [
+              "LONG",
+              "SHORT"
+            ]
+          },
+          "date": {
+            "$ref": "#/components/schemas/IsoString"
+          },
+          "positionSize": {
+            "type": "string"
+          },
+          "payment": {
+            "type": "string"
+          },
+          "fundingRate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "market",
+          "positionType",
+          "date",
+          "positionSize",
+          "payment",
+          "fundingRate"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "SubaccountHistoricalFundingResponse": {
+        "properties": {
+          "historicalFunding": {
+            "items": {
+              "$ref": "#/components/schemas/SubaccountHistoricalFundingResponseObject"
             },
             "type": "array"
           }
@@ -997,6 +1124,9 @@
           "subaccountNumber": {
             "type": "integer",
             "format": "int32"
+          },
+          "average": {
+            "type": "string"
           }
         },
         "required": [
@@ -1161,6 +1291,249 @@
         },
         "required": [
           "positions"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "PortfolioValueResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "portfolioValue": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "portfolioValue"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "VolumeResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "string"
+          },
+          "periodDays": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": [
+          "address",
+          "volume",
+          "periodDays"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "FeesPercentageResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "takerPercentage": {
+            "type": "string"
+          },
+          "makerPercentage": {
+            "type": "string"
+          },
+          "totalFees": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "takerPercentage",
+          "makerPercentage",
+          "totalFees"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "TotalFundingFeeResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "totalFundingFee": {
+            "type": "string"
+          },
+          "unsettledFunding": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "totalFundingFee",
+          "unsettledFunding"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "LivePnlResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "RealizedPnlResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ProfitFactorResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MaxDrawdownResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "HealthResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EquityResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "value"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "EquityListResponse": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "equityList": {
+            "items": {
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "date": {
+                  "$ref": "#/components/schemas/IsoString"
+                }
+              },
+              "required": [
+                "value",
+                "date"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "address",
+          "subaccountNumber",
+          "equityList"
         ],
         "type": "object",
         "additionalProperties": false
@@ -1466,6 +1839,67 @@
         "type": "object",
         "additionalProperties": false
       },
+      "UserComplaintFromDatabase": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "walletAddress": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/IsoString"
+          }
+        },
+        "required": [
+          "id",
+          "walletAddress",
+          "message",
+          "createdAt"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UserComplaintsResponse": {
+        "properties": {
+          "complaints": {
+            "items": {
+              "$ref": "#/components/schemas/UserComplaintFromDatabase"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "complaints"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UserComplaintRequest": {
+        "properties": {
+          "walletAddress": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "walletAddress",
+          "message"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
       "MegavaultHistoricalPnlResponse": {
         "properties": {
           "megavaultPnl": {
@@ -1637,6 +2071,80 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ParentSubaccountResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "parentSubaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/overview": {
+      "get": {
+        "operationId": "GetParentSubaccountOverview",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountOverviewResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "parentSubaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/equity-margin-usage": {
+      "get": {
+        "operationId": "GetEquityAndMarginUsage",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EquityAndMarginUsageResponse"
                 }
               }
             }
@@ -2256,6 +2764,69 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "effectiveBeforeOrAtHeight",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "effectiveBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/historicalFunding/address/{address}/{subaccountNumber}": {
+      "get": {
+        "operationId": "GetSubaccountHistoricalFunding",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubaccountHistoricalFundingResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
             }
           },
           {
@@ -2976,6 +3547,457 @@
         ]
       }
     },
+    "/portfolio/{address}/value": {
+      "get": {
+        "operationId": "GetPortfolioValue",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioValueResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/volume": {
+      "get": {
+        "operationId": "GetVolume",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VolumeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/fees-percentage": {
+      "get": {
+        "operationId": "GetFeesPercentage",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeesPercentageResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/total-funding-fee": {
+      "get": {
+        "operationId": "GetTotalFundingFee",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TotalFundingFeeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/live-pnl": {
+      "get": {
+        "operationId": "GetLivePnl",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LivePnlResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/realized-pnl": {
+      "get": {
+        "operationId": "GetRealizedPnl",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RealizedPnlResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/profit-factor": {
+      "get": {
+        "operationId": "GetProfitFactor",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfitFactorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/max-drawdown": {
+      "get": {
+        "operationId": "GetMaxDrawdown",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaxDrawdownResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/health": {
+      "get": {
+        "operationId": "GetHealth",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/equity": {
+      "get": {
+        "operationId": "GetEquity",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EquityResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/portfolio/{address}/{subaccountNumber}/equity-list": {
+      "get": {
+        "operationId": "GetEquityList",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EquityListResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "subaccountNumber",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdOnOrAfter",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          }
+        ]
+      }
+    },
     "/trader/search": {
       "get": {
         "operationId": "SearchTrader",
@@ -3327,6 +4349,62 @@
             }
           }
         ]
+      }
+    },
+    "/userComplaints": {
+      "get": {
+        "operationId": "GetAll",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserComplaintsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      },
+      "post": {
+        "operationId": "Create",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserComplaintFromDatabase"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserComplaintRequest"
+              }
+            }
+          }
+        }
       }
     },
     "/vault/v1/megavault/historicalPnl": {

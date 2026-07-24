@@ -9,7 +9,12 @@ import {
   QueryableField,
   FillColumns,
   Ordering,
+  PerpetualPositionTable,
+  PerpetualPositionFromDatabase,
+  PositionSide,
+  OrderSide,
 } from '@nemo-network-indexer/postgres/build/src';
+import Big from 'big.js';
 import express from 'express';
 import {
   checkSchema,
@@ -184,10 +189,73 @@ class FillsController extends Controller {
       },
     );
 
+    // Query positions for all subaccounts to calculate closed PnL
+    const positions: PerpetualPositionFromDatabase[] = await PerpetualPositionTable.findAll(
+      {
+        subaccountId: subaccountIds,
+      },
+      [],
+    );
+
+    // Create a map of (subaccountId, clobPairId) -> position for quick lookup
+    // Use perpetualId from the position to match with clobPairId
+    const positionMap: Record<string, PerpetualPositionFromDatabase> = {};
+    positions.forEach((position: PerpetualPositionFromDatabase) => {
+      const perpetualMarket = perpetualMarketRefresher.getPerpetualMarketFromId(position.perpetualId);
+      if (perpetualMarket) {
+        const key = `${position.subaccountId}-${perpetualMarket.clobPairId}`;
+        positionMap[key] = position;
+      }
+    });
+
+    // Helper function to calculate closed PnL for a fill
+    const calculateClosedPnL = (fill: FillFromDatabase): string | undefined => {
+      const perpetualMarket = clobPairIdToPerpetualMarket[fill.clobPairId];
+      if (!perpetualMarket) {
+        return undefined;
+      }
+
+      const key = `${fill.subaccountId}-${fill.clobPairId}`;
+      const position = positionMap[key];
+
+      if (!position) {
+        return undefined;
+      }
+
+      // Check if fill closes the position (opposite sides)
+      // A LONG position is closed by SELL fills, a SHORT position is closed by BUY fills
+      const isClosingLong = position.side === PositionSide.LONG && fill.side === OrderSide.SELL;
+      const isClosingShort = position.side === PositionSide.SHORT && fill.side === OrderSide.BUY;
+
+      if (!isClosingLong && !isClosingShort) {
+        return undefined;
+      }
+
+      // Calculate closed PnL
+      // For LONG positions being closed by SELL: (fillPrice - entryPrice) * fillSize - fee
+      // For SHORT positions being closed by BUY: (entryPrice - fillPrice) * fillSize - fee
+      const fillPrice = Big(fill.price);
+      const fillSize = Big(fill.size);
+      const entryPrice = Big(position.entryPrice);
+      const fee = Big(fill.fee || '0');
+
+      let closedPnL: Big;
+      if (isClosingLong) {
+        // Long position: profit when selling above entry price
+        closedPnL = fillPrice.minus(entryPrice).mul(fillSize).minus(fee);
+      } else {
+        // Short position: profit when buying below entry price
+        closedPnL = entryPrice.minus(fillPrice).mul(fillSize).minus(fee);
+      }
+
+      return closedPnL.toFixed();
+    };
+
     return {
       fills: fills.map((fill: FillFromDatabase): FillResponseObject => {
+        const closedPnL = calculateClosedPnL(fill);
         return fillToResponseObject(fill, clobPairIdToMarket,
-          childIdtoSubaccountNumber[fill.subaccountId]);
+          childIdtoSubaccountNumber[fill.subaccountId], closedPnL);
       }),
       pageSize,
       totalResults: total,

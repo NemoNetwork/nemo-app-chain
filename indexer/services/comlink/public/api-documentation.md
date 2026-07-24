@@ -368,6 +368,167 @@ fetch(`${baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNu
 This operation does not require authentication
 </aside>
 
+## GetParentSubaccountOverview
+
+<a id="opIdGetParentSubaccountOverview"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/overview', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/overview`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/overview`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|parentSubaccountNumber|path|number(double)|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "parentSubaccountNumber": 0,
+  "portfolioValue": "string",
+  "unrealizedPnl": "string",
+  "crossLeverage": "string",
+  "crossMarginUsage": "string",
+  "maintenanceMargin": "string",
+  "crossMarginRatio": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[AccountOverviewResponse](#schemaaccountoverviewresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetEquityAndMarginUsage
+
+<a id="opIdGetEquityAndMarginUsage"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/equity-margin-usage', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/equity-margin-usage`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /addresses/{address}/parentSubaccountNumber/{parentSubaccountNumber}/equity-margin-usage`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|parentSubaccountNumber|path|number(double)|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "parentSubaccountNumber": 0,
+  "equity": "string",
+  "imUsagePercentage": "string",
+  "mmUsagePercentage": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[EquityAndMarginUsageResponse](#schemaequityandmarginusageresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 ## GetReferralCode
 
 <a id="opIdGetReferralCode"></a>
@@ -1057,7 +1218,8 @@ fetch(`${baseURL}/fills?address=string&subaccountNumber=0.1`,
       "createdAtHeight": "string",
       "orderId": "string",
       "clientMetadata": "string",
-      "subaccountNumber": 0
+      "subaccountNumber": 0,
+      "closedPnL": "string"
     }
   ]
 }
@@ -1167,7 +1329,8 @@ fetch(`${baseURL}/fills/parentSubaccount?address=string&parentSubaccountNumber=0
       "createdAtHeight": "string",
       "orderId": "string",
       "clientMetadata": "string",
-      "subaccountNumber": 0
+      "subaccountNumber": 0,
+      "closedPnL": "string"
     }
   ]
 }
@@ -1415,6 +1578,93 @@ fetch(`${baseURL}/historicalFunding/{ticker}`,
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[HistoricalFundingResponse](#schemahistoricalfundingresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetSubaccountHistoricalFunding
+
+<a id="opIdGetSubaccountHistoricalFunding"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/historicalFunding/address/{address}/{subaccountNumber}', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/historicalFunding/address/{address}/{subaccountNumber}`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /historicalFunding/address/{address}/{subaccountNumber}`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+|limit|query|number(double)|false|none|
+|effectiveBeforeOrAtHeight|query|number(double)|false|none|
+|effectiveBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "historicalFunding": [
+    {
+      "market": "string",
+      "positionType": "LONG",
+      "date": "string",
+      "positionSize": "string",
+      "payment": "string",
+      "fundingRate": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[SubaccountHistoricalFundingResponse](#schemasubaccounthistoricalfundingresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -1903,7 +2153,8 @@ fetch(`${baseURL}/orders?address=string&subaccountNumber=0.1`,
     "ticker": "string",
     "updatedAt": "string",
     "updatedAtHeight": "string",
-    "subaccountNumber": 0
+    "subaccountNumber": 0,
+    "average": "string"
   }
 ]
 ```
@@ -1961,6 +2212,7 @@ Status Code **200**
 |» updatedAt|[IsoString](#schemaisostring)|false|none|none|
 |» updatedAtHeight|string|false|none|none|
 |» subaccountNumber|integer(int32)|true|none|none|
+|» average|string|false|none|none|
 
 #### Enumerated Values
 
@@ -2097,7 +2349,8 @@ fetch(`${baseURL}/orders/parentSubaccountNumber?address=string&parentSubaccountN
     "ticker": "string",
     "updatedAt": "string",
     "updatedAtHeight": "string",
-    "subaccountNumber": 0
+    "subaccountNumber": 0,
+    "average": "string"
   }
 ]
 ```
@@ -2155,6 +2408,7 @@ Status Code **200**
 |» updatedAt|[IsoString](#schemaisostring)|false|none|none|
 |» updatedAtHeight|string|false|none|none|
 |» subaccountNumber|integer(int32)|true|none|none|
+|» average|string|false|none|none|
 
 #### Enumerated Values
 
@@ -2265,7 +2519,8 @@ fetch(`${baseURL}/orders/{orderId}`,
   "ticker": "string",
   "updatedAt": "string",
   "updatedAtHeight": "string",
-  "subaccountNumber": 0
+  "subaccountNumber": 0,
+  "average": "string"
 }
 ```
 
@@ -2612,6 +2867,864 @@ fetch(`${baseURL}/perpetualPositions/parentSubaccountNumber?address=string&paren
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[PerpetualPositionResponse](#schemaperpetualpositionresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetPortfolioValue
+
+<a id="opIdGetPortfolioValue"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/value', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/value`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/value`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "portfolioValue": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[PortfolioValueResponse](#schemaportfoliovalueresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetVolume
+
+<a id="opIdGetVolume"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/volume', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/volume`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/volume`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "volume": "string",
+  "periodDays": 0.1
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[VolumeResponse](#schemavolumeresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetFeesPercentage
+
+<a id="opIdGetFeesPercentage"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/fees-percentage', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/fees-percentage`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/fees-percentage`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "takerPercentage": "string",
+  "makerPercentage": "string",
+  "totalFees": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[FeesPercentageResponse](#schemafeespercentageresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetTotalFundingFee
+
+<a id="opIdGetTotalFundingFee"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/total-funding-fee', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/total-funding-fee`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/total-funding-fee`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "totalFundingFee": "string",
+  "unsettledFunding": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[TotalFundingFeeResponse](#schematotalfundingfeeresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetLivePnl
+
+<a id="opIdGetLivePnl"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/live-pnl', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/live-pnl`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/live-pnl`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+|createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[LivePnlResponse](#schemalivepnlresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetRealizedPnl
+
+<a id="opIdGetRealizedPnl"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/realized-pnl', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/realized-pnl`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/realized-pnl`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+|createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[RealizedPnlResponse](#schemarealizedpnlresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetProfitFactor
+
+<a id="opIdGetProfitFactor"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/profit-factor', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/profit-factor`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/profit-factor`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+|createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[ProfitFactorResponse](#schemaprofitfactorresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetMaxDrawdown
+
+<a id="opIdGetMaxDrawdown"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/max-drawdown', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/max-drawdown`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/max-drawdown`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+|createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[MaxDrawdownResponse](#schemamaxdrawdownresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetHealth
+
+<a id="opIdGetHealth"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/health', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/health`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/health`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[HealthResponse](#schemahealthresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetEquity
+
+<a id="opIdGetEquity"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/equity', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/equity`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/equity`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[EquityResponse](#schemaequityresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetEquityList
+
+<a id="opIdGetEquityList"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/portfolio/{address}/{subaccountNumber}/equity-list', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/portfolio/{address}/{subaccountNumber}/equity-list`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /portfolio/{address}/{subaccountNumber}/equity-list`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|path|string|true|none|
+|subaccountNumber|path|number(double)|true|none|
+|createdOnOrAfter|query|[IsoString](#schemaisostring)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "equityList": [
+    {
+      "value": "string",
+      "date": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[EquityListResponse](#schemaequitylistresponse)|
 
 <aside class="success">
 This operation does not require authentication
@@ -3248,6 +4361,100 @@ fetch(`${baseURL}/transfers/between?sourceAddress=string&sourceSubaccountNumber=
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[TransferBetweenResponse](#schematransferbetweenresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## Create
+
+<a id="opIdCreate"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.post(f'{baseURL}/userComplaints', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+const inputBody = '{
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string"
+}';
+const headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/userComplaints`,
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`POST /userComplaints`
+
+> Body parameter
+
+```json
+{
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string"
+}
+```
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|[UserComplaintRequest](#schemausercomplaintrequest)|true|none|
+
+> Example responses
+
+> 201 Response
+
+```json
+{
+  "id": "string",
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string",
+  "createdAt": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|Created|[UserComplaintFromDatabase](#schemausercomplaintfromdatabase)|
 
 <aside class="success">
 This operation does not require authentication
@@ -4017,6 +5224,68 @@ This operation does not require authentication
 |freeCollateral|string|true|none|none|
 |childSubaccounts|[[SubaccountResponseObject](#schemasubaccountresponseobject)]|true|none|none|
 
+## AccountOverviewResponse
+
+<a id="schemaaccountoverviewresponse"></a>
+<a id="schema_AccountOverviewResponse"></a>
+<a id="tocSaccountoverviewresponse"></a>
+<a id="tocsaccountoverviewresponse"></a>
+
+```json
+{
+  "address": "string",
+  "parentSubaccountNumber": 0,
+  "portfolioValue": "string",
+  "unrealizedPnl": "string",
+  "crossLeverage": "string",
+  "crossMarginUsage": "string",
+  "maintenanceMargin": "string",
+  "crossMarginRatio": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|parentSubaccountNumber|integer(int32)|true|none|none|
+|portfolioValue|string|true|none|none|
+|unrealizedPnl|string|true|none|none|
+|crossLeverage|string¦null|true|none|none|
+|crossMarginUsage|string¦null|true|none|none|
+|maintenanceMargin|string|true|none|none|
+|crossMarginRatio|string¦null|true|none|none|
+
+## EquityAndMarginUsageResponse
+
+<a id="schemaequityandmarginusageresponse"></a>
+<a id="schema_EquityAndMarginUsageResponse"></a>
+<a id="tocSequityandmarginusageresponse"></a>
+<a id="tocsequityandmarginusageresponse"></a>
+
+```json
+{
+  "address": "string",
+  "parentSubaccountNumber": 0,
+  "equity": "string",
+  "imUsagePercentage": "string",
+  "mmUsagePercentage": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|parentSubaccountNumber|integer(int32)|true|none|none|
+|equity|string|true|none|none|
+|imUsagePercentage|string|true|none|none|
+|mmUsagePercentage|string|true|none|none|
+
 ## AffiliateReferralCodeResponse
 
 <a id="schemaaffiliatereferralcoderesponse"></a>
@@ -4512,7 +5781,8 @@ This operation does not require authentication
   "createdAtHeight": "string",
   "orderId": "string",
   "clientMetadata": "string",
-  "subaccountNumber": 0
+  "subaccountNumber": 0,
+  "closedPnL": "string"
 }
 
 ```
@@ -4535,6 +5805,7 @@ This operation does not require authentication
 |orderId|string|false|none|none|
 |clientMetadata|string|false|none|none|
 |subaccountNumber|integer(int32)|true|none|none|
+|closedPnL|string|false|none|none|
 
 ## FillResponse
 
@@ -4563,7 +5834,8 @@ This operation does not require authentication
       "createdAtHeight": "string",
       "orderId": "string",
       "clientMetadata": "string",
-      "subaccountNumber": 0
+      "subaccountNumber": 0,
+      "closedPnL": "string"
     }
   ]
 }
@@ -4706,6 +5978,72 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |historicalFunding|[[HistoricalFundingResponseObject](#schemahistoricalfundingresponseobject)]|true|none|none|
+
+## SubaccountHistoricalFundingResponseObject
+
+<a id="schemasubaccounthistoricalfundingresponseobject"></a>
+<a id="schema_SubaccountHistoricalFundingResponseObject"></a>
+<a id="tocSsubaccounthistoricalfundingresponseobject"></a>
+<a id="tocssubaccounthistoricalfundingresponseobject"></a>
+
+```json
+{
+  "market": "string",
+  "positionType": "LONG",
+  "date": "string",
+  "positionSize": "string",
+  "payment": "string",
+  "fundingRate": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|market|string|true|none|none|
+|positionType|string|true|none|none|
+|date|[IsoString](#schemaisostring)|true|none|none|
+|positionSize|string|true|none|none|
+|payment|string|true|none|none|
+|fundingRate|string|true|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|positionType|LONG|
+|positionType|SHORT|
+
+## SubaccountHistoricalFundingResponse
+
+<a id="schemasubaccounthistoricalfundingresponse"></a>
+<a id="schema_SubaccountHistoricalFundingResponse"></a>
+<a id="tocSsubaccounthistoricalfundingresponse"></a>
+<a id="tocssubaccounthistoricalfundingresponse"></a>
+
+```json
+{
+  "historicalFunding": [
+    {
+      "market": "string",
+      "positionType": "LONG",
+      "date": "string",
+      "positionSize": "string",
+      "payment": "string",
+      "fundingRate": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|historicalFunding|[[SubaccountHistoricalFundingResponseObject](#schemasubaccounthistoricalfundingresponseobject)]|true|none|none|
 
 ## PnlTicksResponseObject
 
@@ -5082,7 +6420,8 @@ or
   "ticker": "string",
   "updatedAt": "string",
   "updatedAtHeight": "string",
-  "subaccountNumber": 0
+  "subaccountNumber": 0,
+  "average": "string"
 }
 
 ```
@@ -5114,6 +6453,7 @@ or
 |updatedAt|[IsoString](#schemaisostring)|false|none|none|
 |updatedAtHeight|string|false|none|none|
 |subaccountNumber|integer(int32)|true|none|none|
+|average|string|false|none|none|
 
 ## PerpetualMarketStatus
 
@@ -5335,6 +6675,277 @@ or
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |positions|[[PerpetualPositionResponseObject](#schemaperpetualpositionresponseobject)]|true|none|none|
+
+## PortfolioValueResponse
+
+<a id="schemaportfoliovalueresponse"></a>
+<a id="schema_PortfolioValueResponse"></a>
+<a id="tocSportfoliovalueresponse"></a>
+<a id="tocsportfoliovalueresponse"></a>
+
+```json
+{
+  "address": "string",
+  "portfolioValue": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|portfolioValue|string|true|none|none|
+
+## VolumeResponse
+
+<a id="schemavolumeresponse"></a>
+<a id="schema_VolumeResponse"></a>
+<a id="tocSvolumeresponse"></a>
+<a id="tocsvolumeresponse"></a>
+
+```json
+{
+  "address": "string",
+  "volume": "string",
+  "periodDays": 0.1
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|volume|string|true|none|none|
+|periodDays|number(double)|true|none|none|
+
+## FeesPercentageResponse
+
+<a id="schemafeespercentageresponse"></a>
+<a id="schema_FeesPercentageResponse"></a>
+<a id="tocSfeespercentageresponse"></a>
+<a id="tocsfeespercentageresponse"></a>
+
+```json
+{
+  "address": "string",
+  "takerPercentage": "string",
+  "makerPercentage": "string",
+  "totalFees": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|takerPercentage|string|true|none|none|
+|makerPercentage|string|true|none|none|
+|totalFees|string|true|none|none|
+
+## TotalFundingFeeResponse
+
+<a id="schematotalfundingfeeresponse"></a>
+<a id="schema_TotalFundingFeeResponse"></a>
+<a id="tocStotalfundingfeeresponse"></a>
+<a id="tocstotalfundingfeeresponse"></a>
+
+```json
+{
+  "address": "string",
+  "totalFundingFee": "string",
+  "unsettledFunding": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|totalFundingFee|string|true|none|none|
+|unsettledFunding|string|true|none|none|
+
+## LivePnlResponse
+
+<a id="schemalivepnlresponse"></a>
+<a id="schema_LivePnlResponse"></a>
+<a id="tocSlivepnlresponse"></a>
+<a id="tocslivepnlresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|value|string|true|none|none|
+
+## RealizedPnlResponse
+
+<a id="schemarealizedpnlresponse"></a>
+<a id="schema_RealizedPnlResponse"></a>
+<a id="tocSrealizedpnlresponse"></a>
+<a id="tocsrealizedpnlresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|value|string|true|none|none|
+
+## ProfitFactorResponse
+
+<a id="schemaprofitfactorresponse"></a>
+<a id="schema_ProfitFactorResponse"></a>
+<a id="tocSprofitfactorresponse"></a>
+<a id="tocsprofitfactorresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|value|string|true|none|none|
+
+## MaxDrawdownResponse
+
+<a id="schemamaxdrawdownresponse"></a>
+<a id="schema_MaxDrawdownResponse"></a>
+<a id="tocSmaxdrawdownresponse"></a>
+<a id="tocsmaxdrawdownresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|value|string|true|none|none|
+
+## HealthResponse
+
+<a id="schemahealthresponse"></a>
+<a id="schema_HealthResponse"></a>
+<a id="tocShealthresponse"></a>
+<a id="tocshealthresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|value|string|true|none|none|
+
+## EquityResponse
+
+<a id="schemaequityresponse"></a>
+<a id="schema_EquityResponse"></a>
+<a id="tocSequityresponse"></a>
+<a id="tocsequityresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "value": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|value|string|true|none|none|
+
+## EquityListResponse
+
+<a id="schemaequitylistresponse"></a>
+<a id="schema_EquityListResponse"></a>
+<a id="tocSequitylistresponse"></a>
+<a id="tocsequitylistresponse"></a>
+
+```json
+{
+  "address": "string",
+  "subaccountNumber": 0.1,
+  "equityList": [
+    {
+      "value": "string",
+      "date": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|subaccountNumber|number(double)|true|none|none|
+|equityList|[object]|true|none|none|
+|» value|string|true|none|none|
+|» date|[IsoString](#schemaisostring)|true|none|none|
 
 ## TraderSearchResponseObject
 
@@ -5759,6 +7370,58 @@ or
 |offset|integer(int32)|false|none|none|
 |transfersSubset|[[TransferResponseObject](#schematransferresponseobject)]|true|none|none|
 |totalNetTransfers|string|true|none|none|
+
+## UserComplaintFromDatabase
+
+<a id="schemausercomplaintfromdatabase"></a>
+<a id="schema_UserComplaintFromDatabase"></a>
+<a id="tocSusercomplaintfromdatabase"></a>
+<a id="tocsusercomplaintfromdatabase"></a>
+
+```json
+{
+  "id": "string",
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string",
+  "createdAt": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|none|
+|walletAddress|string|true|none|none|
+|message|string|true|none|none|
+|email|string|false|none|none|
+|createdAt|[IsoString](#schemaisostring)|true|none|none|
+
+## UserComplaintRequest
+
+<a id="schemausercomplaintrequest"></a>
+<a id="schema_UserComplaintRequest"></a>
+<a id="tocSusercomplaintrequest"></a>
+<a id="tocsusercomplaintrequest"></a>
+
+```json
+{
+  "walletAddress": "string",
+  "message": "string",
+  "email": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|walletAddress|string|true|none|none|
+|message|string|true|none|none|
+|email|string|false|none|none|
 
 ## MegavaultHistoricalPnlResponse
 

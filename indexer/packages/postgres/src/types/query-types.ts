@@ -321,3 +321,7 @@ export interface LeaderboardPnlQueryConfig extends QueryConfig {
   [QueryableField.TIMESPAN]?: string[],
   [QueryableField.RANK]?: number[],
 }
+
+export interface UserComplaintQueryConfig extends QueryConfig {
+  [QueryableField.CREATED_BEFORE_OR_AT]?: IsoString,
+}

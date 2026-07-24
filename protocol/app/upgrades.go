@@ -3,8 +3,6 @@ package app
 import (
 	"fmt"
 
-	v7_0_0 "github.com/nemo-network/v4-chain/protocol/app/upgrades/v7.0.0"
-
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/nemo-network/v4-chain/protocol/app/upgrades"
@@ -13,25 +11,13 @@ import (
 var (
 	// `Upgrades` defines the upgrade handlers and store loaders for the application.
 	// New upgrades should be added to this slice after they are implemented.
-	Upgrades = []upgrades.Upgrade{
-		v7_0_0.Upgrade,
-	}
-	Forks = []upgrades.Fork{}
+	Upgrades = []upgrades.Upgrade{}
+	Forks    = []upgrades.Fork{}
 )
 
 // setupUpgradeHandlers registers the upgrade handlers to perform custom upgrade
 // logic and state migrations for software upgrades.
 func (app *App) setupUpgradeHandlers() {
-	if app.UpgradeKeeper.HasHandler(v7_0_0.UpgradeName) {
-		panic(fmt.Sprintf("Cannot register duplicate upgrade handler '%s'", v7_0_0.UpgradeName))
-	}
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v7_0_0.UpgradeName,
-		v7_0_0.CreateUpgradeHandler(
-			app.ModuleManager,
-			app.configurator,
-		),
-	)
 }
 
 // setUpgradeStoreLoaders sets custom store loaders to customize the rootMultiStore

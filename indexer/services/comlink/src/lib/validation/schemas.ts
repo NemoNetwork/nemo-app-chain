@@ -4,8 +4,57 @@ import {
   CHILD_SUBACCOUNT_MULTIPLIER,
 } from '@nemo-network-indexer/postgres/build/src';
 import { checkSchema, ParamSchema } from 'express-validator';
+import { DateTime } from 'luxon';
 
 import config from '../../config';
+
+/**
+ * Sanitizes a date string to ISO 8601 format.
+ * Accepts both ISO 8601 format and U.S. datetime formats (MM/DD/YYYY, MM-DD-YYYY, etc.)
+ * @param value - The date string to sanitize
+ * @returns ISO 8601 formatted date string, or the original value if parsing fails
+ */
+function sanitizeDateToISO(value?: string): string | undefined {
+  if (!value || typeof value !== 'string') {
+    return value;
+  }
+
+  // First, try to parse as ISO 8601 (current format)
+  let dt = DateTime.fromISO(value);
+  if (dt.isValid) {
+    return dt.toISO();
+  }
+
+  // Try U.S. datetime formats
+  // MM/DD/YYYY or MM/DD/YYYY HH:mm:ss or MM/DD/YYYY HH:mm:ss AM/PM
+  const usFormats = [
+    'MM/dd/yyyy',
+    'MM/dd/yyyy HH:mm:ss',
+    'MM/dd/yyyy hh:mm:ss a',
+    'MM/dd/yyyy HH:mm',
+    'MM/dd/yyyy hh:mm a',
+    'MM-dd-yyyy',
+    'MM-dd-yyyy HH:mm:ss',
+    'MM-dd-yyyy hh:mm:ss a',
+    'MM-dd-yyyy HH:mm',
+    'MM-dd-yyyy hh:mm a',
+    'M/d/yyyy',
+    'M/d/yyyy HH:mm:ss',
+    'M/d/yyyy hh:mm:ss a',
+    'M/d/yyyy HH:mm',
+    'M/d/yyyy hh:mm a',
+  ];
+
+  for (const format of usFormats) {
+    dt = DateTime.fromFormat(value, format);
+    if (dt.isValid) {
+      return dt.toISO();
+    }
+  }
+
+  // If all parsing fails, return original value (will be caught by isISO8601 validator)
+  return value;
+}
 
 export const CheckSubaccountSchema = checkSchema({
   address: {
@@ -89,6 +138,9 @@ const createdBeforeOrAtSchemaRecord: Record<string, ParamSchema> = {
   createdBeforeOrAt: {
     in: ['query'],
     optional: true,
+    customSanitizer: {
+      options: sanitizeDateToISO,
+    },
     isISO8601: true,
   },
 };
@@ -121,6 +173,9 @@ const createdOnOrAfterSchemaRecord: Record<string, ParamSchema> = {
   createdOnOrAfter: {
     in: ['query'],
     optional: true,
+    customSanitizer: {
+      options: sanitizeDateToISO,
+    },
     isISO8601: true,
   },
 };
@@ -154,6 +209,22 @@ const transferBetweenSchemaRecord: Record<string, ParamSchema> = {
 export const CheckLimitSchema = checkSchema(limitSchemaRecord);
 
 export const CheckPaginationSchema = checkSchema(paginationSchemaRecord);
+
+export const CheckSubaccountHistoricalFundingSchema = checkSchema({
+  ...limitSchemaRecord,
+  ...effectiveBeforeOrAtSchemaRecord,
+  address: {
+    in: ['params'],
+    isString: true,
+  },
+  subaccountNumber: {
+    in: ['params'],
+    isInt: {
+      options: { gt: -1, lt: MAX_PARENT_SUBACCOUNTS * CHILD_SUBACCOUNT_MULTIPLIER + 1 },
+    },
+    errorMessage: 'subaccountNumber must be a non-negative integer less than 128001',
+  },
+});
 
 export const CheckLimitAndCreatedBeforeOrAtSchema = checkSchema({
   ...limitSchemaRecord,

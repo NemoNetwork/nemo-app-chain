@@ -537,4 +537,6 @@ var (
 		10001,
 		"Subaccount cannot open more orders due to equity tier limit.",
 	)
+
+	ErrNonStatefullOrderPlacement = errorsmod.Register(ModuleName, 10002, "Non-stateful order placement")
 )
