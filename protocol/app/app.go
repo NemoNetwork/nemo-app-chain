@@ -1157,11 +1157,15 @@ func New(
 	app.VaultKeeper = *vaultmodulekeeper.NewKeeper(
 		appCodec,
 		keys[vaultmoduletypes.StoreKey],
+		app.AssetsKeeper,
+		app.BankKeeper,
 		app.ClobKeeper,
+		app.DelayMsgKeeper,
 		app.PerpetualsKeeper,
 		app.PricesKeeper,
 		app.SendingKeeper,
 		app.SubaccountsKeeper,
+		app.IndexerEventManager,
 		[]string{
 			lib.GovModuleAddress.String(),
 			delaymsgmoduletypes.ModuleAddress.String(),
@@ -1854,6 +1858,12 @@ func (app *App) AppCodec() codec.Codec {
 // InterfaceRegistry returns an InterfaceRegistry
 func (app *App) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
+}
+
+// GetKey returns the KVStoreKey for the provided store name, or nil if the app
+// has no such store.
+func (app *App) GetKey(storeKey string) *storetypes.KVStoreKey {
+	return app.keys[storeKey]
 }
 
 // TxConfig returns app's TxConfig

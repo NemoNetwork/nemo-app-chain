@@ -2,8 +2,10 @@ package types
 
 import (
 	"math"
+	"math/big"
 
 	"github.com/nemo-network/v4-chain/protocol/dtypes"
+	"github.com/nemo-network/v4-chain/protocol/lib"
 )
 
 // DefaultQuotingParams returns a default set of `x/vault` parameters.
@@ -40,6 +42,78 @@ func (p QuotingParams) Validate() error {
 	// Activation threshold quote quantums must be non-negative.
 	if p.ActivationThresholdQuoteQuantums.Sign() < 0 {
 		return ErrInvalidActivationThresholdQuoteQuantums
+	}
+	// Skew factor times order_size_pct must be less than 2 to avoid skewing over the spread
+	skewFactor := new(big.Int).SetUint64(uint64(p.SkewFactorPpm))
+	orderSizePct := new(big.Int).SetUint64(uint64(p.OrderSizePctPpm))
+	skewFactorOrderSizePctProduct := new(big.Int).Mul(skewFactor, orderSizePct)
+	skewFactorOrderSizePctProductThreshold := big.NewInt(2_000_000 * 1_000_000)
+	if skewFactorOrderSizePctProduct.Cmp(skewFactorOrderSizePctProductThreshold) >= 0 {
+		return ErrInvalidSkewFactor
+	}
+
+	return nil
+}
+
+// DefaultOperatorParams returns a default set of `x/vault` operator parameters.
+func DefaultOperatorParams() OperatorParams {
+	return OperatorParams{
+		Operator: lib.GovModuleAddress.String(),
+	}
+}
+
+// Validate validates OperatorParams.
+func (o OperatorParams) Validate() error {
+	// Validate that operator is non-empty.
+	if o.Operator == "" {
+		return ErrEmptyOperator
+	}
+
+	// Fee parameters must be expressible as a fraction of one.
+	// See x/vault/spec/adr-001-megavault-fees.md.
+	for _, ppm := range []uint32{
+		o.OperatorFeePpm,
+		o.ProfitSharePpm,
+		o.MinOperatorSharePpm,
+	} {
+		if ppm > lib.OneMillion {
+			return ErrInvalidFeePpm
+		}
+	}
+
+	return nil
+}
+
+// DefaultFeeState returns the default megavault fee state: no high-water mark
+// and no accrual yet.
+func DefaultFeeState() FeeState {
+	return FeeState{
+		HighWaterMarkNavPerShare: dtypes.NewInt(0),
+	}
+}
+
+// Validate validates FeeState.
+func (f FeeState) Validate() error {
+	if f.HighWaterMarkNavPerShare.Sign() < 0 {
+		return ErrNegativeHighWaterMark
+	}
+
+	return nil
+}
+
+// DefaultMegavaultParams returns a default set of `x/vault` megavault
+// parameters. The zero deposit cap means deposits are uncapped.
+func DefaultMegavaultParams() MegavaultParams {
+	return MegavaultParams{
+		DepositCapQuoteQuantums: dtypes.NewInt(0),
+	}
+}
+
+// Validate validates MegavaultParams.
+func (m MegavaultParams) Validate() error {
+	// Deposit cap must be non-negative. Zero means no cap.
+	if m.DepositCapQuoteQuantums.Sign() < 0 {
+		return ErrNegativeDepositCap
 	}
 
 	return nil

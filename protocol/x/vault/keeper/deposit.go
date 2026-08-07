@@ -3,6 +3,7 @@ package keeper
 import (
 	"math/big"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
 	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
@@ -11,13 +12,25 @@ import (
 )
 
 // DepositToMegavault deposits from a subaccount to megavault by
-// 1. Minting shares for owner address of `fromSubaccount`.
-// 2. Transferring `quoteQuantums` from `fromSubaccount` to megavault subaccount 0.
+// 1. Validating the deposit against the megavault deposit cap.
+// 2. Minting shares for owner address of `fromSubaccount`.
+// 3. Transferring `quoteQuantums` from `fromSubaccount` to megavault subaccount 0.
 func (k Keeper) DepositToMegavault(
 	ctx sdk.Context,
 	fromSubaccount satypes.SubaccountId,
 	quoteQuantums *big.Int,
 ) (mintedShares *big.Int, err error) {
+	// Accrue fees first, so that the incoming depositor does not buy shares at a
+	// NAV that still carries an unaccrued fee liability. See ADR-001 §6.
+	if err := k.AccrueFees(ctx); err != nil {
+		return nil, err
+	}
+
+	// Reject the deposit if it would push megavault equity above the deposit cap.
+	if err := k.ValidateDepositAgainstCap(ctx, quoteQuantums); err != nil {
+		return nil, err
+	}
+
 	// Mint shares.
 	mintedShares, err = k.MintShares(
 		ctx,
@@ -44,7 +57,50 @@ func (k Keeper) DepositToMegavault(
 		return nil, err
 	}
 
+	ctx.EventManager().EmitEvent(
+		types.NewDepositToMegavaultEvent(
+			fromSubaccount.Owner,
+			quoteQuantums.Uint64(),
+			mintedShares.Uint64(),
+		),
+	)
+
 	return mintedShares, nil
+}
+
+// ValidateDepositAgainstCap returns an error if depositing `quoteQuantums` would
+// push megavault equity above the configured deposit cap.
+//
+// A cap of zero means deposits are uncapped. That is deliberate: a chain whose
+// state predates `MegavaultParams` reads a zero cap and must keep accepting
+// deposits until the cap is explicitly set.
+//
+// Note: fork-local; upstream dydxprotocol has no deposit cap.
+func (k Keeper) ValidateDepositAgainstCap(
+	ctx sdk.Context,
+	quoteQuantums *big.Int,
+) error {
+	depositCap := k.GetMegavaultParams(ctx).DepositCapQuoteQuantums
+	if depositCap.Sign() <= 0 {
+		return nil
+	}
+
+	equity, err := k.GetMegavaultEquity(ctx)
+	if err != nil {
+		return err
+	}
+
+	equityAfterDeposit := new(big.Int).Add(equity, quoteQuantums)
+	if equityAfterDeposit.Cmp(depositCap.BigInt()) > 0 {
+		return errorsmod.Wrapf(
+			types.ErrDepositCapExceeded,
+			"deposit cap is %s but megavault equity after deposit would be %s",
+			depositCap.BigInt().String(),
+			equityAfterDeposit.String(),
+		)
+	}
+
+	return nil
 }
 
 // MintShares mints shares for `owner` based on `quantumsToDeposit` by:
@@ -57,7 +113,7 @@ func (k Keeper) MintShares(
 ) (mintedShares *big.Int, err error) {
 	// Quantums to deposit should be positive.
 	if quantumsToDeposit.Sign() <= 0 {
-		return nil, types.ErrInvalidDepositAmount
+		return nil, types.ErrInvalidQuoteQuantums
 	}
 	// Get existing TotalShares of the vault.
 	existingTotalShares := k.GetTotalShares(ctx).NumShares.BigInt()

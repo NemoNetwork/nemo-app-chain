@@ -11,9 +11,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
 	"github.com/nemo-network/v4-chain/protocol/mocks"
 	"github.com/nemo-network/v4-chain/protocol/x/vault/keeper"
 	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
+	"github.com/stretchr/testify/mock"
 )
 
 func VaultKeepers(
@@ -50,14 +52,25 @@ func createVaultKeeper(
 	storeKey := storetypes.NewKVStoreKey(types.StoreKey)
 	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
 
+	mockMsgSender := &mocks.IndexerMessageSender{}
+	mockMsgSender.On("Enabled").Return(true)
+	mockMsgSender.On("SendOnchainData", mock.Anything).Return()
+	mockMsgSender.On("SendOffchainData", mock.Anything).Return()
+
+	mockIndexerEventsManager := indexer_manager.NewIndexerEventManager(mockMsgSender, transientStoreKey, true)
+
 	k := keeper.NewKeeper(
 		cdc,
 		storeKey,
+		&mocks.AssetsKeeper{},
+		&mocks.BankKeeper{},
 		&mocks.ClobKeeper{},
+		&mocks.DelayMsgKeeper{},
 		&mocks.PerpetualsKeeper{},
 		&mocks.PricesKeeper{},
 		&mocks.SendingKeeper{},
 		&mocks.SubaccountsKeeper{},
+		mockIndexerEventsManager,
 		[]string{
 			lib.GovModuleAddress.String(),
 			delaymsgtypes.ModuleAddress.String(),

@@ -363,8 +363,8 @@
       }
     },
     "params": {
-      "admin": "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky",
-      "market_authorities": ["dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky"]
+      "admin": "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw",
+      "market_authorities": ["nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw"]
     }
   },
   "prices": {
@@ -420,7 +420,7 @@
   },
   "revshare": {
     "params": {
-      "address": "dydx17xpfvakm2amg962yls6f84z3kell8c5leqdyt2",
+      "address": "nemo17xpfvakm2amg962yls6f84z3kell8c5lmq203q",
       "revenue_share_ppm": 0,
       "valid_days": 0
     }
@@ -483,6 +483,23 @@
   "upgrade": {},
   "vault": {
     "all_owner_share_unlocks": [],
+    "fee_state": {
+      "high_water_mark_nav_per_share": "0",
+      "last_accrual_time": "0"
+    },
+    "megavault_params": {
+      "deposit_cap_quote_quantums": "0"
+    },
+    "operator_params": {
+      "operator": "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw",
+      "metadata": {
+        "name": "",
+        "description": ""
+      },
+      "operator_fee_ppm": 0,
+      "profit_share_ppm": 0,
+      "min_operator_share_ppm": 0
+    },
     "default_quoting_params": {
       "layers": 2,
       "spread_min_ppm": 10000,

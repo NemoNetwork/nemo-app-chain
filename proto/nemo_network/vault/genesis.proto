@@ -21,6 +21,12 @@ message GenesisState {
   // All owner share unlocks.
   repeated OwnerShareUnlocks all_owner_share_unlocks = 5
       [ (gogoproto.nullable) = false ];
+  // The parameters regarding megavault operator.
+  OperatorParams operator_params = 6 [ (gogoproto.nullable) = false ];
+  // The megavault-level parameters.
+  MegavaultParams megavault_params = 7 [ (gogoproto.nullable) = false ];
+  // The megavault fee accounting state.
+  FeeState fee_state = 8 [ (gogoproto.nullable) = false ];
 }
 
 // Vault defines the state of a vault.

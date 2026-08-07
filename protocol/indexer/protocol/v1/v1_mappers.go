@@ -8,6 +8,7 @@ import (
 	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
+	vaulttypes "github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
 func SubaccountIdToIndexerSubaccountId(
@@ -184,6 +185,28 @@ func ConvertToClobPairStatus(status clobtypes.ClobPair_Status) v1types.ClobPairS
 		panic(
 			fmt.Sprintf(
 				"ConvertToClobPairStatus: invalid clob pair status: %+v",
+				status,
+			),
+		)
+	}
+}
+
+func VaultStatusToIndexerVaultStatus(status vaulttypes.VaultStatus) v1types.VaultStatus {
+	switch status {
+	case vaulttypes.VaultStatus_VAULT_STATUS_UNSPECIFIED:
+		return v1types.VaultStatus_VAULT_STATUS_UNSPECIFIED
+	case vaulttypes.VaultStatus_VAULT_STATUS_DEACTIVATED:
+		return v1types.VaultStatus_VAULT_STATUS_DEACTIVATED
+	case vaulttypes.VaultStatus_VAULT_STATUS_STAND_BY:
+		return v1types.VaultStatus_VAULT_STATUS_STAND_BY
+	case vaulttypes.VaultStatus_VAULT_STATUS_QUOTING:
+		return v1types.VaultStatus_VAULT_STATUS_QUOTING
+	case vaulttypes.VaultStatus_VAULT_STATUS_CLOSE_ONLY:
+		return v1types.VaultStatus_VAULT_STATUS_CLOSE_ONLY
+	default:
+		panic(
+			fmt.Sprintf(
+				"VaultStatusToIndexerVaultStatus: invalid vault status: %+v",
 				status,
 			),
 		)

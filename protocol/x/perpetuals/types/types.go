@@ -113,6 +113,10 @@ type PerpetualsKeeper interface {
 	GetAllPerpetuals(
 		ctx sdk.Context,
 	) []Perpetual
+	GetLiquidityTier(
+		ctx sdk.Context,
+		id uint32,
+	) (val LiquidityTier, err error)
 	GetAllLiquidityTiers(ctx sdk.Context) (list []LiquidityTier)
 	SendOIUpdatesToIndexer(ctx sdk.Context)
 	ValidateAndSetPerpetual(

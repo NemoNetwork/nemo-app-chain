@@ -14,6 +14,24 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	if err := k.SetDefaultQuotingParams(ctx, genState.DefaultQuotingParams); err != nil {
 		panic(err)
 	}
+	// Set operator params.
+	if err := k.SetOperatorParams(ctx, genState.OperatorParams); err != nil {
+		panic(err)
+	}
+	// Set megavault params.
+	if err := k.SetMegavaultParams(ctx, genState.MegavaultParams); err != nil {
+		panic(err)
+	}
+	// Set megavault fee state. Seed the accrual clock at the genesis block time
+	// when the imported state does not carry one, so that the first accrual does
+	// not charge for all the time since the Unix epoch.
+	feeState := genState.FeeState
+	if feeState.LastAccrualTime == 0 {
+		feeState.LastAccrualTime = ctx.BlockTime().Unix()
+	}
+	if err := k.SetFeeState(ctx, feeState); err != nil {
+		panic(err)
+	}
 	// Set total shares, owner shares, and locked shares.
 	if err := k.SetTotalShares(ctx, genState.TotalShares); err != nil {
 		panic(err)
@@ -53,9 +71,9 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	// Export params.
 	genesis.DefaultQuotingParams = k.GetDefaultQuotingParams(ctx)
-
-	// Export vaults.
-	genesis.Vaults = k.GetAllVaults(ctx)
+	genesis.OperatorParams = k.GetOperatorParams(ctx)
+	genesis.MegavaultParams = k.GetMegavaultParams(ctx)
+	genesis.FeeState = k.GetFeeState(ctx)
 
 	// Export vaults.
 	genesis.Vaults = k.GetAllVaults(ctx)

@@ -1,14 +1,36 @@
 package types
 
 import (
+	"context"
+	"math/big"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/nemo-network/v4-chain/protocol/lib/margin"
+	assettypes "github.com/nemo-network/v4-chain/protocol/x/assets/types"
 	clobtypes "github.com/nemo-network/v4-chain/protocol/x/clob/types"
 	perptypes "github.com/nemo-network/v4-chain/protocol/x/perpetuals/types"
 	pricestypes "github.com/nemo-network/v4-chain/protocol/x/prices/types"
 	sendingtypes "github.com/nemo-network/v4-chain/protocol/x/sending/types"
 	satypes "github.com/nemo-network/v4-chain/protocol/x/subaccounts/types"
 )
+
+type AssetsKeeper interface {
+	GetAsset(
+		ctx sdk.Context,
+		assetId uint32,
+	) (
+		asset assettypes.Asset,
+		exists bool,
+	)
+}
+
+type BankKeeper interface {
+	GetBalance(
+		ctx context.Context,
+		addr sdk.AccAddress,
+		denom string,
+	) sdk.Coin
+}
 
 type ClobKeeper interface {
 	// Clob Pair.
@@ -30,11 +52,26 @@ type ClobKeeper interface {
 	) (err error)
 }
 
+type DelayMsgKeeper interface {
+	DelayMessageByBlocks(
+		ctx sdk.Context,
+		msg sdk.Msg,
+		blockDelay uint32,
+	) (
+		id uint32,
+		err error,
+	)
+}
+
 type PerpetualsKeeper interface {
 	GetPerpetual(
 		ctx sdk.Context,
 		id uint32,
 	) (val perptypes.Perpetual, err error)
+	GetLiquidityTier(
+		ctx sdk.Context,
+		id uint32,
+	) (val perptypes.LiquidityTier, err error)
 }
 
 type PricesKeeper interface {
@@ -67,4 +104,11 @@ type SubaccountsKeeper interface {
 		ctx sdk.Context,
 		id satypes.SubaccountId,
 	) satypes.Subaccount
+	DepositFundsFromAccountToSubaccount(
+		ctx sdk.Context,
+		fromAccount sdk.AccAddress,
+		toSubaccountId satypes.SubaccountId,
+		assetId uint32,
+		quantums *big.Int,
+	) error
 }

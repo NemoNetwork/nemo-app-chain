@@ -35,6 +35,36 @@ service Query {
       returns (QueryMegavaultOwnerSharesResponse) {
     option (google.api.http).get = "/nemo_network/vault/megavault/owner_shares";
   }
+  // Queries withdrawal info for megavault.
+  rpc MegavaultWithdrawalInfo(QueryMegavaultWithdrawalInfoRequest)
+      returns (QueryMegavaultWithdrawalInfoResponse) {
+    option (google.api.http).get =
+        "/nemo_network/vault/megavault/withdrawal_info";
+  }
+  // Queries the megavault fee accounting state.
+  // Note: fork-local; has no upstream equivalent.
+  rpc MegavaultFeeState(QueryMegavaultFeeStateRequest)
+      returns (QueryMegavaultFeeStateResponse) {
+    option (google.api.http).get = "/nemo_network/vault/megavault/fee_state";
+  }
+}
+
+// QueryMegavaultFeeStateRequest is a request type for the MegavaultFeeState
+// RPC method.
+message QueryMegavaultFeeStateRequest {}
+
+// QueryMegavaultFeeStateResponse is a response type for the MegavaultFeeState
+// RPC method.
+message QueryMegavaultFeeStateResponse {
+  // The megavault fee accounting state.
+  FeeState fee_state = 1 [ (gogoproto.nullable) = false ];
+  // Current NAV per share, scaled by 1e18, for comparison against the
+  // high-water mark in `fee_state`.
+  bytes nav_per_share = 2 [
+    (gogoproto.customtype) =
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+    (gogoproto.nullable) = false
+  ];
 }
 
 // QueryParamsRequest is a request type for the Params RPC method.
@@ -45,6 +75,12 @@ message QueryParamsResponse {
   // Deprecated since v6.x in favor of default_quoting_params.
   Params params = 1 [ (gogoproto.nullable) = false, deprecated = true ];
   QuotingParams default_quoting_params = 2 [ (gogoproto.nullable) = false ];
+  // Note: upstream dropped the deprecated `params` field and renumbered these,
+  // making `operator_params` field 2. This appends at field 3 instead so the
+  // response stays wire-compatible for existing clients.
+  OperatorParams operator_params = 3 [ (gogoproto.nullable) = false ];
+  // Megavault-level parameters. Fork-local; has no upstream equivalent.
+  MegavaultParams megavault_params = 4 [ (gogoproto.nullable) = false ];
 }
 
 // QueryVaultRequest is a request type for the Vault RPC method.
@@ -101,4 +137,35 @@ message QueryMegavaultOwnerSharesRequest {
 message QueryMegavaultOwnerSharesResponse {
   repeated OwnerShare owner_shares = 1;
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryMegavaultWithdrawalInfoRequest is a request type for the
+// MegavaultWithdrawalInfo RPC method.
+message QueryMegavaultWithdrawalInfoRequest {
+  // Number of shares to withdraw.
+  NumShares shares_to_withdraw = 1 [ (gogoproto.nullable) = false ];
+}
+
+// QueryMegavaultWithdrawalInfoResponse is a response type for the
+// MegavaultWithdrawalInfo RPC method.
+message QueryMegavaultWithdrawalInfoResponse {
+  // Number of shares to withdraw.
+  NumShares shares_to_withdraw = 1 [ (gogoproto.nullable) = false ];
+  // Number of quote quantums above `shares` are expected to redeem.
+  // Withdrawl slippage can be calculated by comparing
+  // `expected_quote_quantums` with
+  // `megavault_equity * shares_to_withdraw / total_shares`
+  bytes expected_quote_quantums = 2 [
+    (gogoproto.customtype) =
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+    (gogoproto.nullable) = false
+  ];
+  // Equity of megavault (in quote quantums).
+  bytes megavault_equity = 3 [
+    (gogoproto.customtype) =
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+    (gogoproto.nullable) = false
+  ];
+  // Total shares in megavault.
+  NumShares total_shares = 4 [ (gogoproto.nullable) = false ];
 }

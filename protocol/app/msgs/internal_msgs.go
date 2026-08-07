@@ -108,8 +108,8 @@ var (
 	InternalMsgSamplesDydxCustom = map[string]sdk.Msg{
 
 		// affiliates
-		"/nemo-network.affiliates.MsgUpdateAffiliateTiers":         &affiliates.MsgUpdateAffiliateTiers{},
-		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse": nil,
+		"/nemo_network.affiliates.MsgUpdateAffiliateTiers":         &affiliates.MsgUpdateAffiliateTiers{},
+		"/nemo_network.affiliates.MsgUpdateAffiliateTiersResponse": nil,
 
 		// blocktime
 		"/nemo_network.blocktime.MsgUpdateDowntimeParams":         &blocktime.MsgUpdateDowntimeParams{},
@@ -150,10 +150,10 @@ var (
 		"/nemo_network.govplus.MsgSlashValidatorResponse": nil,
 
 		// listing
-		"/nemo-network.listing.MsgSetMarketsHardCap":                    &listing.MsgSetMarketsHardCap{},
-		"/nemo-network.listing.MsgSetMarketsHardCapResponse":            nil,
-		"/nemo-network.listing.MsgSetListingVaultDepositParams":         &listing.MsgSetListingVaultDepositParams{},
-		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse": nil,
+		"/nemo_network.listing.MsgSetMarketsHardCap":                    &listing.MsgSetMarketsHardCap{},
+		"/nemo_network.listing.MsgSetMarketsHardCapResponse":            nil,
+		"/nemo_network.listing.MsgSetListingVaultDepositParams":         &listing.MsgSetListingVaultDepositParams{},
+		"/nemo_network.listing.MsgSetListingVaultDepositParamsResponse": nil,
 
 		// perpetuals
 		"/nemo_network.perpetuals.MsgCreatePerpetual":               &perpetuals.MsgCreatePerpetual{},
@@ -176,10 +176,10 @@ var (
 		"/nemo_network.ratelimit.MsgSetLimitParamsResponse": nil,
 
 		// revshare
-		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         &revshare.MsgSetMarketMapperRevShareDetailsForMarket{}, //nolint:lll
-		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": nil,
-		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare":                     &revshare.MsgSetMarketMapperRevenueShare{}, //nolint:lll
-		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse":             nil,
+		"/nemo_network.revshare.MsgSetMarketMapperRevShareDetailsForMarket":         &revshare.MsgSetMarketMapperRevShareDetailsForMarket{}, //nolint:lll
+		"/nemo_network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse": nil,
+		"/nemo_network.revshare.MsgSetMarketMapperRevenueShare":                     &revshare.MsgSetMarketMapperRevenueShare{}, //nolint:lll
+		"/nemo_network.revshare.MsgSetMarketMapperRevenueShareResponse":             nil,
 
 		// rewards
 		"/nemo_network.rewards.MsgUpdateParams":         &rewards.MsgUpdateParams{},
@@ -194,10 +194,12 @@ var (
 		"/nemo_network.stats.MsgUpdateParamsResponse": nil,
 
 		// vault
-		"/nemo-network.vault.MsgSetVaultParams":                     &vault.MsgSetVaultParams{},
-		"/nemo-network.vault.MsgSetVaultParamsResponse":             nil,
-		"/nemo-network.vault.MsgUpdateDefaultQuotingParams":         &vault.MsgUpdateDefaultQuotingParams{},
-		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse": nil,
+		"/nemo_network.vault.MsgUnlockShares":                       &vault.MsgUnlockShares{},
+		"/nemo_network.vault.MsgUpdateOperatorParams":               &vault.MsgUpdateOperatorParams{},
+		"/nemo_network.vault.MsgUpdateOperatorParamsResponse":       nil,
+		"/nemo_network.vault.MsgUnlockSharesResponse":               nil,
+		"/nemo_network.vault.MsgUpdateDefaultQuotingParams":         &vault.MsgUpdateDefaultQuotingParams{},
+		"/nemo_network.vault.MsgUpdateDefaultQuotingParamsResponse": nil,
 
 		// vest
 		"/nemo_network.vest.MsgSetVestEntry":            &vest.MsgSetVestEntry{},

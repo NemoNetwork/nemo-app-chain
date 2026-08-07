@@ -4,6 +4,9 @@ import (
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	indexerevents "github.com/nemo-network/v4-chain/protocol/indexer/events"
+	"github.com/nemo-network/v4-chain/protocol/indexer/indexer_manager"
+	"github.com/nemo-network/v4-chain/protocol/lib/log"
 	"github.com/nemo-network/v4-chain/protocol/x/vault/types"
 )
 
@@ -66,9 +69,50 @@ func (k Keeper) SetVaultParams(
 		return err
 	}
 
+	if vaultParams.Status == types.VaultStatus_VAULT_STATUS_DEACTIVATED {
+		vaultEquity, err := k.GetVaultEquity(ctx, vaultId)
+		if err != nil {
+			return err
+		}
+		if vaultEquity.Sign() > 0 {
+			return types.ErrDeactivatePositiveEquityVault
+		}
+	}
+
+	// When setting an existing vault to deactivated or stand-by, cancel any existing orders.
+	_, quotingParams, exists := k.GetVaultAndQuotingParams(ctx, vaultId)
+	if exists && (vaultParams.Status == types.VaultStatus_VAULT_STATUS_DEACTIVATED ||
+		vaultParams.Status == types.VaultStatus_VAULT_STATUS_STAND_BY) {
+		mostRecentClientIds := k.GetMostRecentClientIds(ctx, vaultId)
+		for _, clientId := range mostRecentClientIds {
+			_, err := k.TryToCancelVaultClobOrder(ctx, vaultId, clientId, quotingParams.OrderExpirationSeconds)
+			if err != nil {
+				log.ErrorLogWithError(
+					ctx,
+					"Failed to cancel vault clob order when setting existing vault to deactivated or stand-by",
+					err,
+				)
+			}
+		}
+		k.SetMostRecentClientIds(ctx, vaultId, []uint32{})
+	}
+
 	b := k.cdc.MustMarshal(&vaultParams)
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.VaultParamsKeyPrefix))
 	store.Set(vaultId.ToStateKey(), b)
+
+	k.GetIndexerEventManager().AddTxnEvent(
+		ctx,
+		indexerevents.SubtypeUpsertVault,
+		indexerevents.UpsertVaultEventVersion,
+		indexer_manager.GetBytes(
+			indexerevents.NewUpsertVaultEvent(
+				vaultId.ToModuleAccountAddress(),
+				vaultId.Number,
+				vaultParams.Status,
+			),
+		),
+	)
 
 	return nil
 }
@@ -79,25 +123,27 @@ func (k Keeper) getVaultParamsIterator(ctx sdk.Context) storetypes.Iterator {
 	return storetypes.KVStorePrefixIterator(store, []byte{})
 }
 
-// GetVaultQuotingParams returns quoting parameters for a given vault, which is
+// GetVaultAndQuotingParams returns vault params and quoting parameters for a given vault.
+// Quoting parameters is
 // - `VaultParams.QuotingParams` if set
 // - `DefaultQuotingParams` otherwise
 // `exists` is false if `VaultParams` does not exist for the given vault.
-func (k Keeper) GetVaultQuotingParams(
+func (k Keeper) GetVaultAndQuotingParams(
 	ctx sdk.Context,
 	vaultId types.VaultId,
 ) (
-	params types.QuotingParams,
+	vaultParams types.VaultParams,
+	quotingParams types.QuotingParams,
 	exists bool,
 ) {
-	vaultParams, exists := k.GetVaultParams(ctx, vaultId)
+	vaultParams, exists = k.GetVaultParams(ctx, vaultId)
 	if !exists {
-		return params, false
+		return vaultParams, quotingParams, false
 	}
 	if vaultParams.QuotingParams == nil {
-		return k.GetDefaultQuotingParams(ctx), true
+		return vaultParams, k.GetDefaultQuotingParams(ctx), true
 	} else {
-		return *vaultParams.QuotingParams, true
+		return vaultParams, *vaultParams.QuotingParams, true
 	}
 }
 
@@ -121,4 +167,62 @@ func (k Keeper) UnsafeDeleteParams(
 ) {
 	store := ctx.KVStore(k.storeKey)
 	store.Delete([]byte("Params"))
+}
+
+// GetOperatorParams returns `OperatorParams` in state.
+func (k Keeper) GetOperatorParams(
+	ctx sdk.Context,
+) (
+	params types.OperatorParams,
+) {
+	store := ctx.KVStore(k.storeKey)
+	b := store.Get([]byte(types.OperatorParamsKey))
+	k.cdc.MustUnmarshal(b, &params)
+	return params
+}
+
+// GetMegavaultParams returns `MegavaultParams` in state.
+func (k Keeper) GetMegavaultParams(
+	ctx sdk.Context,
+) (
+	params types.MegavaultParams,
+) {
+	store := ctx.KVStore(k.storeKey)
+	b := store.Get([]byte(types.MegavaultParamsKey))
+	k.cdc.MustUnmarshal(b, &params)
+	return params
+}
+
+// SetMegavaultParams sets `MegavaultParams` in state.
+// Returns an error if validation fails.
+func (k Keeper) SetMegavaultParams(
+	ctx sdk.Context,
+	params types.MegavaultParams,
+) error {
+	if err := params.Validate(); err != nil {
+		return err
+	}
+
+	store := ctx.KVStore(k.storeKey)
+	b := k.cdc.MustMarshal(&params)
+	store.Set([]byte(types.MegavaultParamsKey), b)
+
+	return nil
+}
+
+// SetOperatorParams sets `OperatorParams` in state.
+// Returns an error if validation fails.
+func (k Keeper) SetOperatorParams(
+	ctx sdk.Context,
+	params types.OperatorParams,
+) error {
+	if err := params.Validate(); err != nil {
+		return err
+	}
+
+	store := ctx.KVStore(k.storeKey)
+	b := k.cdc.MustMarshal(&params)
+	store.Set([]byte(types.OperatorParamsKey), b)
+
+	return nil
 }

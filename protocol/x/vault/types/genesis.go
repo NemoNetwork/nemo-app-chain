@@ -4,6 +4,9 @@ package types
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		DefaultQuotingParams: DefaultQuotingParams(),
+		OperatorParams:       DefaultOperatorParams(),
+		MegavaultParams:      DefaultMegavaultParams(),
+		FeeState:             DefaultFeeState(),
 	}
 }
 
@@ -12,6 +15,15 @@ func DefaultGenesis() *GenesisState {
 func (gs GenesisState) Validate() error {
 	// Validate params.
 	if err := gs.DefaultQuotingParams.Validate(); err != nil {
+		return err
+	}
+	if err := gs.OperatorParams.Validate(); err != nil {
+		return err
+	}
+	if err := gs.MegavaultParams.Validate(); err != nil {
+		return err
+	}
+	if err := gs.FeeState.Validate(); err != nil {
 		return err
 	}
 

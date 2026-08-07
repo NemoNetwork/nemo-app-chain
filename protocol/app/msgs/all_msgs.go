@@ -251,9 +251,21 @@ var (
 		// vault
 		"/nemo_network.vault.MsgDepositToMegavault":                 {},
 		"/nemo_network.vault.MsgDepositToMegavaultResponse":         {},
+		"/nemo_network.vault.MsgWithdrawFromMegavault":              {},
+		"/nemo_network.vault.MsgWithdrawFromMegavaultResponse":      {},
+		"/nemo_network.vault.MsgAllocateToVault":                    {},
+		"/nemo_network.vault.MsgAllocateToVaultResponse":            {},
+		"/nemo_network.vault.MsgRetrieveFromVault":                  {},
+		"/nemo_network.vault.MsgRetrieveFromVaultResponse":          {},
 		"/nemo_network.vault.MsgSetVaultParams":                     {},
 		"/nemo_network.vault.MsgSetVaultParamsResponse":             {},
+		"/nemo_network.vault.MsgUnlockShares":                       {},
+		"/nemo_network.vault.MsgUpdateOperatorParams":               {},
+		"/nemo_network.vault.MsgUpdateOperatorParamsResponse":       {},
+		"/nemo_network.vault.MsgUnlockSharesResponse":               {},
 		"/nemo_network.vault.MsgUpdateDefaultQuotingParams":         {},
+		"/nemo_network.vault.MsgUpdateMegavaultParams":              {},
+		"/nemo_network.vault.MsgUpdateMegavaultParamsResponse":      {},
 		"/nemo_network.vault.MsgUpdateDefaultQuotingParamsResponse": {},
 
 		// vest

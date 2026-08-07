@@ -118,38 +118,6 @@ func TestNormalMsgs_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal",
 		"/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal",
 
-		// affiliates
-		"/nemo-network.affiliates.MsgRegisterAffiliate",
-		"/nemo-network.affiliates.MsgRegisterAffiliateResponse",
-
-		// clob
-		"/nemo_network.clob.MsgBatchCancel",
-		"/nemo_network.clob.MsgBatchCancelResponse",
-		"/nemo_network.clob.MsgCancelOrder",
-		"/nemo_network.clob.MsgCancelOrderResponse",
-		"/nemo_network.clob.MsgPlaceOrder",
-		"/nemo_network.clob.MsgPlaceOrderResponse",
-
-		// listing
-		"/nemo-network.listing.MsgCreateMarketPermissionless",
-		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse",
-
-		// perpetuals
-
-		// prices
-
-		// sending
-		"/nemo_network.sending.MsgCreateTransfer",
-		"/nemo_network.sending.MsgCreateTransferResponse",
-		"/nemo_network.sending.MsgDepositToSubaccount",
-		"/nemo_network.sending.MsgDepositToSubaccountResponse",
-		"/nemo_network.sending.MsgWithdrawFromSubaccount",
-		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse",
-
-		// vault
-		"/nemo-network.vault.MsgDepositToMegavault",
-		"/nemo-network.vault.MsgDepositToMegavaultResponse",
-
 		// ibc application module: ICA
 		"/ibc.applications.interchain_accounts.v1.InterchainAccount",
 
@@ -224,6 +192,48 @@ func TestNormalMsgs_Key(t *testing.T) {
 		"/ibc.lightclients.tendermint.v1.ConsensusState",
 		"/ibc.lightclients.tendermint.v1.Header",
 		"/ibc.lightclients.tendermint.v1.Misbehaviour",
+
+		// affiliates
+		"/nemo_network.affiliates.MsgRegisterAffiliate",
+		"/nemo_network.affiliates.MsgRegisterAffiliateResponse",
+
+		// clob
+		"/nemo_network.clob.MsgBatchCancel",
+		"/nemo_network.clob.MsgBatchCancelResponse",
+		"/nemo_network.clob.MsgCancelOrder",
+		"/nemo_network.clob.MsgCancelOrderResponse",
+		"/nemo_network.clob.MsgPlaceOrder",
+		"/nemo_network.clob.MsgPlaceOrderResponse",
+
+		// listing
+		"/nemo_network.listing.MsgCreateMarketPermissionless",
+		"/nemo_network.listing.MsgCreateMarketPermissionlessResponse",
+
+		// perpetuals
+
+		// prices
+
+		// sending
+		"/nemo_network.sending.MsgCreateTransfer",
+		"/nemo_network.sending.MsgCreateTransferResponse",
+		"/nemo_network.sending.MsgDepositToSubaccount",
+		"/nemo_network.sending.MsgDepositToSubaccountResponse",
+		"/nemo_network.sending.MsgWithdrawFromSubaccount",
+		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse",
+
+		// vault
+		"/nemo_network.vault.MsgAllocateToVault",
+		"/nemo_network.vault.MsgAllocateToVaultResponse",
+		"/nemo_network.vault.MsgDepositToMegavault",
+		"/nemo_network.vault.MsgDepositToMegavaultResponse",
+		"/nemo_network.vault.MsgRetrieveFromVault",
+		"/nemo_network.vault.MsgRetrieveFromVaultResponse",
+		"/nemo_network.vault.MsgSetVaultParams",
+		"/nemo_network.vault.MsgSetVaultParamsResponse",
+		"/nemo_network.vault.MsgUpdateMegavaultParams",
+		"/nemo_network.vault.MsgUpdateMegavaultParamsResponse",
+		"/nemo_network.vault.MsgWithdrawFromMegavault",
+		"/nemo_network.vault.MsgWithdrawFromMegavaultResponse",
 
 		// slinky marketmap messages
 		"/slinky.marketmap.v1.MsgCreateMarkets",

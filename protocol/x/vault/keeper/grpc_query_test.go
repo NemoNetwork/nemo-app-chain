@@ -24,6 +24,8 @@ func TestQueryParams(t *testing.T) {
 			req: &types.QueryParamsRequest{},
 			res: &types.QueryParamsResponse{
 				DefaultQuotingParams: types.DefaultQuotingParams(),
+				OperatorParams:       types.DefaultOperatorParams(),
+				MegavaultParams:      types.DefaultMegavaultParams(),
 			},
 			err: nil,
 		},

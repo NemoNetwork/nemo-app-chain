@@ -63,9 +63,19 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
 		"/cosmos.upgrade.v1beta1.MsgSoftwareUpgradeResponse",
 
+		// ibc
+		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",
+		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse",
+		"/ibc.applications.transfer.v1.MsgUpdateParams",
+		"/ibc.applications.transfer.v1.MsgUpdateParamsResponse",
+		"/ibc.core.client.v1.MsgUpdateParams",
+		"/ibc.core.client.v1.MsgUpdateParamsResponse",
+		"/ibc.core.connection.v1.MsgUpdateParams",
+		"/ibc.core.connection.v1.MsgUpdateParamsResponse",
+
 		// affiliates
-		"/nemo-network.affiliates.MsgUpdateAffiliateTiers",
-		"/nemo-network.affiliates.MsgUpdateAffiliateTiersResponse",
+		"/nemo_network.affiliates.MsgUpdateAffiliateTiers",
+		"/nemo_network.affiliates.MsgUpdateAffiliateTiersResponse",
 
 		// blocktime
 		"/nemo_network.blocktime.MsgUpdateDowntimeParams",
@@ -106,10 +116,10 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/nemo_network.govplus.MsgSlashValidatorResponse",
 
 		// listing
-		"/nemo-network.listing.MsgSetListingVaultDepositParams",
-		"/nemo-network.listing.MsgSetListingVaultDepositParamsResponse",
-		"/nemo-network.listing.MsgSetMarketsHardCap",
-		"/nemo-network.listing.MsgSetMarketsHardCapResponse",
+		"/nemo_network.listing.MsgSetListingVaultDepositParams",
+		"/nemo_network.listing.MsgSetListingVaultDepositParamsResponse",
+		"/nemo_network.listing.MsgSetMarketsHardCap",
+		"/nemo_network.listing.MsgSetMarketsHardCapResponse",
 
 		// perpeutals
 		"/nemo_network.perpetuals.MsgCreatePerpetual",
@@ -132,10 +142,10 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/nemo_network.ratelimit.MsgSetLimitParamsResponse",
 
 		// revshare
-		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarket",
-		"/nemo-network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse",
-		"/nemo-network.revshare.MsgSetMarketMapperRevenueShare",
-		"/nemo-network.revshare.MsgSetMarketMapperRevenueShareResponse",
+		"/nemo_network.revshare.MsgSetMarketMapperRevShareDetailsForMarket",
+		"/nemo_network.revshare.MsgSetMarketMapperRevShareDetailsForMarketResponse",
+		"/nemo_network.revshare.MsgSetMarketMapperRevenueShare",
+		"/nemo_network.revshare.MsgSetMarketMapperRevenueShareResponse",
 
 		// rewards
 		"/nemo_network.rewards.MsgUpdateParams",
@@ -150,26 +160,18 @@ func TestInternalMsgSamples_Gov_Key(t *testing.T) {
 		"/nemo_network.stats.MsgUpdateParamsResponse",
 
 		// vault
-		"/nemo-network.vault.MsgSetVaultParams",
-		"/nemo-network.vault.MsgSetVaultParamsResponse",
-		"/nemo-network.vault.MsgUpdateDefaultQuotingParams",
-		"/nemo-network.vault.MsgUpdateDefaultQuotingParamsResponse",
+		"/nemo_network.vault.MsgUnlockShares",
+		"/nemo_network.vault.MsgUnlockSharesResponse",
+		"/nemo_network.vault.MsgUpdateDefaultQuotingParams",
+		"/nemo_network.vault.MsgUpdateDefaultQuotingParamsResponse",
+		"/nemo_network.vault.MsgUpdateOperatorParams",
+		"/nemo_network.vault.MsgUpdateOperatorParamsResponse",
 
 		// vest
 		"/nemo_network.vest.MsgDeleteVestEntry",
 		"/nemo_network.vest.MsgDeleteVestEntryResponse",
 		"/nemo_network.vest.MsgSetVestEntry",
 		"/nemo_network.vest.MsgSetVestEntryResponse",
-
-		// ibc
-		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",
-		"/ibc.applications.interchain_accounts.host.v1.MsgUpdateParamsResponse",
-		"/ibc.applications.transfer.v1.MsgUpdateParams",
-		"/ibc.applications.transfer.v1.MsgUpdateParamsResponse",
-		"/ibc.core.client.v1.MsgUpdateParams",
-		"/ibc.core.client.v1.MsgUpdateParamsResponse",
-		"/ibc.core.connection.v1.MsgUpdateParams",
-		"/ibc.core.connection.v1.MsgUpdateParamsResponse",
 	}
 
 	require.Equal(t, expectedMsgs, lib.GetSortedKeys[sort.StringSlice](msgs.InternalMsgSamplesGovAuth))

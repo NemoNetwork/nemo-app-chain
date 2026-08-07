@@ -36,6 +36,15 @@ const (
 	// MostRecentClientIdsKeyPrefix is the prefix to retrieve all most recent client IDs.
 	// MostRecentClientIdsStore: vaultId VaultId -> clientIds []uint32
 	MostRecentClientIdsKeyPrefix = "MostRecentClientIds:"
+
+	// OperatorParamsKey is the key to retrieve OperatorParams.
+	OperatorParamsKey = "OperatorParams"
+
+	// MegavaultParamsKey is the key to retrieve MegavaultParams.
+	MegavaultParamsKey = "MegavaultParams"
+
+	// MegavaultFeeStateKey is the key to retrieve the megavault FeeState.
+	MegavaultFeeStateKey = "MegavaultFeeState"
 )
 
 // Module accounts

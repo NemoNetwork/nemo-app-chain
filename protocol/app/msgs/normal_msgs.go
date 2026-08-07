@@ -219,8 +219,8 @@ var (
 	// Custom modules
 	NormalMsgsDydxCustom = map[string]sdk.Msg{
 		// affiliates
-		"/nemo-network.affiliates.MsgRegisterAffiliate":         &affiliates.MsgRegisterAffiliate{},
-		"/nemo-network.affiliates.MsgRegisterAffiliateResponse": nil,
+		"/nemo_network.affiliates.MsgRegisterAffiliate":         &affiliates.MsgRegisterAffiliate{},
+		"/nemo_network.affiliates.MsgRegisterAffiliateResponse": nil,
 		// clob
 		"/nemo_network.clob.MsgBatchCancel":         &clob.MsgBatchCancel{},
 		"/nemo_network.clob.MsgBatchCancelResponse": nil,
@@ -230,8 +230,8 @@ var (
 		"/nemo_network.clob.MsgPlaceOrderResponse":  nil,
 
 		// listing
-		"/nemo-network.listing.MsgCreateMarketPermissionless":         &listing.MsgCreateMarketPermissionless{},
-		"/nemo-network.listing.MsgCreateMarketPermissionlessResponse": nil,
+		"/nemo_network.listing.MsgCreateMarketPermissionless":         &listing.MsgCreateMarketPermissionless{},
+		"/nemo_network.listing.MsgCreateMarketPermissionlessResponse": nil,
 
 		// perpetuals
 
@@ -246,8 +246,18 @@ var (
 		"/nemo_network.sending.MsgWithdrawFromSubaccountResponse": nil,
 
 		// vault
-		"/nemo-network.vault.MsgDepositToMegavault":         &vault.MsgDepositToMegavault{},
-		"/nemo-network.vault.MsgDepositToMegavaultResponse": nil,
+		"/nemo_network.vault.MsgAllocateToVault":               &vault.MsgAllocateToVault{},
+		"/nemo_network.vault.MsgAllocateToVaultResponse":       nil,
+		"/nemo_network.vault.MsgRetrieveFromVault":             &vault.MsgRetrieveFromVault{},
+		"/nemo_network.vault.MsgRetrieveFromVaultResponse":     nil,
+		"/nemo_network.vault.MsgUpdateMegavaultParams":         &vault.MsgUpdateMegavaultParams{},
+		"/nemo_network.vault.MsgUpdateMegavaultParamsResponse": nil,
+		"/nemo_network.vault.MsgSetVaultParams":                &vault.MsgSetVaultParams{},
+		"/nemo_network.vault.MsgSetVaultParamsResponse":        nil,
+		"/nemo_network.vault.MsgDepositToMegavault":            &vault.MsgDepositToMegavault{},
+		"/nemo_network.vault.MsgDepositToMegavaultResponse":    nil,
+		"/nemo_network.vault.MsgWithdrawFromMegavault":         &vault.MsgWithdrawFromMegavault{},
+		"/nemo_network.vault.MsgWithdrawFromMegavaultResponse": nil,
 	}
 
 	NormalMsgsSlinky = map[string]sdk.Msg{
