@@ -74,7 +74,7 @@ describe('upsertVaultHandler', () => {
       address: testConstants.vaultAddress,
       clobPairId: '0',
       status: IndexerVaultStatus.QUOTING,
-      createdAt: testConstants.defaultVault.createdAt,
+      createdAt: block.time?.toISOString(),
       updatedAt: block.time?.toISOString(),
     });
     expect(vaults[1]).toEqual({
@@ -87,14 +87,11 @@ describe('upsertVaultHandler', () => {
   });
 
   it('should upsert an existing vault', async () => {
-    const vaults: VaultFromDatabase[] = await VaultTable.findAll({}, [], {});
-    expect(vaults).toHaveLength(1);
-    expect(vaults[0].status).toEqual(IndexerVaultStatus.QUOTING);
-    const existingVaultAddr: string = vaults[0].address;
+    await VaultTable.create(testConstants.defaultVault);
 
     const events: UpsertVaultEventV1[] = [
       {
-        address: existingVaultAddr,
+        address: testConstants.defaultVault.address,
         clobPairId: 0,
         status: VaultStatus.VAULT_STATUS_CLOSE_ONLY, // modify status from quoting to close only
       },

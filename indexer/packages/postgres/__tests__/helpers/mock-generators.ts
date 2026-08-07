@@ -5,7 +5,6 @@ import * as MarketTable from '../../src/stores/market-table';
 import * as PerpetualMarketTable from '../../src/stores/perpetual-market-table';
 import * as SubaccountTable from '../../src/stores/subaccount-table';
 import * as TendermintEventTable from '../../src/stores/tendermint-event-table';
-import * as VaultTable from '../../src/stores/vault-table';
 import * as WalletTable from '../../src/stores/wallet-table';
 import {
   defaultAsset,
@@ -27,7 +26,6 @@ import {
   defaultTendermintEvent2,
   defaultTendermintEvent3,
   defaultTendermintEvent4,
-  defaultVault,
   defaultWallet,
   isolatedMarket,
   isolatedMarket2,
@@ -80,5 +78,4 @@ export async function seedData() {
   await Promise.all([
     WalletTable.create(defaultWallet),
   ]);
-  await Promise.all([VaultTable.create(defaultVault)]);
 }
