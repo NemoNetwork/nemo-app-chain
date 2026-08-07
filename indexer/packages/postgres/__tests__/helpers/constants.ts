@@ -57,6 +57,8 @@ import {
   TransactionCreateObject,
   TransferCreateObject,
   WalletCreateObject,
+  VaultCreateObject,
+  VaultStatus,
 } from '../../src/types';
 import { denomToHumanReadableConversion } from './conversion-helpers';
 
@@ -69,7 +71,7 @@ export const defaultAddress2: string = 'dydx1n88uc38xhjgxzw9nwre4ep2c8ga4fjxc575
 export const blockedAddress: string = 'dydx1f9k5qldwmqrnwy8hcgp4fw6heuvszt35egvtx2';
 // Vault address for vault id 0 was generated using
 // script protocol/scripts/vault/get_vault.go
-export const vaultAddress: string = 'dydx1c0m5x87llaunl5sgv3q5vd7j5uha26d2q2r2q0';
+export const vaultAddress: string = 'nemo1c0m5x87llaunl5sgv3q5vd7j5uha26d2z2yp69';
 
 // ============== Subaccounts ==============
 
@@ -928,4 +930,14 @@ export const defaultLeaderboardPnlOneDayToUpsert: LeaderboardPnlCreateObject = {
   pnl: '100000',
   currentEquity: '1000',
   rank: 1,
+};
+
+// ==============  Vaults  =============
+
+export const defaultVault: VaultCreateObject = {
+  address: vaultAddress,
+  clobPairId: '0',
+  status: VaultStatus.QUOTING,
+  createdAt: createdDateTime.toISO(),
+  updatedAt: createdDateTime.toISO(),
 };

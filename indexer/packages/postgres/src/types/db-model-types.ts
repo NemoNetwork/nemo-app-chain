@@ -11,6 +11,7 @@ import { PerpetualMarketStatus, PerpetualMarketType } from './perpetual-market-t
 import { PerpetualPositionStatus } from './perpetual-position-types';
 import { PositionSide } from './position-types';
 import { TradingRewardAggregationPeriod } from './trading-reward-aggregation-types';
+import { VaultStatus } from './vault-types';
 
 type IsoString = string;
 
@@ -268,6 +269,14 @@ export interface LeaderboardPnlFromDatabase {
   pnl: string,
   currentEquity: string,
   rank: number,
+}
+
+export interface VaultFromDatabase {
+  address: string,
+  clobPairId: string,
+  status: VaultStatus,
+  createdAt: IsoString,
+  updatedAt: IsoString,
 }
 
 export type SubaccountAssetNetTransferMap = { [subaccountId: string]:

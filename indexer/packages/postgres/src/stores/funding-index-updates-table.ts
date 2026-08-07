@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { QueryBuilder } from 'objection';
 
 import { BUFFER_ENCODING_UTF_8, DEFAULT_POSTGRES_OPTIONS } from '../constants';
+import { knexReadReplica } from '../helpers/knex';
 import { setupBaseQuery, verifyAllRequiredFields } from '../helpers/stores-helpers';
 import Transaction from '../helpers/transaction';
 import { getUuid } from '../helpers/uuid';
@@ -215,4 +216,82 @@ export async function findFundingIndexMap(
     },
     initialFundingIndexMap,
   );
+}
+
+interface FundingIndexUpdatesFromDatabaseWithSearchHeight extends FundingIndexUpdatesFromDatabase {
+  searchHeight: string,
+}
+
+/**
+ * Finds the funding index maps for multiple heights in a single query.
+ *
+ * `findFundingIndexMap` issues one query per height; the vault controller needs a map for every
+ * distinct `updatedAtHeight` across all vault subaccounts, which is enough queries to matter.
+ * This unnests the heights into the query so one scan serves all of them.
+ *
+ * @param effectiveBeforeOrAtHeights
+ * @param options
+ * @returns Map of block height to funding index map.
+ */
+export async function findFundingIndexMaps(
+  effectiveBeforeOrAtHeights: string[],
+  options: Options = DEFAULT_POSTGRES_OPTIONS,
+): Promise<{[blockHeight: string]: FundingIndexMap}> {
+  const heightNumbers: number[] = effectiveBeforeOrAtHeights
+    .map((height: string): number => parseInt(height, 10))
+    .filter((parsedHeight: number): boolean => { return !Number.isNaN(parsedHeight); })
+    .sort();
+  if (heightNumbers.length === 0) {
+    return {};
+  }
+  // Assuming block time of 1 second, this should be 4 hours of blocks.
+  const FOUR_HOUR_OF_BLOCKS = Big(3600).times(4);
+  // Get the min height to limit the search to blocks 4 hours or before the min height.
+  const minHeight: number = heightNumbers[0];
+  const maxHeight: number = heightNumbers[heightNumbers.length - 1];
+
+  const result: {
+    rows: FundingIndexUpdatesFromDatabaseWithSearchHeight[],
+  } = await knexReadReplica.getConnection().raw(
+    `
+    SELECT
+      DISTINCT ON ("perpetualId", "searchHeight") "perpetualId", "searchHeight",
+      "funding_index_updates".*
+    FROM
+      "funding_index_updates",
+      unnest(ARRAY[${heightNumbers.join(',')}]) AS "searchHeight"
+    WHERE
+      "effectiveAtHeight" > ${Big(minHeight).minus(FOUR_HOUR_OF_BLOCKS).toFixed()} AND
+      "effectiveAtHeight" <= ${Big(maxHeight)} AND
+      "effectiveAtHeight" <= "searchHeight"
+    ORDER BY
+      "perpetualId",
+      "searchHeight",
+      "effectiveAtHeight" DESC
+    `,
+  ) as unknown as {
+    rows: FundingIndexUpdatesFromDatabaseWithSearchHeight[],
+  };
+
+  const perpetualMarkets: PerpetualMarketFromDatabase[] = await PerpetualMarketTable.findAll(
+    {},
+    [],
+    options,
+  );
+
+  const fundingIndexMaps: {[blockHeight: string]: FundingIndexMap} = {};
+  for (const height of effectiveBeforeOrAtHeights) {
+    fundingIndexMaps[height] = _.reduce(perpetualMarkets,
+      (acc: FundingIndexMap, perpetualMarket: PerpetualMarketFromDatabase): FundingIndexMap => {
+        acc[perpetualMarket.id] = Big(0);
+        return acc;
+      },
+      {},
+    );
+  }
+  for (const funding of result.rows) {
+    fundingIndexMaps[funding.searchHeight][funding.perpetualId] = Big(funding.fundingIndex);
+  }
+
+  return fundingIndexMaps;
 }

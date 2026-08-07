@@ -56,10 +56,15 @@ export const configSchema = {
   // Expose setting compliance status, only set to true in dev/staging.
   EXPOSE_SET_COMPLIANCE_ENDPOINT: parseBoolean({ default: false }),
 
-  // TODO(TRA-570): Placeholder data for vaults and matching set of markets for each vault until
-  // vaults table is added.
-  EXPERIMENT_VAULTS: parseString({ default: '' }),
-  EXPERIMENT_VAULT_MARKETS: parseString({ default: '' }),
+  // Vaults config
+  VAULT_PNL_HISTORY_DAYS: parseInteger({ default: 90 }),
+  VAULT_PNL_HISTORY_HOURS: parseInteger({ default: 72 }),
+  // Vault pnl before this date is not served. It exists so that vaults created at different
+  // times can be rebased onto a common start and summed without the oldest dominating.
+  VAULT_PNL_START_DATE: parseString({ default: '2024-01-01T00:00:00Z' }),
+  VAULT_LATEST_PNL_TICK_WINDOW_HOURS: parseInteger({ default: 1 }),
+  VAULT_FETCH_FUNDING_INDEX_BLOCK_WINDOWS: parseInteger({ default: 250_000 }),
+
 };
 
 ////////////////////////////////////////////////////////////////////////////////

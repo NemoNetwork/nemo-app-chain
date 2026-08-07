@@ -26,6 +26,7 @@ import {
   DeleveragingEventV1,
   OpenInterestUpdateEventV1,
   TradingRewardsEventV1,
+  UpsertVaultEventV1,
 } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
 import _ from 'lodash';
@@ -236,6 +237,15 @@ export function indexerTendermintEventToEventProtoWithType(
       return {
         type: DydxIndexerSubtypes.OPEN_INTEREST_UPDATE,
         eventProto: OpenInterestUpdateEventV1.decode(eventDataBinary),
+        indexerTendermintEvent: event,
+        version,
+        blockEventIndex,
+      };
+    }
+    case (DydxIndexerSubtypes.UPSERT_VAULT.toString()): {
+      return {
+        type: DydxIndexerSubtypes.UPSERT_VAULT,
+        eventProto: UpsertVaultEventV1.decode(eventDataBinary),
         indexerTendermintEvent: event,
         version,
         blockEventIndex,

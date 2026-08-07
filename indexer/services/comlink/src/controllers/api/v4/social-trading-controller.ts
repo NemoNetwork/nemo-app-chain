@@ -17,7 +17,7 @@ import {
 import { getReqRateLimiter } from '../../../caches/rate-limiters';
 import config from '../../../config';
 import { NotFoundError } from '../../../lib/errors';
-import { handleControllerError, checkIfValidDydxAddress } from '../../../lib/helpers';
+import { handleControllerError, checkIfValidNemoAddress } from '../../../lib/helpers';
 import { rateLimiterMiddleware } from '../../../lib/rate-limit';
 import { handleValidationErrors } from '../../../request-helpers/error-handler';
 import ExportResponseCodeStats from '../../../request-helpers/export-response-code-stats';
@@ -33,7 +33,7 @@ class SocialTradingController extends Controller {
   async searchTrader(
     @Query() searchParam: string,
   ): Promise<TraderSearchResponse> {
-    if (checkIfValidDydxAddress(searchParam)) {
+    if (checkIfValidNemoAddress(searchParam)) {
       const subaccounts: SubaccountFromDatabase[] = await
       SubaccountTable.findAll({
         address: searchParam,

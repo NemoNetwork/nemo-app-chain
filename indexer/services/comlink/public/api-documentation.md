@@ -4366,6 +4366,88 @@ fetch(`${baseURL}/transfers/between?sourceAddress=string&sourceSubaccountNumber=
 This operation does not require authentication
 </aside>
 
+## GetAll
+
+<a id="opIdGetAll"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/userComplaints', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/userComplaints`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /userComplaints`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|limit|query|number(double)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "complaints": [
+    {
+      "id": "string",
+      "walletAddress": "string",
+      "message": "string",
+      "email": "string",
+      "createdAt": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[UserComplaintsResponse](#schemausercomplaintsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 ## Create
 
 <a id="opIdCreate"></a>
@@ -4508,6 +4590,19 @@ fetch(`${baseURL}/vault/v1/megavault/historicalPnl`,
 
 `GET /vault/v1/megavault/historicalPnl`
 
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|resolution|query|[PnlTickInterval](#schemapnltickinterval)|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|resolution|hour|
+|resolution|day|
+
 > Example responses
 
 > 200 Response
@@ -4586,6 +4681,19 @@ fetch(`${baseURL}/vault/v1/vaults/historicalPnl`,
 ```
 
 `GET /vault/v1/vaults/historicalPnl`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|resolution|query|[PnlTickInterval](#schemapnltickinterval)|false|none|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|resolution|hour|
+|resolution|day|
 
 > Example responses
 
@@ -7399,6 +7507,34 @@ or
 |email|string|false|none|none|
 |createdAt|[IsoString](#schemaisostring)|true|none|none|
 
+## UserComplaintsResponse
+
+<a id="schemausercomplaintsresponse"></a>
+<a id="schema_UserComplaintsResponse"></a>
+<a id="tocSusercomplaintsresponse"></a>
+<a id="tocsusercomplaintsresponse"></a>
+
+```json
+{
+  "complaints": [
+    {
+      "id": "string",
+      "walletAddress": "string",
+      "message": "string",
+      "email": "string",
+      "createdAt": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|complaints|[[UserComplaintFromDatabase](#schemausercomplaintfromdatabase)]|true|none|none|
+
 ## UserComplaintRequest
 
 <a id="schemausercomplaintrequest"></a>
@@ -7453,6 +7589,31 @@ or
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |megavaultPnl|[[PnlTicksResponseObject](#schemapnlticksresponseobject)]|true|none|none|
+
+## PnlTickInterval
+
+<a id="schemapnltickinterval"></a>
+<a id="schema_PnlTickInterval"></a>
+<a id="tocSpnltickinterval"></a>
+<a id="tocspnltickinterval"></a>
+
+```json
+"hour"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|hour|
+|*anonymous*|day|
 
 ## VaultHistoricalPnl
 

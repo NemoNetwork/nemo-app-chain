@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { DateTime } from 'luxon';
 import { QueryBuilder } from 'objection';
 
 import {
@@ -445,6 +446,58 @@ async function getAllTimeRankedPnlTicks(): Promise<LeaderboardPnlCreateObject[]>
       aggregated_results;
     `,
   ) as { rows: LeaderboardPnlCreateObject[] };
+
+  return result.rows;
+}
+
+/**
+ * Gets the latest pnl tick at or before `beforeOrAt` for each of `subaccountIds`.
+ *
+ * Used by the vault controller to rebase vault pnl onto a common start date: each vault's pnl
+ * is adjusted by its own tick at the start date, so vaults created at different times can be
+ * summed without the older ones dominating.
+ *
+ * The lookback is bounded to four hours before `beforeOrAt` so the scan stays cheap; pnl ticks
+ * are created hourly, so a tick within that window is expected to exist.
+ *
+ * @param subaccountIds
+ * @param beforeOrAt
+ * @returns One pnl tick per subaccount that has one in the window.
+ */
+export async function getLatestPnlTick(
+  subaccountIds: string[],
+  beforeOrAt: DateTime,
+): Promise<PnlTicksFromDatabase[]> {
+  if (subaccountIds.length === 0) {
+    return [];
+  }
+  const result: {
+    rows: PnlTicksFromDatabase[],
+  } = await knexReadReplica.getConnection().raw(
+    `
+    SELECT
+      DISTINCT ON ("subaccountId")
+      "id",
+      "subaccountId",
+      "equity",
+      "totalPnl",
+      "netTransfers",
+      "createdAt",
+      "blockHeight",
+      "blockTime"
+    FROM
+      pnl_ticks
+    WHERE
+      "subaccountId" in (${subaccountIds.map((id: string) => { return `'${id}'`; }).join(',')}) AND
+      "blockTime" <= '${beforeOrAt.toUTC().toISO()}'::timestamp AND
+      "blockTime" >= '${beforeOrAt.toUTC().minus({ hours: 4 }).toISO()}'::timestamp
+    ORDER BY
+      "subaccountId",
+      "blockTime" DESC
+    `,
+  ) as unknown as {
+    rows: PnlTicksFromDatabase[],
+  };
 
   return result.rows;
 }

@@ -36,6 +36,7 @@ import * as athenaTendermintEvents from '../lib/athena-ddl-tables/tendermint_eve
 import * as athenaTradingRewardAggregations from '../lib/athena-ddl-tables/trading_reward_aggregations';
 import * as athenaTradingRewards from '../lib/athena-ddl-tables/trading_rewards';
 import * as athenaTransfers from '../lib/athena-ddl-tables/transfers';
+import * as athenaVaults from '../lib/athena-ddl-tables/vaults';
 import * as athenaWallets from '../lib/athena-ddl-tables/wallets';
 
 export const tablesToAddToAthena: { [table: string]: AthenaTableDDLQueries } = {
@@ -58,6 +59,7 @@ export const tablesToAddToAthena: { [table: string]: AthenaTableDDLQueries } = {
   transfers: athenaTransfers,
   liquidity_tiers: athenaLiquidityTiers,
   wallets: athenaWallets,
+  vaults: athenaVaults,
 };
 
 const statStart: string = `${config.SERVICE_NAME}.update_research_environment`;

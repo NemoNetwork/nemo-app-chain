@@ -19,6 +19,7 @@ import marketUpdaterTask from './tasks/market-updater';
 import orderbookInstrumentationTask from './tasks/orderbook-instrumentation';
 import performComplianceStatusTransitionsTask from './tasks/perform-compliance-status-transitions';
 import pnlInstrumentationTask from './tasks/pnl-instrumentation';
+import refreshVaultPnlTask from './tasks/refresh-vault-pnl';
 import removeExpiredOrdersTask from './tasks/remove-expired-orders';
 import removeOldOrderUpdatesTask from './tasks/remove-old-order-updates';
 import subaccountUsernameGeneratorTask from './tasks/subaccount-username-generator';
@@ -245,6 +246,13 @@ async function start(): Promise<void> {
       yearlyLeaderboardTask,
       'create_leaderboard_pnl_yearly',
       config.LOOPS_INTERVAL_MS_LEADERBOARD_PNL_YEARLY,
+    );
+  }
+  if (config.LOOPS_ENABLED_REFRESH_VAULT_PNL) {
+    startLoop(
+      refreshVaultPnlTask,
+      'refresh-vault-pnl',
+      config.LOOPS_INTERVAL_MS_REFRESH_VAULT_PNL,
     );
   }
 

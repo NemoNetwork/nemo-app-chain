@@ -18,6 +18,7 @@ import {
   PerpetualMarketType,
   PerpetualPositionFromDatabase,
   PerpetualPositionStatus,
+  PnlTickInterval,
   PositionSide,
   SubaccountFromDatabase,
   TradeType,
@@ -287,6 +288,11 @@ export interface PnlTicksResponseObject {
   createdAt: string,
   blockHeight: string,
   blockTime: IsoString,
+}
+
+export interface AggregatedPnlTick {
+  pnlTick: PnlTicksResponseObject,
+  numTicks: number,
 }
 
 /* ------- TRADE TYPES ------- */
@@ -697,6 +703,12 @@ export interface VaultHistoricalPnl {
 export interface MegavaultHistoricalPnlResponse {
   megavaultPnl: PnlTicksResponseObject[],
 }
+
+export interface MegavaultHistoricalPnlRequest {
+  resolution: PnlTickInterval,
+}
+
+export interface VaultsHistoricalPnlRequest extends MegavaultHistoricalPnlRequest {}
 
 export interface VaultsHistoricalPnlResponse {
   vaultsPnl: VaultHistoricalPnl[],

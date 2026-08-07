@@ -28,6 +28,7 @@ import {
 import Big from 'big.js';
 import express from 'express';
 import _ from 'lodash';
+import { DateTime } from 'luxon';
 
 import config from '../config';
 import {
@@ -36,6 +37,7 @@ import {
   subaccountToResponseObject,
 } from '../request-helpers/request-transformer';
 import {
+  AggregatedPnlTick,
   AssetById,
   AssetPositionResponseObject,
   AssetPositionsMap,
@@ -531,8 +533,8 @@ export function getChildSubaccountIds(address: string, parentSubaccountNum: numb
   );
 }
 
-export function checkIfValidDydxAddress(address: string): boolean {
-  const pattern: RegExp = /^dydx[0-9a-z]{39}$/;
+export function checkIfValidNemoAddress(address: string): boolean {
+  const pattern: RegExp = /^nemo[0-9a-z]{39}$/;
   return pattern.test(address);
 }
 
@@ -656,6 +658,61 @@ export function getSubaccountResponse(
 }
 
 /* ------- PNL HELPERS ------- */
+
+/**
+ * Aggregates a list of PnL ticks, truncating each tick to the hour it falls in and summing
+ * equity, totalPnl and net transfers across subaccounts within that hour.
+ *
+ * A subaccount contributes at most once per hour: the first tick seen for it wins, and later
+ * ticks in the same hour are dropped. Without that, a subaccount reporting twice in an hour
+ * would be double-counted into the aggregate.
+ *
+ * `numTicks` is the number of distinct subaccounts that contributed to each hour, which lets
+ * a caller discard hours where not every vault reported.
+ *
+ * @param pnlTicks
+ * @returns
+ */
+export function aggregateHourlyPnlTicks(
+  pnlTicks: PnlTicksFromDatabase[],
+): AggregatedPnlTick[] {
+  const hourlyPnlTicks: Map<string, PnlTicksFromDatabase> = new Map();
+  const hourlySubaccountIds: Map<string, Set<string>> = new Map();
+  for (const pnlTick of pnlTicks) {
+    const truncatedTime: string = DateTime.fromISO(pnlTick.createdAt).startOf('hour').toISO();
+    if (hourlyPnlTicks.has(truncatedTime)) {
+      const subaccountIds: Set<string> = hourlySubaccountIds.get(truncatedTime) as Set<string>;
+      if (subaccountIds.has(pnlTick.subaccountId)) {
+        continue;
+      }
+      subaccountIds.add(pnlTick.subaccountId);
+      const aggregatedTick: PnlTicksFromDatabase = hourlyPnlTicks.get(
+        truncatedTime,
+      ) as PnlTicksFromDatabase;
+      hourlyPnlTicks.set(
+        truncatedTime,
+        {
+          ...aggregatedTick,
+          equity: (parseFloat(aggregatedTick.equity) + parseFloat(pnlTick.equity)).toString(),
+          totalPnl: (parseFloat(aggregatedTick.totalPnl) + parseFloat(pnlTick.totalPnl)).toString(),
+          netTransfers: (
+            parseFloat(aggregatedTick.netTransfers) + parseFloat(pnlTick.netTransfers)
+          ).toString(),
+        },
+      );
+      hourlySubaccountIds.set(truncatedTime, subaccountIds);
+    } else {
+      hourlyPnlTicks.set(truncatedTime, pnlTick);
+      hourlySubaccountIds.set(truncatedTime, new Set([pnlTick.subaccountId]));
+    }
+  }
+  return Array.from(hourlyPnlTicks.keys()).map((hour: string): AggregatedPnlTick => {
+    return {
+      pnlTick: hourlyPnlTicks.get(hour) as PnlTicksFromDatabase,
+      numTicks: (hourlySubaccountIds.get(hour) as Set<string>).size,
+    };
+  });
+}
 
 /**
  * Aggregates a list of PnL ticks, combining any PnL ticks for the same blockheight by summing

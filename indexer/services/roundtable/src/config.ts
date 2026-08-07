@@ -57,6 +57,7 @@ export const configSchema = {
   LOOPS_ENABLED_LEADERBOARD_PNL_WEEKLY: parseBoolean({ default: false }),
   LOOPS_ENABLED_LEADERBOARD_PNL_MONTHLY: parseBoolean({ default: false }),
   LOOPS_ENABLED_LEADERBOARD_PNL_YEARLY: parseBoolean({ default: false }),
+  LOOPS_ENABLED_REFRESH_VAULT_PNL: parseBoolean({ default: true }),
 
   // Loop Timing
   LOOPS_INTERVAL_MS_MARKET_UPDATER: parseInteger({
@@ -124,6 +125,9 @@ export const configSchema = {
   }),
   LOOPS_INTERVAL_MS_LEADERBOARD_PNL_YEARLY: parseInteger({
     default: THIRTY_SECONDS_IN_MILLISECONDS,
+  }),
+  LOOPS_INTERVAL_MS_REFRESH_VAULT_PNL: parseInteger({
+    default: 5 * ONE_MINUTE_IN_MILLISECONDS,
   }),
 
   // Start delay
@@ -196,6 +200,9 @@ export const configSchema = {
 
   // Subaccount username generator
   SUBACCOUNT_USERNAME_NUM_RANDOM_DIGITS: parseInteger({ default: 3 }),
+
+  // Refresh vault pnl view
+  TIME_WINDOW_FOR_REFRESH_VAULT_PNL_MS: parseInteger({ default: 15 * ONE_MINUTE_IN_MILLISECONDS }),
 };
 
 export default parseSchema(configSchema);

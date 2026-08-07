@@ -325,3 +325,9 @@ export interface LeaderboardPnlQueryConfig extends QueryConfig {
 export interface UserComplaintQueryConfig extends QueryConfig {
   [QueryableField.CREATED_BEFORE_OR_AT]?: IsoString,
 }
+
+export interface VaultQueryConfig extends QueryConfig {
+  [QueryableField.ADDRESS]?: string[],
+  [QueryableField.CLOB_PAIR_ID]?: string[],
+  [QueryableField.STATUS]?: string[],
+}

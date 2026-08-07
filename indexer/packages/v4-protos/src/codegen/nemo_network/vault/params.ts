@@ -91,6 +91,80 @@ export interface VaultParamsSDKType {
 
   quoting_params?: QuotingParamsSDKType;
 }
+/** OperatorParams stores parameters regarding megavault operator. */
+
+export interface OperatorParams {
+  /** Address of the operator. */
+  operator: string;
+  /** Metadata of the operator. */
+
+  metadata?: OperatorMetadata;
+}
+/** OperatorParams stores parameters regarding megavault operator. */
+
+export interface OperatorParamsSDKType {
+  /** Address of the operator. */
+  operator: string;
+  /** Metadata of the operator. */
+
+  metadata?: OperatorMetadataSDKType;
+}
+/**
+ * MegavaultParams stores megavault-level parameters.
+ * 
+ * Note: this message has no upstream dydxprotocol equivalent. It holds the
+ * parameters that apply to megavault as a whole rather than to an individual
+ * vault (quoting params) or to the operator's identity (operator params).
+ */
+
+export interface MegavaultParams {
+  /**
+   * The maximum number of quote quantums that megavault equity may reach
+   * through deposits. A deposit is rejected if megavault equity after the
+   * deposit would exceed this cap.
+   * 
+   * A value of zero means no cap, so that a chain upgraded from a state that
+   * predates this field keeps accepting deposits until the cap is set.
+   */
+  depositCapQuoteQuantums: Uint8Array;
+}
+/**
+ * MegavaultParams stores megavault-level parameters.
+ * 
+ * Note: this message has no upstream dydxprotocol equivalent. It holds the
+ * parameters that apply to megavault as a whole rather than to an individual
+ * vault (quoting params) or to the operator's identity (operator params).
+ */
+
+export interface MegavaultParamsSDKType {
+  /**
+   * The maximum number of quote quantums that megavault equity may reach
+   * through deposits. A deposit is rejected if megavault equity after the
+   * deposit would exceed this cap.
+   * 
+   * A value of zero means no cap, so that a chain upgraded from a state that
+   * predates this field keeps accepting deposits until the cap is set.
+   */
+  deposit_cap_quote_quantums: Uint8Array;
+}
+/** OperatorMetadata stores metadata regarding megavault operator. */
+
+export interface OperatorMetadata {
+  /** Name of the operator. */
+  name: string;
+  /** Description of the operator. */
+
+  description: string;
+}
+/** OperatorMetadata stores metadata regarding megavault operator. */
+
+export interface OperatorMetadataSDKType {
+  /** Name of the operator. */
+  name: string;
+  /** Description of the operator. */
+
+  description: string;
+}
 /**
  * Deprecated: Params stores `x/vault` parameters.
  * Deprecated since v6.x as is replaced by QuotingParams.
@@ -325,6 +399,161 @@ export const VaultParams = {
     const message = createBaseVaultParams();
     message.status = object.status ?? 0;
     message.quotingParams = object.quotingParams !== undefined && object.quotingParams !== null ? QuotingParams.fromPartial(object.quotingParams) : undefined;
+    return message;
+  }
+
+};
+
+function createBaseOperatorParams(): OperatorParams {
+  return {
+    operator: "",
+    metadata: undefined
+  };
+}
+
+export const OperatorParams = {
+  encode(message: OperatorParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.operator !== "") {
+      writer.uint32(10).string(message.operator);
+    }
+
+    if (message.metadata !== undefined) {
+      OperatorMetadata.encode(message.metadata, writer.uint32(18).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): OperatorParams {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseOperatorParams();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.operator = reader.string();
+          break;
+
+        case 2:
+          message.metadata = OperatorMetadata.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<OperatorParams>): OperatorParams {
+    const message = createBaseOperatorParams();
+    message.operator = object.operator ?? "";
+    message.metadata = object.metadata !== undefined && object.metadata !== null ? OperatorMetadata.fromPartial(object.metadata) : undefined;
+    return message;
+  }
+
+};
+
+function createBaseMegavaultParams(): MegavaultParams {
+  return {
+    depositCapQuoteQuantums: new Uint8Array()
+  };
+}
+
+export const MegavaultParams = {
+  encode(message: MegavaultParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.depositCapQuoteQuantums.length !== 0) {
+      writer.uint32(10).bytes(message.depositCapQuoteQuantums);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MegavaultParams {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMegavaultParams();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.depositCapQuoteQuantums = reader.bytes();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MegavaultParams>): MegavaultParams {
+    const message = createBaseMegavaultParams();
+    message.depositCapQuoteQuantums = object.depositCapQuoteQuantums ?? new Uint8Array();
+    return message;
+  }
+
+};
+
+function createBaseOperatorMetadata(): OperatorMetadata {
+  return {
+    name: "",
+    description: ""
+  };
+}
+
+export const OperatorMetadata = {
+  encode(message: OperatorMetadata, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.name !== "") {
+      writer.uint32(10).string(message.name);
+    }
+
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): OperatorMetadata {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseOperatorMetadata();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.name = reader.string();
+          break;
+
+        case 2:
+          message.description = reader.string();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<OperatorMetadata>): OperatorMetadata {
+    const message = createBaseOperatorMetadata();
+    message.name = object.name ?? "";
+    message.description = object.description ?? "";
     return message;
   }
 

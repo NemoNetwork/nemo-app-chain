@@ -14,6 +14,7 @@ import PerpetualPositionModel from './models/perpetual-position-model';
 import SubaccountModel from './models/subaccount-model';
 import TradingRewardModel from './models/trading-reward-model';
 import TransferModel from './models/transfer-model';
+import VaultModel from './models/vault-model';
 import {
   APITimeInForce,
   CandleResolution,
@@ -101,6 +102,7 @@ export const SQL_TO_JSON_DEFINED_MODELS = [
   SubaccountModel,
   TransferModel,
   TradingRewardModel,
+  VaultModel,
 ];
 
 export type SpecifiedClobPairStatus =
@@ -125,3 +127,10 @@ export const DEFAULT_POSTGRES_OPTIONS : Options = config.USE_READ_REPLICA
 export const MAX_PARENT_SUBACCOUNTS: number = 128;
 
 export const CHILD_SUBACCOUNT_MULTIPLIER: number = 1000;
+
+// Megavault main subaccount. Derived from `vaulttypes.MegavaultMainAddress` in the
+// protocol, which is the module account address for `megavault`.
+export const MEGAVAULT_MODULE_ADDRESS: string = 'nemo18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylyq4j0f';
+// Generated from the module address + subaccount number 0, i.e.
+// `SubaccountTable.uuid(MEGAVAULT_MODULE_ADDRESS, 0)`.
+export const MEGAVAULT_SUBACCOUNT_ID: string = '535b9ea5-af1f-51b9-b5ab-004d982a0343';

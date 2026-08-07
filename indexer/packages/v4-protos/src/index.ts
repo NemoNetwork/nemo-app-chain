@@ -16,4 +16,5 @@ export * from './codegen/google/protobuf/timestamp';
 export * from './codegen/nemo_network/indexer/protocol/v1/clob';
 export * from './codegen/nemo_network/indexer/protocol/v1/subaccount';
 export * from './codegen/nemo_network/indexer/shared/removal_reason';
+export * from './codegen/nemo_network/vault/vault';
 export * from './utils';

@@ -12,6 +12,11 @@ export interface PnlTicksCreateObject {
   blockTime: IsoString,
 }
 
+export enum PnlTickInterval {
+  hour = 'hour',
+  day = 'day',
+}
+
 export enum PnlTicksColumns {
   id = 'id',
   subaccountId = 'subaccountId',

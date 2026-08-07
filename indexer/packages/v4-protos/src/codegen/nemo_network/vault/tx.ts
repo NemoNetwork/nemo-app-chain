@@ -1,7 +1,7 @@
 import { SubaccountId, SubaccountIdSDKType } from "../subaccounts/subaccount";
-import { QuotingParams, QuotingParamsSDKType, VaultParams, VaultParamsSDKType } from "./params";
-import { VaultId, VaultIdSDKType } from "./vault";
 import { NumShares, NumSharesSDKType } from "./share";
+import { QuotingParams, QuotingParamsSDKType, OperatorParams, OperatorParamsSDKType, MegavaultParams, MegavaultParamsSDKType, VaultParams, VaultParamsSDKType } from "./params";
+import { VaultId, VaultIdSDKType } from "./vault";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../helpers";
 /**
@@ -41,6 +41,60 @@ export interface MsgDepositToMegavaultResponseSDKType {
   minted_shares?: NumSharesSDKType;
 }
 /**
+ * MsgWithdrawFromMegavault withdraws the specified shares from megavault to
+ * a subaccount.
+ */
+
+export interface MsgWithdrawFromMegavault {
+  /** The subaccount to withdraw to. */
+  subaccountId?: SubaccountId;
+  /** Number of shares to withdraw. */
+
+  shares?: NumShares;
+  /**
+   * The minimum number of quote quantums above shares should redeem, i.e.
+   * transaction fails if above shares redeem less than min_quote_quantums.
+   */
+
+  minQuoteQuantums: Uint8Array;
+}
+/**
+ * MsgWithdrawFromMegavault withdraws the specified shares from megavault to
+ * a subaccount.
+ */
+
+export interface MsgWithdrawFromMegavaultSDKType {
+  /** The subaccount to withdraw to. */
+  subaccount_id?: SubaccountIdSDKType;
+  /** Number of shares to withdraw. */
+
+  shares?: NumSharesSDKType;
+  /**
+   * The minimum number of quote quantums above shares should redeem, i.e.
+   * transaction fails if above shares redeem less than min_quote_quantums.
+   */
+
+  min_quote_quantums: Uint8Array;
+}
+/**
+ * MsgWithdrawFromMegavaultResponse is the Msg/WithdrawFromMegavault response
+ * type.
+ */
+
+export interface MsgWithdrawFromMegavaultResponse {
+  /** The number of quote quantums redeemed from the withdrawal. */
+  quoteQuantums: Uint8Array;
+}
+/**
+ * MsgWithdrawFromMegavaultResponse is the Msg/WithdrawFromMegavault response
+ * type.
+ */
+
+export interface MsgWithdrawFromMegavaultResponseSDKType {
+  /** The number of quote quantums redeemed from the withdrawal. */
+  quote_quantums: Uint8Array;
+}
+/**
  * MsgUpdateDefaultQuotingParams is the Msg/UpdateDefaultQuotingParams request
  * type.
  */
@@ -74,6 +128,64 @@ export interface MsgUpdateDefaultQuotingParamsResponse {}
  */
 
 export interface MsgUpdateDefaultQuotingParamsResponseSDKType {}
+/** MsgUpdateOperatorParams is the Msg/UpdateOperatorParams request type. */
+
+export interface MsgUpdateOperatorParams {
+  authority: string;
+  /** Operator parameters to set. */
+
+  params?: OperatorParams;
+}
+/** MsgUpdateOperatorParams is the Msg/UpdateOperatorParams request type. */
+
+export interface MsgUpdateOperatorParamsSDKType {
+  authority: string;
+  /** Operator parameters to set. */
+
+  params?: OperatorParamsSDKType;
+}
+/** MsgUpdateOperatorParamsResponse is the Msg/UpdateOperatorParams response type. */
+
+export interface MsgUpdateOperatorParamsResponse {}
+/** MsgUpdateOperatorParamsResponse is the Msg/UpdateOperatorParams response type. */
+
+export interface MsgUpdateOperatorParamsResponseSDKType {}
+/**
+ * MsgUpdateMegavaultParams is the Msg/UpdateMegavaultParams request type.
+ * 
+ * Note: fork-local message with no upstream dydxprotocol equivalent.
+ */
+
+export interface MsgUpdateMegavaultParams {
+  authority: string;
+  /** Megavault parameters to set. */
+
+  params?: MegavaultParams;
+}
+/**
+ * MsgUpdateMegavaultParams is the Msg/UpdateMegavaultParams request type.
+ * 
+ * Note: fork-local message with no upstream dydxprotocol equivalent.
+ */
+
+export interface MsgUpdateMegavaultParamsSDKType {
+  authority: string;
+  /** Megavault parameters to set. */
+
+  params?: MegavaultParamsSDKType;
+}
+/**
+ * MsgUpdateMegavaultParamsResponse is the Msg/UpdateMegavaultParams response
+ * type.
+ */
+
+export interface MsgUpdateMegavaultParamsResponse {}
+/**
+ * MsgUpdateMegavaultParamsResponse is the Msg/UpdateMegavaultParams response
+ * type.
+ */
+
+export interface MsgUpdateMegavaultParamsResponseSDKType {}
 /** MsgSetVaultParams is the Msg/SetVaultParams request type. */
 
 export interface MsgSetVaultParams {
@@ -102,6 +214,90 @@ export interface MsgSetVaultParamsResponse {}
 /** MsgSetVaultParamsResponse is the Msg/SetVaultParams response type. */
 
 export interface MsgSetVaultParamsResponseSDKType {}
+/** MsgAllocateToVault is the Msg/AllocateToVault request type. */
+
+export interface MsgAllocateToVault {
+  authority: string;
+  /** The vault to allocate to. */
+
+  vaultId?: VaultId;
+  /** Number of quote quantums to allocate. */
+
+  quoteQuantums: Uint8Array;
+}
+/** MsgAllocateToVault is the Msg/AllocateToVault request type. */
+
+export interface MsgAllocateToVaultSDKType {
+  authority: string;
+  /** The vault to allocate to. */
+
+  vault_id?: VaultIdSDKType;
+  /** Number of quote quantums to allocate. */
+
+  quote_quantums: Uint8Array;
+}
+/** MsgAllocateToVaultResponse is the Msg/AllocateToVault response type. */
+
+export interface MsgAllocateToVaultResponse {}
+/** MsgAllocateToVaultResponse is the Msg/AllocateToVault response type. */
+
+export interface MsgAllocateToVaultResponseSDKType {}
+/** MsgRetrieveFromVault is the Msg/RetrieveFromVault request type. */
+
+export interface MsgRetrieveFromVault {
+  authority: string;
+  /** The vault to retrieve from. */
+
+  vaultId?: VaultId;
+  /** Number of quote quantums to retrieve. */
+
+  quoteQuantums: Uint8Array;
+}
+/** MsgRetrieveFromVault is the Msg/RetrieveFromVault request type. */
+
+export interface MsgRetrieveFromVaultSDKType {
+  authority: string;
+  /** The vault to retrieve from. */
+
+  vault_id?: VaultIdSDKType;
+  /** Number of quote quantums to retrieve. */
+
+  quote_quantums: Uint8Array;
+}
+/** MsgRetrieveFromVaultResponse is the Msg/RetrieveFromVault response type. */
+
+export interface MsgRetrieveFromVaultResponse {}
+/** MsgRetrieveFromVaultResponse is the Msg/RetrieveFromVault response type. */
+
+export interface MsgRetrieveFromVaultResponseSDKType {}
+/** MsgUnlockShares is the Msg/UnlockShares request type. */
+
+export interface MsgUnlockShares {
+  authority: string;
+  /** Address of the owner to unlock shares of. */
+
+  ownerAddress: string;
+}
+/** MsgUnlockShares is the Msg/UnlockShares request type. */
+
+export interface MsgUnlockSharesSDKType {
+  authority: string;
+  /** Address of the owner to unlock shares of. */
+
+  owner_address: string;
+}
+/** MsgUnlockSharesResponse is the Msg/UnlockShares response type. */
+
+export interface MsgUnlockSharesResponse {
+  /** The number of shares unlocked. */
+  unlockedShares?: NumShares;
+}
+/** MsgUnlockSharesResponse is the Msg/UnlockShares response type. */
+
+export interface MsgUnlockSharesResponseSDKType {
+  /** The number of shares unlocked. */
+  unlocked_shares?: NumSharesSDKType;
+}
 
 function createBaseMsgDepositToMegavault(): MsgDepositToMegavault {
   return {
@@ -203,6 +399,116 @@ export const MsgDepositToMegavaultResponse = {
 
 };
 
+function createBaseMsgWithdrawFromMegavault(): MsgWithdrawFromMegavault {
+  return {
+    subaccountId: undefined,
+    shares: undefined,
+    minQuoteQuantums: new Uint8Array()
+  };
+}
+
+export const MsgWithdrawFromMegavault = {
+  encode(message: MsgWithdrawFromMegavault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.subaccountId !== undefined) {
+      SubaccountId.encode(message.subaccountId, writer.uint32(10).fork()).ldelim();
+    }
+
+    if (message.shares !== undefined) {
+      NumShares.encode(message.shares, writer.uint32(18).fork()).ldelim();
+    }
+
+    if (message.minQuoteQuantums.length !== 0) {
+      writer.uint32(26).bytes(message.minQuoteQuantums);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawFromMegavault {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgWithdrawFromMegavault();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.subaccountId = SubaccountId.decode(reader, reader.uint32());
+          break;
+
+        case 2:
+          message.shares = NumShares.decode(reader, reader.uint32());
+          break;
+
+        case 3:
+          message.minQuoteQuantums = reader.bytes();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgWithdrawFromMegavault>): MsgWithdrawFromMegavault {
+    const message = createBaseMsgWithdrawFromMegavault();
+    message.subaccountId = object.subaccountId !== undefined && object.subaccountId !== null ? SubaccountId.fromPartial(object.subaccountId) : undefined;
+    message.shares = object.shares !== undefined && object.shares !== null ? NumShares.fromPartial(object.shares) : undefined;
+    message.minQuoteQuantums = object.minQuoteQuantums ?? new Uint8Array();
+    return message;
+  }
+
+};
+
+function createBaseMsgWithdrawFromMegavaultResponse(): MsgWithdrawFromMegavaultResponse {
+  return {
+    quoteQuantums: new Uint8Array()
+  };
+}
+
+export const MsgWithdrawFromMegavaultResponse = {
+  encode(message: MsgWithdrawFromMegavaultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.quoteQuantums.length !== 0) {
+      writer.uint32(10).bytes(message.quoteQuantums);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawFromMegavaultResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgWithdrawFromMegavaultResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.quoteQuantums = reader.bytes();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgWithdrawFromMegavaultResponse>): MsgWithdrawFromMegavaultResponse {
+    const message = createBaseMsgWithdrawFromMegavaultResponse();
+    message.quoteQuantums = object.quoteQuantums ?? new Uint8Array();
+    return message;
+  }
+
+};
+
 function createBaseMsgUpdateDefaultQuotingParams(): MsgUpdateDefaultQuotingParams {
   return {
     authority: "",
@@ -287,6 +593,184 @@ export const MsgUpdateDefaultQuotingParamsResponse = {
 
   fromPartial(_: DeepPartial<MsgUpdateDefaultQuotingParamsResponse>): MsgUpdateDefaultQuotingParamsResponse {
     const message = createBaseMsgUpdateDefaultQuotingParamsResponse();
+    return message;
+  }
+
+};
+
+function createBaseMsgUpdateOperatorParams(): MsgUpdateOperatorParams {
+  return {
+    authority: "",
+    params: undefined
+  };
+}
+
+export const MsgUpdateOperatorParams = {
+  encode(message: MsgUpdateOperatorParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+
+    if (message.params !== undefined) {
+      OperatorParams.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateOperatorParams {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateOperatorParams();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.authority = reader.string();
+          break;
+
+        case 2:
+          message.params = OperatorParams.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateOperatorParams>): MsgUpdateOperatorParams {
+    const message = createBaseMsgUpdateOperatorParams();
+    message.authority = object.authority ?? "";
+    message.params = object.params !== undefined && object.params !== null ? OperatorParams.fromPartial(object.params) : undefined;
+    return message;
+  }
+
+};
+
+function createBaseMsgUpdateOperatorParamsResponse(): MsgUpdateOperatorParamsResponse {
+  return {};
+}
+
+export const MsgUpdateOperatorParamsResponse = {
+  encode(_: MsgUpdateOperatorParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateOperatorParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateOperatorParamsResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateOperatorParamsResponse>): MsgUpdateOperatorParamsResponse {
+    const message = createBaseMsgUpdateOperatorParamsResponse();
+    return message;
+  }
+
+};
+
+function createBaseMsgUpdateMegavaultParams(): MsgUpdateMegavaultParams {
+  return {
+    authority: "",
+    params: undefined
+  };
+}
+
+export const MsgUpdateMegavaultParams = {
+  encode(message: MsgUpdateMegavaultParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+
+    if (message.params !== undefined) {
+      MegavaultParams.encode(message.params, writer.uint32(18).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateMegavaultParams {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateMegavaultParams();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.authority = reader.string();
+          break;
+
+        case 2:
+          message.params = MegavaultParams.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateMegavaultParams>): MsgUpdateMegavaultParams {
+    const message = createBaseMsgUpdateMegavaultParams();
+    message.authority = object.authority ?? "";
+    message.params = object.params !== undefined && object.params !== null ? MegavaultParams.fromPartial(object.params) : undefined;
+    return message;
+  }
+
+};
+
+function createBaseMsgUpdateMegavaultParamsResponse(): MsgUpdateMegavaultParamsResponse {
+  return {};
+}
+
+export const MsgUpdateMegavaultParamsResponse = {
+  encode(_: MsgUpdateMegavaultParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateMegavaultParamsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateMegavaultParamsResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateMegavaultParamsResponse>): MsgUpdateMegavaultParamsResponse {
+    const message = createBaseMsgUpdateMegavaultParamsResponse();
     return message;
   }
 
@@ -386,6 +870,304 @@ export const MsgSetVaultParamsResponse = {
 
   fromPartial(_: DeepPartial<MsgSetVaultParamsResponse>): MsgSetVaultParamsResponse {
     const message = createBaseMsgSetVaultParamsResponse();
+    return message;
+  }
+
+};
+
+function createBaseMsgAllocateToVault(): MsgAllocateToVault {
+  return {
+    authority: "",
+    vaultId: undefined,
+    quoteQuantums: new Uint8Array()
+  };
+}
+
+export const MsgAllocateToVault = {
+  encode(message: MsgAllocateToVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+
+    if (message.vaultId !== undefined) {
+      VaultId.encode(message.vaultId, writer.uint32(18).fork()).ldelim();
+    }
+
+    if (message.quoteQuantums.length !== 0) {
+      writer.uint32(26).bytes(message.quoteQuantums);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAllocateToVault {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgAllocateToVault();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.authority = reader.string();
+          break;
+
+        case 2:
+          message.vaultId = VaultId.decode(reader, reader.uint32());
+          break;
+
+        case 3:
+          message.quoteQuantums = reader.bytes();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgAllocateToVault>): MsgAllocateToVault {
+    const message = createBaseMsgAllocateToVault();
+    message.authority = object.authority ?? "";
+    message.vaultId = object.vaultId !== undefined && object.vaultId !== null ? VaultId.fromPartial(object.vaultId) : undefined;
+    message.quoteQuantums = object.quoteQuantums ?? new Uint8Array();
+    return message;
+  }
+
+};
+
+function createBaseMsgAllocateToVaultResponse(): MsgAllocateToVaultResponse {
+  return {};
+}
+
+export const MsgAllocateToVaultResponse = {
+  encode(_: MsgAllocateToVaultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAllocateToVaultResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgAllocateToVaultResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(_: DeepPartial<MsgAllocateToVaultResponse>): MsgAllocateToVaultResponse {
+    const message = createBaseMsgAllocateToVaultResponse();
+    return message;
+  }
+
+};
+
+function createBaseMsgRetrieveFromVault(): MsgRetrieveFromVault {
+  return {
+    authority: "",
+    vaultId: undefined,
+    quoteQuantums: new Uint8Array()
+  };
+}
+
+export const MsgRetrieveFromVault = {
+  encode(message: MsgRetrieveFromVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+
+    if (message.vaultId !== undefined) {
+      VaultId.encode(message.vaultId, writer.uint32(18).fork()).ldelim();
+    }
+
+    if (message.quoteQuantums.length !== 0) {
+      writer.uint32(26).bytes(message.quoteQuantums);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRetrieveFromVault {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRetrieveFromVault();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.authority = reader.string();
+          break;
+
+        case 2:
+          message.vaultId = VaultId.decode(reader, reader.uint32());
+          break;
+
+        case 3:
+          message.quoteQuantums = reader.bytes();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgRetrieveFromVault>): MsgRetrieveFromVault {
+    const message = createBaseMsgRetrieveFromVault();
+    message.authority = object.authority ?? "";
+    message.vaultId = object.vaultId !== undefined && object.vaultId !== null ? VaultId.fromPartial(object.vaultId) : undefined;
+    message.quoteQuantums = object.quoteQuantums ?? new Uint8Array();
+    return message;
+  }
+
+};
+
+function createBaseMsgRetrieveFromVaultResponse(): MsgRetrieveFromVaultResponse {
+  return {};
+}
+
+export const MsgRetrieveFromVaultResponse = {
+  encode(_: MsgRetrieveFromVaultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRetrieveFromVaultResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRetrieveFromVaultResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(_: DeepPartial<MsgRetrieveFromVaultResponse>): MsgRetrieveFromVaultResponse {
+    const message = createBaseMsgRetrieveFromVaultResponse();
+    return message;
+  }
+
+};
+
+function createBaseMsgUnlockShares(): MsgUnlockShares {
+  return {
+    authority: "",
+    ownerAddress: ""
+  };
+}
+
+export const MsgUnlockShares = {
+  encode(message: MsgUnlockShares, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.authority !== "") {
+      writer.uint32(10).string(message.authority);
+    }
+
+    if (message.ownerAddress !== "") {
+      writer.uint32(18).string(message.ownerAddress);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnlockShares {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUnlockShares();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.authority = reader.string();
+          break;
+
+        case 2:
+          message.ownerAddress = reader.string();
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgUnlockShares>): MsgUnlockShares {
+    const message = createBaseMsgUnlockShares();
+    message.authority = object.authority ?? "";
+    message.ownerAddress = object.ownerAddress ?? "";
+    return message;
+  }
+
+};
+
+function createBaseMsgUnlockSharesResponse(): MsgUnlockSharesResponse {
+  return {
+    unlockedShares: undefined
+  };
+}
+
+export const MsgUnlockSharesResponse = {
+  encode(message: MsgUnlockSharesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.unlockedShares !== undefined) {
+      NumShares.encode(message.unlockedShares, writer.uint32(10).fork()).ldelim();
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnlockSharesResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUnlockSharesResponse();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.unlockedShares = NumShares.decode(reader, reader.uint32());
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<MsgUnlockSharesResponse>): MsgUnlockSharesResponse {
+    const message = createBaseMsgUnlockSharesResponse();
+    message.unlockedShares = object.unlockedShares !== undefined && object.unlockedShares !== null ? NumShares.fromPartial(object.unlockedShares) : undefined;
     return message;
   }
 
