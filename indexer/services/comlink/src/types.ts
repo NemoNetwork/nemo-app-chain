@@ -25,6 +25,8 @@ import {
   UserComplaintFromDatabase,
   TradingRewardAggregationPeriod,
   TransferType,
+  VaultFromDatabase,
+  VaultStatus,
 } from '@nemo-network-indexer/postgres';
 import { RedisOrder } from '@nemo-network-indexer/v4-protos';
 import Big from 'big.js';
@@ -695,6 +697,10 @@ export interface TraderSearchResponseObject {
 
 /* ------- Vault Types ------- */
 
+export interface VaultMapping {
+  [subaccountId: string]: VaultFromDatabase,
+}
+
 export interface VaultHistoricalPnl {
   ticker: string,
   historicalPnl: PnlTicksResponseObject[],
@@ -723,6 +729,96 @@ export interface VaultPosition {
 
 export interface MegavaultPositionResponse {
   positions: VaultPosition[],
+}
+
+export interface VaultResponseObject {
+  address: string,
+  ticker: string,
+  status: VaultStatus,
+  createdAt: IsoString,
+  updatedAt: IsoString,
+}
+
+export interface VaultsResponse {
+  vaults: VaultResponseObject[],
+}
+
+export interface MegavaultSummaryResponse {
+  /**
+   * Current megavault equity (TVL) in USDC, computed live from positions.
+   */
+  equity: string,
+  /**
+   * @isInt
+   */
+  numVaults: number,
+  /**
+   * Cumulative megavault PnL in USDC since `VAULT_PNL_START_DATE`.
+   */
+  allTimePnl: string,
+  /**
+   * 30-day annualized return as a decimal fraction (e.g. "0.15" = 15% APR), or null
+   * if there is not enough PnL history to compute it.
+   */
+  apr: string | null,
+  /**
+   * Largest peak-to-trough decline of cumulative PnL in USDC over the PnL history window.
+   */
+  maxDrawdown: string,
+  /**
+   * Total notional volume traded by vault subaccounts over the past 24 hours in USDC.
+   */
+  volume24H: string,
+  /**
+   * Time of the first transfer into the megavault, or null if there are no transfers yet.
+   */
+  createdAt: IsoString | null,
+}
+
+export enum MegavaultTransferType {
+  DEPOSIT = 'DEPOSIT',
+  WITHDRAWAL = 'WITHDRAWAL',
+}
+
+export enum MegavaultTransferStatus {
+  PENDING = 'PENDING',
+  COMPLETED = 'COMPLETED',
+}
+
+export interface MegavaultTransferResponseObject {
+  id: string,
+  type: MegavaultTransferType,
+  address: string,
+  /**
+   * @isInt
+   */
+  subaccountNumber?: number,
+  size: string,
+  symbol: string,
+  createdAt: IsoString,
+  createdAtHeight: string,
+  transactionHash: string,
+}
+
+export interface MegavaultTransfersResponse {
+  transfers: MegavaultTransferResponseObject[],
+}
+
+export interface MegavaultTransfersRequest {
+  address: string,
+  limit?: number,
+  createdBeforeOrAt?: IsoString,
+  createdBeforeOrAtHeight?: number,
+}
+
+export interface MegavaultTransferStatusResponse {
+  transactionHash: string,
+  status: MegavaultTransferStatus,
+  transfers: MegavaultTransferResponseObject[],
+}
+
+export interface MegavaultTransferStatusRequest {
+  transactionHash: string,
 }
 
 /* ------- Affiliates Types ------- */

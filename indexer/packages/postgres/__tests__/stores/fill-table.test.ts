@@ -288,6 +288,46 @@ describe('Fill store', () => {
     }));
   });
 
+  describe('getTotalVolumeForSubaccounts', () => {
+    it('Sums notional volume across fills, respecting the time window', async () => {
+      await Promise.all([
+        FillTable.create({
+          ...defaultFill,
+          price: '20000',
+          size: '0.5',
+        }),
+        FillTable.create({
+          ...defaultFill,
+          price: '10000',
+          size: '2',
+          liquidity: Liquidity.MAKER,
+        }),
+      ]);
+
+      const totalVolume: Big = await FillTable.getTotalVolumeForSubaccounts(
+        [defaultFill.subaccountId],
+      );
+      expect(totalVolume.toFixed()).toEqual('30000');
+
+      // Both fills were created just now, so a future cutoff excludes them all.
+      const windowedVolume: Big = await FillTable.getTotalVolumeForSubaccounts(
+        [defaultFill.subaccountId],
+        createdDateTime.plus({ hours: 1 }).toISO(),
+      );
+      expect(windowedVolume.toFixed()).toEqual('0');
+    });
+
+    it('Returns zero for no subaccounts or no fills', async () => {
+      const noSubaccounts: Big = await FillTable.getTotalVolumeForSubaccounts([]);
+      expect(noSubaccounts.toFixed()).toEqual('0');
+
+      const noFills: Big = await FillTable.getTotalVolumeForSubaccounts(
+        [defaultSubaccountId2],
+      );
+      expect(noFills.toFixed()).toEqual('0');
+    });
+  });
+
   describe('get24HourInformation', () => {
     it('Successfully gets 24 hour information with trades', async () => {
       await Promise.all([

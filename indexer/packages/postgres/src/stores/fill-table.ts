@@ -282,6 +282,40 @@ export async function get24HourInformation(perpetualMarketIds: string[]): Promis
 }
 
 /**
+ * Returns the total notional volume (sum of price * size) of all fills for the given
+ * subaccounts, optionally restricted to fills created on or after a given time.
+ *
+ * @param subaccountIds
+ * @param createdOnOrAfter
+ */
+export async function getTotalVolumeForSubaccounts(
+  subaccountIds: string[],
+  createdOnOrAfter?: string,
+): Promise<Big> {
+  if (subaccountIds.length === 0) {
+    return Big(0);
+  }
+
+  const placeholders: string = subaccountIds.map(() => '?').join(', ');
+  const bindings: string[] = createdOnOrAfter === undefined
+    ? subaccountIds
+    : [...subaccountIds, createdOnOrAfter];
+  const result: { rows: [{ volume: string | null }?] } = await knexReadReplica
+    .getConnection()
+    .raw(
+      `
+      SELECT SUM(price * size) AS "volume"
+      FROM fills
+      WHERE "subaccountId" IN (${placeholders})
+      ${createdOnOrAfter === undefined ? '' : 'AND "createdAt" >= ?'};
+      `,
+      bindings,
+    ) as unknown as { rows: [{ volume: string | null }?] };
+
+  return Big(result.rows[0]?.volume ?? 0);
+}
+
+/**
  * Returns the cost of all fills for a given subaccount up to a given height.
  *
  * If the subaccount has spent $500 to buy 1 ETH, cost of fills will be -500.

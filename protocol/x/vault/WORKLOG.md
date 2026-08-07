@@ -337,3 +337,68 @@ environment brought up from scratch. Full detail in [MILESTONES.md](./MILESTONES
    build to copy them to `build/scripts/`. A built ender image therefore cannot install any
    of its `dydx_*` SQL functions — and every block handler is one of those functions.
    Restored to upstream's path.
+
+## 12. Addendum — M4 parity and M5, the vault API surface (2026-08-07)
+
+M5 was the last open milestone with startable work. `NewSpec.md` never appeared, so the
+API contract was fixed the way spec.md §9 allows ("the frontend has zero integration —
+backend defines the contract") and the M5 deliverable table in
+[MILESTONES.md](./MILESTONES.md) was used as the requirements list. Two things shipped.
+
+### M4 follow-through: the vault controller is now at upstream v9.6.3 parity
+
+The controller had been ported at the 92733cad (initial) level while the storage layer
+underneath it (materialized PnL views, roundtable refresh) was already at v9.6.3. Closing
+that gap, port-verified by rename-normalized diff against the upstream file:
+
+- `caches/vault-start-pnl.ts` — the in-process start-PnL cache, loaded at comlink startup
+  and by tests, replacing a per-request `getLatestPnlTick` query pair; wired in `index.ts`.
+- `getLatestPnlTicks()` now reads `VaultPnlTicksView.getLatestVaultPnl()`; `/vaults/historicalPnl`
+  gained the per-vault latest tick, the unknown-subaccount filter, and response-object
+  mapping (`pnlTicksToResponseObject`) so `id`/`subaccountId` no longer leak.
+- `getVaultMapping`/`getVaultPnlStartDate` moved to `lib/helpers` (shared with the cache),
+  fixing upstream 92733cad's `getVautlPnlStartDate` typo along the way.
+- The v9.6.3 vault-controller test suite replaces the 92733cad one: **17 tests pass**
+  (path-adapted `/v4/vault/…` → `/vault/…`).
+- **Documented divergence:** upstream's Redis `VaultCache` + `cacheControlMiddleware` layer
+  is deliberately not ported — this fork's comlink has no cache-control framework in
+  `base`, and correctness is unaffected. The one upstream test covering it was dropped.
+
+### M5: the NLP-page endpoints (fork-local, net-new)
+
+Four new endpoints alongside the three ported ones — the full surface and per-endpoint
+mapping to spec sections is tabled in MILESTONES.md §M5:
+
+- `GET /vault/v1/vaults` — vault listing with resolved tickers.
+- `GET /vault/v1/megavault/summary` — TVL (live equity incl. main subaccount), numVaults,
+  all-time PnL, 30-day annualized APR, max drawdown, 24h volume, creation time. APR and
+  drawdown are computed on the same aggregated series `historicalPnl` serves, so the
+  numbers can never disagree with the chart. Drawdown is computed on **cumulative PnL, not
+  equity**, so deposits/withdrawals do not register as gains or losses.
+- `GET /vault/v1/megavault/transfers?address=` — My Activity: deposits and withdrawals
+  between any of the address's subaccounts and the megavault, newest first, with size,
+  symbol, height and full tx hash. `limit`/`createdBeforeOrAt[Height]` for paging.
+- `GET /vault/v1/megavault/transfers/status?transactionHash=` — the deposit/withdraw
+  status contract (`requestId = txHash`): `COMPLETED` once indexed, else `PENDING`.
+  A failed tx is never indexed, so the indexer cannot emit `FAILED`; clients time out.
+
+Contract decisions: user share counts and per-owner equity stay **chain-served**
+(`MegavaultOwnerShares(address)`, which the spec-compliance audit upgraded to include
+equity and withdrawable equity); operator/fee parameters likewise. The indexer serves
+money-flow history and PnL analytics — nothing that requires duplicating share accounting
+off-chain.
+
+One store-layer addition: `FillTable.getTotalVolumeForSubaccounts(subaccountIds,
+createdOnOrAfter?)` (notional `SUM(price*size)`), unit-tested in the postgres package.
+
+### Verification
+
+- New comlink suite `vault-megavault-endpoints.test.ts`: **11 tests pass** against the
+  embedded PostgreSQL (listing, summary empty/populated with exact APR/MDD/volume
+  arithmetic, My Activity filtering/ordering/limit/validation, status semantics).
+- `fill-table` store suite: 28 tests pass (2 new).
+- Full serial runs on the embedded PostgreSQL: `packages/postgres` **364 passed** (35
+  suites; was 362 before the two new store tests), `services/ender` **4 passed**,
+  `services/comlink` **28 passed** (both vault suites — 17 parity + 11 fork-local).
+- tsoa/swagger regenerated; all 7 `/vault/v1/*` endpoints documented in
+  `public/swagger.json` and `api-documentation.md`.

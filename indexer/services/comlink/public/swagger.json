@@ -1993,6 +1993,203 @@
         ],
         "type": "object",
         "additionalProperties": false
+      },
+      "VaultStatus": {
+        "enum": [
+          "DEACTIVATED",
+          "STAND_BY",
+          "QUOTING",
+          "CLOSE_ONLY"
+        ],
+        "type": "string"
+      },
+      "VaultResponseObject": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/VaultStatus"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/IsoString"
+          },
+          "updatedAt": {
+            "$ref": "#/components/schemas/IsoString"
+          }
+        },
+        "required": [
+          "address",
+          "ticker",
+          "status",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "VaultsResponse": {
+        "properties": {
+          "vaults": {
+            "items": {
+              "$ref": "#/components/schemas/VaultResponseObject"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "vaults"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MegavaultSummaryResponse": {
+        "properties": {
+          "equity": {
+            "type": "string",
+            "description": "Current megavault equity (TVL) in USDC, computed live from positions."
+          },
+          "numVaults": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "allTimePnl": {
+            "type": "string",
+            "description": "Cumulative megavault PnL in USDC since `VAULT_PNL_START_DATE`."
+          },
+          "apr": {
+            "type": "string",
+            "nullable": true,
+            "description": "30-day annualized return as a decimal fraction (e.g. \"0.15\" = 15% APR), or null\nif there is not enough PnL history to compute it."
+          },
+          "maxDrawdown": {
+            "type": "string",
+            "description": "Largest peak-to-trough decline of cumulative PnL in USDC over the PnL history window."
+          },
+          "volume24H": {
+            "type": "string",
+            "description": "Total notional volume traded by vault subaccounts over the past 24 hours in USDC."
+          },
+          "createdAt": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IsoString"
+              }
+            ],
+            "nullable": true,
+            "description": "Time of the first transfer into the megavault, or null if there are no transfers yet."
+          }
+        },
+        "required": [
+          "equity",
+          "numVaults",
+          "allTimePnl",
+          "apr",
+          "maxDrawdown",
+          "volume24H",
+          "createdAt"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MegavaultTransferType": {
+        "enum": [
+          "DEPOSIT",
+          "WITHDRAWAL"
+        ],
+        "type": "string"
+      },
+      "MegavaultTransferResponseObject": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/MegavaultTransferType"
+          },
+          "address": {
+            "type": "string"
+          },
+          "subaccountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/IsoString"
+          },
+          "createdAtHeight": {
+            "type": "string"
+          },
+          "transactionHash": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "address",
+          "size",
+          "symbol",
+          "createdAt",
+          "createdAtHeight",
+          "transactionHash"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MegavaultTransfersResponse": {
+        "properties": {
+          "transfers": {
+            "items": {
+              "$ref": "#/components/schemas/MegavaultTransferResponseObject"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "transfers"
+        ],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "MegavaultTransferStatus": {
+        "enum": [
+          "PENDING",
+          "COMPLETED"
+        ],
+        "type": "string"
+      },
+      "MegavaultTransferStatusResponse": {
+        "properties": {
+          "transactionHash": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MegavaultTransferStatus"
+          },
+          "transfers": {
+            "items": {
+              "$ref": "#/components/schemas/MegavaultTransferResponseObject"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "transactionHash",
+          "status",
+          "transfers"
+        ],
+        "type": "object",
+        "additionalProperties": false
       }
     },
     "securitySchemes": {}
@@ -4487,6 +4684,126 @@
         },
         "security": [],
         "parameters": []
+      }
+    },
+    "/vault/v1/vaults": {
+      "get": {
+        "operationId": "GetVaults",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VaultsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": []
+      }
+    },
+    "/vault/v1/megavault/summary": {
+      "get": {
+        "operationId": "GetMegavaultSummary",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MegavaultSummaryResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": []
+      }
+    },
+    "/vault/v1/megavault/transfers": {
+      "get": {
+        "operationId": "GetMegavaultTransfers",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MegavaultTransfersResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAt",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/IsoString"
+            }
+          },
+          {
+            "in": "query",
+            "name": "createdBeforeOrAtHeight",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          }
+        ]
+      }
+    },
+    "/vault/v1/megavault/transfers/status": {
+      "get": {
+        "operationId": "GetMegavaultTransferStatus",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MegavaultTransferStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "transactionHash",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     }
   },

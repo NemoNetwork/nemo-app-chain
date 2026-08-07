@@ -1,7 +1,6 @@
-import { logger, stats } from '@nemo-network-indexer/base/build';
+import { stats } from '@nemo-network-indexer/base/build';
 import {
   PnlTicksFromDatabase,
-  PnlTicksTable,
   perpetualMarketRefresher,
   PerpetualMarketFromDatabase,
   USDC_ASSET_ID,
@@ -20,7 +19,9 @@ import {
   AssetFromDatabase,
   MarketFromDatabase,
   BlockFromDatabase,
+  FillTable,
   FundingIndexUpdatesTable,
+  IsoString,
   PnlTickInterval,
   VaultTable,
   VaultFromDatabase,
@@ -35,20 +36,24 @@ import Big from 'big.js';
 import bounds from 'binary-searching';
 import express from 'express';
 import { checkSchema, matchedData } from 'express-validator';
-import _ from 'lodash';
+import _, { Dictionary } from 'lodash';
 import { DateTime } from 'luxon';
 import {
   Controller, Get, Query, Route,
 } from 'tsoa';
 
 import { getReqRateLimiter } from '../../../caches/rate-limiters';
+import { getVaultStartPnl } from '../../../caches/vault-start-pnl';
 import config from '../../../config';
 import {
   aggregateHourlyPnlTicks,
   getSubaccountResponse,
+  getVaultMapping,
+  getVaultPnlStartDate,
   handleControllerError,
 } from '../../../lib/helpers';
 import { rateLimiterMiddleware } from '../../../lib/rate-limit';
+import { CheckLimitAndCreatedBeforeOrAtSchema } from '../../../lib/validation/schemas';
 import { handleValidationErrors } from '../../../request-helpers/error-handler';
 import ExportResponseCodeStats from '../../../request-helpers/export-response-code-stats';
 import { pnlTicksToResponseObject } from '../../../request-helpers/request-transformer';
@@ -63,14 +68,22 @@ import {
   MegavaultHistoricalPnlRequest,
   VaultsHistoricalPnlRequest,
   AggregatedPnlTick,
+  PnlTicksResponseObject,
+  VaultMapping,
+  VaultsResponse,
+  VaultResponseObject,
+  MegavaultSummaryResponse,
+  MegavaultTransfersResponse,
+  MegavaultTransfersRequest,
+  MegavaultTransferResponseObject,
+  MegavaultTransferType,
+  MegavaultTransferStatus,
+  MegavaultTransferStatusResponse,
+  MegavaultTransferStatusRequest,
 } from '../../../types';
 
 const router: express.Router = express.Router();
 const controllerName: string = 'vault-controller';
-
-interface VaultMapping {
-  [subaccountId: string]: VaultFromDatabase,
-}
 
 @Route('vault/v1')
 class VaultController extends Controller {
@@ -108,7 +121,7 @@ class VaultController extends Controller {
       getVaultPositions(vaultSubaccounts),
       BlockTable.getLatest(),
       getMainSubaccountEquity(),
-      getLatestPnlTick(vaultSubaccountIdsWithMainSubaccount, _.values(vaultSubaccounts)),
+      getLatestPnlTick(_.values(vaultSubaccounts)),
       getFirstMainVaultTransferDateTime(),
     ]);
     stats.timing(
@@ -152,17 +165,27 @@ class VaultController extends Controller {
       vaultPnlTicks,
       vaultPositions,
       latestBlock,
+      latestTicks,
     ] : [
       PnlTicksFromDatabase[],
       Map<string, VaultPosition>,
       BlockFromDatabase,
+      PnlTicksFromDatabase[],
     ] = await Promise.all([
       getVaultSubaccountPnlTicks(_.keys(vaultSubaccounts), getResolution(resolution)),
       getVaultPositions(vaultSubaccounts),
       BlockTable.getLatest(),
+      getLatestPnlTicks(),
     ]);
+    const latestTicksBySubaccountId: Dictionary<PnlTicksFromDatabase> = _.keyBy(
+      latestTicks,
+      'subaccountId',
+    );
 
     const groupedVaultPnlTicks: VaultHistoricalPnl[] = _(vaultPnlTicks)
+      .filter((pnlTickFromDatabsae: PnlTicksFromDatabase): boolean => {
+        return vaultSubaccounts[pnlTickFromDatabsae.subaccountId] !== undefined;
+      })
       .groupBy('subaccountId')
       .mapValues((pnlTicks: PnlTicksFromDatabase[], subaccountId: string): VaultHistoricalPnl => {
         const market: PerpetualMarketFromDatabase | undefined = perpetualMarketRefresher
@@ -182,11 +205,15 @@ class VaultController extends Controller {
           currentEquity,
           pnlTicks,
           latestBlock,
+          latestTicksBySubaccountId[subaccountId],
         );
 
+        // Only retain fields we need and excludes fields like `id`, `subaccountId`.
+        const pnlTicksResponseObjects
+        : PnlTicksResponseObject[] = pnlTicksWithCurrentTick.map(pnlTicksToResponseObject);
         return {
           ticker: market.ticker,
-          historicalPnl: pnlTicksWithCurrentTick,
+          historicalPnl: pnlTicksResponseObjects,
         };
       })
       .values()
@@ -205,6 +232,220 @@ class VaultController extends Controller {
 
     return {
       positions: _.sortBy(Array.from(vaultPositions.values()), 'ticker'),
+    };
+  }
+
+  @Get('/vaults')
+  async getVaults(): Promise<VaultsResponse> {
+    const vaults: VaultFromDatabase[] = await VaultTable.findAll({}, [], {});
+
+    const vaultObjects: VaultResponseObject[] = vaults.reduce(
+      (validVaults: VaultResponseObject[], vault: VaultFromDatabase): VaultResponseObject[] => {
+        const perpetualMarket: PerpetualMarketFromDatabase | undefined = perpetualMarketRefresher
+          .getPerpetualMarketFromClobPairId(vault.clobPairId);
+        if (perpetualMarket === undefined) {
+          return validVaults;
+        }
+        return validVaults.concat({
+          address: vault.address,
+          ticker: perpetualMarket.ticker,
+          status: vault.status,
+          createdAt: vault.createdAt,
+          updatedAt: vault.updatedAt,
+        });
+      },
+      [],
+    );
+
+    return {
+      vaults: _.sortBy(vaultObjects, 'ticker'),
+    };
+  }
+
+  @Get('/megavault/summary')
+  async getMegavaultSummary(): Promise<MegavaultSummaryResponse> {
+    const vaultSubaccounts: VaultMapping = await getVaultMapping();
+
+    const [
+      megavaultPnlResponse,
+      vaultPositions,
+      mainSubaccountEquity,
+      volume24H,
+      firstMainVaultTransferTimestamp,
+    ] : [
+      MegavaultHistoricalPnlResponse,
+      Map<string, VaultPosition>,
+      string,
+      Big,
+      DateTime | undefined,
+    ] = await Promise.all([
+      this.getMegavaultHistoricalPnl(PnlTickInterval.day),
+      getVaultPositions(vaultSubaccounts),
+      getMainSubaccountEquity(),
+      FillTable.getTotalVolumeForSubaccounts(
+        _.keys(vaultSubaccounts),
+        DateTime.utc().minus({ hours: 24 }).toISO(),
+      ),
+      getFirstMainVaultTransferDateTime(),
+    ]);
+
+    const equity: string = Array.from(vaultPositions.values())
+      .map((position: VaultPosition): string => {
+        return position.equity;
+      }).reduce((acc: string, curr: string): string => {
+        return (Big(acc).add(Big(curr))).toFixed();
+      }, mainSubaccountEquity);
+
+    // Response ticks are already sorted by block time, ending with a synthetic current tick.
+    const pnlTicks: PnlTicksResponseObject[] = megavaultPnlResponse.megavaultPnl;
+    const latestTick: PnlTicksResponseObject | undefined = _.last(pnlTicks);
+
+    return {
+      equity,
+      numVaults: _.keys(vaultSubaccounts).length,
+      allTimePnl: latestTick === undefined ? '0' : latestTick.totalPnl,
+      apr: computeAnnualizedReturn(pnlTicks),
+      maxDrawdown: computeMaxPnlDrawdown(pnlTicks),
+      volume24H: volume24H.toFixed(),
+      createdAt: firstMainVaultTransferTimestamp === undefined
+        ? null
+        : firstMainVaultTransferTimestamp.toISO(),
+    };
+  }
+
+  @Get('/megavault/transfers')
+  async getMegavaultTransfers(
+    @Query() address: string,
+      @Query() limit?: number,
+      @Query() createdBeforeOrAt?: IsoString,
+      @Query() createdBeforeOrAtHeight?: number,
+  ): Promise<MegavaultTransfersResponse> {
+    const responseLimit: number = limit ?? config.API_LIMIT_V4;
+    const userSubaccounts: SubaccountFromDatabase[] = await SubaccountTable.findAll(
+      { address },
+      [],
+    );
+    if (userSubaccounts.length === 0) {
+      return { transfers: [] };
+    }
+    const userSubaccountIds: string[] = userSubaccounts.map(
+      (subaccount: SubaccountFromDatabase): string => { return subaccount.id; },
+    );
+
+    const [
+      deposits,
+      withdrawals,
+      assets,
+    ] : [
+      TransferFromDatabase[],
+      TransferFromDatabase[],
+      AssetFromDatabase[],
+    ] = await Promise.all([
+      TransferTable.findAll(
+        {
+          senderSubaccountId: userSubaccountIds,
+          recipientSubaccountId: [MEGAVAULT_SUBACCOUNT_ID],
+          createdBeforeOrAt,
+          createdBeforeOrAtHeight: createdBeforeOrAtHeight !== undefined
+            ? createdBeforeOrAtHeight.toString()
+            : undefined,
+          limit: responseLimit,
+        },
+        [],
+        { orderBy: [[TransferColumns.createdAtHeight, Ordering.DESC]] },
+      ),
+      TransferTable.findAll(
+        {
+          senderSubaccountId: [MEGAVAULT_SUBACCOUNT_ID],
+          recipientSubaccountId: userSubaccountIds,
+          createdBeforeOrAt,
+          createdBeforeOrAtHeight: createdBeforeOrAtHeight !== undefined
+            ? createdBeforeOrAtHeight.toString()
+            : undefined,
+          limit: responseLimit,
+        },
+        [],
+        { orderBy: [[TransferColumns.createdAtHeight, Ordering.DESC]] },
+      ),
+      AssetTable.findAll({}, []),
+    ]);
+
+    const assetMap: AssetById = _.keyBy(assets, AssetColumns.id);
+    const subaccountsById: { [id: string]: SubaccountFromDatabase } = _.keyBy(
+      userSubaccounts,
+      'id',
+    );
+    const mergedTransfers: TransferFromDatabase[] = deposits.concat(withdrawals)
+      .sort((a: TransferFromDatabase, b: TransferFromDatabase): number => {
+        return parseInt(b.createdAtHeight, 10) - parseInt(a.createdAtHeight, 10);
+      })
+      .slice(0, responseLimit);
+
+    return {
+      transfers: mergedTransfers.map(
+        (transfer: TransferFromDatabase): MegavaultTransferResponseObject => {
+          return megavaultTransferToResponseObject(transfer, assetMap, subaccountsById);
+        },
+      ),
+    };
+  }
+
+  @Get('/megavault/transfers/status')
+  async getMegavaultTransferStatus(
+    @Query() transactionHash: string,
+  ): Promise<MegavaultTransferStatusResponse> {
+    const [
+      transfers,
+      assets,
+    ] : [
+      TransferFromDatabase[],
+      AssetFromDatabase[],
+    ] = await Promise.all([
+      TransferTable.findAll({ transactionHash: [transactionHash] }, []),
+      AssetTable.findAll({}, []),
+    ]);
+
+    const megavaultTransfers: TransferFromDatabase[] = transfers.filter(
+      (transfer: TransferFromDatabase): boolean => {
+        return transfer.senderSubaccountId === MEGAVAULT_SUBACCOUNT_ID ||
+          transfer.recipientSubaccountId === MEGAVAULT_SUBACCOUNT_ID;
+      },
+    );
+
+    const counterpartySubaccountIds: string[] = _.uniq(
+      megavaultTransfers
+        .map((transfer: TransferFromDatabase): string | undefined => {
+          return transfer.senderSubaccountId === MEGAVAULT_SUBACCOUNT_ID
+            ? transfer.recipientSubaccountId
+            : transfer.senderSubaccountId;
+        })
+        .filter((subaccountId: string | undefined): boolean => {
+          return subaccountId !== undefined;
+        }) as string[],
+    );
+    const counterpartySubaccounts: SubaccountFromDatabase[] = counterpartySubaccountIds.length > 0
+      ? await SubaccountTable.findAll({ id: counterpartySubaccountIds }, [])
+      : [];
+
+    const assetMap: AssetById = _.keyBy(assets, AssetColumns.id);
+    const subaccountsById: { [id: string]: SubaccountFromDatabase } = _.keyBy(
+      counterpartySubaccounts,
+      'id',
+    );
+
+    return {
+      transactionHash,
+      // A transaction that fails on-chain is never indexed, so the indexer can only ever
+      // distinguish "seen" (COMPLETED) from "not yet seen" (PENDING). Clients are expected
+      // to stop polling after their own timeout.
+      status: megavaultTransfers.length > 0
+        ? MegavaultTransferStatus.COMPLETED
+        : MegavaultTransferStatus.PENDING,
+      transfers: megavaultTransfers.map(
+        (transfer: TransferFromDatabase): MegavaultTransferResponseObject => {
+          return megavaultTransferToResponseObject(transfer, assetMap, subaccountsById);
+        },
+      ),
     };
   }
 }
@@ -322,6 +563,150 @@ router.get(
   },
 );
 
+router.get(
+  '/v1/vaults',
+  rateLimiterMiddleware(getReqRateLimiter),
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+    try {
+      const controllers: VaultController = new VaultController();
+      const response: VaultsResponse = await controllers.getVaults();
+      return res.send(response);
+    } catch (error) {
+      return handleControllerError(
+        'VaultController GET /vaults',
+        'Vaults error',
+        error,
+        req,
+        res,
+      );
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.get_vaults.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
+router.get(
+  '/v1/megavault/summary',
+  rateLimiterMiddleware(getReqRateLimiter),
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+    try {
+      const controllers: VaultController = new VaultController();
+      const response: MegavaultSummaryResponse = await controllers.getMegavaultSummary();
+      return res.send(response);
+    } catch (error) {
+      return handleControllerError(
+        'VaultController GET /megavault/summary',
+        'Megavault Summary error',
+        error,
+        req,
+        res,
+      );
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.get_megavault_summary.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
+router.get(
+  '/v1/megavault/transfers',
+  ...checkSchema({
+    address: {
+      in: 'query',
+      isString: true,
+      notEmpty: true,
+      errorMessage: 'address must be a non-empty string',
+    },
+  }),
+  ...CheckLimitAndCreatedBeforeOrAtSchema,
+  handleValidationErrors,
+  rateLimiterMiddleware(getReqRateLimiter),
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+    const {
+      address,
+      limit,
+      createdBeforeOrAt,
+      createdBeforeOrAtHeight,
+    }: MegavaultTransfersRequest = matchedData(req) as MegavaultTransfersRequest;
+
+    try {
+      const controllers: VaultController = new VaultController();
+      const response: MegavaultTransfersResponse = await controllers.getMegavaultTransfers(
+        address,
+        limit,
+        createdBeforeOrAt,
+        createdBeforeOrAtHeight,
+      );
+      return res.send(response);
+    } catch (error) {
+      return handleControllerError(
+        'VaultController GET /megavault/transfers',
+        'Megavault Transfers error',
+        error,
+        req,
+        res,
+      );
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.get_megavault_transfers.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
+router.get(
+  '/v1/megavault/transfers/status',
+  ...checkSchema({
+    transactionHash: {
+      in: 'query',
+      isString: true,
+      notEmpty: true,
+      errorMessage: 'transactionHash must be a non-empty string',
+    },
+  }),
+  handleValidationErrors,
+  rateLimiterMiddleware(getReqRateLimiter),
+  ExportResponseCodeStats({ controllerName }),
+  async (req: express.Request, res: express.Response) => {
+    const start: number = Date.now();
+    const {
+      transactionHash,
+    }: MegavaultTransferStatusRequest = matchedData(req) as MegavaultTransferStatusRequest;
+
+    try {
+      const controllers: VaultController = new VaultController();
+      const response: MegavaultTransferStatusResponse = await controllers
+        .getMegavaultTransferStatus(transactionHash);
+      return res.send(response);
+    } catch (error) {
+      return handleControllerError(
+        'VaultController GET /megavault/transfers/status',
+        'Megavault Transfer Status error',
+        error,
+        req,
+        res,
+      );
+    } finally {
+      stats.timing(
+        `${config.SERVICE_NAME}.${controllerName}.get_megavault_transfer_status.timing`,
+        Date.now() - start,
+      );
+    }
+  },
+);
+
 async function getVaultSubaccountPnlTicks(
   vaultSubaccountIds: string[],
   resolution: PnlTickInterval,
@@ -337,27 +722,13 @@ async function getVaultSubaccountPnlTicks(
     windowSeconds = config.VAULT_PNL_HISTORY_HOURS * 60 * 60; // hours to seconds
   }
 
-  const [
-    pnlTicks,
-    adjustByPnlTicks,
-  ] : [
-    PnlTicksFromDatabase[],
-    PnlTicksFromDatabase[],
-  ] = await Promise.all([
-    VaultPnlTicksView.getVaultsPnl(
-      resolution,
-      windowSeconds,
-      getVautlPnlStartDate(),
-    ),
-    PnlTicksTable.getLatestPnlTick(
-      vaultSubaccountIds,
-      // Add a buffer of 10 minutes to get the first PnL tick for PnL data as PnL ticks aren't
-      // created exactly on the hour.
-      getVautlPnlStartDate().plus({ minutes: 10 }),
-    ),
-  ]);
+  const pnlTicks: PnlTicksFromDatabase[] = await VaultPnlTicksView.getVaultsPnl(
+    resolution,
+    windowSeconds,
+    getVaultPnlStartDate(),
+  );
 
-  return adjustVaultPnlTicks(pnlTicks, adjustByPnlTicks);
+  return adjustVaultPnlTicks(pnlTicks, getVaultStartPnl());
 }
 
 async function getVaultPositions(
@@ -548,32 +919,26 @@ function getPnlTicksWithCurrentTick(
   return pnlTicks.concat([currentTick]);
 }
 
+export async function getLatestPnlTicks(): Promise<PnlTicksFromDatabase[]> {
+  const latestPnlTicks: PnlTicksFromDatabase[] = await VaultPnlTicksView.getLatestVaultPnl();
+  const adjustedPnlTicks: PnlTicksFromDatabase[] = adjustVaultPnlTicks(
+    latestPnlTicks,
+    getVaultStartPnl(),
+  );
+  return adjustedPnlTicks;
+}
+
 export async function getLatestPnlTick(
-  vaultSubaccountIds: string[],
   vaults: VaultFromDatabase[],
 ): Promise<PnlTicksFromDatabase | undefined> {
-  const [
-    pnlTicks,
-    adjustByPnlTicks,
-  ] : [
-    PnlTicksFromDatabase[],
-    PnlTicksFromDatabase[],
-  ] = await Promise.all([
-    VaultPnlTicksView.getVaultsPnl(
-      PnlTickInterval.hour,
-      config.VAULT_LATEST_PNL_TICK_WINDOW_HOURS * 60 * 60,
-      getVautlPnlStartDate(),
-    ),
-    PnlTicksTable.getLatestPnlTick(
-      vaultSubaccountIds,
-      // Add a buffer of 10 minutes to get the first PnL tick for PnL data as PnL ticks aren't
-      // created exactly on the hour.
-      getVautlPnlStartDate().plus({ minutes: 10 }),
-    ),
-  ]);
+  const pnlTicks: PnlTicksFromDatabase[] = await VaultPnlTicksView.getVaultsPnl(
+    PnlTickInterval.hour,
+    config.VAULT_LATEST_PNL_TICK_WINDOW_HOURS * 60 * 60,
+    getVaultPnlStartDate(),
+  );
   const adjustedPnlTicks: PnlTicksFromDatabase[] = adjustVaultPnlTicks(
     pnlTicks,
-    adjustByPnlTicks,
+    getVaultStartPnl(),
   );
   // Aggregate and get pnl tick closest to the hour
   const aggregatedTicks: PnlTicksFromDatabase[] = aggregateVaultPnlTicks(
@@ -763,41 +1128,97 @@ function adjustVaultPnlTicks(
   });
 }
 
-async function getVaultMapping(): Promise<VaultMapping> {
-  const vaults: VaultFromDatabase[] = await VaultTable.findAll(
-    {},
-    [],
-    {},
-  );
-  const vaultMapping: VaultMapping = _.zipObject(
-    vaults.map((vault: VaultFromDatabase): string => {
-      return SubaccountTable.uuid(vault.address, 0);
-    }),
-    vaults,
-  );
-  const validVaultMapping: VaultMapping = {};
-  for (const subaccountId of _.keys(vaultMapping)) {
-    const perpetual: PerpetualMarketFromDatabase | undefined = perpetualMarketRefresher
-      .getPerpetualMarketFromClobPairId(
-        vaultMapping[subaccountId].clobPairId,
-      );
-    if (perpetual === undefined) {
-      logger.warning({
-        at: 'VaultController#getVaultPositions',
-        message: `Vault clob pair id ${vaultMapping[subaccountId]} does not correspond to a ` +
-          'perpetual market.',
-        subaccountId,
-      });
-      continue;
-    }
-    validVaultMapping[subaccountId] = vaultMapping[subaccountId];
+/**
+ * Computes the 30-day annualized return of the megavault from an ascending series of
+ * aggregated PnL ticks. The baseline is the latest tick at least 30 days older than the
+ * newest tick, falling back to the oldest available tick. Returns null when there is less
+ * than a full day of history or the baseline equity is non-positive.
+ */
+function computeAnnualizedReturn(
+  pnlTicks: PnlTicksResponseObject[],
+): string | null {
+  const latestTick: PnlTicksResponseObject | undefined = _.last(pnlTicks);
+  if (latestTick === undefined) {
+    return null;
   }
-  return validVaultMapping;
+
+  const latestTime: DateTime = DateTime.fromISO(latestTick.blockTime).toUTC();
+  const aprWindowStart: DateTime = latestTime.minus({ days: 30 });
+  const baselineTick: PnlTicksResponseObject = _.findLast(
+    pnlTicks,
+    (pnlTick: PnlTicksResponseObject): boolean => {
+      return DateTime.fromISO(pnlTick.blockTime).toUTC() <= aprWindowStart;
+    },
+  ) ?? pnlTicks[0];
+
+  const elapsedSeconds: number = latestTime.diff(
+    DateTime.fromISO(baselineTick.blockTime).toUTC(),
+  ).as('seconds');
+  const baselineEquity: Big = Big(baselineTick.equity);
+  if (elapsedSeconds < 24 * 60 * 60 || baselineEquity.lte(0)) {
+    return null;
+  }
+
+  return Big(latestTick.totalPnl)
+    .sub(baselineTick.totalPnl)
+    .div(baselineEquity)
+    .times(365 * 24 * 60 * 60)
+    .div(elapsedSeconds)
+    .toFixed();
 }
 
-function getVautlPnlStartDate(): DateTime {
-  const startDate: DateTime = DateTime.fromISO(config.VAULT_PNL_START_DATE).toUTC();
-  return startDate;
+/**
+ * Computes the largest peak-to-trough decline of cumulative PnL (in USDC) over an ascending
+ * series of aggregated PnL ticks. Computed on PnL rather than equity so that deposits and
+ * withdrawals do not register as gains or drawdowns.
+ */
+function computeMaxPnlDrawdown(
+  pnlTicks: PnlTicksResponseObject[],
+): string {
+  let maxDrawdown: Big = Big(0);
+  let peakPnl: Big | undefined;
+
+  for (const pnlTick of pnlTicks) {
+    const pnl: Big = Big(pnlTick.totalPnl);
+    if (peakPnl === undefined || pnl.gt(peakPnl)) {
+      peakPnl = pnl;
+    }
+    const drawdown: Big = peakPnl.minus(pnl);
+    if (drawdown.gt(maxDrawdown)) {
+      maxDrawdown = drawdown;
+    }
+  }
+
+  return maxDrawdown.toFixed();
+}
+
+function megavaultTransferToResponseObject(
+  transfer: TransferFromDatabase,
+  assetMap: AssetById,
+  subaccountsById: { [id: string]: SubaccountFromDatabase },
+): MegavaultTransferResponseObject {
+  const isDeposit: boolean = transfer.recipientSubaccountId === MEGAVAULT_SUBACCOUNT_ID;
+  const userSubaccountId: string | undefined = isDeposit
+    ? transfer.senderSubaccountId
+    : transfer.recipientSubaccountId;
+  const userWalletAddress: string | undefined = isDeposit
+    ? transfer.senderWalletAddress
+    : transfer.recipientWalletAddress;
+  const userSubaccount: SubaccountFromDatabase | undefined = userSubaccountId === undefined
+    ? undefined
+    : subaccountsById[userSubaccountId];
+
+  return {
+    id: transfer.id,
+    type: isDeposit ? MegavaultTransferType.DEPOSIT : MegavaultTransferType.WITHDRAWAL,
+    address: userWalletAddress ?? userSubaccount?.address ?? '',
+    subaccountNumber: userSubaccount?.subaccountNumber,
+    size: transfer.size,
+    symbol: assetMap[transfer.assetId].symbol,
+    createdAt: transfer.createdAt,
+    createdAtHeight: transfer.createdAtHeight,
+    transactionHash: transfer.transactionHash,
+  };
 }
 
 export default router;

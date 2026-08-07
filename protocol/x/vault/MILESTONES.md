@@ -98,8 +98,8 @@ Everything the NLP page needs beyond PnL + positions is net-new indexer work.
 | M2b — fee mechanism design | ✅ done — [ADR-001](./spec/adr-001-megavault-fees.md) |
 | M2c — fee engine implementation | ✅ done — **M2 complete** |
 | M7 — upgrade handler | ✅ done (state migration + backfill; rehearsal on a live export still owed) |
-| M4 — port the vault controller | ✅ done — **M4 complete** |
-| M5 — NLP page API surface | next — **blocked on `NewSpec.md`** |
+| M4 — port the vault controller | ✅ done — **M4 complete** (upgraded to v9.6.3 parity 2026-08-07) |
+| M5 — NLP page API surface | ✅ done — contract defined per spec.md §9; reconcile against `NewSpec.md` when it appears |
 
 **Verification status:** the DB-backed indexer tests **have now been run**. There is no
 Postgres on this machine and no root to install one, so a userspace PostgreSQL 18 was stood
@@ -759,6 +759,28 @@ status endpoint. A backend transaction-submission gateway would add 2–3 weeks 
 key-custody surface, and nothing in the spec or frontend requires it.
 
 **Exit:** every panel on the `/vault` page is served by a real endpoint.
+
+**Outcome (2026-08-07): shipped.** `NewSpec.md` never appeared, so the contract was set per
+spec.md §9 ("backend defines the contract") and the deliverable table above. The vault API
+surface is now:
+
+| Endpoint | Serves |
+|---|---|
+| `GET /vault/v1/megavault/historicalPnl?resolution=hour\|day` | §3 charts — equity (NAV/TVL) + cumulative PnL series; return % is a client-side ratio |
+| `GET /vault/v1/vaults/historicalPnl` | per-vault PnL series |
+| `GET /vault/v1/megavault/positions` | §6 positions tab |
+| `GET /vault/v1/vaults` | vault listing (address, ticker, status) — enumerates subaccounts for the remaining §6 tabs served by existing controllers |
+| `GET /vault/v1/megavault/summary` | §1/§2 — TVL (live equity), numVaults, all-time PnL, 30d-annualized APR, max drawdown (on PnL, so flows don't register), 24h volume, creation time |
+| `GET /vault/v1/megavault/transfers?address=` | §6 My Activity — deposits/withdrawals with size, symbol, full tx hash, height, newest first |
+| `GET /vault/v1/megavault/transfers/status?transactionHash=` | §4/§5 status — `requestId = txHash`; `COMPLETED` when indexed, `PENDING` otherwise (failed txs are never indexed, so clients time out on their own) |
+
+Contract decisions, per the recommendation above: wallet-signed broadcast only (no backend
+tx gateway); **user share counts and per-owner equity are chain-served** via
+`MegavaultOwnerShares(address)` (which the protocol audit added equity/withdrawable-equity
+to), not duplicated into the indexer — the indexer serves the money-flow history and PnL
+analytics. Operator name/fee params are likewise chain-served (`OperatorParams`,
+`MegavaultParams` queries). Share-count-per-deposit comes from the tx result the wallet
+already holds at broadcast time.
 
 ---
 

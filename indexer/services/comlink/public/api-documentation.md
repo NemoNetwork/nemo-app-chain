@@ -4829,6 +4829,337 @@ fetch(`${baseURL}/vault/v1/megavault/positions`,
 This operation does not require authentication
 </aside>
 
+## GetVaults
+
+<a id="opIdGetVaults"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/vaults', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/vaults`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/vaults`
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "vaults": [
+    {
+      "address": "string",
+      "ticker": "string",
+      "status": "DEACTIVATED",
+      "createdAt": "string",
+      "updatedAt": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[VaultsResponse](#schemavaultsresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetMegavaultSummary
+
+<a id="opIdGetMegavaultSummary"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/megavault/summary', headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/megavault/summary`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/megavault/summary`
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "equity": "string",
+  "numVaults": 0,
+  "allTimePnl": "string",
+  "apr": "string",
+  "maxDrawdown": "string",
+  "volume24H": "string",
+  "createdAt": "string"
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[MegavaultSummaryResponse](#schemamegavaultsummaryresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetMegavaultTransfers
+
+<a id="opIdGetMegavaultTransfers"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/megavault/transfers', params={
+  'address': 'string'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/megavault/transfers?address=string`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/megavault/transfers`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|address|query|string|true|none|
+|limit|query|number(double)|false|none|
+|createdBeforeOrAt|query|[IsoString](#schemaisostring)|false|none|
+|createdBeforeOrAtHeight|query|number(double)|false|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "transfers": [
+    {
+      "id": "string",
+      "type": "DEPOSIT",
+      "address": "string",
+      "subaccountNumber": 0,
+      "size": "string",
+      "symbol": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "transactionHash": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[MegavaultTransfersResponse](#schemamegavaulttransfersresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## GetMegavaultTransferStatus
+
+<a id="opIdGetMegavaultTransferStatus"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+# For the deployment by DYDX token holders, use
+# baseURL = 'https://indexer.dydx.trade/v4'
+baseURL = 'https://dydx-testnet.imperator.co/v4'
+
+r = requests.get(f'{baseURL}/vault/v1/megavault/transfers/status', params={
+  'transactionHash': 'string'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+// For the deployment by DYDX token holders, use
+// const baseURL = 'https://indexer.dydx.trade/v4';
+const baseURL = 'https://dydx-testnet.imperator.co/v4';
+
+fetch(`${baseURL}/vault/v1/megavault/transfers/status?transactionHash=string`,
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+`GET /vault/v1/megavault/transfers/status`
+
+### Parameters
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|transactionHash|query|string|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "transactionHash": "string",
+  "status": "PENDING",
+  "transfers": [
+    {
+      "id": "string",
+      "type": "DEPOSIT",
+      "address": "string",
+      "subaccountNumber": 0,
+      "size": "string",
+      "symbol": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "transactionHash": "string"
+    }
+  ]
+}
+```
+
+### Responses
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Ok|[MegavaultTransferStatusResponse](#schemamegavaulttransferstatusresponse)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 # Schemas
 
 ## PerpetualPositionStatus
@@ -7782,4 +8113,273 @@ or
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |positions|[[VaultPosition](#schemavaultposition)]|true|none|none|
+
+## VaultStatus
+
+<a id="schemavaultstatus"></a>
+<a id="schema_VaultStatus"></a>
+<a id="tocSvaultstatus"></a>
+<a id="tocsvaultstatus"></a>
+
+```json
+"DEACTIVATED"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|DEACTIVATED|
+|*anonymous*|STAND_BY|
+|*anonymous*|QUOTING|
+|*anonymous*|CLOSE_ONLY|
+
+## VaultResponseObject
+
+<a id="schemavaultresponseobject"></a>
+<a id="schema_VaultResponseObject"></a>
+<a id="tocSvaultresponseobject"></a>
+<a id="tocsvaultresponseobject"></a>
+
+```json
+{
+  "address": "string",
+  "ticker": "string",
+  "status": "DEACTIVATED",
+  "createdAt": "string",
+  "updatedAt": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|address|string|true|none|none|
+|ticker|string|true|none|none|
+|status|[VaultStatus](#schemavaultstatus)|true|none|none|
+|createdAt|[IsoString](#schemaisostring)|true|none|none|
+|updatedAt|[IsoString](#schemaisostring)|true|none|none|
+
+## VaultsResponse
+
+<a id="schemavaultsresponse"></a>
+<a id="schema_VaultsResponse"></a>
+<a id="tocSvaultsresponse"></a>
+<a id="tocsvaultsresponse"></a>
+
+```json
+{
+  "vaults": [
+    {
+      "address": "string",
+      "ticker": "string",
+      "status": "DEACTIVATED",
+      "createdAt": "string",
+      "updatedAt": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|vaults|[[VaultResponseObject](#schemavaultresponseobject)]|true|none|none|
+
+## MegavaultSummaryResponse
+
+<a id="schemamegavaultsummaryresponse"></a>
+<a id="schema_MegavaultSummaryResponse"></a>
+<a id="tocSmegavaultsummaryresponse"></a>
+<a id="tocsmegavaultsummaryresponse"></a>
+
+```json
+{
+  "equity": "string",
+  "numVaults": 0,
+  "allTimePnl": "string",
+  "apr": "string",
+  "maxDrawdown": "string",
+  "volume24H": "string",
+  "createdAt": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|equity|string|true|none|Current megavault equity (TVL) in USDC, computed live from positions.|
+|numVaults|integer(int32)|true|none|none|
+|allTimePnl|string|true|none|Cumulative megavault PnL in USDC since `VAULT_PNL_START_DATE`.|
+|apr|string¦null|true|none|30-day annualized return as a decimal fraction (e.g. "0.15" = 15% APR), or null<br />if there is not enough PnL history to compute it.|
+|maxDrawdown|string|true|none|Largest peak-to-trough decline of cumulative PnL in USDC over the PnL history window.|
+|volume24H|string|true|none|Total notional volume traded by vault subaccounts over the past 24 hours in USDC.|
+|createdAt|[IsoString](#schemaisostring)¦null|true|none|Time of the first transfer into the megavault, or null if there are no transfers yet.|
+
+## MegavaultTransferType
+
+<a id="schemamegavaulttransfertype"></a>
+<a id="schema_MegavaultTransferType"></a>
+<a id="tocSmegavaulttransfertype"></a>
+<a id="tocsmegavaulttransfertype"></a>
+
+```json
+"DEPOSIT"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|DEPOSIT|
+|*anonymous*|WITHDRAWAL|
+
+## MegavaultTransferResponseObject
+
+<a id="schemamegavaulttransferresponseobject"></a>
+<a id="schema_MegavaultTransferResponseObject"></a>
+<a id="tocSmegavaulttransferresponseobject"></a>
+<a id="tocsmegavaulttransferresponseobject"></a>
+
+```json
+{
+  "id": "string",
+  "type": "DEPOSIT",
+  "address": "string",
+  "subaccountNumber": 0,
+  "size": "string",
+  "symbol": "string",
+  "createdAt": "string",
+  "createdAtHeight": "string",
+  "transactionHash": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|none|
+|type|[MegavaultTransferType](#schemamegavaulttransfertype)|true|none|none|
+|address|string|true|none|none|
+|subaccountNumber|integer(int32)|false|none|none|
+|size|string|true|none|none|
+|symbol|string|true|none|none|
+|createdAt|[IsoString](#schemaisostring)|true|none|none|
+|createdAtHeight|string|true|none|none|
+|transactionHash|string|true|none|none|
+
+## MegavaultTransfersResponse
+
+<a id="schemamegavaulttransfersresponse"></a>
+<a id="schema_MegavaultTransfersResponse"></a>
+<a id="tocSmegavaulttransfersresponse"></a>
+<a id="tocsmegavaulttransfersresponse"></a>
+
+```json
+{
+  "transfers": [
+    {
+      "id": "string",
+      "type": "DEPOSIT",
+      "address": "string",
+      "subaccountNumber": 0,
+      "size": "string",
+      "symbol": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "transactionHash": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|transfers|[[MegavaultTransferResponseObject](#schemamegavaulttransferresponseobject)]|true|none|none|
+
+## MegavaultTransferStatus
+
+<a id="schemamegavaulttransferstatus"></a>
+<a id="schema_MegavaultTransferStatus"></a>
+<a id="tocSmegavaulttransferstatus"></a>
+<a id="tocsmegavaulttransferstatus"></a>
+
+```json
+"PENDING"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|PENDING|
+|*anonymous*|COMPLETED|
+
+## MegavaultTransferStatusResponse
+
+<a id="schemamegavaulttransferstatusresponse"></a>
+<a id="schema_MegavaultTransferStatusResponse"></a>
+<a id="tocSmegavaulttransferstatusresponse"></a>
+<a id="tocsmegavaulttransferstatusresponse"></a>
+
+```json
+{
+  "transactionHash": "string",
+  "status": "PENDING",
+  "transfers": [
+    {
+      "id": "string",
+      "type": "DEPOSIT",
+      "address": "string",
+      "subaccountNumber": 0,
+      "size": "string",
+      "symbol": "string",
+      "createdAt": "string",
+      "createdAtHeight": "string",
+      "transactionHash": "string"
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|transactionHash|string|true|none|none|
+|status|[MegavaultTransferStatus](#schemamegavaulttransferstatus)|true|none|none|
+|transfers|[[MegavaultTransferResponseObject](#schemamegavaulttransferresponseobject)]|true|none|none|
 

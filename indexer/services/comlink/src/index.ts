@@ -5,6 +5,7 @@ import {
 } from '@nemo-network-indexer/base/build';
 import { perpetualMarketRefresher, liquidityTierRefresher } from '@nemo-network-indexer/postgres/build/src';
 
+import { startVaultStartPnlCache } from './caches/vault-start-pnl';
 import config from './config';
 import IndexV4 from './controllers/api/index-v4';
 import { connect as connectToRedis } from './helpers/redis/redis-controller';
@@ -48,6 +49,8 @@ async function start() {
     at: 'index#start',
     message: `Connected to redis at ${config.REDIS_URL}`,
   });
+
+  await startVaultStartPnlCache();
 
   startServer();
 }
