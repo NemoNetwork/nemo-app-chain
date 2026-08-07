@@ -7,5 +7,5 @@ import (
 )
 
 func TestTreasuryModuleAddress(t *testing.T) {
-	require.Equal(t, "dydx16wrau2x4tsg033xfrrdpae6kxfn9kyuerr5jjp", types.TreasuryModuleAddress.String())
+	require.Equal(t, "nemo16wrau2x4tsg033xfrrdpae6kxfn9kyueprnegt", types.TreasuryModuleAddress.String())
 }

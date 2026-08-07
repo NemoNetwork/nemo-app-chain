@@ -10,43 +10,43 @@ CHAIN_ID="nemo_network.-testnet"
 # Define mnemonics for all validators.
 MNEMONICS=(
 	# alice
-	# Consensus Address: dydxvalcons1zf9csp5ygq95cqyxh48w3qkuckmpealrw2ug4d
+	# Consensus Address: nemovalcons1zf9csp5ygq95cqyxh48w3qkuckmpealr39fyh7
 	"merge panther lobster crazy road hollow amused security before critic about cliff exhibit cause coyote talent happy where lion river tobacco option coconut small"
 
 	# bob
-	# Consensus Address: dydxvalcons1s7wykslt83kayxuaktep9fw8qxe5n73ucftkh4
+	# Consensus Address: nemovalcons1s7wykslt83kayxuaktep9fw8qxe5n73u8x764x
 	"color habit donor nurse dinosaur stable wonder process post perfect raven gold census inside worth inquiry mammal panic olive toss shadow strong name drum"
 
 	# carl
-	# Consensus Address: dydxvalcons1vy0nrh7l4rtezrsakaadz4mngwlpdmhy64h0ls
+	# Consensus Address: nemovalcons1vy0nrh7l4rtezrsakaadz4mngwlpdmhy96zrar
 	"school artefact ghost shop exchange slender letter debris dose window alarm hurt whale tiger find found island what engine ketchup globe obtain glory manage"
 
 	# dave
-	# Consensus Address: dydxvalcons1stjspktkshgcsv8sneqk2vs2ws0nw2wr272vtt
+	# Consensus Address: nemovalcons1stjspktkshgcsv8sneqk2vs2ws0nw2wr43lqfc
 	"switch boring kiss cash lizard coconut romance hurry sniff bus accident zone chest height merit elevator furnace eagle fetch quit toward steak mystery nest"
 
 	# emily
-	# Consensus Address: dydxvalcons1zpt0ck6ttuhjm97apawa54ffgthst34u3peqc0
+	# Consensus Address: nemovalcons1zpt0ck6ttuhjm97apawa54ffgthst34uwwvv6u
 	"brave way sting spin fog process matrix glimpse volcano recall day lab raccoon hand path pig rent mixture just way blouse alone upon prefer"
 
 	# fiona
-	# Consensus Address: dydxvalcons14wwueldgtrdjrmx23wcuwk83keywe5w0pfn94t
+	# Consensus Address: nemovalcons14wwueldgtrdjrmx23wcuwk83keywe5w07xxfhc
 	"suffer claw truly wife simple mean still mammal bind cake truly runway attack burden lazy peanut unusual such shock twice appear gloom priority kind"
 
 	# greg
-	# Consensus Address: dydxvalcons15yzv3qacs0z2jgm5ecn4ywjkvwc6dl63a2za0p
+	# Consensus Address: nemovalcons15yzv3qacs0z2jgm5ecn4ywjkvwc6dl63z9h3dj
 	"step vital slight present group gallery flower gap copy sweet travel bitter arena reject evidence deal ankle motion dismiss trim armed slab life future"
 
 	# henry
-	# Consensus Address: dydxvalcons1pggt0hc2drw0j9456vwpu9wmav67h90h03p3h9
+	# Consensus Address: nemovalcons1pggt0hc2drw0j9456vwpu9wmav67h90hs75a4k
 	"piece choice region bike tragic error drive defense air venture bean solve income upset physical sun link actor task runway match gauge brand march"
 
 	# ian
-	# Consensus Address: dydxvalcons167ajkznjs3wfa565n9emqmey0c2h69ympf0tmk
+	# Consensus Address: nemovalcons167ajkznjs3wfa565n9emqmey0c2h69ym7x68e9
 	"burst section toss rotate law thumb shoe wire only decide meadow aunt flight humble story mammal radar scene wrist essay taxi leisure excess milk"
 
 	# jeff
-	# Consensus Address: dydxvalcons1ehwtcwwh25ftac3khhz0jn7wd9053xfeqdwes4
+	# Consensus Address: nemovalcons1ehwtcwwh25ftac3khhz0jn7wd9053xfelzm4jx
 	"fashion charge estate devote jaguar fun swift always road lend scrap panic matter core defense high gas athlete permit crane assume pact fitness matrix"
 )
 
@@ -115,32 +115,32 @@ MONIKERS=(
 
 # Define all test accounts for the chain.
 TEST_ACCOUNTS=(
-	"dydx199tqg4wdlnu4qjlxchpd7seg454937hjrknju4" # alice
-	"dydx10fx7sy6ywd5senxae9dwytf8jxek3t2gcen2vs" # bob
-	"dydx1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9wvmh70" # carl
-	"dydx1wau5mja7j7zdavtfq9lu7ejef05hm6ffenlcsn" # dave
-	"dydx1966p9acs4mpgj40g3awctfvgrz0mnx8w5vc4sz" # emily
-	"dydx18swhz9sgh8ecjaz3cm0v53llw0qzm5se026rsn" # fiona
-	"dydx1df84hz7y0dd3mrqcv3vrhw9wdttelul8edqmvp" # greg
-	"dydx16h7p7f4dysrgtzptxx2gtpt5d8t834g9dj830z" # henry
-	"dydx15u9tppy5e2pdndvlrvafxqhuurj9mnpdstzj6z" # ian
-	"dydx168pjt8rkru35239fsqvz7rzgeclakp49zx3aum" # jeff
+	"nemo199tqg4wdlnu4qjlxchpd7seg454937hjpk5exl" # alice
+	"nemo10fx7sy6ywd5senxae9dwytf8jxek3t2g6e5pk6" # bob
+	"nemo1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9vvuuy9" # carl
+	"nemo1wau5mja7j7zdavtfq9lu7ejef05hm6ffmncn2e" # dave
+	"nemo1966p9acs4mpgj40g3awctfvgrz0mnx8wkvl72g" # emily
+	"nemo18swhz9sgh8ecjaz3cm0v53llw0qzm5sed2ag2e" # fiona
+	"nemo1df84hz7y0dd3mrqcv3vrhw9wdttelul8md8skt" # greg
+	"nemo16h7p7f4dysrgtzptxx2gtpt5d8t834g90jq64g" # henry
+	"nemo15u9tppy5e2pdndvlrvafxqhuurj9mnpdjt9eqg" # ian
+	"nemo168pjt8rkru35239fsqvz7rzgeclakp49qxkkx3" # jeff
 )
 
 FAUCET_ACCOUNTS=(
-	"dydx1nzuttarf5k2j0nug5yzhr6p74t9avehn9hlh8m" # main faucet
-	"dydx10du0qegtt73ynv5ctenh565qha27ptzr6dz8c3" # backup #1
-	"dydx1axstmx84qtv0avhjwek46v6tcmyc8agu03nafv" # backup #2
+	"nemo1nzuttarf5k2j0nug5yzhr6p74t9avehn8hcua3" # main faucet
+	"nemo10du0qegtt73ynv5ctenh565qha27ptzrcd9vzm" # backup #1
+	"nemo1axstmx84qtv0avhjwek46v6tcmyc8agud35knx" # backup #2
 )
 
 # Addresses of vaults.
 # Can use ../scripts/vault/get_vault.go to generate a vault's address.
 VAULT_ACCOUNTS=(
-	"dydx1c0m5x87llaunl5sgv3q5vd7j5uha26d2q2r2q0" # BTC vault
-	"dydx14rplxdyycc6wxmgl8fggppgq4774l70zt6phkw" # ETH vault
-	"dydx190te44zcctdgk0qmqtenve2m00g3r2dn7ntd72" # LINK vault
-	"dydx1a83cjn83vqh5ss2vccg6uuaeky7947xldp9r2e" # MATIC vault
-	"dydx1nkz8xcar6sxedw0yva6jzjplw7hfg6pp6e7h0l" # CRV vault
+	"nemo1c0m5x87llaunl5sgv3q5vd7j5uha26d2z2yp69" # BTC vault
+	"nemo14rplxdyycc6wxmgl8fggppgq4774l70zf6xuvy" # ETH vault
+	"nemo190te44zcctdgk0qmqtenve2m00g3r2dnunvxyq" # LINK vault
+	"nemo1a83cjn83vqh5ss2vccg6uuaeky7947xl0pzgsn" # MATIC vault
+	"nemo1nkz8xcar6sxedw0yva6jzjplw7hfg6ppceeu44" # CRV vault
 )
 # Number of each vault above, which for CLOB vaults is the ID of the clob pair it quotes on.
 VAULT_NUMBERS=(

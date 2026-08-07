@@ -8,5 +8,5 @@ import (
 )
 
 func TestInsuranceFundModuleAddress(t *testing.T) {
-	require.Equal(t, "dydx1c7ptc87hkd54e3r7zjy92q29xkq7t79w64slrq", types.InsuranceFundModuleAddress.String())
+	require.Equal(t, "nemo1c7ptc87hkd54e3r7zjy92q29xkq7t79wc4h5e2", types.InsuranceFundModuleAddress.String())
 }

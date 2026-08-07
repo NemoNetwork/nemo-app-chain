@@ -7,5 +7,5 @@ import (
 )
 
 func TestGovModuleAddress(t *testing.T) {
-	require.Equal(t, "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky", lib.GovModuleAddress.String())
+	require.Equal(t, "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw", lib.GovModuleAddress.String())
 }

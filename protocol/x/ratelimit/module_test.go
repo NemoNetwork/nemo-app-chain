@@ -99,8 +99,8 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect NumMessages route registered
 	registeredRoutes := []string{
-		"/nemo-network/ratelimit/list_limit_params",
-		"/nemo-network/ratelimit/capacity_by_denom",
+		"/nemo_network/v4/ratelimit/list_limit_params",
+		"/nemo_network/v4/ratelimit/capacity_by_denom",
 	}
 
 	for _, route := range registeredRoutes {
@@ -113,7 +113,7 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect unexpected route not registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/nemo-network/ratelimit/foo/bar/baz", nil)
+	req, err := http.NewRequest("GET", "/nemo_network/v4/ratelimit/foo/bar/baz", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

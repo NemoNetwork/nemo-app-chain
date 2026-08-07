@@ -11,11 +11,11 @@ EIGHTEEN_ZEROS="$NINE_ZEROS$NINE_ZEROS"
 
 # Address of the `subaccounts` module account.
 # Obtained from `authtypes.NewModuleAddress(subaccounttypes.ModuleName)`.
-SUBACCOUNTS_MODACC_ADDR="dydx1v88c3xv9xyv3eetdx0tvcmq7ung3dywp5upwc6"
-REWARDS_VESTER_ACCOUNT_ADDR="dydx1ltyc6y4skclzafvpznpt2qjwmfwgsndp458rmp"
+SUBACCOUNTS_MODACC_ADDR="nemo1v88c3xv9xyv3eetdx0tvcmq7ung3dywpkux9zs"
+REWARDS_VESTER_ACCOUNT_ADDR="nemo1ltyc6y4skclzafvpznpt2qjwmfwgsndph5qgpt"
 # Address of the `bridge` module account.
 # Obtained from `authtypes.NewModuleAddress(bridgetypes.ModuleName)`.
-BRIDGE_MODACC_ADDR="dydx1zlefkpe3g0vvm9a4h0jf9000lmqutlh9jwjnsv"
+BRIDGE_MODACC_ADDR="nemo1zlefkpe3g0vvm9a4h0jf9000lmqutlh9sw4c2x"
 USDC_DENOM="ibc/8E27BA2D5493AF5636760E354E46004562C46AB7EC0CC4C1CA14E9E20E2545B5"
 REWARD_TOKEN="unemo"
 NATIVE_TOKEN="unemo" # public testnet token
@@ -2257,7 +2257,7 @@ function edit_genesis() {
 	dasel put -t int -f "$GENESIS" ".app_state.vault.default_quoting_params.spread_min_ppm" -v '3000'
 	# Set total shares and owner shares.
 	if [ -z "${INPUT_TEST_ACCOUNTS[0]}" ]; then
-		vault_owner_address='dydx199tqg4wdlnu4qjlxchpd7seg454937hjrknju4' # alice as default vault owner
+		vault_owner_address='nemo199tqg4wdlnu4qjlxchpd7seg454937hjpk5exl' # alice as default vault owner
 	else
 		vault_owner_address="${INPUT_TEST_ACCOUNTS[0]}"
 	fi

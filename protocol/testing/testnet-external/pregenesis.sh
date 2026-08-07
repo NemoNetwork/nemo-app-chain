@@ -51,9 +51,9 @@ echo "Running with SEED_FAUCET_USDC=$SEED_FAUCET_USDC..."
 source "./testing/genesis.sh"
 CHAIN_ID="dydx-testnet-4"
 FAUCET_ACCOUNTS=(
-	"dydx1g2ygh8ufgwwpg5clp2qh3tmcmlewuyt2z6px8k" # main faucet
-	"dydx1fzhzmcvcy7nycvu46j9j4f7f8cnqxn3770q260" # backup #1
-	"dydx1xeu4caf7nwd83h9z49cxtagsglngdldjgtrzfq" # backup #2
+	"nemo1g2ygh8ufgwwpg5clp2qh3tmcmlewuyt2q6xdau" # main faucet
+	"nemo1fzhzmcvcy7nycvu46j9j4f7f8cnqxn37u08pq9" # backup #1
+	"nemo1xeu4caf7nwd83h9z49cxtagsglngdldj2tyfn2" # backup #2
 )
 TMP_GENTX_DIR="/tmp/gentx"
 TMP_CHAIN_DIR="/tmp/chain"
@@ -85,15 +85,15 @@ RESEARCH_MNEMONICS_SECRET="$(AWS_PROFILE=dydx-v4-research aws secretsmanager get
 # Define mnemonics for internal validators.
 MNEMONICS=(
 	# dydx-1
-	# Consensus Address: dydxvalcons18an8qvxam8zkrmrx7d0gygd7q9uv7cky7jpq5x
+	# Consensus Address: nemovalcons18an8qvxam8zkrmrx7d0gygd7q9uv7ckypa5vk4
 	"$(echo $MNEMONICS_SECRET | jq -r '.["dydx-1"]')"
 
 	# dydx-2
-	# Consensus Address: dydxvalcons1z79h40nmd777scs93qjxaeak8m2cl6hpqg2rx9
+	# Consensus Address: nemovalcons1z79h40nmd777scs93qjxaeak8m2cl6hpl8l0yk
 	"$(echo $MNEMONICS_SECRET | jq -r '.["dydx-2"]')"
 
 	# dydx-research
-	# Consensus Address: dydxvalcons1a49fhxhy7mn64v220v5wgpyauwzdc4y8rej9xh
+	# Consensus Address: nemovalcons1a49fhxhy7mn64v220v5wgpyauwzdc4y8uk8fyy
 	"$(echo $RESEARCH_MNEMONICS_SECRET)"
 )
 
@@ -112,9 +112,9 @@ NODE_KEYS=(
 )
 
 VALIDATOR_ACCOUNTS=(
-	"dydx1vvc9vl6z9pu0vt2y79d0ln8zp6qmpmrhrcnnuy" # dydx-1
-	"dydx10lzv79d96l7jh07z76ry6cnn6ftnnl8fdg0afd" # dydx-2
-	"dydx1md63arq56n623g5xpevev94lyepv4pqjjs6y74" # dydx-research
+	"nemo1vvc9vl6z9pu0vt2y79d0ln8zp6qmpmrhpc5cxw" # dydx-1
+	"nemo10lzv79d96l7jh07z76ry6cnn6ftnnl8f0ggkn8" # dydx-2
+	"nemo1md63arq56n623g5xpevev94lyepv4pqjssa0yl" # dydx-research
 )
 
 cleanup_tmp_dir() {

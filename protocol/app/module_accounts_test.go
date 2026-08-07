@@ -23,22 +23,22 @@ import (
 
 func TestModuleAccountsToAddresses(t *testing.T) {
 	expectedModuleAccToAddresses := map[string]string{
-		authtypes.FeeCollectorName:                   "dydx17xpfvakm2amg962yls6f84z3kell8c5leqdyt2",
-		bridgemoduletypes.ModuleName:                 "dydx1zlefkpe3g0vvm9a4h0jf9000lmqutlh9jwjnsv",
-		distrtypes.ModuleName:                        "dydx1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8wx2cfg",
-		stakingtypes.BondedPoolName:                  "dydx1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3uz8teq",
-		stakingtypes.NotBondedPoolName:               "dydx1tygms3xhhs3yv487phx3dw4a95jn7t7lgzm605",
-		govtypes.ModuleName:                          "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky",
-		ibctransfertypes.ModuleName:                  "dydx1yl6hdjhmkf37639730gffanpzndzdpmh8xcdh5",
-		satypes.ModuleName:                           "dydx1v88c3xv9xyv3eetdx0tvcmq7ung3dywp5upwc6",
-		perpetualsmoduletypes.InsuranceFundName:      "dydx1c7ptc87hkd54e3r7zjy92q29xkq7t79w64slrq",
-		rewardsmoduletypes.TreasuryAccountName:       "dydx16wrau2x4tsg033xfrrdpae6kxfn9kyuerr5jjp",
-		rewardsmoduletypes.VesterAccountName:         "dydx1ltyc6y4skclzafvpznpt2qjwmfwgsndp458rmp",
-		vestmoduletypes.CommunityTreasuryAccountName: "dydx15ztc7xy42tn2ukkc0qjthkucw9ac63pgp70urn",
-		vestmoduletypes.CommunityVesterAccountName:   "dydx1wxje320an3karyc6mjw4zghs300dmrjkwn7xtk",
-		icatypes.ModuleName:                          "dydx1vlthgax23ca9syk7xgaz347xmf4nunefw3cnv8",
-		marketmapmoduletypes.ModuleName:              "dydx16j3d86dww8p2rzdlqsv7wle98cxzjxw6gjjyzn",
-		vaultmoduletypes.MegavaultAccountName:        "dydx18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylxqje4r",
+		authtypes.FeeCollectorName:                   "nemo17xpfvakm2amg962yls6f84z3kell8c5lmq203q",
+		bridgemoduletypes.ModuleName:                 "nemo1zlefkpe3g0vvm9a4h0jf9000lmqutlh9sw4c2x",
+		distrtypes.ModuleName:                        "nemo1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8vxdnnz",
+		stakingtypes.BondedPoolName:                  "nemo1fl48vsnmsdzcv85q5d2q4z5ajdha8yu37zqqr2",
+		stakingtypes.NotBondedPoolName:               "nemo1tygms3xhhs3yv487phx3dw4a95jn7t7l2zu347",
+		govtypes.ModuleName:                          "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw",
+		ibctransfertypes.ModuleName:                  "nemo1yl6hdjhmkf37639730gffanpzndzdpmh9xlxd7",
+		satypes.ModuleName:                           "nemo1v88c3xv9xyv3eetdx0tvcmq7ung3dywpkux9zs",
+		perpetualsmoduletypes.InsuranceFundName:      "nemo1c7ptc87hkd54e3r7zjy92q29xkq7t79wc4h5e2",
+		rewardsmoduletypes.TreasuryAccountName:       "nemo16wrau2x4tsg033xfrrdpae6kxfn9kyueprnegt",
+		rewardsmoduletypes.VesterAccountName:         "nemo1ltyc6y4skclzafvpznpt2qjwmfwgsndph5qgpt",
+		vestmoduletypes.CommunityTreasuryAccountName: "nemo15ztc7xy42tn2ukkc0qjthkucw9ac63pgr7ghee",
+		vestmoduletypes.CommunityVesterAccountName:   "nemo1wxje320an3karyc6mjw4zghs300dmrjkvned3u",
+		icatypes.ModuleName:                          "nemo1vlthgax23ca9syk7xgaz347xmf4nunefv3lckd",
+		marketmapmoduletypes.ModuleName:              "nemo16j3d86dww8p2rzdlqsv7wle98cxzjxw62j40ce",
+		vaultmoduletypes.MegavaultAccountName:        "nemo18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylyq4j0f",
 	}
 
 	require.True(t, len(expectedModuleAccToAddresses) == len(app.GetMaccPerms()),
@@ -51,12 +51,12 @@ func TestModuleAccountsToAddresses(t *testing.T) {
 
 func TestBlockedAddresses(t *testing.T) {
 	expectedBlockedAddresses := map[string]bool{
-		"dydx17xpfvakm2amg962yls6f84z3kell8c5leqdyt2": true,
-		"dydx1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8wx2cfg": true,
-		"dydx1tygms3xhhs3yv487phx3dw4a95jn7t7lgzm605": true,
-		"dydx1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3uz8teq": true,
-		"dydx1yl6hdjhmkf37639730gffanpzndzdpmh8xcdh5": true,
-		"dydx1vlthgax23ca9syk7xgaz347xmf4nunefw3cnv8": true,
+		"nemo17xpfvakm2amg962yls6f84z3kell8c5lmq203q": true,
+		"nemo1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8vxdnnz": true,
+		"nemo1tygms3xhhs3yv487phx3dw4a95jn7t7l2zu347": true,
+		"nemo1fl48vsnmsdzcv85q5d2q4z5ajdha8yu37zqqr2": true,
+		"nemo1yl6hdjhmkf37639730gffanpzndzdpmh9xlxd7": true,
+		"nemo1vlthgax23ca9syk7xgaz347xmf4nunefv3lckd": true,
 	}
 	require.Equal(t, expectedBlockedAddresses, app.BlockedAddresses())
 }
@@ -86,22 +86,22 @@ func TestMaccPerms(t *testing.T) {
 
 func TestModuleAccountAddrs(t *testing.T) {
 	expectedModuleAccAddresses := map[string]bool{
-		"dydx17xpfvakm2amg962yls6f84z3kell8c5leqdyt2": true, // x/auth.FeeCollector
-		"dydx1zlefkpe3g0vvm9a4h0jf9000lmqutlh9jwjnsv": true, // x/bridge
-		"dydx1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8wx2cfg": true, // x/distribution
-		"dydx1fl48vsnmsdzcv85q5d2q4z5ajdha8yu3uz8teq": true, // x/staking.bondedPool
-		"dydx1tygms3xhhs3yv487phx3dw4a95jn7t7lgzm605": true, // x/staking.notBondedPool
-		"dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky": true, // x/ gov
-		"dydx1yl6hdjhmkf37639730gffanpzndzdpmh8xcdh5": true, // ibc transfer
-		"dydx1vlthgax23ca9syk7xgaz347xmf4nunefw3cnv8": true, // interchainaccounts
-		"dydx1v88c3xv9xyv3eetdx0tvcmq7ung3dywp5upwc6": true, // x/subaccount
-		"dydx1c7ptc87hkd54e3r7zjy92q29xkq7t79w64slrq": true, // x/clob.insuranceFund
-		"dydx16wrau2x4tsg033xfrrdpae6kxfn9kyuerr5jjp": true, // x/rewards.treasury
-		"dydx1ltyc6y4skclzafvpznpt2qjwmfwgsndp458rmp": true, // x/rewards.vester
-		"dydx15ztc7xy42tn2ukkc0qjthkucw9ac63pgp70urn": true, // x/vest.communityTreasury
-		"dydx1wxje320an3karyc6mjw4zghs300dmrjkwn7xtk": true, // x/vest.communityVester
-		"dydx16j3d86dww8p2rzdlqsv7wle98cxzjxw6gjjyzn": true, // x/marketmap
-		"dydx18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylxqje4r": true, // x/vault.megavault
+		"nemo17xpfvakm2amg962yls6f84z3kell8c5lmq203q": true, // x/auth.FeeCollector
+		"nemo1zlefkpe3g0vvm9a4h0jf9000lmqutlh9sw4c2x": true, // x/bridge
+		"nemo1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8vxdnnz": true, // x/distribution
+		"nemo1fl48vsnmsdzcv85q5d2q4z5ajdha8yu37zqqr2": true, // x/staking.bondedPool
+		"nemo1tygms3xhhs3yv487phx3dw4a95jn7t7l2zu347": true, // x/staking.notBondedPool
+		"nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw": true, // x/ gov
+		"nemo1yl6hdjhmkf37639730gffanpzndzdpmh9xlxd7": true, // ibc transfer
+		"nemo1vlthgax23ca9syk7xgaz347xmf4nunefv3lckd": true, // interchainaccounts
+		"nemo1v88c3xv9xyv3eetdx0tvcmq7ung3dywpkux9zs": true, // x/subaccount
+		"nemo1c7ptc87hkd54e3r7zjy92q29xkq7t79wc4h5e2": true, // x/clob.insuranceFund
+		"nemo16wrau2x4tsg033xfrrdpae6kxfn9kyueprnegt": true, // x/rewards.treasury
+		"nemo1ltyc6y4skclzafvpznpt2qjwmfwgsndph5qgpt": true, // x/rewards.vester
+		"nemo15ztc7xy42tn2ukkc0qjthkucw9ac63pgr7ghee": true, // x/vest.communityTreasury
+		"nemo1wxje320an3karyc6mjw4zghs300dmrjkvned3u": true, // x/vest.communityVester
+		"nemo16j3d86dww8p2rzdlqsv7wle98cxzjxw62j40ce": true, // x/marketmap
+		"nemo18tkxrnrkqc2t0lr3zxr5g6a4hdvqksylyq4j0f": true, // x/vault.megavault
 	}
 
 	require.Equal(t, expectedModuleAccAddresses, app.ModuleAccountAddrs())

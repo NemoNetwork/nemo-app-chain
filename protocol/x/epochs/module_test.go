@@ -151,21 +151,21 @@ func TestAppModuleBasic_RegisterGRPCGatewayRoutes(t *testing.T) {
 
 	// Expect list all epoch info route registered
 	recorder := httptest.NewRecorder()
-	req, err := http.NewRequest("GET", "/nemo-network/epochs/epoch_info", nil)
+	req, err := http.NewRequest("GET", "/nemo_network/v4/epochs/epoch_info", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect epoch route registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/nemo-network/epochs/epoch_info/deewhydeeex", nil)
+	req, err = http.NewRequest("GET", "/nemo_network/v4/epochs/epoch_info/deewhydeeex", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Contains(t, recorder.Body.String(), "no RPC client is defined in offline mode")
 
 	// Expect unexpected route not registered
 	recorder = httptest.NewRecorder()
-	req, err = http.NewRequest("GET", "/nemo-network/epochs/invalid/path", nil)
+	req, err = http.NewRequest("GET", "/nemo_network/v4/epochs/invalid/path", nil)
 	require.NoError(t, err)
 	router.ServeHTTP(recorder, req)
 	require.Equal(t, 404, recorder.Code)

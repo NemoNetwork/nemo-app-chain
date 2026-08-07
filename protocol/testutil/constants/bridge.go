@@ -133,7 +133,7 @@ var (
 	// Eth Chain ID.
 	EthChainId = 11155111
 	// Eth Log of Bridge event ID 0 at block height 3872013 that bridges 12345 tokens to address
-	// `dydx1qqgzqvzq2ps8pqys5zcvp58q7rluextx92xhln`.
+	// `nemo1qqgzqvzq2ps8pqys5zcvp58q7rluextx82pu9e`.
 	EthLog_Event0 = ethcoretypes.Log{
 		Topics: []common.Hash{
 			common.HexToHash("0x498a04382650bc110983392ed12ab27595af8ece270a344fc70d773d2481043a"),
@@ -168,7 +168,7 @@ var (
 		BlockNumber: 3969937,
 	}
 	// Eth Log of Bridge event ID 2 at block height 4139345 that bridges 777 tokens to address
-	// `dydx1qqgzqvzq2ps8pqys5zcvp58q7rluextxzy3rx3z4vemc3xgq42as94fpcv` (32-byte address).
+	// `nemo1qqgzqvzq2ps8pqys5zcvp58q7rluextxzy3rx3z4vemc3xgq42asvaw57d` (32-byte address).
 	EthLog_Event2 = ethcoretypes.Log{
 		Topics: []common.Hash{
 			common.HexToHash("0x498a04382650bc110983392ed12ab27595af8ece270a344fc70d773d2481043a"),
@@ -187,8 +187,8 @@ var (
 		BlockNumber: 4139345,
 	}
 	// Eth Log of Bridge event ID 3 at block height 4139348 that bridges 888 tokens to address
-	// `dydx124n92ej4ve2kv4tx24n92ej4ve2kv4tx24n92ej4ve2kv4tx24nyggjyyfzzy3pzgs3yggjyyfzzy3pzgs3ygg
-	// jyyfzzy3pzgs3q8699x3` (62-byte address).
+	// `nemo124n92ej4ve2kv4tx24n92ej4ve2kv4tx24n92ej4ve2kv4tx24nyggjyyfzzy3pzgs3yggjyyfzzy3pzgs3ygg
+	// jyyfzzy3pzgs3q6fl9vs` (62-byte address).
 	EthLog_Event3 = ethcoretypes.Log{
 		Topics: []common.Hash{
 			common.HexToHash("0x498a04382650bc110983392ed12ab27595af8ece270a344fc70d773d2481043a"),
@@ -209,7 +209,7 @@ var (
 		BlockNumber: 4139348,
 	}
 	// Eth Log of Bridge event ID 4 at block height 4139349 that bridges 1234123443214321 tokens to
-	// address `dydx1zg6pydqhy4yy9`.
+	// address `nemo1zg6pydqsptlc6`.
 	EthLog_Event4 = ethcoretypes.Log{
 		Topics: []common.Hash{
 			common.HexToHash("0x498a04382650bc110983392ed12ab27595af8ece270a344fc70d773d2481043a"),

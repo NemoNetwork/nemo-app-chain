@@ -124,7 +124,7 @@ func TestBridgeLogToEvent(t *testing.T) {
 					"unemo",
 					sdkmath.NewInt(12345),
 				),
-				Address:        "dydx1qqgzqvzq2ps8pqys5zcvp58q7rluextx92xhln",
+				Address:        "nemo1qqgzqvzq2ps8pqys5zcvp58q7rluextx82pu9e",
 				EthBlockHeight: 3872013,
 			},
 		},
@@ -138,7 +138,7 @@ func TestBridgeLogToEvent(t *testing.T) {
 					sdkmath.NewInt(55),
 				),
 				// address shorter than 20 bytes is padded with zeros.
-				Address:        "dydx1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq66wm82",
+				Address:        "nemo1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqc6fsaq",
 				EthBlockHeight: 3969937,
 			},
 		},
@@ -152,7 +152,7 @@ func TestBridgeLogToEvent(t *testing.T) {
 					sdkmath.NewInt(777),
 				),
 				// 32 bytes * 8 bits / 5 bits = 51.2 characters ~ 52 bech32 characters
-				Address:        "dydx1qqgzqvzq2ps8pqys5zcvp58q7rluextxzy3rx3z4vemc3xgq42as94fpcv",
+				Address:        "nemo1qqgzqvzq2ps8pqys5zcvp58q7rluextxzy3rx3z4vemc3xgq42asvaw57d",
 				EthBlockHeight: 4139345,
 			},
 		},
@@ -167,7 +167,7 @@ func TestBridgeLogToEvent(t *testing.T) {
 				),
 				// address data is 62 bytes but we take the first 32 bytes only.
 				// 32 bytes * 8 bits / 5 bits ~ 52 bech32 characters
-				Address:        "dydx124n92ej4ve2kv4tx24n92ej4ve2kv4tx24n92ej4ve2kv4tx24nq8exmjh",
+				Address:        "nemo124n92ej4ve2kv4tx24n92ej4ve2kv4tx24n92ej4ve2kv4tx24nqw3pw5k",
 				EthBlockHeight: 4139348,
 			},
 		},
@@ -181,7 +181,7 @@ func TestBridgeLogToEvent(t *testing.T) {
 					sdkmath.NewInt(1234123443214321),
 				),
 				// address shorter than 20 bytes is padded with zeros.
-				Address:        "dydx1zg6pydqqqqqqqqqqqqqqqqqqqqqqqqqqm0r5ra",
+				Address:        "nemo1zg6pydqqqqqqqqqqqqqqqqqqqqqqqqqqe0yleh",
 				EthBlockHeight: 4139349,
 			},
 		},

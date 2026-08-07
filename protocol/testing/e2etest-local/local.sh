@@ -11,19 +11,19 @@ CHAIN_ID="localnemo-network"
 # Define mnemonics for all validators.
 MNEMONICS=(
 	# alice
-	# Consensus Address: dydxvalcons1zf9csp5ygq95cqyxh48w3qkuckmpealrw2ug4d
+	# Consensus Address: nemovalcons1zf9csp5ygq95cqyxh48w3qkuckmpealr39fyh7
 	"merge panther lobster crazy road hollow amused security before critic about cliff exhibit cause coyote talent happy where lion river tobacco option coconut small"
 
 	# bob
-	# Consensus Address: dydxvalcons1s7wykslt83kayxuaktep9fw8qxe5n73ucftkh4
+	# Consensus Address: nemovalcons1s7wykslt83kayxuaktep9fw8qxe5n73u8x764x
 	"color habit donor nurse dinosaur stable wonder process post perfect raven gold census inside worth inquiry mammal panic olive toss shadow strong name drum"
 
 	# carl
-	# Consensus Address: dydxvalcons1vy0nrh7l4rtezrsakaadz4mngwlpdmhy64h0ls
+	# Consensus Address: nemovalcons1vy0nrh7l4rtezrsakaadz4mngwlpdmhy96zrar
 	"school artefact ghost shop exchange slender letter debris dose window alarm hurt whale tiger find found island what engine ketchup globe obtain glory manage"
 
 	# dave
-	# Consensus Address: dydxvalcons1stjspktkshgcsv8sneqk2vs2ws0nw2wr272vtt
+	# Consensus Address: nemovalcons1stjspktkshgcsv8sneqk2vs2ws0nw2wr43lqfc
 	"switch boring kiss cash lizard coconut romance hurry sniff bus accident zone chest height merit elevator furnace eagle fetch quit toward steak mystery nest"
 )
 
@@ -53,14 +53,14 @@ MONIKERS=(
 
 # Define all test accounts for the chain.
 TEST_ACCOUNTS=(
-	"dydx199tqg4wdlnu4qjlxchpd7seg454937hjrknju4" # alice
-	"dydx10fx7sy6ywd5senxae9dwytf8jxek3t2gcen2vs" # bob
-	"dydx1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9wvmh70" # carl
-	"dydx1wau5mja7j7zdavtfq9lu7ejef05hm6ffenlcsn" # dave
+	"nemo199tqg4wdlnu4qjlxchpd7seg454937hjpk5exl" # alice
+	"nemo10fx7sy6ywd5senxae9dwytf8jxek3t2g6e5pk6" # bob
+	"nemo1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9vvuuy9" # carl
+	"nemo1wau5mja7j7zdavtfq9lu7ejef05hm6ffmncn2e" # dave
 )
 
 FAUCET_ACCOUNTS=(
-	"dydx1nzuttarf5k2j0nug5yzhr6p74t9avehn9hlh8m" # main faucet
+	"nemo1nzuttarf5k2j0nug5yzhr6p74t9avehn8hcua3" # main faucet
 )
 
 # Define dependencies for this script.

@@ -32,7 +32,7 @@
     "bank": {
       "balances": [
         {
-          "address": "dydx1zlefkpe3g0vvm9a4h0jf9000lmqutlh9jwjnsv",
+          "address": "nemo1zlefkpe3g0vvm9a4h0jf9000lmqutlh9sw4c2x",
           "coins": [
             {
               "amount": "1000000000000000000000000000",
@@ -536,7 +536,7 @@
           "id": 0,
           "msg": {
             "@type": "/nemo_network.feetiers.MsgUpdatePerpetualFeeParams",
-            "authority": "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr",
+            "authority": "nemo1mkkvp26dngu6n8rmalaxyp3gwkjuzztqkzp33f",
             "params": {
               "tiers": [
                 {
@@ -2938,9 +2938,9 @@
         }
       },
       "params": {
-        "admin": "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky",
+        "admin": "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw",
         "market_authorities": [
-          "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky"
+          "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw"
         ]
       }
     },
@@ -3864,7 +3864,7 @@
     },
     "revshare": {
       "params": {
-        "address": "dydx17xpfvakm2amg962yls6f84z3kell8c5leqdyt2",
+        "address": "nemo17xpfvakm2amg962yls6f84z3kell8c5lmq203q",
         "revenue_share_ppm": 0,
         "valid_days": 0
       }
@@ -3938,7 +3938,7 @@
       },
       "owner_shares": [
         {
-          "owner": "dydx199tqg4wdlnu4qjlxchpd7seg454937hjrknju4",
+          "owner": "nemo199tqg4wdlnu4qjlxchpd7seg454937hjpk5exl",
           "shares": {
             "num_shares": "0"
           }

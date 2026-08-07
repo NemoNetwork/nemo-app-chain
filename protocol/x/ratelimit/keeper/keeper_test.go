@@ -22,9 +22,9 @@ import (
 const (
 	testDenom    = "ibc/xxx"
 	testDenom2   = "testdenom2"
-	testAddress1 = "dydx16h7p7f4dysrgtzptxx2gtpt5d8t834g9dj830z"
-	testAddress2 = "dydx168pjt8rkru35239fsqvz7rzgeclakp49zx3aum"
-	testAddress3 = "dydx1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9wvmh70"
+	testAddress1 = "nemo16h7p7f4dysrgtzptxx2gtpt5d8t834g90jq64g"
+	testAddress2 = "nemo168pjt8rkru35239fsqvz7rzgeclakp49qxkkx3"
+	testAddress3 = "nemo1fjg6zp6vv8t9wvy4lps03r5l4g7tkjw9vvuuy9"
 )
 
 func TestSetGetDenomCapacity(t *testing.T) {

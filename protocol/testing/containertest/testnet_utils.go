@@ -12,7 +12,7 @@ import (
 	testapp "github.com/nemo-network/v4-chain/protocol/testutil/app"
 )
 
-const GovModuleAddress = "dydx10d07y265gmmuvt4z0w9aw880jnsr700jnmapky"
+const GovModuleAddress = "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw"
 
 var NodeAddresses = []string{
 	constants.AliceAccAddress.String(),

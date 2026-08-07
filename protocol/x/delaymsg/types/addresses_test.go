@@ -7,5 +7,5 @@ import (
 )
 
 func TestModuleAddress(t *testing.T) {
-	require.Equal(t, "dydx1mkkvp26dngu6n8rmalaxyp3gwkjuzztq5zx6tr", types.ModuleAddress.String())
+	require.Equal(t, "nemo1mkkvp26dngu6n8rmalaxyp3gwkjuzztqkzp33f", types.ModuleAddress.String())
 }

@@ -23,12 +23,12 @@ func TestSetupConfig_SealsConfig(t *testing.T) {
 func TestSetAddressPrefixes(t *testing.T) {
 	sdkConfig := sdk.GetConfig()
 
-	require.Equal(t, "dydx", sdkConfig.GetBech32AccountAddrPrefix())
-	require.Equal(t, "dydxpub", sdkConfig.GetBech32AccountPubPrefix())
+	require.Equal(t, "nemo", sdkConfig.GetBech32AccountAddrPrefix())
+	require.Equal(t, "nemopub", sdkConfig.GetBech32AccountPubPrefix())
 
-	require.Equal(t, "dydxvaloper", sdkConfig.GetBech32ValidatorAddrPrefix())
-	require.Equal(t, "dydxvaloperpub", sdkConfig.GetBech32ValidatorPubPrefix())
+	require.Equal(t, "nemovaloper", sdkConfig.GetBech32ValidatorAddrPrefix())
+	require.Equal(t, "nemovaloperpub", sdkConfig.GetBech32ValidatorPubPrefix())
 
-	require.Equal(t, "dydxvalcons", sdkConfig.GetBech32ConsensusAddrPrefix())
-	require.Equal(t, "dydxvalconspub", sdkConfig.GetBech32ConsensusPubPrefix())
+	require.Equal(t, "nemovalcons", sdkConfig.GetBech32ConsensusAddrPrefix())
+	require.Equal(t, "nemovalconspub", sdkConfig.GetBech32ConsensusPubPrefix())
 }
