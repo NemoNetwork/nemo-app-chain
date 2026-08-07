@@ -349,6 +349,37 @@ model genuinely-unset pre-upgrade state in the test rather than approximating it
 **Still owed for M7:** a rehearsal against a real state export from the live chain, and an
 upgrade-container test. Neither can be done on this machine (no Docker, no state export).
 
+### Spec-compliance audit (2026-08-07): closing every unintended delta vs upstream
+
+Prompted by the requirement that the vault module be *complete against the specification*,
+the whole of `x/vault` was re-diffed against upstream `protocol/v9.6.3` (rename-normalized),
+with the rule that **every remaining delta must be a documented, deliberate divergence**.
+The diff found real gaps that the milestone-by-milestone port had missed:
+
+| Gap | Why it matters | Status |
+|---|---|---|
+| `MegavaultOwnerShares(address)` returned raw shares only | This was spec.md's own complaint ("no per-owner equity") and the §1 *user equity* data path. Upstream's by-address query returns shares, unlocks, **equity and withdrawable equity** | ✅ ported; old paginated query lives on as `MegavaultAllOwnerShares` |
+| No `VaultParams` query | Per-vault params were readable only via the full `Vault` query | ✅ ported |
+| `MsgUpdateDefaultQuotingParams` was gov-only | Upstream gates it operator-or-authority; M2a's notes *claimed* this was done — it was not | ✅ ported (with upstream's tests) |
+| `QueryVaultResponse` never populated `most_recent_client_ids` | Field silently absent from every response; the proto field itself was missing too | ✅ fixed |
+| `types.VaultKeeper` interface still had pre-megavault per-vault signatures | Stale enough that nothing could implement it; zero consumers | ✅ replaced with upstream's |
+| CLI had only deposit/withdraw + 5 queries | Upstream ships set-vault-params, allocate, retrieve, update-default-quoting-params, withdrawal-info, owner-shares | ✅ ported (tx.go, query.go, util.go) |
+| `MegavaultWithdrawalInfo` was GET | Upstream uses POST with body | ✅ aligned |
+| `DefaultOperatorParams` had empty metadata | Upstream defaults to `Governance` / `Governance Module Account`; the operator name is user-visible on the NLP page | ✅ aligned (fixtures updated) |
+| Missing upstream tests | `grpc_query_shares_test`, `grpc_query_vault_params_test`, `msg_server_update_operator_params_test`, skew-factor validation cases | ✅ ported, keeping the fork-local assertions (rejected-SetVaultParams-emits-no-event, `TestValidateMegavaultParams`) |
+
+**Deltas verified as deliberate, left in place:** the fee engine and deposit cap (fork-local
+by design), the deprecated `params` field kept in `QueryParamsResponse` (wire compat),
+`types/codec.go` not registering upstream's two deprecated messages (they never existed in
+this fork), `keeper/deprecated_state.go` not ported (exists solely for upstream's v7.x
+migration, which this fork's state predates), `vault_test.go` fee assertions using this
+fork's 3-argument `GetPerpetualFeePpm` (upstream's takes affiliate parameters this fork does
+not have), and `withdraw.go` carrying *more* error logging than upstream.
+
+The result: `x/vault` now equals upstream `v9.6.3` plus exactly the documented fork-local
+additions, and every requirement in spec.md's protocol scope has an implementation and a
+test.
+
 ### Two blocking bugs found by actually running the tests
 
 Neither is vault work. Both were invisible to `tsc`, `eslint` and the build, and both break

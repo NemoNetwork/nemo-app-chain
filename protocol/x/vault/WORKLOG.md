@@ -266,6 +266,7 @@ the short version and the things that would otherwise be lost.
 | M2c — fee engine | ✅ complete. HWM, dual accrual, crystallization, operator share floor. |
 | M7 — upgrade handler | ✅ state migration + indexer backfill. **Rehearsal on a live state export still owed.** |
 | M4 — vault controller port | ✅ complete. 362 → 803 lines; resolution, view-backed PnL, main-subaccount equity. |
+| Spec-compliance audit | ✅ x/vault re-diffed against upstream v9.6.3; every unintended delta closed (per-owner equity query, VaultParams query, operator gating on quoting params, CLI, client-ids field, metadata defaults). Details in MILESTONES. |
 
 ### The two blocking questions from section 9 are resolved
 

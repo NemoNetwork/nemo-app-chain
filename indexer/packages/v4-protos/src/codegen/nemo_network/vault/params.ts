@@ -1,6 +1,6 @@
 import { VaultStatus, VaultStatusSDKType } from "./vault";
 import * as _m0 from "protobufjs/minimal";
-import { DeepPartial } from "../../helpers";
+import { DeepPartial, Long } from "../../helpers";
 /** QuotingParams stores vault quoting parameters. */
 
 export interface QuotingParams {
@@ -99,6 +99,25 @@ export interface OperatorParams {
   /** Metadata of the operator. */
 
   metadata?: OperatorMetadata;
+  /**
+   * Annualized management fee charged on megavault NAV, in parts-per-million.
+   * Charged regardless of performance.
+   */
+
+  operatorFeePpm: number;
+  /**
+   * Share of gains above the high-water mark that accrues to the operator, in
+   * parts-per-million.
+   */
+
+  profitSharePpm: number;
+  /**
+   * Minimum fraction of total shares that the operator must retain, in
+   * parts-per-million. Enforced by rejecting operator withdrawals that would
+   * breach it, never by rejecting user deposits.
+   */
+
+  minOperatorSharePpm: number;
 }
 /** OperatorParams stores parameters regarding megavault operator. */
 
@@ -108,6 +127,69 @@ export interface OperatorParamsSDKType {
   /** Metadata of the operator. */
 
   metadata?: OperatorMetadataSDKType;
+  /**
+   * Annualized management fee charged on megavault NAV, in parts-per-million.
+   * Charged regardless of performance.
+   */
+
+  operator_fee_ppm: number;
+  /**
+   * Share of gains above the high-water mark that accrues to the operator, in
+   * parts-per-million.
+   */
+
+  profit_share_ppm: number;
+  /**
+   * Minimum fraction of total shares that the operator must retain, in
+   * parts-per-million. Enforced by rejecting operator withdrawals that would
+   * breach it, never by rejecting user deposits.
+   */
+
+  min_operator_share_ppm: number;
+}
+/**
+ * FeeState stores the megavault fee accounting state.
+ * 
+ * Note: fork-local; see x/vault/spec/adr-001-megavault-fees.md.
+ */
+
+export interface FeeState {
+  /**
+   * The highest NAV per share that megavault has ever reached after fee
+   * dilution, scaled by 1e18. A profit share is charged only on the excess of
+   * current NAV per share over this mark.
+   */
+  highWaterMarkNavPerShare: Uint8Array;
+  /**
+   * Unix timestamp in seconds of the last accrual that actually minted shares.
+   * Deliberately not advanced by an accrual that rounded to zero, so that a fee
+   * rate too small to be representable over one interval still accrues once
+   * enough time has passed.
+   */
+
+  lastAccrualTime: Long;
+}
+/**
+ * FeeState stores the megavault fee accounting state.
+ * 
+ * Note: fork-local; see x/vault/spec/adr-001-megavault-fees.md.
+ */
+
+export interface FeeStateSDKType {
+  /**
+   * The highest NAV per share that megavault has ever reached after fee
+   * dilution, scaled by 1e18. A profit share is charged only on the excess of
+   * current NAV per share over this mark.
+   */
+  high_water_mark_nav_per_share: Uint8Array;
+  /**
+   * Unix timestamp in seconds of the last accrual that actually minted shares.
+   * Deliberately not advanced by an accrual that rounded to zero, so that a fee
+   * rate too small to be representable over one interval still accrues once
+   * enough time has passed.
+   */
+
+  last_accrual_time: Long;
 }
 /**
  * MegavaultParams stores megavault-level parameters.
@@ -407,7 +489,10 @@ export const VaultParams = {
 function createBaseOperatorParams(): OperatorParams {
   return {
     operator: "",
-    metadata: undefined
+    metadata: undefined,
+    operatorFeePpm: 0,
+    profitSharePpm: 0,
+    minOperatorSharePpm: 0
   };
 }
 
@@ -419,6 +504,18 @@ export const OperatorParams = {
 
     if (message.metadata !== undefined) {
       OperatorMetadata.encode(message.metadata, writer.uint32(18).fork()).ldelim();
+    }
+
+    if (message.operatorFeePpm !== 0) {
+      writer.uint32(24).uint32(message.operatorFeePpm);
+    }
+
+    if (message.profitSharePpm !== 0) {
+      writer.uint32(32).uint32(message.profitSharePpm);
+    }
+
+    if (message.minOperatorSharePpm !== 0) {
+      writer.uint32(40).uint32(message.minOperatorSharePpm);
     }
 
     return writer;
@@ -441,6 +538,18 @@ export const OperatorParams = {
           message.metadata = OperatorMetadata.decode(reader, reader.uint32());
           break;
 
+        case 3:
+          message.operatorFeePpm = reader.uint32();
+          break;
+
+        case 4:
+          message.profitSharePpm = reader.uint32();
+          break;
+
+        case 5:
+          message.minOperatorSharePpm = reader.uint32();
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -454,6 +563,64 @@ export const OperatorParams = {
     const message = createBaseOperatorParams();
     message.operator = object.operator ?? "";
     message.metadata = object.metadata !== undefined && object.metadata !== null ? OperatorMetadata.fromPartial(object.metadata) : undefined;
+    message.operatorFeePpm = object.operatorFeePpm ?? 0;
+    message.profitSharePpm = object.profitSharePpm ?? 0;
+    message.minOperatorSharePpm = object.minOperatorSharePpm ?? 0;
+    return message;
+  }
+
+};
+
+function createBaseFeeState(): FeeState {
+  return {
+    highWaterMarkNavPerShare: new Uint8Array(),
+    lastAccrualTime: Long.ZERO
+  };
+}
+
+export const FeeState = {
+  encode(message: FeeState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.highWaterMarkNavPerShare.length !== 0) {
+      writer.uint32(10).bytes(message.highWaterMarkNavPerShare);
+    }
+
+    if (!message.lastAccrualTime.isZero()) {
+      writer.uint32(16).int64(message.lastAccrualTime);
+    }
+
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FeeState {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFeeState();
+
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+
+      switch (tag >>> 3) {
+        case 1:
+          message.highWaterMarkNavPerShare = reader.bytes();
+          break;
+
+        case 2:
+          message.lastAccrualTime = (reader.int64() as Long);
+          break;
+
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+
+    return message;
+  },
+
+  fromPartial(object: DeepPartial<FeeState>): FeeState {
+    const message = createBaseFeeState();
+    message.highWaterMarkNavPerShare = object.highWaterMarkNavPerShare ?? new Uint8Array();
+    message.lastAccrualTime = object.lastAccrualTime !== undefined && object.lastAccrualTime !== null ? Long.fromValue(object.lastAccrualTime) : Long.ZERO;
     return message;
   }
 

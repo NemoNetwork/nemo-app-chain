@@ -4574,8 +4574,8 @@ const GenesisState = `{
       "operator_params": {
         "operator": "nemo10d07y265gmmuvt4z0w9aw880jnsr700j3m62vw",
         "metadata": {
-          "name": "",
-          "description": ""
+          "name": "Governance",
+          "description": "Governance Module Account"
         }
       },
       "default_quoting_params": {

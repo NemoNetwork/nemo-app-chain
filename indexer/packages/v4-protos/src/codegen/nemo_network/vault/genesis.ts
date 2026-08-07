@@ -1,5 +1,5 @@
 import { NumShares, NumSharesSDKType, OwnerShare, OwnerShareSDKType, OwnerShareUnlocks, OwnerShareUnlocksSDKType } from "./share";
-import { QuotingParams, QuotingParamsSDKType, OperatorParams, OperatorParamsSDKType, MegavaultParams, MegavaultParamsSDKType, VaultParams, VaultParamsSDKType } from "./params";
+import { QuotingParams, QuotingParamsSDKType, OperatorParams, OperatorParamsSDKType, MegavaultParams, MegavaultParamsSDKType, FeeState, FeeStateSDKType, VaultParams, VaultParamsSDKType } from "./params";
 import { VaultId, VaultIdSDKType } from "./vault";
 import * as _m0 from "protobufjs/minimal";
 import { DeepPartial } from "../../helpers";
@@ -26,6 +26,9 @@ export interface GenesisState {
   /** The megavault-level parameters. */
 
   megavaultParams?: MegavaultParams;
+  /** The megavault fee accounting state. */
+
+  feeState?: FeeState;
 }
 /** GenesisState defines `x/vault`'s genesis state. */
 
@@ -50,6 +53,9 @@ export interface GenesisStateSDKType {
   /** The megavault-level parameters. */
 
   megavault_params?: MegavaultParamsSDKType;
+  /** The megavault fee accounting state. */
+
+  fee_state?: FeeStateSDKType;
 }
 /** Vault defines the state of a vault. */
 
@@ -150,7 +156,8 @@ function createBaseGenesisState(): GenesisState {
     defaultQuotingParams: undefined,
     allOwnerShareUnlocks: [],
     operatorParams: undefined,
-    megavaultParams: undefined
+    megavaultParams: undefined,
+    feeState: undefined
   };
 }
 
@@ -182,6 +189,10 @@ export const GenesisState = {
 
     if (message.megavaultParams !== undefined) {
       MegavaultParams.encode(message.megavaultParams, writer.uint32(58).fork()).ldelim();
+    }
+
+    if (message.feeState !== undefined) {
+      FeeState.encode(message.feeState, writer.uint32(66).fork()).ldelim();
     }
 
     return writer;
@@ -224,6 +235,10 @@ export const GenesisState = {
           message.megavaultParams = MegavaultParams.decode(reader, reader.uint32());
           break;
 
+        case 8:
+          message.feeState = FeeState.decode(reader, reader.uint32());
+          break;
+
         default:
           reader.skipType(tag & 7);
           break;
@@ -242,6 +257,7 @@ export const GenesisState = {
     message.allOwnerShareUnlocks = object.allOwnerShareUnlocks?.map(e => OwnerShareUnlocks.fromPartial(e)) || [];
     message.operatorParams = object.operatorParams !== undefined && object.operatorParams !== null ? OperatorParams.fromPartial(object.operatorParams) : undefined;
     message.megavaultParams = object.megavaultParams !== undefined && object.megavaultParams !== null ? MegavaultParams.fromPartial(object.megavaultParams) : undefined;
+    message.feeState = object.feeState !== undefined && object.feeState !== null ? FeeState.fromPartial(object.feeState) : undefined;
     return message;
   }
 

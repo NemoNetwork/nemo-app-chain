@@ -1,6 +1,6 @@
 import { setPaginationParams } from "../../helpers";
 import { LCDClient } from "@osmonauts/lcd";
-import { QueryParamsRequest, QueryParamsResponseSDKType, QueryVaultRequest, QueryVaultResponseSDKType, QueryAllVaultsRequest, QueryAllVaultsResponseSDKType, QueryMegavaultTotalSharesRequest, QueryMegavaultTotalSharesResponseSDKType, QueryMegavaultOwnerSharesRequest, QueryMegavaultOwnerSharesResponseSDKType, QueryMegavaultWithdrawalInfoRequest, QueryMegavaultWithdrawalInfoResponseSDKType } from "./query";
+import { QueryParamsRequest, QueryParamsResponseSDKType, QueryVaultRequest, QueryVaultResponseSDKType, QueryAllVaultsRequest, QueryAllVaultsResponseSDKType, QueryMegavaultTotalSharesRequest, QueryMegavaultTotalSharesResponseSDKType, QueryMegavaultOwnerSharesRequest, QueryMegavaultOwnerSharesResponseSDKType, QueryMegavaultAllOwnerSharesRequest, QueryMegavaultAllOwnerSharesResponseSDKType, QueryVaultParamsRequest, QueryVaultParamsResponseSDKType, QueryMegavaultFeeStateRequest, QueryMegavaultFeeStateResponseSDKType } from "./query";
 export class LCDQueryClient {
   req: LCDClient;
 
@@ -15,7 +15,9 @@ export class LCDQueryClient {
     this.allVaults = this.allVaults.bind(this);
     this.megavaultTotalShares = this.megavaultTotalShares.bind(this);
     this.megavaultOwnerShares = this.megavaultOwnerShares.bind(this);
-    this.megavaultWithdrawalInfo = this.megavaultWithdrawalInfo.bind(this);
+    this.megavaultAllOwnerShares = this.megavaultAllOwnerShares.bind(this);
+    this.vaultParams = this.vaultParams.bind(this);
+    this.megavaultFeeState = this.megavaultFeeState.bind(this);
   }
   /* Queries the Params. */
 
@@ -58,9 +60,16 @@ export class LCDQueryClient {
   /* Queries owner shares of megavault. */
 
 
-  async megavaultOwnerShares(params: QueryMegavaultOwnerSharesRequest = {
+  async megavaultOwnerShares(params: QueryMegavaultOwnerSharesRequest): Promise<QueryMegavaultOwnerSharesResponseSDKType> {
+    const endpoint = `nemo_network/vault/megavault/owner_shares/${params.address}`;
+    return await this.req.get<QueryMegavaultOwnerSharesResponseSDKType>(endpoint);
+  }
+  /* Queries all owner shares of megavault. */
+
+
+  async megavaultAllOwnerShares(params: QueryMegavaultAllOwnerSharesRequest = {
     pagination: undefined
-  }): Promise<QueryMegavaultOwnerSharesResponseSDKType> {
+  }): Promise<QueryMegavaultAllOwnerSharesResponseSDKType> {
     const options: any = {
       params: {}
     };
@@ -69,23 +78,23 @@ export class LCDQueryClient {
       setPaginationParams(options, params.pagination);
     }
 
-    const endpoint = `nemo_network/vault/megavault/owner_shares`;
-    return await this.req.get<QueryMegavaultOwnerSharesResponseSDKType>(endpoint, options);
+    const endpoint = `nemo_network/vault/megavault/all_owner_shares`;
+    return await this.req.get<QueryMegavaultAllOwnerSharesResponseSDKType>(endpoint, options);
   }
-  /* Queries withdrawal info for megavault. */
+  /* Queries vault params of a vault. */
 
 
-  async megavaultWithdrawalInfo(params: QueryMegavaultWithdrawalInfoRequest): Promise<QueryMegavaultWithdrawalInfoResponseSDKType> {
-    const options: any = {
-      params: {}
-    };
+  async vaultParams(params: QueryVaultParamsRequest): Promise<QueryVaultParamsResponseSDKType> {
+    const endpoint = `nemo_network/vault/params/${params.type}/${params.number}`;
+    return await this.req.get<QueryVaultParamsResponseSDKType>(endpoint);
+  }
+  /* Queries the megavault fee accounting state.
+   Note: fork-local; has no upstream equivalent. */
 
-    if (typeof params?.sharesToWithdraw !== "undefined") {
-      options.params.shares_to_withdraw = params.sharesToWithdraw;
-    }
 
-    const endpoint = `nemo_network/vault/megavault/withdrawal_info`;
-    return await this.req.get<QueryMegavaultWithdrawalInfoResponseSDKType>(endpoint, options);
+  async megavaultFeeState(_params: QueryMegavaultFeeStateRequest = {}): Promise<QueryMegavaultFeeStateResponseSDKType> {
+    const endpoint = `nemo_network/vault/megavault/fee_state`;
+    return await this.req.get<QueryMegavaultFeeStateResponseSDKType>(endpoint);
   }
 
 }

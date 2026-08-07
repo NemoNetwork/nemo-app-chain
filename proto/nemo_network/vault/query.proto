@@ -1,6 +1,7 @@
 syntax = "proto3";
 package nemo_network.vault;
 
+import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
@@ -33,13 +34,26 @@ service Query {
   // Queries owner shares of megavault.
   rpc MegavaultOwnerShares(QueryMegavaultOwnerSharesRequest)
       returns (QueryMegavaultOwnerSharesResponse) {
-    option (google.api.http).get = "/nemo_network/vault/megavault/owner_shares";
+    option (google.api.http).get =
+        "/nemo_network/vault/megavault/owner_shares/{address}";
+  }
+  // Queries all owner shares of megavault.
+  rpc MegavaultAllOwnerShares(QueryMegavaultAllOwnerSharesRequest)
+      returns (QueryMegavaultAllOwnerSharesResponse) {
+    option (google.api.http).get =
+        "/nemo_network/vault/megavault/all_owner_shares";
+  }
+  // Queries vault params of a vault.
+  rpc VaultParams(QueryVaultParamsRequest) returns (QueryVaultParamsResponse) {
+    option (google.api.http).get = "/nemo_network/vault/params/{type}/{number}";
   }
   // Queries withdrawal info for megavault.
   rpc MegavaultWithdrawalInfo(QueryMegavaultWithdrawalInfoRequest)
       returns (QueryMegavaultWithdrawalInfoResponse) {
-    option (google.api.http).get =
-        "/nemo_network/vault/megavault/withdrawal_info";
+    option (google.api.http) = {
+      post : "/nemo_network/vault/megavault/withdrawal_info"
+      body : "*"
+    };
   }
   // Queries the megavault fee accounting state.
   // Note: fork-local; has no upstream equivalent.
@@ -105,6 +119,8 @@ message QueryVaultResponse {
     (gogoproto.nullable) = false
   ];
   VaultParams vault_params = 5 [ (gogoproto.nullable) = false ];
+  // The client IDs of the most recently placed orders of the vault.
+  repeated uint32 most_recent_client_ids = 6;
 }
 
 // QueryAllVaultsRequest is a request type for the AllVaults RPC method.
@@ -129,14 +145,56 @@ message QueryMegavaultTotalSharesResponse { NumShares total_shares = 1; }
 // QueryMegavaultOwnerSharesRequest is a request type for the
 // MegavaultOwnerShares RPC method.
 message QueryMegavaultOwnerSharesRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 3;
+  string address = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
 }
 
 // QueryMegavaultOwnerSharesResponse is a response type for the
 // MegavaultOwnerShares RPC method.
 message QueryMegavaultOwnerSharesResponse {
+  // Owner address.
+  string address = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+  // Total number of shares that belong to the owner.
+  NumShares shares = 2 [ (gogoproto.nullable) = false ];
+  // All share unlocks.
+  repeated ShareUnlock share_unlocks = 3 [ (gogoproto.nullable) = false ];
+  // Owner equity in megavault (in quote quantums).
+  bytes equity = 4 [
+    (gogoproto.customtype) =
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+    (gogoproto.nullable) = false
+  ];
+  // Equity that owner can withdraw in quote quantums (as one cannot
+  // withdraw locked shares).
+  bytes withdrawable_equity = 5 [
+    (gogoproto.customtype) =
+        "github.com/nemo-network/v4-chain/protocol/dtypes.SerializableInt",
+    (gogoproto.nullable) = false
+  ];
+}
+
+// QueryMegavaultAllOwnerSharesRequest is a request type for the
+// MegavaultAllOwnerShares RPC method.
+message QueryMegavaultAllOwnerSharesRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryMegavaultAllOwnerSharesResponse is a response type for the
+// MegavaultAllOwnerShares RPC method.
+message QueryMegavaultAllOwnerSharesResponse {
   repeated OwnerShare owner_shares = 1;
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryVaultParamsRequest is a request for the VaultParams RPC method.
+message QueryVaultParamsRequest {
+  VaultType type = 1;
+  uint32 number = 2;
+}
+
+// QueryVaultParamsResponse is a response for the VaultParams RPC method.
+message QueryVaultParamsResponse {
+  VaultId vault_id = 1 [ (gogoproto.nullable) = false ];
+  VaultParams vault_params = 2 [ (gogoproto.nullable) = false ];
 }
 
 // QueryMegavaultWithdrawalInfoRequest is a request type for the

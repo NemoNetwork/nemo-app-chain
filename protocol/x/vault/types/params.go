@@ -59,6 +59,10 @@ func (p QuotingParams) Validate() error {
 func DefaultOperatorParams() OperatorParams {
 	return OperatorParams{
 		Operator: lib.GovModuleAddress.String(),
+		Metadata: OperatorMetadata{
+			Name:        "Governance",
+			Description: "Governance Module Account",
+		},
 	}
 }
 

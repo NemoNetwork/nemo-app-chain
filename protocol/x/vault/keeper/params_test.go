@@ -298,8 +298,6 @@ func TestGetSetVaultParams(t *testing.T) {
 					k.GetMostRecentClientIds(ctx, tc.vaultId),
 					int(tc.numVaultOrdersPreSet),
 				)
-				// A rejected update must not emit an `upsert_vault` indexer event.
-				require.Empty(t, getUpsertVaultEventsFromIndexerBlock(ctx, &k))
 			} else {
 				require.NoError(t, err)
 				p, exists := k.GetVaultParams(ctx, tc.vaultId)
@@ -321,6 +319,10 @@ func TestGetSetVaultParams(t *testing.T) {
 			if tc.expectedErr == nil && tc.vaultParams != nil {
 				upsertVaultEventsInBlock := getUpsertVaultEventsFromIndexerBlock(ctx, &k)
 				require.ElementsMatch(t, tc.expectedIndexerEvents, upsertVaultEventsInBlock)
+			}
+			// A rejected SetVaultParams must not emit an upsert_vault event.
+			if tc.expectedErr != nil {
+				require.Empty(t, getUpsertVaultEventsFromIndexerBlock(ctx, &k))
 			}
 		})
 	}
@@ -391,6 +393,7 @@ func TestGetSetOperatorParams(t *testing.T) {
 		t,
 		vaulttypes.OperatorParams{
 			Operator: constants.GovAuthority,
+			Metadata: vaulttypes.DefaultOperatorParams().Metadata,
 		},
 		params,
 	)
@@ -398,6 +401,10 @@ func TestGetSetOperatorParams(t *testing.T) {
 	// Set operator to Alice.
 	newParams := vaulttypes.OperatorParams{
 		Operator: constants.AliceAccAddress.String(),
+		Metadata: vaulttypes.OperatorMetadata{
+			Name:        "Alice",
+			Description: "Alice is a community-elected individual",
+		},
 	}
 	err := k.SetOperatorParams(ctx, newParams)
 	require.NoError(t, err)
