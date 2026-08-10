@@ -1,6 +1,5 @@
 # Vault Module — Work Summary
 
-**Period:** 2026-08-03 → 2026-08-04
 **Branch:** `feat/vault`
 **Scope covered:** M0 (baseline) and all of M1 (protocol: withdrawal path), plus the
 operator-params half of M2a pulled forward, plus an unplanned repo-wide rename repair.
